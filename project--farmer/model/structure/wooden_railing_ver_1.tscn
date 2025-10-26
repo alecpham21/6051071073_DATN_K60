@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://dknabkvrwdlgo"]
+
+[ext_resource type="PackedScene" uid="uid://bmip1wtgf8xy4" path="res://model/structure/WoodenRailingVer1.glb" id="1_37tfs"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_oux26"]
+albedo_color = Color(0.579893, 0.384258, 0.1338, 1)
+
+[node name="WoodenRailingVer1" instance=ExtResource("1_37tfs")]
+
+[node name="Railing" parent="." index="0"]
+surface_material_override/0 = SubResource("StandardMaterial3D_oux26")

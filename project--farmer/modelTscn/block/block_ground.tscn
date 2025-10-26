@@ -1,0 +1,123 @@
+[gd_scene load_steps=12 format=4 uid="uid://cg0mevm1nym00"]
+
+[ext_resource type="Script" uid="uid://cst43woeryqot" path="res://model/block_ground.gd" id="1_ouiq0"]
+[ext_resource type="PackedScene" uid="uid://ctyoqfq18t7ce" path="res://modelTscn/leafTest.res" id="1_qrunb"]
+[ext_resource type="PackedScene" uid="uid://03bjah3n70ep" path="res://Scene/WindGrass/WindGrassScene.tscn" id="4_1ru6g"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_ivc1c"]
+
+[sub_resource type="Shader" id="Shader_umyuc"]
+code = "shader_type spatial;
+render_mode unshaded, cull_disabled;
+
+uniform sampler2D leaf_texture;
+uniform vec4 leaf_color : source_color; // Đúng chuẩn Godot 4.3
+uniform float wind_strength = 0.2;
+uniform float wind_speed = 2.0;
+
+void vertex() {
+    float offset = sin(TIME * wind_speed + VERTEX.x * 0.1) * wind_strength;
+    VERTEX.x += offset;
+}
+
+void fragment() {
+    vec4 tex_color = texture(leaf_texture, UV);
+    ALBEDO = tex_color.rgb * leaf_color.rgb;
+    ALPHA = tex_color.a;
+}"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_umyuc"]
+render_priority = 0
+shader = SubResource("Shader_umyuc")
+shader_parameter/leaf_color = Color(0.77366, 0.97118, 0.701111, 1)
+shader_parameter/wind_strength = 0.2
+shader_parameter/wind_speed = 2.0
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_h1nvf"]
+_surfaces = [{
+"aabb": AABB(-0.749924, 0, -1.08265, 1.49985, 1e-05, 2.16531),
+"format": 34896613377,
+"index_count": 36,
+"index_data": PackedByteArray("CgACAAAACgABAAIAAwAKAAAAAwAAAAQABQAKAAMACwABAAoABQALAAoABwALAAUACwAIAAEABwAGAAsABgAIAAsABgAJAAgA"),
+"lods": [1e-10, PackedByteArray("AAABAAIAAwAAAAQABQAAAAMABgABAAAABQAGAAAABwAGAAUABgAIAAEABgAJAAgA")],
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 12,
+"vertex_data": PackedByteArray("wagAAP9/AAD/fwAASjoAAP//AAAAAAAA/38AALXFAAD//wAA//8AAP8/AADF8gAAPVcAAP9/AAAAAAAA//8AAP8/AAD6DgAAAAAAAAAAAAD/fwAA/38AAJ5rAAD/fwAA")
+}]
+blend_shape_mode = 0
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_ivc1c"]
+resource_name = "leaf_Plane"
+_surfaces = [{
+"aabb": AABB(-0.749924, 0, -1.08265, 1.49985, 1e-05, 2.16531),
+"attribute_data": PackedByteArray("////f/9/AAD//wAA/3//////////P///AAD/fwAA////PwAAAAAAAP9//3//P/9/"),
+"format": 34896613399,
+"index_count": 36,
+"index_data": PackedByteArray("CgACAAAACgABAAIAAwAKAAAAAwAAAAQABQAKAAMACwABAAoABQALAAoABwALAAUACwAIAAEABwAGAAsABgAIAAsABgAJAAgA"),
+"lods": [1e-10, PackedByteArray("AAABAAIAAwAAAAQABQAAAAMABgABAAAABQAGAAAABwAGAAUABgAIAAEABgAJAAgA")],
+"material": SubResource("ShaderMaterial_umyuc"),
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 12,
+"vertex_data": PackedByteArray("wagAAP9/IsD/fwAASjoUwP//AAAAAK7B/38AALXFZ8D//wAA//9Zw/8/AADF8kLBPVcAAP9/AMAAAAAA//+vwP8/AAD6DpnBAAAAAAAAEcH/fwAA/38YwJ5rAAD/fwPAqfKqhn71P4U27W1aSfWUahHQ9pcj70heAf1+gbbybmUf22+SU+DVj0v6l3QW+3OC")
+}]
+blend_shape_mode = 0
+shadow_mesh = SubResource("ArrayMesh_h1nvf")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_1ru6g"]
+size = Vector3(0.957153, 1, 0.954065)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hqtel"]
+transparency = 1
+blend_mode = 1
+shading_mode = 0
+albedo_color = Color(0.107219, 0.220324, 0.061848, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_1ru6g"]
+material = SubResource("StandardMaterial3D_hqtel")
+size = Vector3(0.975, 0.28, 0.97)
+
+[node name="Block_ground" type="Node3D"]
+script = ExtResource("1_ouiq0")
+falloff_strength = 6.0
+windgrass_chance = 0.6
+max_windgrass = 9
+grass_mat_path = "uid://fxs144x7b2jy"
+tilled_mat_path = "uid://bt3qen7toxpum"
+
+[node name="Cube" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.513872, 0)
+mesh = SubResource("BoxMesh_ivc1c")
+
+[node name="darkLeaf" parent="." instance=ExtResource("1_qrunb")]
+transform = Transform3D(0.326704, -5.0469e-08, -0.0747235, -0.046126, 0.0431762, -0.520195, 0.00608737, 0.327163, 0.0686509, -0.104763, -0.107914, 0)
+
+[node name="Leaf" parent="darkLeaf" index="0"]
+transform = Transform3D(0.447602, -3.72529e-09, -7.45058e-09, 3.72529e-09, 0.447602, 1.49012e-08, 7.45058e-09, -1.49012e-08, 0.447602, -0.155402, 0.215133, -0.217139)
+
+[node name="lightLeaf" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1.59, 0, 0, 0, 1, 0, -0.0958949, 0.027578)
+
+[node name="Leaf2" type="MeshInstance3D" parent="lightLeaf"]
+transform = Transform3D(0.138602, -4.35312e-08, -0.0415914, -0.0196552, -0.0270552, -0.290823, -0.00181021, 0.293757, -0.0267847, 0.204406, 0.000543177, -0.157967)
+mesh = SubResource("ArrayMesh_ivc1c")
+skeleton = NodePath("")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0351137, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00384521, -0.45342, 0.0181189)
+shape = SubResource("BoxShape3D_1ru6g")
+
+[node name="WindGrass" parent="." instance=ExtResource("4_1ru6g")]
+transform = Transform3D(0.35, 0, 0, 0, 0.395, 0, 0, 0, 0.315, 0, -0.418166, 0)
+visible = false
+
+[node name="HighlightBox" type="MeshInstance3D" parent="." groups=["highlight_box"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.141746, 0)
+visible = false
+mesh = SubResource("BoxMesh_1ru6g")
+
+[editable path="darkLeaf"]

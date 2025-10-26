@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://brg6ujy5aoeup"]
+
+[ext_resource type="ArrayMesh" uid="uid://cfs3so5e2i8wm" path="res://model/leafVertical.tres" id="1_bxgi1"]
+
+[node name="leaf" type="Node3D"]
+
+[node name="Leaf" type="MeshInstance3D" parent="."]
+mesh = ExtResource("1_bxgi1")
+skeleton = NodePath("")

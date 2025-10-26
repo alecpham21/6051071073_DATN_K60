@@ -1,0 +1,42 @@
+[gd_scene load_steps=4 format=4 uid="uid://b0byat7w7gmsu"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2n4v5"]
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_siwjn"]
+_surfaces = [{
+"aabb": AABB(-0.749924, 0, -1.08265, 1.49985, 1e-05, 2.16531),
+"format": 34896613377,
+"index_count": 36,
+"index_data": PackedByteArray("CgACAAAACgABAAIAAwAKAAAAAwAAAAQABQAKAAMACwABAAoABQALAAoABwALAAUACwAIAAEABwAGAAsABgAIAAsABgAJAAgA"),
+"lods": [1e-10, PackedByteArray("AAABAAIAAwAAAAQABQAAAAMABgABAAAABQAGAAAABwAGAAUABgAIAAEABgAJAAgA")],
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 12,
+"vertex_data": PackedByteArray("wagAAP9/AAD/fwAASjoAAP//AAAAAAAA/38AALXFAAD//wAA//8AAP8/AADF8gAAPVcAAP9/AAAAAAAA//8AAP8/AAD6DgAAAAAAAAAAAAD/fwAA/38AAJ5rAAD/fwAA")
+}]
+blend_shape_mode = 0
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_tg5cj"]
+resource_name = "leaf_Plane"
+_surfaces = [{
+"aabb": AABB(-0.749924, 0, -1.08265, 1.49985, 1e-05, 2.16531),
+"attribute_data": PackedByteArray("////f/9/AAD//wAA/3//////////P///AAD/fwAA////PwAAAAAAAP9//3//P/9/"),
+"format": 34896613399,
+"index_count": 36,
+"index_data": PackedByteArray("CgACAAAACgABAAIAAwAKAAAAAwAAAAQABQAKAAMACwABAAoABQALAAoABwALAAUACwAIAAEABwAGAAsABgAIAAsABgAJAAgA"),
+"lods": [1e-10, PackedByteArray("AAABAAIAAwAAAAQABQAAAAMABgABAAAABQAGAAAABwAGAAUABgAIAAEABgAJAAgA")],
+"material": SubResource("StandardMaterial3D_2n4v5"),
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 12,
+"vertex_data": PackedByteArray("wagAAP9/IsD/fwAASjoUwP//AAAAAK7B/38AALXFZ8D//wAA//9Zw/8/AADF8kLBPVcAAP9/AMAAAAAA//+vwP8/AAD6DpnBAAAAAAAAEcH/fwAA/38YwJ5rAAD/fwPAqfKqhn71P4U27W1aSfWUahHQ9pcj70heAf1+gbbybmUf22+SU+DVj0v6l3QW+3OC")
+}]
+blend_shape_mode = 0
+shadow_mesh = SubResource("ArrayMesh_siwjn")
+
+[node name="leaf" type="Node3D"]
+
+[node name="Leaf" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.447602, 0, 0, 0, 0.447602, 0, 0, 0, 0.447602, 0, 0, 0.0179567)
+mesh = SubResource("ArrayMesh_tg5cj")
+skeleton = NodePath("")

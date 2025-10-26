@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://sex7lqh6hoiw"]
+
+[ext_resource type="ArrayMesh" uid="uid://q4bmo87nmmtm" path="res://modelTscn/plant/grass/grass.tres" id="1_hvdqu"]
+
+[node name="grass" type="Node3D"]
+
+[node name="Plane" type="MeshInstance3D" parent="."]
+transform = Transform3D(0, 1, 0, -0.381186, 0, 0, 0, 0, 0.561462, 0, 0.378028, 0)
+layers = 2
+mesh = ExtResource("1_hvdqu")
+skeleton = NodePath("")

@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://r2xjnc0bw2nr"]
+
+[ext_resource type="PackedScene" uid="uid://b3ileeagfy7j3" path="res://assets/asian_medieval/VillagePack.glb" id="3_4nc57"]
+
+[node name="TilesetsPremium" type="Node3D"]
+
+[node name="VillagePack" parent="." instance=ExtResource("3_4nc57")]

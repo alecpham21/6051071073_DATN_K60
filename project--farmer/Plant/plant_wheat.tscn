@@ -1,0 +1,40 @@
+[gd_scene load_steps=7 format=3 uid="uid://dbcj1k6soxi00"]
+
+[ext_resource type="Script" uid="uid://cnk6ujrkvvh53" path="res://Plant/plant_wheat.gd" id="1_5wa0p"]
+[ext_resource type="PackedScene" uid="uid://d0gtnctqjg8vr" path="res://modelTscn/plant/wheat/GroundWheatEarly.tscn" id="1_gk82f"]
+[ext_resource type="PackedScene" uid="uid://c08vlcycibqcj" path="res://Scene/CropItem/Wheat/wheat_item.tscn" id="2_6epbd"]
+[ext_resource type="PackedScene" uid="uid://b3gws14t0yeb6" path="res://modelTscn/plant/wheat/GroundWheatMidMulti.tscn" id="3_5wa0p"]
+[ext_resource type="PackedScene" uid="uid://5n4f5va886ty" path="res://modelTscn/plant/wheat/GroundWheatFinalMulti.tscn" id="5_6epbd"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_5wa0p"]
+
+[node name="PlantWheat" type="Node3D"]
+script = ExtResource("1_5wa0p")
+crop_item_scene = ExtResource("2_6epbd")
+harvest_yield = 8
+
+[node name="ModelWheat" type="Node3D" parent="."]
+
+[node name="Sapling" type="Node3D" parent="ModelWheat"]
+
+[node name="GroundWheatEarly" parent="ModelWheat/Sapling" instance=ExtResource("1_gk82f")]
+transform = Transform3D(0.495, 0, 0, 0, 0.495, 0, 0, 0, 0.495, 0, 0, 0)
+
+[node name="Middle" type="Node3D" parent="ModelWheat"]
+visible = false
+
+[node name="GroundWheatFinalSingle" parent="ModelWheat/Middle" instance=ExtResource("3_5wa0p")]
+transform = Transform3D(0.49, 0, 0, 0, 0.49, 0, 0, 0, 0.49, 0, -0.105816, 0)
+
+[node name="Ready" type="Node3D" parent="ModelWheat"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.129327, 0)
+visible = false
+
+[node name="GroundWheatFinalSingle" parent="ModelWheat/Ready" instance=ExtResource("5_6epbd")]
+transform = Transform3D(0.49, 0, 0, 0, 0.49, 0, 0, 0, 0.49, 0, 0.0247957, 0)
+
+[node name="Area3D" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.597341, 0)
+shape = SubResource("BoxShape3D_5wa0p")

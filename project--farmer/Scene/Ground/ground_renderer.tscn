@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://te52jubb0t6m"]
+
+[ext_resource type="Script" uid="uid://ddk233b4eqryo" path="res://ground_renderer.gd" id="1_gn5po"]
+
+[node name="GroundRenderer" type="Node3D"]
+script = ExtResource("1_gn5po")

@@ -1,0 +1,42 @@
+[gd_resource type="ArrayMesh" load_steps=4 format=4 uid="uid://cfs3so5e2i8wm"]
+
+[ext_resource type="Shader" uid="uid://bpre3j5j2h6bt" path="res://LeafShader.gdshader" id="1_0va8s"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_o45tv"]
+render_priority = 0
+shader = ExtResource("1_0va8s")
+shader_parameter/leaf_color = Color(0.284797, 0.528581, 0.212058, 1)
+shader_parameter/wind_strength = 0.2
+shader_parameter/wind_speed = 2.0
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_i0aew"]
+_surfaces = [{
+"aabb": AABB(-0.335667, -0.484598, 0.00362498, 0.671335, 0.969195, 1e-05),
+"format": 34896613377,
+"index_count": 36,
+"index_data": PackedByteArray("CgABAAIACgADAAEABgAKAAIABgACAAcACAAKAAYACwADAAoACAALAAoACQALAAgACwAEAAMACQAAAAsAAAAEAAsAAAAFAAQA"),
+"lods": [1e-10, PackedByteArray("AAABAAIAAAADAAEAAAAEAAMAAAAFAAQABgAAAAIABgACAAcACAAAAAYACQAAAAgA")],
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 12,
+"vertex_data": PackedByteArray("PVf/f4oAAAD/////FQEAAMGo/3+KAAAA/3+0xdcAAAD/PwTxBAEAAAAA//8VAQAA/39KOj4AAAD//wAAAAAAAP8/OQ0NAAAAAAAAAAAAAAD/f/9/igAAAJ5r/3+KAAAA")
+}]
+blend_shape_mode = 0
+
+[resource]
+resource_name = "leaf_Plane"
+_surfaces = [{
+"aabb": AABB(-0.335667, -0.484598, 0.00362498, 0.671335, 0.969195, 1e-05),
+"attribute_data": PackedByteArray("AAD/f///AAD///9//38AAP8/AAAAAAAA/3//////////P///AAD///9//3//P/9/"),
+"format": 34896613399,
+"index_count": 36,
+"index_data": PackedByteArray("CgABAAIACgADAAEABgAKAAIABgACAAcACAAKAAYACwADAAoACAALAAoACQALAAgACwAEAAMACQAAAAsAAAAEAAsAAAAFAAQA"),
+"lods": [1e-10, PackedByteArray("AAABAAIAAAADAAEAAAAEAAMAAAAFAAQABgAAAAIABgACAAcACAAAAAYACQAAAAgA")],
+"material": SubResource("ShaderMaterial_o45tv"),
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 12,
+"vertex_data": PackedByteArray("PVf/f4oA+YD/////FQGwkMGo/3+KALuE/3+0xdcAo4P/PwTxBAFDkAAA//8VAUaN/39KOj4AKIj//wAAAACxl/8/OQ0NAGqOAAAAAAAAm4r/f/9/igD7g55r/3+KAJ+B/3//f///////f/9//3//f/9//3//f/9///////9//3//////////////////f/9/")
+}]
+blend_shape_mode = 0
+shadow_mesh = SubResource("ArrayMesh_i0aew")

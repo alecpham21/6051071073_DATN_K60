@@ -1,0 +1,30 @@
+[gd_scene load_steps=6 format=3 uid="uid://ci0buhmppcvbb"]
+
+[ext_resource type="Script" uid="uid://332mpg76dhvy" path="res://Plant/plant_base.gd" id="1_f5wae"]
+[ext_resource type="PackedScene" uid="uid://c08vlcycibqcj" path="res://Scene/CropItem/Wheat/wheat_item.tscn" id="2_h501o"]
+[ext_resource type="PackedScene" uid="uid://dxxymyp80cuk0" path="res://modelTscn/plant/CornEarlyBunch.tscn" id="2_iu07y"]
+[ext_resource type="PackedScene" uid="uid://fgd5t75vaat8" path="res://modelTscn/plant/CornMidBunch.tscn" id="3_h501o"]
+[ext_resource type="PackedScene" uid="uid://cu15c0rqq1l2b" path="res://modelTscn/plant/CornFinalBunch.tscn" id="4_atyg8"]
+
+[node name="PlantCorn" type="Node3D"]
+script = ExtResource("1_f5wae")
+crop_item_scene = ExtResource("2_h501o")
+
+[node name="ModelCorn" type="Node3D" parent="."]
+
+[node name="Sapling" type="Node3D" parent="ModelCorn"]
+
+[node name="CornEarlyBunch" parent="ModelCorn/Sapling" instance=ExtResource("2_iu07y")]
+transform = Transform3D(0.49, 0, 0, 0, 0.49, 0, 0, 0, 0.49, 0, 0, 0)
+
+[node name="Middle" type="Node3D" parent="ModelCorn"]
+visible = false
+
+[node name="CornMidBunch" parent="ModelCorn/Middle" instance=ExtResource("3_h501o")]
+transform = Transform3D(0.49, 0, 0, 0, 0.69, 0, 0, 0, 0.49, 0, 0, 0)
+
+[node name="Ready" type="Node3D" parent="ModelCorn"]
+visible = false
+
+[node name="CornFinalBunch" parent="ModelCorn/Ready" instance=ExtResource("4_atyg8")]
+transform = Transform3D(0.5, 0, 0, 0, 0.69, 0, 0, 0, 0.5, 0, 0, 0)

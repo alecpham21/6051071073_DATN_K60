@@ -1,0 +1,26 @@
+[gd_scene load_steps=6 format=3 uid="uid://csnejiwkcvvuj"]
+
+[ext_resource type="PackedScene" uid="uid://dr48211o5j10m" path="res://terrain/BigTerrainMoutain.glb" id="1_bw1wt"]
+[ext_resource type="Texture2D" uid="uid://c52atptvxyt2d" path="res://Textures/TerrainTexture.png" id="2_7fhgw"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_cblue"]
+albedo_texture = ExtResource("2_7fhgw")
+emission_enabled = true
+emission = Color(0.0858475, 0.193981, 0.105218, 1)
+emission_energy_multiplier = 3.63
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_bw1wt"]
+albedo_color = Color(0.341947, 0.589073, 0.294801, 1)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_7fhgw"]
+material = SubResource("StandardMaterial3D_bw1wt")
+size = Vector2(17.365, 22.815)
+
+[node name="BigTerrainMoutain" instance=ExtResource("1_bw1wt")]
+
+[node name="Plane_006" parent="." index="0"]
+material_override = SubResource("StandardMaterial3D_cblue")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." index="1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0592364, 0)
+mesh = SubResource("PlaneMesh_7fhgw")

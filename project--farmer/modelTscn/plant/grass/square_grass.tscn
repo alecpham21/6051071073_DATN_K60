@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://dvjxdmme5krnb"]
+
+[ext_resource type="PlaneMesh" uid="uid://b1hvxgq8r85tv" path="res://modelTscn/plant/grass/square_grass.tres" id="1_f73f1"]
+
+[node name="SquareGrass" type="Node3D"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = ExtResource("1_f73f1")

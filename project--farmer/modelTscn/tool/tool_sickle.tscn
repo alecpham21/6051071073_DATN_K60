@@ -1,0 +1,18 @@
+[gd_scene load_steps=5 format=3 uid="uid://cq6e3i6iasa4u"]
+
+[ext_resource type="PackedScene" uid="uid://cprqbkr7cye2t" path="res://model/tool/ToolSickle.glb" id="1_rp0rf"]
+[ext_resource type="Texture2D" uid="uid://1gysjnj7jqbq" path="res://assets/NhaSan3_ImphenziaPalette01-256-Gradient.png" id="2_wpngu"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jvyy3"]
+albedo_texture = ExtResource("2_wpngu")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_w5hll"]
+albedo_texture = ExtResource("2_wpngu")
+
+[node name="ToolSickle" instance=ExtResource("1_rp0rf")]
+
+[node name="Cylinder" parent="." index="0"]
+material_override = SubResource("StandardMaterial3D_jvyy3")
+
+[node name="Plane" parent="." index="1"]
+material_override = SubResource("StandardMaterial3D_w5hll")

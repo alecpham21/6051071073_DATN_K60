@@ -1,0 +1,102 @@
+[gd_scene load_steps=14 format=3 uid="uid://o1wmcaqylahd"]
+
+[ext_resource type="Script" uid="uid://dc2vaxsvuh1vh" path="res://Scene/InBuilding/house_inside.gd" id="1_jkmmo"]
+[ext_resource type="PackedScene" uid="uid://bl1mg832slikq" path="res://modelTscn/building/house/uncle_room.tscn" id="1_me50k"]
+[ext_resource type="Shader" uid="uid://c6qhkhar3xobg" path="res://Shader/edge_detection.gdshader" id="3_lgcd7"]
+[ext_resource type="Shader" uid="uid://viqy3uwh6ns7" path="res://PixelShader.gdshader" id="4_idvps"]
+[ext_resource type="Script" uid="uid://bsrl0vcdxurk1" path="res://Camera_spring_arm.gd" id="5_2twfi"]
+[ext_resource type="PackedScene" uid="uid://xyhcp7k5jujw" path="res://characterModel/Jordax.tscn" id="6_v2v5f"]
+[ext_resource type="Script" uid="uid://5ej0tp0e5sk5" path="res://time_manager.gd" id="9_87avh"]
+[ext_resource type="Script" uid="uid://bnk70dvo86xld" path="res://Scripts/player_inventory.gd" id="10_vkefo"]
+[ext_resource type="PackedScene" uid="uid://b7eaclg4jipob" path="res://ui/hud.tscn" id="11_bw5yc"]
+
+[sub_resource type="QuadMesh" id="QuadMesh_5q01f"]
+flip_faces = true
+size = Vector2(4, 4)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_dff8o"]
+render_priority = 0
+shader = ExtResource("3_lgcd7")
+shader_parameter/lightIntensity = 4.55
+shader_parameter/lineAlpha = 0.64
+shader_parameter/useLighting = true
+shader_parameter/lineHighlight = 0.2
+shader_parameter/lineShadow = 5.12
+
+[sub_resource type="QuadMesh" id="QuadMesh_p1g3l"]
+flip_faces = true
+size = Vector2(4, 4)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_87avh"]
+render_priority = 0
+shader = ExtResource("4_idvps")
+shader_parameter/depth_threshold = 0.315
+shader_parameter/reverse_depth_threshold = 0.076
+shader_parameter/normal_threshold = 0.802
+shader_parameter/darken_amount = 0.21
+shader_parameter/lighten_amount = 2.39
+shader_parameter/normal_edge_bias = Vector3(1, 1, 1)
+shader_parameter/light_direction = Vector3(-0.96, -0.18, 0.2)
+
+[node name="House" type="Node3D"]
+script = ExtResource("1_jkmmo")
+
+[node name="UncleRoom" parent="." instance=ExtResource("1_me50k")]
+
+[node name="PlayerSpawn" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.00279, -8.24035)
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="."]
+texture_filter = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+stretch = true
+stretch_shrink = 2
+
+[node name="SubViewport" type="SubViewport" parent="SubViewportContainer"]
+handle_input_locally = false
+size = Vector2i(576, 324)
+render_target_update_mode = 4
+
+[node name="ShaderOutline" type="MeshInstance3D" parent="SubViewportContainer/SubViewport"]
+transform = Transform3D(1, 0, 0, 0, 0.00750488, 0.999972, 0, -0.999972, 0.00750488, 0.180526, -35.304, 0)
+visible = false
+extra_cull_margin = 16384.0
+mesh = SubResource("QuadMesh_5q01f")
+skeleton = NodePath("../SpringArm3D/Camera3D")
+surface_material_override/0 = SubResource("ShaderMaterial_dff8o")
+
+[node name="ShaderOutline2" type="MeshInstance3D" parent="SubViewportContainer/SubViewport"]
+transform = Transform3D(1, 0, 0, 0, 0.00750488, 0.999972, 0, -0.999972, 0.00750488, 0.180526, -35.304, 0)
+extra_cull_margin = 16384.0
+mesh = SubResource("QuadMesh_p1g3l")
+skeleton = NodePath("../SpringArm3D/Camera3D")
+surface_material_override/0 = SubResource("ShaderMaterial_87avh")
+
+[node name="SpringArm3D" type="SpringArm3D" parent="SubViewportContainer/SubViewport"]
+transform = Transform3D(1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, 0, 0.659112, 0)
+visible = false
+spring_length = 7.0
+script = ExtResource("5_2twfi")
+player_path = NodePath("../Player")
+max_zoom = 10.0
+
+[node name="Camera3D" type="Camera3D" parent="SubViewportContainer/SubViewport/SpringArm3D"]
+fov = 69.0
+
+[node name="Player" parent="SubViewportContainer/SubViewport" groups=["player"] instance=ExtResource("6_v2v5f")]
+use_gravity = true
+camera_ref_path = NodePath("../SpringArm3D")
+
+[node name="TimeManager" type="Node" parent="." groups=["time_manager"]]
+script = ExtResource("9_87avh")
+
+[node name="PlayerInventory" type="Node" parent="." groups=["player_inventory"]]
+script = ExtResource("10_vkefo")
+
+[node name="HUD" parent="." instance=ExtResource("11_bw5yc")]
+
+[editable path="HUD"]

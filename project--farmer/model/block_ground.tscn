@@ -1,0 +1,3 @@
+[gd_scene format=3 uid="uid://bbkj8p00s1lgk"]
+
+[node name="BlockGround" type="Node3D"]

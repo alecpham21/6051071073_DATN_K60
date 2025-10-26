@@ -1,0 +1,72 @@
+[gd_scene load_steps=10 format=4 uid="uid://d0gtnctqjg8vr"]
+
+[ext_resource type="Texture2D" uid="uid://1gysjnj7jqbq" path="res://assets/NhaSan3_ImphenziaPalette01-256-Gradient.png" id="1_4ruva"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ki0at"]
+albedo_texture = ExtResource("1_4ruva")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_yk2ft"]
+cull_mode = 2
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_n28kt"]
+_surfaces = [{
+"aabb": AABB(-0.188934, -0.126804, -0.538966, 0.328149, 0.130698, 1.23481),
+"format": 34896613377,
+"index_count": 60,
+"index_data": PackedByteArray("AAABAAIAAwABAAAAAwAEAAEABAAFAAYABAAHAAUABAAIAAcACQAEAAMABAAJAAgACQADAAoACAAJAAsACwAJAAwACAALAA0ACwAOAA0ACwAPAA4AEAAOAA8AEQAOABAADgARABIADgASABMAEgARABQAEQAVABQA"),
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 22,
+"vertex_data": PackedByteArray("jUNe+P//AADjeF74W7kAAMZxXvj//wAAHEde+E26AAAbh1749q4AAOK4XvjkjQAAjaNe+MqgAADG0V74/3oAAOLYXvgnZwAAAABe+JCTAADjGF74WagAAMZR//8pXgAAxxFe+P96AADi2OP8gFgAAFT10d0RRAAAOI5A2T5CAAAbpy6gaCsAAFS19m1PFwAA4vjElNYmAAD//3KytjIAAP/fQ2DUEQAA4pgAAAAAAAA=")
+}]
+blend_shape_mode = 0
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_87jkb"]
+resource_name = "GroundWheatEarly_Plane"
+_surfaces = [{
+"aabb": AABB(-0.188934, -0.126804, -0.538966, 0.328149, 0.130698, 1.23481),
+"attribute_data": PackedByteArray("itYINPHW3jLj1gg0kdblMgzXkzJs16QxQ9csMpzXGzGq14swCNbNMTjWYzKm1k0wK9YbMarXJDDl18Usr9cMLDjYnCzK11wtYdgULprXBy7l18UsaNg5LTjYnCx12JItptZNMOHXlC+q1yQwGteHLw=="),
+"format": 34896613399,
+"index_count": 60,
+"index_data": PackedByteArray("AAABAAIAAwABAAAAAwAEAAEABAAFAAYABAAHAAUABAAIAAcACQAEAAMABAAJAAgACQADAAoACAAJAAsACwAJAAwACAALAA0ADgAPABAAEQASABMAFAASABEAEgAUABUAFQAUABYAEgAVABcAGAAZABoAGAAbABkA"),
+"material": SubResource("StandardMaterial3D_yk2ft"),
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 28,
+"vertex_data": PackedByteArray("jUNe+P//vL/jeF74W7m9v8ZxXvj//7y/HEde+E26vr8bh1749q68v+K4Xvjkjby/jaNe+MqgvL/G0V74/3q8v+LYXvgnZ7y/AABe+JCTvL/jGF74Wai8v8ZR//8pXry/xxFe+P96wL/i2OP8gFi8v1S19m1PF9bR4pgAAAAA1tH/30Ng1BHW0RunLqBoK4jKVPXR3RFEiMo4jkDZPkKIylS19m1PF4jK4vjElNYmiMr/30Ng1BGIyv//crK2MojKxlH//yleaMZU9dHdEURoxuLY4/yAWGjGOI5A2T5CaMYy/zyAfv0Wga3/1n8S/UyBrf/Wf63/13+t/9Z/rf/Xf0j/MYCt/8R/rf/WfzT/O4A4/b16Rf8zgK/7+4iv+/uIr/v7iP7//3/+//5//v//f/7//3/+//9//v//f/3//H83/2qBJ/9sgdf+d4GA/1+B")
+}]
+blend_shape_mode = 0
+shadow_mesh = SubResource("ArrayMesh_n28kt")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4ruva"]
+albedo_color = Color(0.335426, 0.204083, 0.144447, 1)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_ki0at"]
+material = SubResource("StandardMaterial3D_4ruva")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qx1ry"]
+cull_mode = 2
+albedo_texture = ExtResource("1_4ruva")
+
+[sub_resource type="MultiMesh" id="MultiMesh_bvuph"]
+transform_format = 1
+instance_count = 15
+mesh = SubResource("ArrayMesh_87jkb")
+buffer = PackedFloat32Array(-0.0710709, -0.979471, 0.0895155, 1.52647, -0.958357, 0.0891469, 0.21455, -0.299172, -0.221196, -0.0715327, -0.958323, 0.633688, 0.104611, -1.03072, 0.102817, -0.175347, -1.02178, -0.119648, -0.159829, -0.55787, 0.170051, -0.0848493, -1.02361, 0.633688, 0.0523887, -0.961502, 0.00812204, 0.456109, -0.872675, -0.0441302, 0.404708, -0.237091, -0.403722, -0.0293781, -0.873752, 0.633688, -0.914145, -0.0627257, -0.240291, -0.759844, -0.0717292, 0.944189, 0.0264096, -0.418479, 0.237758, 0.043681, -0.915914, 0.633688, -0.121848, -0.910649, 0.0261895, 0.0462006, -0.891076, 0.113631, -0.194645, -0.230053, 0.18961, -0.0511936, -0.89791, 0.633688, -0.0873538, -1.07021, -0.0966775, 0.256806, -1.04967, 0.105742, -0.222105, -0.302481, 0.229959, 0.0761313, -1.05055, 0.633688, -0.068842, -0.929568, 0.135862, 1.65746, -0.894567, 0.106465, 0.275152, 0.774957, -0.286887, -0.108916, -0.890576, 0.633688, 0.0844039, -0.903131, -0.0711176, -0.8227, -0.835923, -0.105173, 0.343512, -0.788213, -0.349195, 0.0334726, -0.839506, 0.633688, 0.00995404, -0.915053, -0.0479159, 1.5332, -0.820179, 0.0124684, -0.408494, -0.520685, 0.408563, 0.0473239, -0.818873, 0.633688, -0.897813, 0.0906388, -0.437066, -1.5622, 0.0624208, 0.99761, 0.0786608, 0.583338, 0.441979, 0.0432261, -0.898941, 0.633687, 0.0518449, -1.0861, 0.0912811, 1.32633, -1.02777, -0.0182956, 0.366054, -0.319831, -0.362825, -0.10337, -1.02387, 0.633688, -0.969427, -0.106843, -0.165306, -0.194798, -0.0902915, 0.97961, -0.103648, 0.635024, 0.174897, -0.0864869, -0.969774, 0.633688, -0.918218, -0.0917181, 0.00789785, -0.758543, -0.0920536, 0.914062, -0.0872701, 0.588795, 0.000850784, -0.0876226, -0.918652, 0.633688, 0.0443144, -1.08313, -0.0375976, -0.820497, -0.968825, -0.0564557, 0.484497, -0.605072, -0.485758, 0.0137877, -0.96974, 0.633688, -0.981056, 0.0460986, 0.0112204, 1.32468, 0.0456159, 0.980354, -0.0393236, 0.803876, -0.0130449, -0.0387566, -0.981351, 0.633688)
+
+[node name="GroundWheatEarly" type="Node3D"]
+
+[node name="WheatSapling" type="MeshInstance3D" parent="."]
+transform = Transform3D(0, 1, 0, 0, 0, -0.746332, -0.596614, 0, 0, 0.00462389, 0.511698, -0.0422193)
+material_override = SubResource("StandardMaterial3D_ki0at")
+mesh = SubResource("ArrayMesh_87jkb")
+skeleton = NodePath("")
+
+[node name="Plane" type="MeshInstance3D" parent="."]
+visible = false
+mesh = SubResource("PlaneMesh_ki0at")
+
+[node name="MultiWheat3D" type="MultiMeshInstance3D" parent="."]
+transform = Transform3D(-2.60788e-08, 1, 0, 2.60788e-08, 1.91069e-15, 0.746332, 0.596614, 4.37114e-08, -3.26232e-08, 0.00462389, -0.151408, 0.0226288)
+material_override = SubResource("StandardMaterial3D_qx1ry")
+multimesh = SubResource("MultiMesh_bvuph")

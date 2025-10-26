@@ -1,0 +1,15 @@
+[gd_scene load_steps=4 format=3 uid="uid://s1cqa8qyjm3b"]
+
+[ext_resource type="Texture2D" uid="uid://1gysjnj7jqbq" path="res://assets/NhaSan3_ImphenziaPalette01-256-Gradient.png" id="1_l8qwl"]
+[ext_resource type="ArrayMesh" uid="uid://bcpcj3v2ep5fl" path="res://modelTscn/plant/wheat/GroundWheatMidSingle.tres" id="2_d3jw3"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_io1aj"]
+albedo_texture = ExtResource("1_l8qwl")
+
+[node name="GroundWheatMidSingle" type="Node3D"]
+
+[node name="WheatFlower" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.00469099, 0.0218466, -0.015162, -0.0298266, 0.0248775, 0.00271752, 0.0192135, 0.0332853, 0.0079204, 0.000890074, 2.7266, 0.0285169)
+material_override = SubResource("StandardMaterial3D_io1aj")
+mesh = ExtResource("2_d3jw3")
+skeleton = NodePath("")

@@ -1,0 +1,16 @@
+[gd_scene load_steps=5 format=3 uid="uid://crb0iaeek3elc"]
+
+[ext_resource type="PackedScene" uid="uid://ggrv6841636n" path="res://assets/Wheel.glb" id="1_ucyxf"]
+[ext_resource type="PackedScene" uid="uid://dlil5i766e4kx" path="res://assets/NhaSan3.glb" id="2_kjnss"]
+[ext_resource type="PackedScene" uid="uid://bhbvb64p23bmv" path="res://assets/SellingShop1.glb" id="3_tbftt"]
+[ext_resource type="PackedScene" uid="uid://chaala42u6oxu" path="res://assets/StairSteps.glb" id="4_0b27j"]
+
+[node name="StructureTiles" type="Node3D"]
+
+[node name="Wheel" parent="." instance=ExtResource("1_ucyxf")]
+
+[node name="NhaSan3" parent="." instance=ExtResource("2_kjnss")]
+
+[node name="SellingShop1" parent="." instance=ExtResource("3_tbftt")]
+
+[node name="StairSteps" parent="." instance=ExtResource("4_0b27j")]

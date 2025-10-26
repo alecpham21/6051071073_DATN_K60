@@ -1,0 +1,39 @@
+[gd_scene load_steps=6 format=3 uid="uid://ct3dfh117wqmh"]
+
+[ext_resource type="PackedScene" uid="uid://dpbxprnux8cid" path="res://terrain/GroundFrame.glb" id="1_bv0mc"]
+[ext_resource type="Texture2D" uid="uid://1gysjnj7jqbq" path="res://assets/NhaSan3_ImphenziaPalette01-256-Gradient.png" id="2_7txfd"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4h4o4"]
+albedo_texture = ExtResource("2_7txfd")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_bv0mc"]
+albedo_color = Color(0.235294, 0.596078, 0.270588, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_bv0mc"]
+size = Vector3(1, 1, 14.1246)
+
+[node name="GroundFrame" instance=ExtResource("1_bv0mc")]
+
+[node name="Plane" parent="." index="0"]
+material_override = SubResource("StandardMaterial3D_4h4o4")
+
+[node name="Plane_001" parent="." index="1"]
+surface_material_override/0 = SubResource("StandardMaterial3D_bv0mc")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="." index="2"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.6433, 0, -1.07388)
+shape = SubResource("BoxShape3D_bv0mc")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="StaticBody3D" index="1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.64181, 0, -1.07388)
+shape = SubResource("BoxShape3D_bv0mc")
+
+[node name="CollisionShape3D3" type="CollisionShape3D" parent="StaticBody3D" index="2"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0.693645, 0, 4.63863)
+shape = SubResource("BoxShape3D_bv0mc")
+
+[node name="CollisionShape3D4" type="CollisionShape3D" parent="StaticBody3D" index="3"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0.693644, 0, -4.63517)
+shape = SubResource("BoxShape3D_bv0mc")

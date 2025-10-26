@@ -1,0 +1,47 @@
+[gd_resource type="ArrayMesh" load_steps=4 format=4 uid="uid://bywpme3nme7an"]
+
+[ext_resource type="Shader" uid="uid://b3xi2gjg2mwi" path="res://Shader/Tree_Leaves_shader.gdshader" id="1_ow8bs"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_pkg7o"]
+render_priority = 0
+shader = ExtResource("1_ow8bs")
+shader_parameter/leaf_color = Color(0.407946, 0.668837, 0.300492, 1)
+shader_parameter/wind_strength = 0.2
+shader_parameter/wind_speed = 2.0
+shader_parameter/top_color = Color(0.85, 0.97, 0.75, 1)
+shader_parameter/bottom_color = Color(0.2, 0.4, 0.2, 1)
+shader_parameter/height_min = 0.0
+shader_parameter/height_max = 2.0
+shader_parameter/alpha_cutoff = 0.05
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_siwjn"]
+_surfaces = [{
+"aabb": AABB(-0.749924, 0, -1.08265, 1.49985, 1e-05, 2.16531),
+"format": 34896613377,
+"index_count": 36,
+"index_data": PackedByteArray("CgACAAAACgABAAIAAwAKAAAAAwAAAAQABQAKAAMACwABAAoABQALAAoABwALAAUACwAIAAEABwAGAAsABgAIAAsABgAJAAgA"),
+"lods": [1e-10, PackedByteArray("AAABAAIAAwAAAAQABQAAAAMABgABAAAABQAGAAAABwAGAAUABgAIAAEABgAJAAgA")],
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 12,
+"vertex_data": PackedByteArray("wagAAP9/AAD/fwAASjoAAP//AAAAAAAA/38AALXFAAD//wAA//8AAP8/AADF8gAAPVcAAP9/AAAAAAAA//8AAP8/AAD6DgAAAAAAAAAAAAD/fwAA/38AAJ5rAAD/fwAA")
+}]
+blend_shape_mode = 0
+
+[resource]
+resource_name = "leaf_Plane"
+_surfaces = [{
+"aabb": AABB(-0.749924, 0, -1.08265, 1.49985, 1e-05, 2.16531),
+"attribute_data": PackedByteArray("////f/9/AAD//wAA/3//////////P///AAD/fwAA////PwAAAAAAAP9//3//P/9/"),
+"format": 34896613399,
+"index_count": 36,
+"index_data": PackedByteArray("CgACAAAACgABAAIAAwAKAAAAAwAAAAQABQAKAAMACwABAAoABQALAAoABwALAAUACwAIAAEABwAGAAsABgAIAAsABgAJAAgA"),
+"lods": [1e-10, PackedByteArray("AAABAAIAAwAAAAQABQAAAAMABgABAAAABQAGAAAABwAGAAUABgAIAAEABgAJAAgA")],
+"material": SubResource("ShaderMaterial_pkg7o"),
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 12,
+"vertex_data": PackedByteArray("wagAAP9/IsD/fwAASjoUwP//AAAAAK7B/38AALXFZ8D//wAA//9Zw/8/AADF8kLBPVcAAP9/AMAAAAAA//+vwP8/AAD6DpnBAAAAAAAAEcH/fwAA/38YwJ5rAAD/fwPAqfKqhn71P4U27W1aSfWUahHQ9pcj70heAf1+gbbybmUf22+SU+DVj0v6l3QW+3OC")
+}]
+blend_shape_mode = 0
+shadow_mesh = SubResource("ArrayMesh_siwjn")

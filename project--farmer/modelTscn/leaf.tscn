@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://cujohfgejkyc7"]
+
+[ext_resource type="ArrayMesh" uid="uid://bywpme3nme7an" path="res://model/leaf.tres" id="1_5yuh7"]
+
+[node name="leaf" type="Node3D"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
+
+[node name="Leaf" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.447602, 0, 0, 0, 0.447602, 0, 0, 0, 0.447602, 0, 0, 0.0179567)
+mesh = ExtResource("1_5yuh7")
+skeleton = NodePath("")

@@ -1,0 +1,41 @@
+[gd_resource type="ArrayMesh" load_steps=4 format=4 uid="uid://q4bmo87nmmtm"]
+
+[ext_resource type="Shader" uid="uid://wat5lvisnkhj" path="res://grassShader.gdshader" id="1_uq4k4"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_f8s3s"]
+render_priority = 0
+shader = ExtResource("1_uq4k4")
+shader_parameter/leaf_color = Color(0.283241, 0.518361, 0.22291, 1)
+shader_parameter/wind_strength = 0.2
+shader_parameter/wind_speed = 2.0
+shader_parameter/alpha_cutoff = 0.5
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_bvptr"]
+_surfaces = [{
+"aabb": AABB(-1, 0, -0.944229, 2, 1e-05, 1.73985),
+"format": 34896613377,
+"index_count": 99,
+"index_data": PackedByteArray("AAABAAIAAAADAAEABAADAAAABQADAAQABgADAAUAAQAHAAgAAQADAAcABwADAAkABgAKAAMACwAKAAYAAwAKAAwAAwAMAA0ADQAMAA4ADQAOAA8ADQAPABAADQAQABEADQARABIADAATABQADAAKABMAEwAKABUACgAWABcACgAYABYAFgAYABkACgAaABgACgALABoAGgALABsAGgAbABwAGgAcAB0AGgAdAB4AGgAeAB8AGAAaACAAIAAaACEAGAAgACIA"),
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 35,
+"vertex_data": PackedByteArray("qCMAAP9xAACLCgAA/4kAAAAAAAD/hwAAh60AAMyeAACPSAAAMmsAACB0AAAyawAA0KQAAGVuAAA2YwAAMp0AAKU3AAD/lQAAuowAAJijAADF9AAA/7UAALCfAAD/WwAA7GsAAGXyAAAnngAAMrEAAKU3AAD//wAAmAwAADL/AACFMgAAZdwAAI9IAADMxgAA02cAAP+9AAC3yQAAZdQAADSgAACY5QAAwd8AAGXQAAD//wAAmWcAAP//AAD/owAArtwAAMxQAABI9QAAMl0AAK9NAAAAAAAAoIgAADJFAAD2WAAAZi4AAPUvAACZGwAAhQkAAP8TAADcKwAAAAQAAF2SAABmFgAA2WgAAMwCAACkxgAAzDAAAA==")
+}]
+blend_shape_mode = 0
+
+[resource]
+resource_name = "grass_Plane"
+_surfaces = [{
+"aabb": AABB(-1, 0, -0.944229, 2, 1e-05, 1.73985),
+"attribute_data": PackedByteArray("qCNOaosKL38AAHJ9h61HkY9IZGQgdGRk0KQtZzZj44+lN6CJuox0lcX0dqWwnytX7GsB2ieeSaGlN9XlmAwj5YUy3caPSBO002drrLfJ6L80oN7Owd9tvP//QmH//82VrtxtTUj1NlivTSMHoIhWQ/ZYgC/1LyUfhQmJGNwrngpdkp8a2WiTCaTGlzE="),
+"format": 34896613399,
+"index_count": 99,
+"index_data": PackedByteArray("AAABAAIAAAADAAEABAADAAAABQADAAQABgADAAUAAQAHAAgAAQADAAcABwADAAkABgAKAAMACwAKAAYAAwAKAAwAAwAMAA0ADQAMAA4ADQAOAA8ADQAPABAADQAQABEADQARABIADAATABQADAAKABMAEwAKABUACgAWABcACgAYABYAFgAYABkACgAaABgACgALABoAGgALABsAGgAbABwAGgAcAB0AGgAdAB4AGgAeAB8AGAAaACAAIAAaACEAGAAgACIA"),
+"material": SubResource("ShaderMaterial_f8s3s"),
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 35,
+"vertex_data": PackedByteArray("qCMAAP9x/7+LCgAA/4n/vwAAAAD/h/+/h60AAMye/7+PSAAAMmv/vyB0AAAya/+/0KQAAGVu/782YwAAMp3/v6U3AAD/lf+/uowAAJij/7/F9AAA/7X/v7CfAAD/W/+/7GsAAGXy/78nngAAMrH/v6U3AAD///+/mAwAADL//7+FMgAAZdz/v49IAADMxv+/02cAAP+9/7+3yQAAZdT/vzSgAACY5f+/wd8AAGXQ/7///wAAmWf/v///AAD/o/+/rtwAAMxQ/79I9QAAMl3/v69NAAAAAP+/oIgAADJF/7/2WAAAZi7/v/UvAACZG/+/hQkAAP8T/7/cKwAAAAT/v12SAABmFv+/2WgAAMwC/7+kxgAAzDD/v////3/+//9//v//f////3////9/////f/7//3////9//v//f////3////9//v//f////3/+//5/////f////3/+//9//v//f/7//3/+//9/////f/7//3/+//9//v//f/7//3/+//9/////f/7//3////9/////f////3////9//v//f////3/+//9/")
+}]
+blend_shape_mode = 0
+shadow_mesh = SubResource("ArrayMesh_bvptr")
