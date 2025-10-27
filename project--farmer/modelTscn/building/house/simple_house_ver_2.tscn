@@ -113,6 +113,3 @@ interior_scene = ExtResource("4_jl1y3")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="DoorArea3D" index="0"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.156982, 0.886935)
 shape = SubResource("BoxShape3D_jl1y3")
-
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." index="18"]
-transform = Transform3D(1, 0, 0, 0, 0.55051, 0.834829, 0, -0.834829, 0.55051, 0, 2.94765, 0.273601)

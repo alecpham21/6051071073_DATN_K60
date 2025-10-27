@@ -1,7 +1,7 @@
 extends Control
 
 #@onready var player_inventory = $"../../PlayerInventory"
-@export var player_inventory : Node
+#@export var player_inventory : Node
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
@@ -10,13 +10,13 @@ func _process(_delta):
 func update_inventory():
 	var i = 0
 	for inv_slot in $HBoxContainer.get_children():
-		if player_inventory.inventory[i].item_name == "null":
+		if HotBar.active_item.item_name == "none":
 			inv_slot.get_node("TextureRect").texture = null
 		else:
-			var texture_path = "res://ui/item_icons/" + player_inventory.inventory[i].item_name + ".png"
+			var texture_path = "res://ui/item_icons/" + Inventory.slots[i].item_name + ".png"
 			inv_slot.get_node("TextureRect").texture = load(texture_path)
 		#set texture slot
-		if player_inventory.active_item_slot == i:
+		if HotBar.active_idx() == i:
 			inv_slot.get_node("Selected").visible = true
 		else:
 			inv_slot.get_node("Selected").visible = false

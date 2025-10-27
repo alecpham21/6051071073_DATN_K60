@@ -9,14 +9,14 @@ extends CharacterBody3D
 @onready var hoe: Node3D = $Jordax/rig/Skeleton3D/BoneAttachment3D/Hoe
 @onready var sickle: Node3D = $Jordax/rig/Skeleton3D/BoneAttachment3D/Sickle
 @onready var seeding: Node3D = $Seeding
-@onready var player_inventory = get_node("/root/World/PlayerInventory")
+#@onready var player_inventory = get_node("/root/World/PlayerInventory")
 @onready var interact_ray: RayCast3D = $InteractRay
 @onready var ground_gen = get_node("../GroundGenerator")
 
 
+var last_block_pos: Vector2i = Vector2i(-1, -1)
 
-
-var tool_map: Dictionary
+#var tool_map: Dictionary
 var cam_ref: Node3D
 var mouse_captured := true
 var is_busy: bool = false
@@ -27,15 +27,15 @@ var near_door: HouseDoor = null
 
 
 func _ready() -> void:
-	tool_map = {
-		"hoe": hoe,
-		"sickle": sickle
-	}
+	#tool_map = {
+		#"hoe": hoe,
+		#"sickle": sickle
+	#}
 
 	# Tự động map mọi item kết thúc bằng "_seed" đến node seeding
-	for item_name in player_inventory.get_all_item_names():
-		if item_name.ends_with("_seed"):
-			tool_map[item_name] = seeding
+	#for item_name in player_inventory.get_all_item_names():
+		#if item_name.ends_with("_seed"):
+			#tool_map[item_name] = seeding
 
 	if hoe:
 		print("=== HOE DEBUG ===")
@@ -52,14 +52,14 @@ func _ready() -> void:
 			print("  child:", c, "class:", c.get_class(), "script:", c.get_script())
 	else:
 		print("❌ sickle not found!")
-	if hoe:
-		hoe.player_inventory = player_inventory
-	if sickle:
-		sickle.player_inventory = player_inventory
-	if seeding:
-		seeding.player_inventory = player_inventory
+	#if hoe:
+		#hoe.player_inventory = player_inventory
+	#if sickle:
+		#sickle.player_inventory = player_inventory
+	#if seeding:
+		#seeding.player_inventory = player_inventory
 	# Sau đó để nguyên các dòng cũ bên dưới
-	update_tool_visibility("none")
+	#update_tool_visibility("none")
 
 	# Bind camera
 	if camera_ref_path != NodePath():
@@ -69,20 +69,21 @@ func _ready() -> void:
 		set_physics_process(false)
 
 	# Kết nối signal khi inventory đổi item
-	player_inventory.active_item_changed.connect(_on_active_item_changed)
+	#player_inventory.active_item_changed.connect(_on_active_item_changed)
 
 	_set_mouse_captured(true)
 	anim.animation_finished.connect(_on_anim_finished)
 
 
-func _on_active_item_changed(item_name: String) -> void:
-	current_tool_name = item_name
-	print("=== ACTIVE ITEM CHANGED ===")
-	print("Inventory active item:", player_inventory.get_active_item())
-	print("Current tool name:", current_tool_name)
-	update_tool_visibility(item_name)
+#func _on_active_item_changed(item_name: String) -> void:
+	#current_tool_name = HotBar.active_item.item_name
+	#print("=== ACTIVE ITEM CHANGED ===")
+	#print("Inventory active item:", player_inventory.get_active_item())
+	#print("Current tool name:", current_tool_name)
+	#update_tool_visibility(item_name)
 
 func _process(_delta):
+	current_tool_name = HotBar.active_item.item_name
 	if not ground_gen:
 		return
 
@@ -99,23 +100,25 @@ func _process(_delta):
 		print("⚠ Ngoài giới hạn:", grid_pos, "| Map size:", Vector2i(data.size(), data[0].size()))
 		return
 
-	var block = data[grid_pos.x][grid_pos.y]
-	print("Block hiện tại:", grid_pos, "| Mode:", block.mode)
+	if grid_pos != last_block_pos:
+		var block = data[grid_pos.x][grid_pos.y]
+		print("Block hiện tại:",grid_pos, "| Mode:", block.mode)
+		last_block_pos = grid_pos
 
 
 
 
-func update_tool_visibility(current_item: String) -> void:
+#func update_tool_visibility(current_item: String) -> void:
 	# Ẩn tất cả tool
-	for tool in tool_map.values():
-		tool.visible = false
+	#for item in Inventory.slots:
+		#tool.visible = false
 
 	# Hiện tool đang cầm (nếu có)
-	if current_item in tool_map:
-		tool_map[current_item].visible = true
-	else:
+	#if current_item in tool_map:
+		#tool_map[current_item].visible = true
+	#else:
 		# Không có tool (slot rỗng)
-		current_tool_name = "none"
+		#current_tool_name = "none"
 
 
 func _unhandled_input(event: InputEvent) -> void:
@@ -158,7 +161,7 @@ func start_swing() -> void:
 
 func start_cut() -> void:
 	is_busy = true
-	anim.play("CutGrass_Sickle")
+	anim.play("Cutting_Plant")
 
 func start_seeding() -> void:
 	is_busy = true
@@ -173,6 +176,7 @@ func _on_anim_finished(name: String) -> void:
 			is_busy = false
 
 		"Seeding":
+			seeding.plant_seed(HotBar.active_item.item_name)
 			is_busy = false
 
 		"CutGrass_Sickle":
@@ -244,5 +248,5 @@ func is_interact_mode() -> bool:
 	return not mouse_captured
 
 func try_harvest_crop(crop):
-	if player_inventory.get_active_item() == "sickle":
+	if HotBar.active_item.item_name == "sickle":
 		crop.harvest()

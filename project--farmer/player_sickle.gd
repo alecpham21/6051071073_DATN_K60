@@ -1,4 +1,4 @@
-extends Node
+extends Node3D
 
 @onready var cast: RayCast3D = $"../../../../../HoeCast3D"
 @onready var player_inventory = get_node("/root/World/PlayerInventory")
@@ -7,6 +7,7 @@ var item_active := true
 var last_highlighted_block: BlockGround = null
 
 func _process(delta: float) -> void:
+	visible = HotBar.active_item.item_name == ItemNames.sickle
 	cast.force_raycast_update()
 	
 	if cast.is_colliding():
@@ -31,13 +32,14 @@ func _clear_highlight() -> void:
 		last_highlighted_block = null
 
 func is_holding_sickle() ->bool:
-	if player_inventory == null:
-		return false
-	var slot_index = player_inventory.active_item_slot
-	var item_data = player_inventory.inventory[slot_index]
-	var item_name = item_data["item_name"]
-	print("Active slot:", slot_index, "Item:", item_name)
-	return item_name == "sickle"
+	return HotBar.active_item.item_name == ItemNames.sickle
+	#if player_inventory == null:
+		#return false
+	#var slot_index = player_inventory.active_item_slot
+	#var item_data = player_inventory.inventory[slot_index]
+	#var item_name = item_data["item_name"]
+	#print("Active slot:", slot_index, "Item:", item_name)
+	#return item_name == "sickle"
 
 func swing_sickle() -> void:
 	cast.force_raycast_update()

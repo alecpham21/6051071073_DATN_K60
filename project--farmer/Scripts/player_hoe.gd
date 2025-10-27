@@ -1,4 +1,4 @@
-extends Node
+extends Node3D
 
 @onready var cast: RayCast3D = $"../../../../../HoeCast3D"
 @onready var player_inventory = get_node("/root/World/PlayerInventory")
@@ -10,6 +10,8 @@ var last_grid_pos: Vector2i = Vector2i(-1, -1)
 
 
 func _process(delta: float) -> void:
+	visible = HotBar.active_item.item_name == ItemNames.hoe
+	#print(HotBar.active_idx())
 	if ground_gen == null:
 		print("❌ ground_gen null rồi, path sai hoặc scene chưa load GroundGenerator")
 		return
@@ -28,13 +30,14 @@ func _process(delta: float) -> void:
 
 
 func is_holding_hoe() ->bool:
-	if player_inventory == null:
-		return false
-	var slot_index = player_inventory.active_item_slot
-	var item_data = player_inventory.inventory[slot_index]
-	var item_name = item_data["item_name"]
-	print("Active slot:", slot_index, "Item:", item_name)
-	return item_name == "hoe"
+	return HotBar.active_item.item_name == ItemNames.hoe
+	#if player_inventory == null:
+		#return false
+	#var slot_index = player_inventory.active_item_slot
+	#var item_data = player_inventory.inventory[slot_index]
+	#var item_name = item_data["item_name"]
+	#print("Active slot:", slot_index, "Item:", item_name)
+	#return item_name == "hoe"
 
 func swing_hoe() -> void:
 	cast.force_raycast_update()

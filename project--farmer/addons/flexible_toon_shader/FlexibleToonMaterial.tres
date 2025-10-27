@@ -4,8 +4,8 @@
 [ext_resource type="Texture2D" uid="uid://1gysjnj7jqbq" path="res://assets/NhaSan3_ImphenziaPalette01-256-Gradient.png" id="2_jc6ge"]
 
 [sub_resource type="Gradient" id="Gradient_leuyj"]
-offsets = PackedFloat32Array(0, 0.705882, 1)
-colors = PackedColorArray(0.953732, 0.555496, 0, 1, 0.921055, 0.875383, 0.70276, 1, 0.953084, 0.873848, 0.771926, 1)
+offsets = PackedFloat32Array(0, 0.45082, 1)
+colors = PackedColorArray(0.598065, 0.340243, 9.62615e-08, 1, 0.803606, 0.733165, 0.468752, 1, 0.830988, 0.663782, 0.437527, 1)
 
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_in7vu"]
 gradient = SubResource("Gradient_leuyj")
@@ -17,8 +17,8 @@ shader_parameter/albedo = Color(1, 1, 1, 1)
 shader_parameter/albedo_texture = ExtResource("2_jc6ge")
 shader_parameter/clamp_diffuse_to_max = false
 shader_parameter/cuts = 3
-shader_parameter/wrap = 0.0
-shader_parameter/steepness = 1.0
+shader_parameter/wrap = 0.674
+shader_parameter/steepness = 6.505
 shader_parameter/use_attenuation = true
 shader_parameter/use_specular = false
 shader_parameter/specular_strength = 1.0
