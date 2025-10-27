@@ -41,12 +41,6 @@ func setup_data():
 		for z in range(ground_extents.y):
 			var d = BlockGroundData.new()
 			d.mode = BlockGroundData.Mode.GRASS
-			var r = randf()
-			if r < 0.05:
-				d.variant = 1  # dark grass
-			elif r < 0.10:
-				d.variant = 2  # light grass
-			d.has_wind_grass = (randf() < 0.05)
 			block_data[x].append(d)
 ##Old but Function
 #func setup_data():
