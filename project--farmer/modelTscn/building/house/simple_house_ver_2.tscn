@@ -1,58 +1,36 @@
-[gd_scene load_steps=24 format=3 uid="uid://c2mndlfrs1dsl"]
+[gd_scene load_steps=16 format=3 uid="uid://c2mndlfrs1dsl"]
 
 [ext_resource type="PackedScene" uid="uid://y055erqk78ec" path="res://model/building/SimpleHouseVer2.glb" id="1_ftsh5"]
 [ext_resource type="Texture2D" uid="uid://1gysjnj7jqbq" path="res://assets/NhaSan3_ImphenziaPalette01-256-Gradient.png" id="2_ud8fd"]
+[ext_resource type="Material" uid="uid://bb43ngplsfis2" path="res://addons/flexible_toon_shader/FlexibleToonMaterial.tres" id="2_x0w2x"]
 [ext_resource type="Script" uid="uid://dvc8yikg61w6b" path="res://modelTscn/building/house/door_area_3d.gd" id="3_ud8fd"]
 [ext_resource type="PackedScene" uid="uid://o1wmcaqylahd" path="res://Scene/InBuilding/house_inside.tscn" id="4_jl1y3"]
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jl1y3"]
-albedo_texture = ExtResource("2_ud8fd")
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_x0w2x"]
-albedo_texture = ExtResource("2_ud8fd")
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_kn35q"]
-albedo_texture = ExtResource("2_ud8fd")
+[ext_resource type="Shader" uid="uid://botnpoehv8fmw" path="res://characterModel/Cel-shading.gdshader" id="4_kn35q"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_leuyj"]
 cull_mode = 2
 albedo_texture = ExtResource("2_ud8fd")
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_in7vu"]
-albedo_texture = ExtResource("2_ud8fd")
+[sub_resource type="Gradient" id="Gradient_leuyj"]
+offsets = PackedFloat32Array(0.426471, 1)
+colors = PackedColorArray(0, 0, 0, 1, 0.693417, 0.449051, 0.334874, 1)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_f6dph"]
-albedo_texture = ExtResource("2_ud8fd")
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_in7vu"]
+gradient = SubResource("Gradient_leuyj")
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3girw"]
-albedo_texture = ExtResource("2_ud8fd")
+[sub_resource type="Gradient" id="Gradient_f6dph"]
+offsets = PackedFloat32Array(0.117647, 0.647059, 1)
+colors = PackedColorArray(0.910387, 0.136172, 0.050911, 1, 0.762397, 0.229307, 0.14522, 1, 0.86616, 0.383591, 0.148059, 1)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_421db"]
-albedo_texture = ExtResource("2_ud8fd")
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_3girw"]
+gradient = SubResource("Gradient_f6dph")
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jxd5g"]
-albedo_texture = ExtResource("2_ud8fd")
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6q2to"]
-albedo_texture = ExtResource("2_ud8fd")
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_pyt1s"]
-albedo_texture = ExtResource("2_ud8fd")
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0v3di"]
-albedo_texture = ExtResource("2_ud8fd")
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3i2uw"]
-albedo_texture = ExtResource("2_ud8fd")
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_of2q2"]
-albedo_texture = ExtResource("2_ud8fd")
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0blht"]
-albedo_texture = ExtResource("2_ud8fd")
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_h0if7"]
-albedo_texture = ExtResource("2_ud8fd")
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_f6dph"]
+render_priority = 0
+shader = ExtResource("4_kn35q")
+shader_parameter/albedo = Color(0.594386, 0.157067, 0.108065, 1)
+shader_parameter/color_gradient = SubResource("GradientTexture1D_in7vu")
+shader_parameter/fresnel_gradient = SubResource("GradientTexture1D_3girw")
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_ftsh5"]
 size = Vector3(2.69739, 1.48358, 2.09549)
@@ -66,52 +44,52 @@ size = Vector3(1, 1.31396, 1)
 [node name="SimpleHouseVer2" instance=ExtResource("1_ftsh5")]
 
 [node name="Cube" parent="." index="0"]
-material_override = SubResource("StandardMaterial3D_jl1y3")
+surface_material_override/0 = ExtResource("2_x0w2x")
 
 [node name="Cube_001" parent="." index="1"]
-material_override = SubResource("StandardMaterial3D_x0w2x")
+surface_material_override/0 = ExtResource("2_x0w2x")
 
 [node name="Cube_002" parent="." index="2"]
-material_override = SubResource("StandardMaterial3D_kn35q")
+surface_material_override/0 = ExtResource("2_x0w2x")
 
 [node name="Plane" parent="." index="3"]
 material_override = SubResource("StandardMaterial3D_leuyj")
 
 [node name="Cube_017" parent="." index="4"]
-material_override = SubResource("StandardMaterial3D_in7vu")
+surface_material_override/0 = ExtResource("2_x0w2x")
 
 [node name="Cube_018" parent="." index="5"]
-material_override = SubResource("StandardMaterial3D_f6dph")
+surface_material_override/0 = ExtResource("2_x0w2x")
 
 [node name="Cube_019" parent="." index="6"]
-material_override = SubResource("StandardMaterial3D_3girw")
+surface_material_override/0 = ExtResource("2_x0w2x")
 
 [node name="Cube_020" parent="." index="7"]
-material_override = SubResource("StandardMaterial3D_421db")
+surface_material_override/0 = ExtResource("2_x0w2x")
 
 [node name="Cube_032" parent="." index="8"]
-material_override = SubResource("StandardMaterial3D_jxd5g")
+surface_material_override/0 = SubResource("ShaderMaterial_f6dph")
 
 [node name="Cube_003" parent="." index="9"]
-material_override = SubResource("StandardMaterial3D_6q2to")
+surface_material_override/0 = ExtResource("2_x0w2x")
 
 [node name="Cube_004" parent="." index="10"]
-material_override = SubResource("StandardMaterial3D_pyt1s")
+surface_material_override/0 = ExtResource("2_x0w2x")
 
 [node name="Cube_005" parent="." index="11"]
-material_override = SubResource("StandardMaterial3D_0v3di")
+surface_material_override/0 = ExtResource("2_x0w2x")
 
 [node name="Cube_006" parent="." index="12"]
-material_override = SubResource("StandardMaterial3D_3i2uw")
+surface_material_override/0 = ExtResource("2_x0w2x")
 
 [node name="Cube_007" parent="." index="13"]
-material_override = SubResource("StandardMaterial3D_of2q2")
+surface_material_override/0 = ExtResource("2_x0w2x")
 
 [node name="Cube_008" parent="." index="14"]
-material_override = SubResource("StandardMaterial3D_0blht")
+surface_material_override/0 = ExtResource("2_x0w2x")
 
 [node name="Cube_009" parent="." index="15"]
-material_override = SubResource("StandardMaterial3D_h0if7")
+surface_material_override/0 = ExtResource("2_x0w2x")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="." index="16"]
 
@@ -135,3 +113,6 @@ interior_scene = ExtResource("4_jl1y3")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="DoorArea3D" index="0"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.156982, 0.886935)
 shape = SubResource("BoxShape3D_jl1y3")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." index="18"]
+transform = Transform3D(1, 0, 0, 0, 0.55051, 0.834829, 0, -0.834829, 0.55051, 0, 2.94765, 0.273601)

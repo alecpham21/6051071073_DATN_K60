@@ -1,11 +1,28 @@
-[gd_scene load_steps=3 format=3 uid="uid://dknabkvrwdlgo"]
+[gd_scene load_steps=4 format=3 uid="uid://dknabkvrwdlgo"]
 
 [ext_resource type="PackedScene" uid="uid://bmip1wtgf8xy4" path="res://model/structure/WoodenRailingVer1.glb" id="1_37tfs"]
+[ext_resource type="Shader" uid="uid://sy0jqm2sqqwl" path="res://addons/flexible_toon_shader/flexible_toon.gdshader" id="2_oux26"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_oux26"]
-albedo_color = Color(0.579893, 0.384258, 0.1338, 1)
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_dcdos"]
+render_priority = 0
+shader = ExtResource("2_oux26")
+shader_parameter/albedo = Color(0.493358, 0.357155, 0.241213, 1)
+shader_parameter/clamp_diffuse_to_max = false
+shader_parameter/cuts = 3
+shader_parameter/wrap = 0.0
+shader_parameter/steepness = 1.0
+shader_parameter/use_attenuation = true
+shader_parameter/use_specular = false
+shader_parameter/specular_strength = 1.0
+shader_parameter/specular_shininess = 16.0
+shader_parameter/use_rim = true
+shader_parameter/rim_width = 9.549
+shader_parameter/rim_color = Color(0.66119, 0.359279, 0.180689, 1)
+shader_parameter/use_ramp = true
+shader_parameter/use_borders = false
+shader_parameter/border_width = 0.01
 
 [node name="WoodenRailingVer1" instance=ExtResource("1_37tfs")]
 
 [node name="Railing" parent="." index="0"]
-surface_material_override/0 = SubResource("StandardMaterial3D_oux26")
+surface_material_override/0 = SubResource("ShaderMaterial_dcdos")

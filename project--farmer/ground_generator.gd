@@ -39,7 +39,22 @@ func setup_data():
 	for x in range(ground_extents.x):
 		block_data[x] = []
 		for z in range(ground_extents.y):
-			block_data[x].append(BlockGroundData.new())
+			var d = BlockGroundData.new()
+			d.mode = BlockGroundData.Mode.GRASS
+			var r = randf()
+			if r < 0.05:
+				d.variant = 1  # dark grass
+			elif r < 0.10:
+				d.variant = 2  # light grass
+			d.has_wind_grass = (randf() < 0.05)
+			block_data[x].append(d)
+##Old but Function
+#func setup_data():
+	#block_data.resize(ground_extents.x)
+	#for x in range(ground_extents.x):
+		#block_data[x] = []
+		#for z in range(ground_extents.y):
+			#block_data[x].append(BlockGroundData.new())
 
 
 func gen_ground(extents:Vector2i):

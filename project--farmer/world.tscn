@@ -210,7 +210,7 @@ mesh = SubResource("PlaneMesh_ic0uy")
 environment = SubResource("Environment_ic0uy")
 
 [node name="BigTerrainMoutain" parent="." instance=ExtResource("14_70uel")]
-transform = Transform3D(41.375, 0, 0, 0, 41.375, 0, 0, 0, 41.375, 0, -2.69361, 0)
+transform = Transform3D(41.375, 0, 0, 0, 41.375, 0, 0, 0, 41.375, -0.373759, -2.67757, -0.241655)
 
 [node name="GroundFrame" parent="." instance=ExtResource("16_2u3nc")]
 transform = Transform3D(6.83, 0, 0, 0, 6.83, 0, 0, 0, 6.83, -2.33437, -1.02769, -1.05087)

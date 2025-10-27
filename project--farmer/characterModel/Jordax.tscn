@@ -1,14 +1,40 @@
-[gd_scene load_steps=45 format=4 uid="uid://xyhcp7k5jujw"]
+[gd_scene load_steps=48 format=4 uid="uid://xyhcp7k5jujw"]
 
 [ext_resource type="Script" uid="uid://d1orx8whk8kx0" path="res://player.gd" id="1_4guyi"]
-[ext_resource type="Texture2D" uid="uid://1gysjnj7jqbq" path="res://assets/NhaSan3_ImphenziaPalette01-256-Gradient.png" id="2_ptf7u"]
+[ext_resource type="Shader" uid="uid://sy0jqm2sqqwl" path="res://addons/flexible_toon_shader/flexible_toon.gdshader" id="2_ptf7u"]
 [ext_resource type="Script" uid="uid://b8uwlbndebh26" path="res://Scripts/player_hoe.gd" id="3_8kg18"]
+[ext_resource type="Texture2D" uid="uid://1gysjnj7jqbq" path="res://assets/NhaSan3_ImphenziaPalette01-256-Gradient.png" id="3_btwys"]
 [ext_resource type="Script" uid="uid://5rrequ0bhhjs" path="res://player_sickle.gd" id="4_btwys"]
 [ext_resource type="PackedScene" uid="uid://cq6e3i6iasa4u" path="res://modelTscn/tool/tool_sickle.tscn" id="5_cptab"]
 [ext_resource type="Script" uid="uid://bgjptgcrg2llq" path="res://seeding.gd" id="6_k6ul3"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_y7gga"]
-albedo_texture = ExtResource("2_ptf7u")
+[sub_resource type="Gradient" id="Gradient_ptf7u"]
+offsets = PackedFloat32Array(0, 0.573529, 1)
+colors = PackedColorArray(0.815297, 0.63968, 0.186173, 1, 0.921055, 0.875383, 0.70276, 1, 0.953084, 0.873848, 0.771926, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_d7335"]
+gradient = SubResource("Gradient_ptf7u")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_cptab"]
+render_priority = 0
+shader = ExtResource("2_ptf7u")
+shader_parameter/albedo = Color(1, 1, 1, 1)
+shader_parameter/albedo_texture = ExtResource("3_btwys")
+shader_parameter/clamp_diffuse_to_max = false
+shader_parameter/cuts = 2
+shader_parameter/wrap = 0.0
+shader_parameter/steepness = 1.0
+shader_parameter/use_attenuation = true
+shader_parameter/use_specular = false
+shader_parameter/specular_strength = 1.0
+shader_parameter/specular_shininess = 16.0
+shader_parameter/use_rim = false
+shader_parameter/rim_width = 10.581
+shader_parameter/rim_color = Color(1, 1, 1, 1)
+shader_parameter/use_ramp = true
+shader_parameter/ramp = SubResource("GradientTexture1D_d7335")
+shader_parameter/use_borders = false
+shader_parameter/border_width = 0.01
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xqx5b"]
 vertex_color_use_as_albedo = true
@@ -21451,6 +21477,33 @@ tracks/136/interp = 1
 tracks/136/loop_wrap = true
 tracks/136/keys = PackedFloat32Array(0, 1, 8.23868e-08, -0.707107, -0.707107, 8.24691e-08, 0.0333333, 1, 8.23868e-08, -0.707107, -0.707107, 8.24691e-08, 0.0666667, 1, -0.00149212, -0.707105, -0.707105, 0.00149229, 0.1, 1, -0.00515432, -0.707088, -0.707088, 0.00515448, 0.133333, 1, -0.0110879, -0.70702, -0.70702, 0.0110881, 0.166667, 1, -0.0188175, -0.706856, -0.706856, 0.0188177, 0.2, 1, -0.0279845, -0.706553, -0.706553, 0.0279846, 0.233333, 1, -0.0375071, -0.706111, -0.706111, 0.0375073, 0.266667, 1, -0.0469029, -0.705549, -0.70555, 0.0469031, 0.3, 1, -0.0556914, -0.70491, -0.70491, 0.0556916, 0.333333, 1, -0.0633948, -0.704259, -0.704259, 0.0633949, 0.366667, 1, -0.0687068, -0.703761, -0.703761, 0.0687069, 0.4, 1, -0.0715189, -0.703481, -0.703481, 0.071519, 0.433333, 1, -0.0725085, -0.703379, -0.703379, 0.0725087, 1.33333, 1, -0.0725085, -0.703379, -0.703379, 0.0725087, 1.36667, 1, -0.066502, -0.703973, -0.703973, 0.0665021, 1.4, 1, -0.0542294, -0.705024, -0.705024, 0.0542295, 1.43333, 1, -0.0384509, -0.706061, -0.706061, 0.038451, 1.46667, 1, -0.0219528, -0.706766, -0.706766, 0.0219529, 1.5, 1, -0.00754419, -0.707067, -0.707067, 0.00754436, 1.53333, 1, -0.0015088, -0.707105, -0.707105, 0.00150897, 1.54167, 1, 8.23868e-08, -0.707107, -0.707107, 8.24691e-08)
 
+[sub_resource type="Animation" id="Animation_4guyi"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("rig/Skeleton3D/BoneAttachment3D/Hoe:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(-0.0595754, 0.0904948, -0.0497903)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("rig/Skeleton3D/BoneAttachment3D/Hoe:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0.0599109, -3.00955, -0.0874118)]
+}
+
 [sub_resource type="Animation" id="Animation_yq572"]
 resource_name = "Running"
 length = 0.75
@@ -27267,33 +27320,6 @@ tracks/136/interp = 0
 tracks/136/loop_wrap = true
 tracks/136/keys = PackedFloat32Array(0, 1, 8.23868e-08, -0.707107, -0.707107, 8.24691e-08)
 
-[sub_resource type="Animation" id="Animation_4guyi"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("rig/Skeleton3D/BoneAttachment3D/Hoe:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(-0.0595754, 0.0904948, -0.0497903)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("rig/Skeleton3D/BoneAttachment3D/Hoe:rotation")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(0.0599109, -3.00955, -0.0874118)]
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_2bwfh"]
 _data = {
 &"Cooking_Cutting": SubResource("Animation_e2nwg"),
@@ -27852,12 +27878,12 @@ bones/72/rotation = Quaternion(-8.23868e-08, 0.707107, 0.707107, -8.24691e-08)
 bones/72/scale = Vector3(1, 1, 1)
 
 [node name="Base" type="MeshInstance3D" parent="Jordax/rig/Skeleton3D"]
-material_override = SubResource("StandardMaterial3D_y7gga")
+material_override = SubResource("ShaderMaterial_cptab")
 mesh = SubResource("ArrayMesh_gtxn6")
 skin = SubResource("Skin_djtvk")
 
 [node name="BoneAttachment3D" type="BoneAttachment3D" parent="Jordax/rig/Skeleton3D"]
-transform = Transform3D(-0.993382, 0.0809278, 0.102386, 0.103491, 0.0639731, 0.985709, 0.0517632, 1.01416, 0.048545, -0.193759, 0.989875, 0.196362)
+transform = Transform3D(-0.993382, 0.0809278, 0.102386, 0.103491, 0.0639729, 0.985709, 0.0517632, 1.01416, 0.0485451, -0.193759, 0.989875, 0.196362)
 bone_name = "DEF-hand.R"
 bone_idx = 51
 

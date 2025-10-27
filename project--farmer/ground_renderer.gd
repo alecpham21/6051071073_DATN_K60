@@ -91,35 +91,76 @@ func _create_multimeshes():
 			var pos = Vector3(x * spacing + mesh.size.x/2, -mesh.size.y/2, z * spacing + mesh.size.z/2) - center_offset
 			var t = Transform3D(Basis(), pos)
 			mm_grass.set_instance_transform(idx, t)
+##Old Set_mode but Function
+#func set_mode(x: int, z: int, mode: int):
+	#if grid_size_x == 0 or grid_size_z == 0:
+		#return
+#
+	#var idx = x * grid_size_z + z
+	#var center_offset = Vector3(grid_size_x * spacing / 2, 0, grid_size_z * spacing / 2)
+#
+	## vị trí cơ bản
+	#var base_pos = Vector3(x * spacing + mesh.size.x / 2, 0, z * spacing + mesh.size.z / 2) - center_offset
+#
+	## chỉnh độ cao tùy mode
+	#var y_offset := 0.0
+	#match mode:
+		#0: y_offset = 0.1           # grass bình thường
+		#1: y_offset = -0.02         # cut lún nhẹ
+		#2: y_offset = -0.04  
+		#_: 0.0
+## tilled lún sâu hơn
+#
+	## set transform mới
+	#var t = Transform3D(Basis(), base_pos + Vector3(0, y_offset, 0))
+#
+	## clear 3 cái multimesh kia để tránh block hiển thị chồng nhau
+	#mm_grass.set_instance_transform(idx, Transform3D()) 
+	#mm_cut.set_instance_transform(idx, Transform3D()) 
+	#mm_tilled.set_instance_transform(idx, Transform3D())
+#
+	#match mode:
+		#0: mm_grass.set_instance_transform(idx, t)
+		#1: mm_cut.set_instance_transform(idx, t)
+		#2: mm_tilled.set_instance_transform(idx, t)
 
-func set_mode(x: int, z: int, mode: int):
+func set_mode(x: int, z: int, mode: int, variant: int = 0):
 	if grid_size_x == 0 or grid_size_z == 0:
 		return
 
 	var idx = x * grid_size_z + z
 	var center_offset = Vector3(grid_size_x * spacing / 2, 0, grid_size_z * spacing / 2)
+	var base_pos = Vector3(x * spacing + mesh.size.x/2, 0, z * spacing + mesh.size.z/2) - center_offset
 
-	# vị trí cơ bản
-	var base_pos = Vector3(x * spacing + mesh.size.x / 2, 0, z * spacing + mesh.size.z / 2) - center_offset
-
-	# chỉnh độ cao tùy mode
 	var y_offset := 0.0
 	match mode:
-		0: y_offset = 0.1           # grass bình thường
-		1: y_offset = -0.02         # cut lún nhẹ
-		2: y_offset = -0.04  
-		_: 0.0
-# tilled lún sâu hơn
+		BlockGroundData.Mode.GRASS:
+			y_offset = 0.1
+		BlockGroundData.Mode.CUT:
+			y_offset = -0.02
+		BlockGroundData.Mode.TILLED:
+			y_offset = -0.04
 
-	# set transform mới
+	# Tạo transform mới
 	var t = Transform3D(Basis(), base_pos + Vector3(0, y_offset, 0))
 
-	# clear 3 cái multimesh kia để tránh block hiển thị chồng nhau
-	mm_grass.set_instance_transform(idx, Transform3D()) 
-	mm_cut.set_instance_transform(idx, Transform3D()) 
+	# Xóa vị trí cũ để tránh chồng
+	mm_grass.set_instance_transform(idx, Transform3D())
+	mm_cut.set_instance_transform(idx, Transform3D())
 	mm_tilled.set_instance_transform(idx, Transform3D())
 
+	# Chọn màu/material dựa trên variant
+	if variant == 1 and mode == BlockGroundData.Mode.GRASS:
+		inst_grass.material_override.albedo_color = Color(0.2, 0.7, 0.2) # dark
+	elif variant == 2 and mode == BlockGroundData.Mode.GRASS:
+		inst_grass.material_override.albedo_color = Color(0.4, 0.9, 0.4) # light
+	else:
+		inst_grass.material_override.albedo_color = Color(0.3, 0.8, 0.3)
+
 	match mode:
-		0: mm_grass.set_instance_transform(idx, t)
-		1: mm_cut.set_instance_transform(idx, t)
-		2: mm_tilled.set_instance_transform(idx, t)
+		BlockGroundData.Mode.GRASS:
+			mm_grass.set_instance_transform(idx, t)
+		BlockGroundData.Mode.CUT:
+			mm_cut.set_instance_transform(idx, t)
+		BlockGroundData.Mode.TILLED:
+			mm_tilled.set_instance_transform(idx, t)
