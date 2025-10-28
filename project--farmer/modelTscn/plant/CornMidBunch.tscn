@@ -1,6 +1,6 @@
 [gd_scene load_steps=38 format=4 uid="uid://fgd5t75vaat8"]
 
-[ext_resource type="Texture2D" uid="uid://1gysjnj7jqbq" path="res://assets/NhaSan3_ImphenziaPalette01-256-Gradient.png" id="1_fg2gv"]
+[ext_resource type="Texture2D" uid="uid://1gysjnj7jqbq" path="res://assets/ImphenziaPalette01-256-Gradient.png" id="1_fg2gv"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hbqih"]
 albedo_texture = ExtResource("1_fg2gv")

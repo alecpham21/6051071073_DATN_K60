@@ -1,40 +1,15 @@
-[gd_scene load_steps=48 format=4 uid="uid://xyhcp7k5jujw"]
+[gd_scene load_steps=50 format=4 uid="uid://xyhcp7k5jujw"]
 
 [ext_resource type="Script" uid="uid://d1orx8whk8kx0" path="res://player.gd" id="1_4guyi"]
-[ext_resource type="Shader" uid="uid://sy0jqm2sqqwl" path="res://addons/flexible_toon_shader/flexible_toon.gdshader" id="2_ptf7u"]
 [ext_resource type="Script" uid="uid://b8uwlbndebh26" path="res://Scripts/player_hoe.gd" id="3_8kg18"]
-[ext_resource type="Texture2D" uid="uid://1gysjnj7jqbq" path="res://assets/NhaSan3_ImphenziaPalette01-256-Gradient.png" id="3_btwys"]
+[ext_resource type="Texture2D" uid="uid://1gysjnj7jqbq" path="res://assets/ImphenziaPalette01-256-Gradient.png" id="3_btwys"]
 [ext_resource type="Script" uid="uid://5rrequ0bhhjs" path="res://player_sickle.gd" id="4_btwys"]
 [ext_resource type="PackedScene" uid="uid://cq6e3i6iasa4u" path="res://modelTscn/tool/tool_sickle.tscn" id="5_cptab"]
 [ext_resource type="Script" uid="uid://bgjptgcrg2llq" path="res://seeding.gd" id="6_k6ul3"]
+[ext_resource type="Texture2D" uid="uid://db43htsplvjb7" path="res://Textures/FrameUI/FrameHighlight.png" id="7_ptf7u"]
 
-[sub_resource type="Gradient" id="Gradient_ptf7u"]
-offsets = PackedFloat32Array(0, 0.573529, 1)
-colors = PackedColorArray(0.815297, 0.63968, 0.186173, 1, 0.921055, 0.875383, 0.70276, 1, 0.953084, 0.873848, 0.771926, 1)
-
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_d7335"]
-gradient = SubResource("Gradient_ptf7u")
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_cptab"]
-render_priority = 0
-shader = ExtResource("2_ptf7u")
-shader_parameter/albedo = Color(1, 1, 1, 1)
-shader_parameter/albedo_texture = ExtResource("3_btwys")
-shader_parameter/clamp_diffuse_to_max = false
-shader_parameter/cuts = 2
-shader_parameter/wrap = 0.0
-shader_parameter/steepness = 1.0
-shader_parameter/use_attenuation = true
-shader_parameter/use_specular = false
-shader_parameter/specular_strength = 1.0
-shader_parameter/specular_shininess = 16.0
-shader_parameter/use_rim = false
-shader_parameter/rim_width = 10.581
-shader_parameter/rim_color = Color(1, 1, 1, 1)
-shader_parameter/use_ramp = true
-shader_parameter/ramp = SubResource("GradientTexture1D_d7335")
-shader_parameter/use_borders = false
-shader_parameter/border_width = 0.01
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4guyi"]
+albedo_texture = ExtResource("3_btwys")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xqx5b"]
 vertex_color_use_as_albedo = true
@@ -27356,6 +27331,28 @@ _data = {
 [sub_resource type="BoxShape3D" id="BoxShape3D_4cwdc"]
 size = Vector3(1, 1.5703, 0.636169)
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ptf7u"]
+transparency = 1
+no_depth_test = true
+albedo_texture = ExtResource("7_ptf7u")
+emission_enabled = true
+emission = Color(1, 1, 1, 1)
+emission_energy_multiplier = 4.0
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_4guyi"]
+material = SubResource("StandardMaterial3D_ptf7u")
+size = Vector2(1, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8kg18"]
+transparency = 1
+no_depth_test = true
+shading_mode = 0
+albedo_color = Color(0.956619, 0.8196, 0.376665, 0.133333)
+
+[sub_resource type="BoxMesh" id="BoxMesh_ptf7u"]
+material = SubResource("StandardMaterial3D_8kg18")
+size = Vector3(1, 0.145, 1)
+
 [node name="Player" type="CharacterBody3D"]
 script = ExtResource("1_4guyi")
 use_gravity = true
@@ -27879,7 +27876,7 @@ bones/72/rotation = Quaternion(-8.23868e-08, 0.707107, 0.707107, -8.24691e-08)
 bones/72/scale = Vector3(1, 1, 1)
 
 [node name="Base" type="MeshInstance3D" parent="Jordax/rig/Skeleton3D"]
-material_override = SubResource("ShaderMaterial_cptab")
+material_override = SubResource("StandardMaterial3D_4guyi")
 mesh = SubResource("ArrayMesh_gtxn6")
 skin = SubResource("Skin_djtvk")
 
@@ -27931,3 +27928,11 @@ target_position = Vector3(0, -1.505, 0)
 
 [node name="InteractRay" type="RayCast3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1)
+
+[node name="HighlightSelector" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05, 0)
+mesh = SubResource("PlaneMesh_4guyi")
+
+[node name="HighlightBox" type="MeshInstance3D" parent="HighlightSelector"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0151415, 0)
+mesh = SubResource("BoxMesh_ptf7u")

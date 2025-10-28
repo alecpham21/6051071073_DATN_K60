@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://pqt47dn6cn6g"]
+
+[ext_resource type="ArrayMesh" uid="uid://baypagydj3poq" path="res://modelTscn/plant/grass/Grass_ver2.tres" id="1_4uvpb"]
+
+[node name="Grass2" type="Node3D"]
+
+[node name="Grass" type="MeshInstance3D" parent="."]
+mesh = ExtResource("1_4uvpb")
+skeleton = NodePath("")

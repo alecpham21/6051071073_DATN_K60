@@ -9,10 +9,9 @@ extends CharacterBody3D
 @onready var hoe: Node3D = $Jordax/rig/Skeleton3D/BoneAttachment3D/Hoe
 @onready var sickle: Node3D = $Jordax/rig/Skeleton3D/BoneAttachment3D/Sickle
 @onready var seeding: Node3D = $Seeding
-#@onready var player_inventory = get_node("/root/World/PlayerInventory")
 @onready var interact_ray: RayCast3D = $InteractRay
 @onready var ground_gen = get_node("../GroundGenerator")
-
+@onready var hl_select: MeshInstance3D = $HighlightSelector
 
 var last_block_pos: Vector2i = Vector2i(-1, -1)
 
@@ -27,15 +26,6 @@ var near_door: HouseDoor = null
 
 
 func _ready() -> void:
-	#tool_map = {
-		#"hoe": hoe,
-		#"sickle": sickle
-	#}
-
-	# Tự động map mọi item kết thúc bằng "_seed" đến node seeding
-	#for item_name in player_inventory.get_all_item_names():
-		#if item_name.ends_with("_seed"):
-			#tool_map[item_name] = seeding
 
 	if hoe:
 		print("=== HOE DEBUG ===")
@@ -52,14 +42,6 @@ func _ready() -> void:
 			print("  child:", c, "class:", c.get_class(), "script:", c.get_script())
 	else:
 		print("❌ sickle not found!")
-	#if hoe:
-		#hoe.player_inventory = player_inventory
-	#if sickle:
-		#sickle.player_inventory = player_inventory
-	#if seeding:
-		#seeding.player_inventory = player_inventory
-	# Sau đó để nguyên các dòng cũ bên dưới
-	#update_tool_visibility("none")
 
 	# Bind camera
 	if camera_ref_path != NodePath():
@@ -68,20 +50,18 @@ func _ready() -> void:
 		push_error("Player.gd: Chưa gán camera_ref_path (kéo SpringArm3D/Yaw vào).")
 		set_physics_process(false)
 
-	# Kết nối signal khi inventory đổi item
-	#player_inventory.active_item_changed.connect(_on_active_item_changed)
-
 	_set_mouse_captured(true)
 	anim.animation_finished.connect(_on_anim_finished)
 
-
-#func _on_active_item_changed(item_name: String) -> void:
-	#current_tool_name = HotBar.active_item.item_name
-	#print("=== ACTIVE ITEM CHANGED ===")
-	#print("Inventory active item:", player_inventory.get_active_item())
-	#print("Current tool name:", current_tool_name)
-	#update_tool_visibility(item_name)
-
+	## HighLightBox Shader Code Only
+	#var mat:= StandardMaterial3D.new()
+	#mat.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
+	#mat.albedo_texture = preload("res://Textures/FrameUI/FrameHighlight.png")
+	#mat.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
+	#mat.no_depth_test = true
+	#mat.albedo_color = Color(1, 1, 1, 0.9)
+	#hl_select.material_override = mat
+	hl_select.visible = false
 func _process(_delta):
 	current_tool_name = HotBar.active_item.item_name
 	if not ground_gen:
@@ -91,34 +71,33 @@ func _process(_delta):
 	if data.is_empty():
 		print("⚠ block_data chưa được khởi tạo!")
 		return
-	var hit_pos = interact_ray.get_collision_point()
-	var grid_pos = ground_gen.get_grid_pos_from_world(hit_pos)
 
-	#var grid_pos: Vector2i = ground_gen.get_grid_pos_from_world(global_position)
+	if interact_ray.is_colliding():
+		var hit_pos = interact_ray.get_collision_point()
+		var grid_pos = ground_gen.get_grid_pos_from_world(hit_pos)
 
-	if grid_pos.x < 0 or grid_pos.y < 0 or grid_pos.x >= data.size() or grid_pos.y >= data[0].size():
-		print("⚠ Ngoài giới hạn:", grid_pos, "| Map size:", Vector2i(data.size(), data[0].size()))
-		return
+		if grid_pos.x < 0 or grid_pos.y < 0 or grid_pos.x >= data.size() or grid_pos.y >= data[0].size():
+			hl_select.visible = false
+			return
 
-	if grid_pos != last_block_pos:
-		var block = data[grid_pos.x][grid_pos.y]
-		print("Block hiện tại:",grid_pos, "| Mode:", block.mode)
-		last_block_pos = grid_pos
+		## Print Block Location and Mode
+		if grid_pos != last_block_pos:
+			var block = data[grid_pos.x][grid_pos.y]
+			print("Block hiện tại:", grid_pos, "| Mode:", block.mode)
+			last_block_pos = grid_pos
+			print("Đang trỏ vào ô:", grid_pos)
+
+		## Highlighting Block: Always active 
+		var world_pos = ground_gen.get_world_pos_from_grid(grid_pos)
+		hl_select.global_position = world_pos + Vector3(0, 0.02, 0)
+		hl_select.scale = Vector3(ground_gen.renderer.spacing, 1, ground_gen.renderer.spacing)
+		hl_select.global_rotation = Vector3.ZERO 
+		hl_select.visible = true
+	else:
+		## Hide block when ray doenst hit
+		hl_select.visible = false
 
 
-
-
-#func update_tool_visibility(current_item: String) -> void:
-	# Ẩn tất cả tool
-	#for item in Inventory.slots:
-		#tool.visible = false
-
-	# Hiện tool đang cầm (nếu có)
-	#if current_item in tool_map:
-		#tool_map[current_item].visible = true
-	#else:
-		# Không có tool (slot rỗng)
-		#current_tool_name = "none"
 
 
 func _unhandled_input(event: InputEvent) -> void:
@@ -187,45 +166,45 @@ func _on_anim_finished(name: String) -> void:
 
 
 func _physics_process(delta: float) -> void:
-	# Gravity
+	## Gravity
 	if use_gravity and not is_on_floor():
 		velocity += get_gravity() * delta
 	else:
 		velocity.y = 0.0
 
-	# Đang bận thì đứng yên
+	## Stop Moving if Busy
 	if is_busy:
 		velocity.x = 0.0
 		velocity.z = 0.0
 		move_and_slide()
 		return
 
-	# Interact mode thì đứng yên
+	## Stop Moving if Interacting
 	if not mouse_captured:
 		velocity.x = lerpf(velocity.x, 0.0, clampf(accel * delta, 0.0, 1.0))
 		velocity.z = lerpf(velocity.z, 0.0, clampf(accel * delta, 0.0, 1.0))
 		move_and_slide()
 		return
 
-	# Input movement
+	## Input
 	var iv: Vector2 = Input.get_vector("left", "right", "back", "forward")
 	if iv.length() > 1.0:
 		iv = iv.normalized()
 
-	# Hướng theo yaw camera
+	## Hướng theo yaw camera
 	var eul: Vector3 = cam_ref.global_transform.basis.get_euler()
 	var cam_yaw: float = eul.y
 	var forward: Vector3 = Vector3(-sin(cam_yaw), 0.0, -cos(cam_yaw))
 	var right: Vector3 = Vector3(cos(cam_yaw), 0.0, -sin(cam_yaw))
 	var move_dir: Vector3 = right * iv.x + forward * iv.y
 
-	# Animation
+	## Animation
 	if move_dir.length() > 0.0:
 		anim.play("Walking")
 	else:
 		anim.play("Idle1")
 
-	# Vận tốc mục tiêu
+	## Velocity
 	var target_vel: Vector3 = move_dir * move_speed
 	var k: float = clampf(accel * delta, 0.0, 1.0)
 	velocity.x = lerpf(velocity.x, target_vel.x, k)
@@ -233,7 +212,7 @@ func _physics_process(delta: float) -> void:
 
 	move_and_slide()
 
-	# Xoay nhân vật theo hướng di chuyển
+	## Rotate on moving direction
 	if move_dir.length() > 0.0:
 		var target_yaw: float = atan2(-move_dir.x, -move_dir.z)
 		rotation.y = lerp_angle(rotation.y, target_yaw, 10.0 * delta)

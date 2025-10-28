@@ -1,7 +1,7 @@
 [gd_scene load_steps=16 format=3 uid="uid://c2mndlfrs1dsl"]
 
 [ext_resource type="PackedScene" uid="uid://y055erqk78ec" path="res://model/building/SimpleHouseVer2.glb" id="1_ftsh5"]
-[ext_resource type="Texture2D" uid="uid://1gysjnj7jqbq" path="res://assets/NhaSan3_ImphenziaPalette01-256-Gradient.png" id="2_ud8fd"]
+[ext_resource type="Texture2D" uid="uid://1gysjnj7jqbq" path="res://assets/ImphenziaPalette01-256-Gradient.png" id="2_ud8fd"]
 [ext_resource type="Material" uid="uid://bb43ngplsfis2" path="res://addons/flexible_toon_shader/FlexibleToonMaterial.tres" id="2_x0w2x"]
 [ext_resource type="Script" uid="uid://dvc8yikg61w6b" path="res://modelTscn/building/house/door_area_3d.gd" id="3_ud8fd"]
 [ext_resource type="PackedScene" uid="uid://o1wmcaqylahd" path="res://Scene/InBuilding/house_inside.tscn" id="4_jl1y3"]

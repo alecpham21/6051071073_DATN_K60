@@ -1,4 +1,4 @@
-[gd_scene load_steps=39 format=4 uid="uid://bbvhog32snru6"]
+[gd_scene load_steps=40 format=4 uid="uid://bbvhog32snru6"]
 
 [ext_resource type="Script" uid="uid://hctai00r4njf" path="res://world.gd" id="1_dwbse"]
 [ext_resource type="Script" uid="uid://bsrl0vcdxurk1" path="res://Camera_spring_arm.gd" id="3_036b0"]
@@ -11,6 +11,7 @@
 [ext_resource type="Script" uid="uid://bnk70dvo86xld" path="res://Scripts/player_inventory.gd" id="7_pkg7o"]
 [ext_resource type="Shader" uid="uid://bpre3j5j2h6bt" path="res://LeafShader.gdshader" id="8_cbp6q"]
 [ext_resource type="PackedScene" uid="uid://b7eaclg4jipob" path="res://ui/hud.tscn" id="8_gbfbk"]
+[ext_resource type="ArrayMesh" uid="uid://baypagydj3poq" path="res://modelTscn/plant/grass/Grass_ver2.tres" id="9_cbp6q"]
 [ext_resource type="Shader" uid="uid://kimc5meeodlx" path="res://Shader/sky_shader_level2.gdshader" id="11_k3n1d"]
 [ext_resource type="Texture2D" uid="uid://bj14akt05culg" path="res://Shader/epic_sky.jpg" id="12_2o6r5"]
 [ext_resource type="Shader" uid="uid://d1pnwkrkiec0c" path="res://Shader/cloud_tét.gdshader" id="12_k3n1d"]
@@ -26,11 +27,11 @@ size = Vector2(4, 4)
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_dwbse"]
 render_priority = 0
 shader = ExtResource("3_aqk2v")
-shader_parameter/lightIntensity = 4.55
-shader_parameter/lineAlpha = 0.64
+shader_parameter/lightIntensity = 1.25
+shader_parameter/lineAlpha = 0.7
 shader_parameter/useLighting = true
-shader_parameter/lineHighlight = 0.2
-shader_parameter/lineShadow = 5.12
+shader_parameter/lineHighlight = 0.09
+shader_parameter/lineShadow = 0.58
 
 [sub_resource type="QuadMesh" id="QuadMesh_2u3nc"]
 flip_faces = true
@@ -42,7 +43,7 @@ shader = ExtResource("3_hiqwa")
 shader_parameter/depth_threshold = 0.315
 shader_parameter/reverse_depth_threshold = 0.076
 shader_parameter/normal_threshold = 0.802
-shader_parameter/darken_amount = 0.21
+shader_parameter/darken_amount = 0.0
 shader_parameter/lighten_amount = 2.39
 shader_parameter/normal_edge_bias = Vector3(1, 1, 1)
 shader_parameter/light_direction = Vector3(-0.96, -0.18, 0.2)
@@ -55,7 +56,7 @@ size = Vector3(1, 0.183594, 1)
 [sub_resource type="BoxMesh" id="BoxMesh_udxuc"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_udxuc"]
-albedo_color = Color(0.314667, 0.610191, 0.283366, 1)
+albedo_color = Color(0.215309, 0.42919, 0.192611, 1)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ikiii"]
 albedo_color = Color(0.300498, 0.353294, 0.258608, 1)
@@ -160,6 +161,7 @@ sky_material = SubResource("ShaderMaterial_ikiii")
 
 [sub_resource type="Environment" id="Environment_ic0uy"]
 background_mode = 2
+background_energy_multiplier = 0.85
 sky = SubResource("Sky_cbp6q")
 ambient_light_color = Color(0.176419, 0.176419, 0.176419, 1)
 fog_mode = 1
@@ -248,7 +250,12 @@ mat_cut = SubResource("StandardMaterial3D_ikiii")
 mat_tilled = SubResource("StandardMaterial3D_cbp6q")
 dark_grass_mesh = SubResource("ArrayMesh_26xuy")
 light_grass_mesh = SubResource("ArrayMesh_ikiii")
-grass_spacing = 1.1
+grass_mesh = ExtResource("9_cbp6q")
+grass_scale_min = 0.3
+grass_scale_max = 0.5
+grass_count_per_block = 300
+grass_spawn_chance = 0.05
+grass_spacing = 0.34
 max_grass_per_block = 1
 decorative_grass_chance = 0.05
 
@@ -262,8 +269,8 @@ script = ExtResource("7_pkg7o")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(0.920737, 0.0568298, 0.386023, -0.372582, -0.165744, 0.913078, 0.115871, -0.98453, -0.131433, 0, 1.37714, 0)
-light_color = Color(0.86012, 0.825357, 0.780018, 1)
-light_energy = 0.859
+light_color = Color(0.902806, 0.819778, 0.677108, 1)
+light_energy = 0.805
 shadow_enabled = true
 shadow_opacity = 0.83
 shadow_blur = 0.0

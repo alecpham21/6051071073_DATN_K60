@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://s1cqa8qyjm3b"]
 
-[ext_resource type="Texture2D" uid="uid://1gysjnj7jqbq" path="res://assets/NhaSan3_ImphenziaPalette01-256-Gradient.png" id="1_l8qwl"]
+[ext_resource type="Texture2D" uid="uid://1gysjnj7jqbq" path="res://assets/ImphenziaPalette01-256-Gradient.png" id="1_l8qwl"]
 [ext_resource type="ArrayMesh" uid="uid://bcpcj3v2ep5fl" path="res://modelTscn/plant/wheat/GroundWheatMidSingle.tres" id="2_d3jw3"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_io1aj"]

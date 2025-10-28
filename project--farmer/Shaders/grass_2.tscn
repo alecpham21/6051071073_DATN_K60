@@ -1,0 +1,21 @@
+[gd_scene load_steps=6 format=3 uid="uid://b0uxchrpchcn3"]
+
+[ext_resource type="PackedScene" uid="uid://chi34fy318afc" path="res://model/grass/Grass.glb" id="1_qutag"]
+[ext_resource type="Shader" uid="uid://dfmrktbhshxrj" path="res://Shaders/Grass_shader_vecY.gdshader" id="2_b4q7r"]
+[ext_resource type="ArrayMesh" uid="uid://bkudxf43cenay" path="res://Plant/grass/grass_ver_2.tres" id="2_rkww0"]
+[ext_resource type="Texture2D" uid="uid://1gysjnj7jqbq" path="res://assets/ImphenziaPalette01-256-Gradient.png" id="3_b4q7r"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_rkww0"]
+render_priority = 0
+shader = ExtResource("2_b4q7r")
+shader_parameter/leaf_texture = ExtResource("3_b4q7r")
+shader_parameter/leaf_color = Vector4(1, 1, 1, 1)
+shader_parameter/wind_strength = 0.2
+shader_parameter/wind_speed = 2.0
+shader_parameter/alpha_cutoff = 0.5
+
+[node name="Grass2" instance=ExtResource("1_qutag")]
+
+[node name="Grass" parent="." index="0"]
+mesh = ExtResource("2_rkww0")
+surface_material_override/0 = SubResource("ShaderMaterial_rkww0")

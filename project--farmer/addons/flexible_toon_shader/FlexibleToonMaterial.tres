@@ -1,7 +1,7 @@
 [gd_resource type="ShaderMaterial" load_steps=5 format=3 uid="uid://bb43ngplsfis2"]
 
 [ext_resource type="Shader" uid="uid://sy0jqm2sqqwl" path="res://addons/flexible_toon_shader/flexible_toon.gdshader" id="1_pis2y"]
-[ext_resource type="Texture2D" uid="uid://1gysjnj7jqbq" path="res://assets/NhaSan3_ImphenziaPalette01-256-Gradient.png" id="2_jc6ge"]
+[ext_resource type="Texture2D" uid="uid://1gysjnj7jqbq" path="res://assets/ImphenziaPalette01-256-Gradient.png" id="2_jc6ge"]
 
 [sub_resource type="Gradient" id="Gradient_leuyj"]
 offsets = PackedFloat32Array(0, 0.45082, 1)

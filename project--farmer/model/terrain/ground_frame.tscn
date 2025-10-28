@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://ct3dfh117wqmh"]
 
 [ext_resource type="PackedScene" uid="uid://dpbxprnux8cid" path="res://terrain/GroundFrame.glb" id="1_bv0mc"]
-[ext_resource type="Texture2D" uid="uid://1gysjnj7jqbq" path="res://assets/NhaSan3_ImphenziaPalette01-256-Gradient.png" id="2_7txfd"]
+[ext_resource type="Texture2D" uid="uid://1gysjnj7jqbq" path="res://assets/ImphenziaPalette01-256-Gradient.png" id="2_7txfd"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4h4o4"]
 albedo_texture = ExtResource("2_7txfd")

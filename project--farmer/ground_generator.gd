@@ -12,7 +12,7 @@ class_name GroundGenerator
 @export var border_tree_count : int = 40
 @export var border_offset : float = 2.0
 @export var outer_tree_count : int = 60
-@export var outer_offset : float = 5.0  # vòng trong hơn border
+@export var outer_offset : float = 5.0
 
 #var _block = preload("res://modelTscn/block/block_ground.tscn")
 var _tree = preload("res://model/tree/TreeVer1.tscn")
@@ -29,7 +29,6 @@ func _ready() -> void:
 	for x in range(ground_extents.x):
 		for z in range(ground_extents.y):
 			renderer.set_mode(x, z, 0)
-	#gen_ground(ground_extents)
 	_spawn_border_trees()
 	_spawn_outer_trees()
 	_create_ground_collision()
@@ -42,14 +41,6 @@ func setup_data():
 			var d = BlockGroundData.new()
 			d.mode = BlockGroundData.Mode.GRASS
 			block_data[x].append(d)
-##Old but Function
-#func setup_data():
-	#block_data.resize(ground_extents.x)
-	#for x in range(ground_extents.x):
-		#block_data[x] = []
-		#for z in range(ground_extents.y):
-			#block_data[x].append(BlockGroundData.new())
-
 
 func gen_ground(extents:Vector2i):
 	var start_pos = Vector3(-extents.x / 2, 0, -extents.y / 2)
@@ -157,3 +148,15 @@ func get_grid_pos_from_world(world_pos: Vector3) -> Vector2i:
 	gz = clamp(gz, 0, ground_extents.y - 1)
 
 	return Vector2i(gx, gz)
+
+## Trả về world position trung tâm ô đất
+func get_world_pos_from_grid(grid_pos: Vector2i) -> Vector3:
+	var spacing := renderer.spacing
+	var half_x := ground_extents.x * spacing / 2.0
+	var half_z := ground_extents.y * spacing / 2.0
+
+	# Tính vị trí trung tâm ô
+	var world_x = grid_pos.x * spacing - half_x + spacing / 2.0
+	var world_z = grid_pos.y * spacing - half_z + spacing / 2.0
+
+	return Vector3(world_x, 0.0, world_z)

@@ -1,6 +1,6 @@
 [gd_scene load_steps=31 format=4 uid="uid://lulyx1wixeco"]
 
-[ext_resource type="Texture2D" uid="uid://1gysjnj7jqbq" path="res://assets/NhaSan3_ImphenziaPalette01-256-Gradient.png" id="2_hqtel"]
+[ext_resource type="Texture2D" uid="uid://1gysjnj7jqbq" path="res://assets/ImphenziaPalette01-256-Gradient.png" id="2_hqtel"]
 [ext_resource type="Script" uid="uid://b8uwlbndebh26" path="res://Scripts/player_hoe.gd" id="2_onrkg"]
 [ext_resource type="Script" uid="uid://bgjptgcrg2llq" path="res://seeding.gd" id="3_i3pqv"]
 [ext_resource type="Script" uid="uid://5rrequ0bhhjs" path="res://player_sickle.gd" id="5_2hs0m"]

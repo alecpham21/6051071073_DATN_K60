@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://1gysjnj7jqbq"
-path.s3tc="res://.godot/imported/NhaSan3_ImphenziaPalette01-256-Gradient.png-59081998821c9ba1a300c4a659a15c30.s3tc.ctex"
+path.s3tc="res://.godot/imported/ImphenziaPalette01-256-Gradient.png-98f74b4a961f6f8bc7e4af2f56c23edb.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -14,8 +14,8 @@ generator_parameters={
 
 [deps]
 
-source_file="res://assets/NhaSan3_ImphenziaPalette01-256-Gradient.png"
-dest_files=["res://.godot/imported/NhaSan3_ImphenziaPalette01-256-Gradient.png-59081998821c9ba1a300c4a659a15c30.s3tc.ctex"]
+source_file="res://assets/ImphenziaPalette01-256-Gradient.png"
+dest_files=["res://.godot/imported/ImphenziaPalette01-256-Gradient.png-98f74b4a961f6f8bc7e4af2f56c23edb.s3tc.ctex"]
 
 [params]
 

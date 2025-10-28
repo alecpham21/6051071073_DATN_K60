@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://cgbo613ig4wgd" path="res://model/building/UncleRoom.glb" id="1_ctd6l"]
 [ext_resource type="Texture2D" uid="uid://bsjifq4m2edde" path="res://model/building/Pixelated Wooden Planks with Beams.png" id="2_8xspc"]
-[ext_resource type="Texture2D" uid="uid://1gysjnj7jqbq" path="res://assets/NhaSan3_ImphenziaPalette01-256-Gradient.png" id="3_ls28h"]
+[ext_resource type="Texture2D" uid="uid://1gysjnj7jqbq" path="res://assets/ImphenziaPalette01-256-Gradient.png" id="3_ls28h"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2jl3l"]
 albedo_texture = ExtResource("2_8xspc")
