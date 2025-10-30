@@ -198,9 +198,9 @@ func spawn_decorative_grass():
 				# scale khác nhau cho dark/light
 				var scale_vec: Vector3
 				if variant == "dark":
-					scale_vec = Vector3(randf_range(0.4, 0.6), 0.7, 0.8)
+					scale_vec = Vector3(randf_range(0.3, 0.5), 0.7, 0.8)
 				else:
-					scale_vec = Vector3(randf_range(0.2, 0.5), 0.4, 0.7)
+					scale_vec = Vector3(randf_range(0.2, 0.4), 0.4, 0.7)
 
 				var basis_instance = basis_pair.scaled(scale_vec)
 				var transform_instance = Transform3D(basis_instance, pos_instance)
@@ -286,14 +286,14 @@ func set_mode(x: int, z: int, mode: int, variant: int = 0):
 				mm_grass_decor.set_instance_transform(slot, Transform3D())
 			grass_index_per_block[block_idx].clear()
 
-
-	# Chọn màu/material dựa trên variant
-	if variant == 1 and mode == BlockGroundData.Mode.GRASS:
-		inst_grass.material_override.albedo_color = Color(0.2, 0.7, 0.2) # dark
-	elif variant == 2 and mode == BlockGroundData.Mode.GRASS:
-		inst_grass.material_override.albedo_color = Color(0.4, 0.9, 0.4) # light
-	else:
-		inst_grass.material_override.albedo_color = Color(0.3, 0.8, 0.3)
+#
+	## Chọn màu/material dựa trên variant
+	#if variant == 1 and mode == BlockGroundData.Mode.GRASS:
+		#inst_grass.material_override.albedo_color = Color(0.2, 0.7, 0.2) # dark
+	#elif variant == 2 and mode == BlockGroundData.Mode.GRASS:
+		#inst_grass.material_override.albedo_color = Color(0.4, 0.9, 0.4) # light
+	#else:
+		#inst_grass.material_override.albedo_color = Color(0.3, 0.8, 0.3)
 
 	match mode:
 		BlockGroundData.Mode.GRASS:
