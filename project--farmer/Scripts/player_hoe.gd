@@ -1,7 +1,6 @@
 extends Node3D
 
 @onready var cast: RayCast3D = $"../../../../../HoeCast3D"
-@onready var player_inventory = get_node("/root/World/PlayerInventory")
 @onready var ground_gen = get_tree().get_first_node_in_group("ground_generator")
 
 var item_active := true
@@ -31,13 +30,7 @@ func _process(delta: float) -> void:
 
 func is_holding_hoe() ->bool:
 	return HotBar.active_item.item_name == ItemNames.hoe
-	#if player_inventory == null:
-		#return false
-	#var slot_index = player_inventory.active_item_slot
-	#var item_data = player_inventory.inventory[slot_index]
-	#var item_name = item_data["item_name"]
-	#print("Active slot:", slot_index, "Item:", item_name)
-	#return item_name == "hoe"
+
 
 func swing_hoe() -> void:
 	cast.force_raycast_update()
