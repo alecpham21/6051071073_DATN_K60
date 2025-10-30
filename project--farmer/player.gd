@@ -62,6 +62,8 @@ func _ready() -> void:
 	#mat.albedo_color = Color(1, 1, 1, 0.9)
 	#hl_select.material_override = mat
 	hl_select.visible = false
+
+
 func _process(_delta):
 	current_tool_name = HotBar.active_item.item_name
 	if not ground_gen:
@@ -158,7 +160,7 @@ func _on_anim_finished(name: String) -> void:
 			seeding.plant_seed(HotBar.active_item.item_name)
 			is_busy = false
 
-		"CutGrass_Sickle":
+		"Cutting_Plant":
 			if sickle and sickle.has_method("swing_sickle"):
 				sickle.swing_sickle()
 			is_busy = false
