@@ -56,10 +56,10 @@ size = Vector3(1, 0.183594, 1)
 [sub_resource type="BoxMesh" id="BoxMesh_udxuc"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_udxuc"]
-albedo_color = Color(0.215309, 0.42919, 0.192611, 1)
+albedo_color = Color(0.419237, 0.709034, 0.292859, 1)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ikiii"]
-albedo_color = Color(0.300498, 0.353294, 0.258608, 1)
+albedo_color = Color(0.360283, 0.528223, 0.290949, 1)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_cbp6q"]
 albedo_color = Color(0.386611, 0.237709, 0.121798, 1)
@@ -270,7 +270,7 @@ script = ExtResource("7_pkg7o")
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(0.920737, 0.0568298, 0.386023, -0.372582, -0.165744, 0.913078, 0.115871, -0.98453, -0.131433, 0, 1.37714, 0)
 light_color = Color(0.902806, 0.819778, 0.677108, 1)
-light_energy = 0.805
+light_energy = 0.7
 shadow_enabled = true
 shadow_opacity = 0.83
 shadow_blur = 0.0
