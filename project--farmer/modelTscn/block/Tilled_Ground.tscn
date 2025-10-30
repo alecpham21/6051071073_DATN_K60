@@ -1,0 +1,43 @@
+[gd_scene load_steps=4 format=4 uid="uid://ua8k728bgn"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_nq8h3"]
+albedo_color = Color(0.507807, 0.312793, 0.0517251, 1)
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_0ggln"]
+_surfaces = [{
+"aabb": AABB(-1.06132, 0.00426085, -1.06132, 2.12264, 0.160717, 2.12264),
+"format": 34896613377,
+"index_count": 54,
+"index_data": PackedByteArray("DAACAAAADAABAAIADQAMAAAADQAAAAcACgANAAcACgAHAAsACAANAAoACAAOAA0ADgAMAA0ACQAOAAgACQAGAA4ADgAPAAwABgAPAA4ADwABAAwABgADAA8ADwAEAAEAAwAEAA8AAwAFAAQA"),
+"lods": [0.101548, PackedByteArray("AAABAAIAAwABAAAAAwAEAAEAAwAFAAQABgADAAAABgAAAAcACAAGAAcACQAGAAgACAAHAAoACgAHAAsA")],
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 16,
+"vertex_data": PackedByteArray("///7NVVVAACpqvs1AAAAAND4AAAuBwAAAAD7NVVVAABVVfs1AAAAAC4HAAAuBwAAAAD7NamqAAD///s1qaoAAFVV+zX//wAALgcAAND4AACpqvs1//8AAND4AADQ+AAA/LH//wJOAAD8sf///LEAAAJO///8sQAAAk7//wJOAAA=")
+}]
+blend_shape_mode = 0
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_fy6jm"]
+resource_name = "Tilled_Ground_Plane"
+_surfaces = [{
+"aabb": AABB(-1.06132, 0.00426085, -1.06132, 2.12264, 0.160717, 2.12264),
+"attribute_data": PackedByteArray("//9UVamqAAD//wAAAABVVVRVAAAAAAAAAACqqv//qapVVf//AAD//6qq////////qapVVamqAACqqv//qaqqqqmqqqr//1RV//+pqqmqVVUAAKqqVFVVVVRVqqoAAFVVVFWqqqmqVVWpqqqqVFVVVVRVqqpVVf//qaqqqlRVqqpUVQAAVFVVVVRVVVWpqlVV"),
+"format": 34896613399,
+"index_count": 54,
+"index_data": PackedByteArray("DAACAAAADAANAAIADgAHAAsADgAPAAcAEAARABIAEAATABEAFAAVABYAFAAXABUAGAAZABoAGAAbABkACQAcAB0ACQAGABwACAAeAAoACAAfAB4AAwAgACEAAwAFACAAIgABACMAIgAEAAEA"),
+"lods": [0.101548, PackedByteArray("AAABAAIAAwABAAAAAwAEAAEAAwAFAAQABgADAAAABgAAAAcACAAGAAcACQAGAAgACAAHAAoACgAHAAsA")],
+"material": SubResource("StandardMaterial3D_nq8h3"),
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 36,
+"vertex_data": PackedByteArray("///7NVVV6cWpqvs1AADix9D4AAAuB/PFAAD7NVVV8sVVVfs1AADixy4HAAAuB/zFAAD7Namqirr///s1qaqHulVV+zX//xu4LgcAAND4h7qpqvs1//8buND4AADQ+IW6/LH//wJO88Wpqvs1AAD8xamq+zX//4e6/LH///yxirr8sf///LFcwP//+zVVVW7A///7NamqGsD8sf//Ak7SwAAA+zWpqlPAAk7//wJOZMACTv///LEawAAA+zVVVdLAAk7///yx/7/8sf//Ak7/v/yx///8sf+/Ak7//wJO/78CTv///LGHulVV+zX//4W6/LH///yxG7gCTv///LEbuFVV+zUAAPLFAk7//wJO6cUCTv//Ak7ix/yx//8CTuLHFfIBff///38m8ol9h/3Yjf///38R/seNofPAj03wGnP///9/F/Owj////39d8I5yJvKJfTbyEX5N8BpzPfCicy3rYnUw61J2GeubcEHriXrb9NOUyvXPlJrw5JSI+ryU////f////3////9/////fxfzsI+N8qCP////f////3+H/diNAP3ojf///3////9/")
+}]
+blend_shape_mode = 0
+shadow_mesh = SubResource("ArrayMesh_0ggln")
+
+[node name="Tilled_Ground" type="Node3D"]
+transform = Transform3D(0.75, 0, 0, 0, 0.75, 0, 0, 0, 0.75, 0, 0, 0)
+
+[node name="Plane" type="MeshInstance3D" parent="."]
+mesh = SubResource("ArrayMesh_fy6jm")
+skeleton = NodePath("")
