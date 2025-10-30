@@ -27881,7 +27881,7 @@ mesh = SubResource("ArrayMesh_gtxn6")
 skin = SubResource("Skin_djtvk")
 
 [node name="BoneAttachment3D" type="BoneAttachment3D" parent="Jordax/rig/Skeleton3D"]
-transform = Transform3D(-0.770921, -0.556697, 0.414818, 0.64614, -0.512886, 0.663242, -0.0621926, 0.715363, 0.594542, -0.19922, 1.00613, 0.11917)
+transform = Transform3D(-0.770921, -0.556697, 0.414818, 0.64614, -0.512886, 0.663241, -0.0621926, 0.715362, 0.594542, -0.19922, 1.00613, 0.11917)
 bone_name = "DEF-hand.R"
 bone_idx = 51
 
@@ -27919,7 +27919,7 @@ transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0, 0, 
 script = ExtResource("6_k6ul3")
 
 [node name="SeedCast3D" type="RayCast3D" parent="."]
-transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0.081, 0.885, -0.527)
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0.081, 0.885, -1)
 target_position = Vector3(0, -1.27, 0)
 
 [node name="HoeCast3D" type="RayCast3D" parent="."]
