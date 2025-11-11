@@ -1,5 +1,5 @@
 class_name BlockGroundData
-enum Mode { GRASS, CUT, TILLED }
+enum Mode { GRASS, CUT, TILLED, PLANTED }
 
 var mode: Mode = Mode.GRASS
 var crop_ready: bool = false

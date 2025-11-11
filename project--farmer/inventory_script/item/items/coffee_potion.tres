@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="ItemDataConsumable" load_steps=4 format=3 uid="uid://d3pjlk6ev6gkq"]
+
+[ext_resource type="Script" uid="uid://8qjn0t0dq2pu" path="res://inventory_script/item/item_data_consumable.gd" id="1_utifa"]
+[ext_resource type="Texture2D" uid="uid://omvd8ed3fie6" path="res://inventory_script/item/#2 - Transparent Icons & Drop Shadow.png" id="2_ouabh"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tjbtd"]
+atlas = ExtResource("2_ouabh")
+region = Rect2(448, 480, 32, 32)
+
+[resource]
+script = ExtResource("1_utifa")
+stamina_value = 20
+name = "Coffee Potion"
+description = "Smell like coffee"
+stackable = true
+texture = SubResource("AtlasTexture_tjbtd")
+metadata/_custom_type_script = "uid://8qjn0t0dq2pu"

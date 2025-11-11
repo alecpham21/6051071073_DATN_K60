@@ -1,9 +1,9 @@
-[gd_scene load_steps=11 format=4 uid="uid://ci0buhmppcvbb"]
+[gd_scene load_steps=12 format=4 uid="uid://ci0buhmppcvbb"]
 
 [ext_resource type="Script" uid="uid://332mpg76dhvy" path="res://Plant/plant_base.gd" id="1_f5wae"]
-[ext_resource type="PackedScene" uid="uid://c08vlcycibqcj" path="res://Scene/CropItem/Wheat/wheat_item.tscn" id="2_h501o"]
+[ext_resource type="PackedScene" uid="uid://btpkxeoduqb6m" path="res://Scene/CropItem/Corn/Corn_Item.tscn" id="2_atyg8"]
 [ext_resource type="PackedScene" uid="uid://dxxymyp80cuk0" path="res://modelTscn/plant/CornEarlyBunch.tscn" id="2_iu07y"]
-[ext_resource type="Texture2D" uid="uid://djod1o4f3gi6w" path="res://Textures/Seed_texture/GreenSeed_ver2.png" id="3_atyg8"]
+[ext_resource type="Texture2D" uid="uid://dxl6xg3cnxwhy" path="res://Textures/Seed_texture/CornSeed_Tilled.png" id="3_atyg8"]
 [ext_resource type="PackedScene" uid="uid://fgd5t75vaat8" path="res://modelTscn/plant/CornMidBunch.tscn" id="3_h501o"]
 [ext_resource type="PackedScene" uid="uid://cu15c0rqq1l2b" path="res://modelTscn/plant/CornFinalBunch.tscn" id="4_atyg8"]
 
@@ -12,7 +12,7 @@ albedo_color = Color(0.567718, 0.330487, 0.123269, 1)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1egsg"]
 
-[sub_resource type="ArrayMesh" id="ArrayMesh_0ggln"]
+[sub_resource type="ArrayMesh" id="ArrayMesh_atyg8"]
 _surfaces = [{
 "aabb": AABB(-1.06132, 0.00426085, -1.06132, 2.12264, 0.160717, 2.12264),
 "format": 34896613377,
@@ -42,11 +42,13 @@ _surfaces = [{
 "vertex_data": PackedByteArray("///7NVVV6cWpqvs1AADix9D4AAAuB/PFAAD7NVVV8sVVVfs1AADixy4HAAAuB/zFAAD7Namqirr///s1qaqHulVV+zX//xu4LgcAAND4h7qpqvs1//8buND4AADQ+IW6/LH//wJO88Wpqvs1AAD8xamq+zX//4e6/LH///yxirr8sf///LFcwP//+zVVVW7A///7NamqGsD8sf//Ak7SwAAA+zWpqlPAAk7//wJOZMACTv///LEawAAA+zVVVdLAAk7///yx/7/8sf//Ak7/v/yx///8sf+/Ak7//wJO/78CTv///LGHulVV+zX//4W6/LH///yxG7gCTv///LEbuFVV+zUAAPLFAk7//wJO6cUCTv//Ak7ix/yx//8CTuLHFfIBff///38m8ol9h/3Yjf///38R/seNofPAj03wGnP///9/F/Owj////39d8I5yJvKJfTbyEX5N8BpzPfCicy3rYnUw61J2GeubcEHriXrb9NOUyvXPlJrw5JSI+ryU////f////3////9/////fxfzsI+N8qCP////f////3+H/diNAP3ojf///3////9/")
 }]
 blend_shape_mode = 0
-shadow_mesh = SubResource("ArrayMesh_0ggln")
+shadow_mesh = SubResource("ArrayMesh_atyg8")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_atyg8"]
 
 [node name="PlantCorn" type="Node3D"]
 script = ExtResource("1_f5wae")
-crop_item_scene = ExtResource("2_h501o")
+crop_item_scene = ExtResource("2_atyg8")
 texture_default = SubResource("StandardMaterial3D_atyg8")
 texture_seeding = ExtResource("3_atyg8")
 
@@ -78,3 +80,9 @@ visible = false
 
 [node name="CornFinalBunch" parent="ModelCorn/Ready" instance=ExtResource("4_atyg8")]
 transform = Transform3D(0.45, 0, 0, 0, 0.621, 0, 0, 0, 0.45, 0, 0, 0)
+
+[node name="Area3D" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.597341, 0)
+shape = SubResource("BoxShape3D_atyg8")

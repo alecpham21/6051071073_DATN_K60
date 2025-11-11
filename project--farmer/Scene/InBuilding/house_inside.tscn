@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://o1wmcaqylahd"]
+[gd_scene load_steps=12 format=3 uid="uid://o1wmcaqylahd"]
 
 [ext_resource type="Script" uid="uid://dc2vaxsvuh1vh" path="res://Scene/InBuilding/house_inside.gd" id="1_jkmmo"]
 [ext_resource type="PackedScene" uid="uid://bl1mg832slikq" path="res://modelTscn/building/house/uncle_room.tscn" id="1_me50k"]
@@ -7,8 +7,6 @@
 [ext_resource type="Script" uid="uid://bsrl0vcdxurk1" path="res://Camera_spring_arm.gd" id="5_2twfi"]
 [ext_resource type="PackedScene" uid="uid://xyhcp7k5jujw" path="res://characterModel/Jordax.tscn" id="6_v2v5f"]
 [ext_resource type="Script" uid="uid://5ej0tp0e5sk5" path="res://time_manager.gd" id="9_87avh"]
-[ext_resource type="Script" uid="uid://bnk70dvo86xld" path="res://Scripts/player_inventory.gd" id="10_vkefo"]
-[ext_resource type="PackedScene" uid="uid://b7eaclg4jipob" path="res://ui/hud.tscn" id="11_bw5yc"]
 
 [sub_resource type="QuadMesh" id="QuadMesh_5q01f"]
 flip_faces = true
@@ -88,15 +86,6 @@ max_zoom = 10.0
 fov = 69.0
 
 [node name="Player" parent="SubViewportContainer/SubViewport" groups=["player"] instance=ExtResource("6_v2v5f")]
-use_gravity = true
-camera_ref_path = NodePath("../SpringArm3D")
 
 [node name="TimeManager" type="Node" parent="." groups=["time_manager"]]
 script = ExtResource("9_87avh")
-
-[node name="PlayerInventory" type="Node" parent="." groups=["player_inventory"]]
-script = ExtResource("10_vkefo")
-
-[node name="HUD" parent="." instance=ExtResource("11_bw5yc")]
-
-[editable path="HUD"]

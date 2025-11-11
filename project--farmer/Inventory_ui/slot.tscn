@@ -1,0 +1,46 @@
+[gd_scene load_steps=4 format=3 uid="uid://cmaas2sclopj4"]
+
+[ext_resource type="Script" uid="uid://voba167je6c5" path="res://Inventory_ui/slot.gd" id="1_4q0vt"]
+[ext_resource type="Texture2D" uid="uid://jajykroam2a6" path="res://model/itemFrame.png" id="2_qwgn1"]
+[ext_resource type="Texture2D" uid="uid://citblxe05jnmy" path="res://model/itemSelected.png" id="3_kfv3o"]
+
+[node name="Slot" type="PanelContainer"]
+custom_minimum_size = Vector2(64, 64)
+offset_right = 64.0
+offset_bottom = 64.0
+script = ExtResource("1_4q0vt")
+
+[node name="Frame" type="TextureRect" parent="."]
+layout_mode = 2
+texture = ExtResource("2_qwgn1")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_left = 3
+theme_override_constants/margin_top = 3
+theme_override_constants/margin_right = 3
+theme_override_constants/margin_bottom = 3
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer"]
+layout_mode = 2
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Selected" type="TextureRect" parent="MarginContainer"]
+layout_mode = 2
+texture = ExtResource("3_kfv3o")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="QuantityLabel" type="Label" parent="."]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 8
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 5
+text = "x69"
+
+[connection signal="gui_input" from="." to="." method="_on_gui_input"]

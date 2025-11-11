@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=3 uid="uid://dq7yemwgjrvnk"]
+
+[ext_resource type="Shader" uid="uid://bguo0qtyegd6e" path="res://ocean.gdshader" id="1_66djv"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_gc6pw"]
+render_priority = 0
+shader = ExtResource("1_66djv")
+shader_parameter/WATER_COL = Color(0.244652, 0.694802, 0.916359, 1)
+shader_parameter/WATER2_COL = Color(0.0588235, 0.529412, 0.776471, 1)
+shader_parameter/FOAM_COL = Color(0.87451, 0.988235, 1, 1)
+shader_parameter/distortion_speed = 10.275
+shader_parameter/tile = Vector2(71.84, 35.04)
+shader_parameter/offset = Vector2(0, 0)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_rvlll"]
+material = SubResource("ShaderMaterial_gc6pw")
+size = Vector2(120, 80)
+
+[node name="Water" type="Node3D"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("PlaneMesh_rvlll")

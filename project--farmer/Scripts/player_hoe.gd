@@ -9,7 +9,6 @@ var last_grid_pos: Vector2i = Vector2i(-1, -1)
 
 
 func _process(delta: float) -> void:
-	visible = HotBar.active_item.item_name == ItemNames.hoe
 	#print(HotBar.active_idx())
 	if ground_gen == null:
 		print("❌ ground_gen null rồi, path sai hoặc scene chưa load GroundGenerator")
@@ -28,8 +27,8 @@ func _process(delta: float) -> void:
 		last_grid_pos = Vector2i(-1, -1)
 
 
-func is_holding_hoe() ->bool:
-	return HotBar.active_item.item_name == ItemNames.hoe
+func is_holding_hoe():
+	print("is holding hoe")
 
 
 func swing_hoe() -> void:

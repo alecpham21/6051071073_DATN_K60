@@ -1,0 +1,64 @@
+[gd_scene load_steps=10 format=3 uid="uid://d2wgup4tot7gq"]
+
+[ext_resource type="PackedScene" uid="uid://cksqs5wjbldk3" path="res://model/train/OceanTrainTest.glb" id="1_t8ail"]
+[ext_resource type="Texture2D" uid="uid://1gysjnj7jqbq" path="res://assets/ImphenziaPalette01-256-Gradient.png" id="2_i8hna"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_eaxor"]
+albedo_texture = ExtResource("2_i8hna")
+roughness = 0.25
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0xfeu"]
+albedo_texture = ExtResource("2_i8hna")
+roughness = 0.25
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ldff0"]
+albedo_texture = ExtResource("2_i8hna")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_t8ail"]
+transparency = 1
+albedo_color = Color(0.717647, 1, 0.776471, 0.478431)
+metallic = 1.0
+roughness = 0.0
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_i8hna"]
+material = SubResource("StandardMaterial3D_t8ail")
+size = Vector2(5.955, 1.75)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_eaxor"]
+material = SubResource("StandardMaterial3D_t8ail")
+size = Vector2(3.8, 1.75)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_t8ail"]
+material = SubResource("StandardMaterial3D_t8ail")
+size = Vector2(1.785, 1.635)
+
+[node name="OceanTrainTest" instance=ExtResource("1_t8ail")]
+
+[node name="Ship" parent="." index="0"]
+surface_material_override/0 = SubResource("StandardMaterial3D_eaxor")
+
+[node name="Roof" parent="." index="1"]
+surface_material_override/0 = SubResource("StandardMaterial3D_0xfeu")
+
+[node name="Cube" parent="." index="2"]
+surface_material_override/0 = SubResource("StandardMaterial3D_ldff0")
+
+[node name="Window" type="MeshInstance3D" parent="." index="3"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, -1.82167, 2.59077, 1.63506)
+mesh = SubResource("PlaneMesh_i8hna")
+
+[node name="FrontSide" type="MeshInstance3D" parent="." index="4"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 3.14814, 2.59077, 1.41475)
+mesh = SubResource("PlaneMesh_eaxor")
+
+[node name="Front" type="MeshInstance3D" parent="." index="5"]
+transform = Transform3D(0.44818, 0.893943, -3.90755e-08, 0, -4.37114e-08, -1, -0.893943, 0.44818, -1.95906e-08, 5.17036, 2.59077, 0.787368)
+mesh = SubResource("PlaneMesh_t8ail")
+
+[node name="Front2" type="MeshInstance3D" parent="." index="6"]
+transform = Transform3D(0.447759, 0.894154, 3.90847e-08, 0, -4.37114e-08, 1, 0.894154, -0.447759, -1.95722e-08, 5.17036, 2.59077, -0.809266)
+mesh = SubResource("PlaneMesh_t8ail")
+
+[node name="Window2" type="MeshInstance3D" parent="." index="7"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, -1.82167, 2.59077, -1.51012)
+mesh = SubResource("PlaneMesh_i8hna")

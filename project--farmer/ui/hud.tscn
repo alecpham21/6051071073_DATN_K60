@@ -1,161 +1,39 @@
-[gd_scene load_steps=5 format=3 uid="uid://b7eaclg4jipob"]
+[gd_scene load_steps=2 format=3 uid="uid://b7eaclg4jipob"]
 
-[ext_resource type="Script" uid="uid://c0v0n8fndb21n" path="res://ui/inventory_ui.gd" id="1_rbyyf"]
-[ext_resource type="Script" uid="uid://d025vvtvskkl8" path="res://ui/slot.gd" id="2_7ihmi"]
-[ext_resource type="Texture2D" uid="uid://jajykroam2a6" path="res://model/itemFrame.png" id="2_546lt"]
-[ext_resource type="Texture2D" uid="uid://citblxe05jnmy" path="res://model/itemSelected.png" id="3_7ihmi"]
+[ext_resource type="PackedScene" uid="uid://cmaas2sclopj4" path="res://Inventory_ui/slot.tscn" id="2_276te"]
 
 [node name="HUD" type="CanvasLayer"]
 
-[node name="InventoryHUD" type="Control" parent="."]
+[node name="Control" type="Control" parent="."]
 layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
-script = ExtResource("1_rbyyf")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="InventoryHUD"]
+[node name="HBoxContainer" type="HBoxContainer" parent="Control"]
 layout_mode = 0
-offset_top = 602.0
+offset_top = 584.715
 offset_right = 1044.0
-offset_bottom = 649.0
+offset_bottom = 648.715
 alignment = 1
 
-[node name="Slot" type="Control" parent="InventoryHUD/HBoxContainer"]
-custom_minimum_size = Vector2(40, 0)
+[node name="Slot" parent="Control/HBoxContainer" instance=ExtResource("2_276te")]
 layout_mode = 2
-script = ExtResource("2_7ihmi")
 
-[node name="TextureRect" type="TextureRect" parent="InventoryHUD/HBoxContainer/Slot"]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
-texture = ExtResource("2_546lt")
-expand_mode = 1
-
-[node name="Selected" type="TextureRect" parent="InventoryHUD/HBoxContainer/Slot"]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
-texture = ExtResource("3_7ihmi")
-expand_mode = 1
-
-[node name="Slot2" type="Control" parent="InventoryHUD/HBoxContainer"]
-custom_minimum_size = Vector2(40, 0)
+[node name="Slot2" parent="Control/HBoxContainer" instance=ExtResource("2_276te")]
 layout_mode = 2
-script = ExtResource("2_7ihmi")
-slot_int = 1
 
-[node name="TextureRect" type="TextureRect" parent="InventoryHUD/HBoxContainer/Slot2"]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
-texture = ExtResource("2_546lt")
-expand_mode = 1
-
-[node name="Selected" type="TextureRect" parent="InventoryHUD/HBoxContainer/Slot2"]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
-texture = ExtResource("3_7ihmi")
-expand_mode = 1
-
-[node name="Slot3" type="Control" parent="InventoryHUD/HBoxContainer"]
-custom_minimum_size = Vector2(40, 0)
+[node name="Slot3" parent="Control/HBoxContainer" instance=ExtResource("2_276te")]
 layout_mode = 2
-script = ExtResource("2_7ihmi")
-slot_int = 2
 
-[node name="TextureRect" type="TextureRect" parent="InventoryHUD/HBoxContainer/Slot3"]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
-texture = ExtResource("2_546lt")
-expand_mode = 1
-
-[node name="Selected" type="TextureRect" parent="InventoryHUD/HBoxContainer/Slot3"]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
-texture = ExtResource("3_7ihmi")
-expand_mode = 1
-
-[node name="Slot4" type="Control" parent="InventoryHUD/HBoxContainer"]
-custom_minimum_size = Vector2(40, 0)
+[node name="Slot4" parent="Control/HBoxContainer" instance=ExtResource("2_276te")]
 layout_mode = 2
-script = ExtResource("2_7ihmi")
-slot_int = 3
 
-[node name="TextureRect" type="TextureRect" parent="InventoryHUD/HBoxContainer/Slot4"]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
-texture = ExtResource("2_546lt")
-expand_mode = 1
-
-[node name="Selected" type="TextureRect" parent="InventoryHUD/HBoxContainer/Slot4"]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
-texture = ExtResource("3_7ihmi")
-expand_mode = 1
-
-[node name="Slot5" type="Control" parent="InventoryHUD/HBoxContainer"]
-custom_minimum_size = Vector2(40, 0)
+[node name="Slot5" parent="Control/HBoxContainer" instance=ExtResource("2_276te")]
 layout_mode = 2
-script = ExtResource("2_7ihmi")
-slot_int = 4
 
-[node name="TextureRect" type="TextureRect" parent="InventoryHUD/HBoxContainer/Slot5"]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
-texture = ExtResource("2_546lt")
-expand_mode = 1
-
-[node name="Selected" type="TextureRect" parent="InventoryHUD/HBoxContainer/Slot5"]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
-texture = ExtResource("3_7ihmi")
-expand_mode = 1
-
-[node name="Slot6" type="Control" parent="InventoryHUD/HBoxContainer"]
-custom_minimum_size = Vector2(40, 0)
+[node name="Slot6" parent="Control/HBoxContainer" instance=ExtResource("2_276te")]
 layout_mode = 2
-script = ExtResource("2_7ihmi")
-slot_int = 5
-
-[node name="TextureRect" type="TextureRect" parent="InventoryHUD/HBoxContainer/Slot6"]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
-texture = ExtResource("2_546lt")
-expand_mode = 1
-
-[node name="Selected" type="TextureRect" parent="InventoryHUD/HBoxContainer/Slot6"]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
-texture = ExtResource("3_7ihmi")
-expand_mode = 1
-
-[node name="Slot7" type="Control" parent="InventoryHUD/HBoxContainer"]
-custom_minimum_size = Vector2(40, 0)
-layout_mode = 2
-script = ExtResource("2_7ihmi")
-slot_int = 6
-
-[node name="TextureRect" type="TextureRect" parent="InventoryHUD/HBoxContainer/Slot7"]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
-texture = ExtResource("2_546lt")
-expand_mode = 1
-
-[node name="Selected" type="TextureRect" parent="InventoryHUD/HBoxContainer/Slot7"]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
-texture = ExtResource("3_7ihmi")
-expand_mode = 1

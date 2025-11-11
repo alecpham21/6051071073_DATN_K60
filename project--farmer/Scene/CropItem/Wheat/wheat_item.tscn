@@ -1,8 +1,8 @@
 [gd_scene load_steps=2 format=3 uid="uid://c08vlcycibqcj"]
 
-[sub_resource type="BoxMesh" id="BoxMesh_lh3q1"]
+[ext_resource type="PackedScene" uid="uid://fpp7smsocfla" path="res://modelTscn/plant/wheat/wheat_item.tscn" id="1_flahv"]
 
 [node name="WheatItem" type="Node3D"]
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-mesh = SubResource("BoxMesh_lh3q1")
+[node name="Wheat_Item" parent="." instance=ExtResource("1_flahv")]
+transform = Transform3D(-0.0200176, 0, -0.9998, 0.99956, -0.0219022, -0.0200128, -0.0218978, -0.99976, 0.00043843, 0, 0, 0.367137)

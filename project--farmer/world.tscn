@@ -1,24 +1,32 @@
-[gd_scene load_steps=40 format=4 uid="uid://bbvhog32snru6"]
+[gd_scene load_steps=52 format=4 uid="uid://bbvhog32snru6"]
 
 [ext_resource type="Script" uid="uid://hctai00r4njf" path="res://world.gd" id="1_dwbse"]
 [ext_resource type="Script" uid="uid://bsrl0vcdxurk1" path="res://Camera_spring_arm.gd" id="3_036b0"]
 [ext_resource type="Shader" uid="uid://c6qhkhar3xobg" path="res://Shader/edge_detection.gdshader" id="3_aqk2v"]
 [ext_resource type="Shader" uid="uid://viqy3uwh6ns7" path="res://PixelShader.gdshader" id="3_hiqwa"]
+[ext_resource type="PackedScene" uid="uid://bnxu42mjbjp8x" path="res://player/main_farmer.tscn" id="5_26xuy"]
 [ext_resource type="Script" uid="uid://6577es050bku" path="res://ground_generator.gd" id="5_036b0"]
 [ext_resource type="Script" uid="uid://5ej0tp0e5sk5" path="res://time_manager.gd" id="5_dwbse"]
-[ext_resource type="PackedScene" uid="uid://xyhcp7k5jujw" path="res://characterModel/Jordax.tscn" id="6_k3n1d"]
+[ext_resource type="Script" uid="uid://coxl8vipyuvgd" path="res://inventory_script/inventory_data_equip.gd" id="6_4h6ng"]
 [ext_resource type="PackedScene" uid="uid://te52jubb0t6m" path="res://Scene/Ground/ground_renderer.tscn" id="7_hiqwa"]
-[ext_resource type="Script" uid="uid://bnk70dvo86xld" path="res://Scripts/player_inventory.gd" id="7_pkg7o"]
 [ext_resource type="Shader" uid="uid://bpre3j5j2h6bt" path="res://LeafShader.gdshader" id="8_cbp6q"]
-[ext_resource type="PackedScene" uid="uid://b7eaclg4jipob" path="res://ui/hud.tscn" id="8_gbfbk"]
 [ext_resource type="ArrayMesh" uid="uid://baypagydj3poq" path="res://modelTscn/plant/grass/Grass_ver2.tres" id="9_cbp6q"]
+[ext_resource type="PackedScene" uid="uid://b2fs6n6m2oqn0" path="res://modelTscn/storage/WoodenCrate.tscn" id="10_26xuy"]
 [ext_resource type="Shader" uid="uid://kimc5meeodlx" path="res://Shader/sky_shader_level2.gdshader" id="11_k3n1d"]
+[ext_resource type="Script" uid="uid://csfrg4socg8bj" path="res://inventory_script/inventory_data.gd" id="11_wjb0r"]
 [ext_resource type="Texture2D" uid="uid://bj14akt05culg" path="res://Shader/epic_sky.jpg" id="12_2o6r5"]
 [ext_resource type="Shader" uid="uid://d1pnwkrkiec0c" path="res://Shader/cloud_tét.gdshader" id="12_k3n1d"]
+[ext_resource type="Script" uid="uid://bspkgwkxsy8mn" path="res://inventory_script/slot_data.gd" id="12_mc2jv"]
+[ext_resource type="Resource" uid="uid://cts13hjvusdcw" path="res://inventory_script/item/items/wheat.tres" id="13_bo7i5"]
 [ext_resource type="PackedScene" uid="uid://csnejiwkcvvuj" path="res://terrain/big_terrain_moutain.tscn" id="14_70uel"]
 [ext_resource type="PackedScene" uid="uid://ct3dfh117wqmh" path="res://model/terrain/ground_frame.tscn" id="16_2u3nc"]
 [ext_resource type="PackedScene" uid="uid://c2mndlfrs1dsl" path="res://modelTscn/building/house/simple_house_ver_2.tscn" id="16_udxuc"]
+[ext_resource type="Script" uid="uid://y0d42bllc0fd" path="res://inventory_script/inventory_interface.gd" id="17_26xuy"]
+[ext_resource type="PackedScene" uid="uid://470pnke8j1j2" path="res://Inventory_ui/inventory.tscn" id="17_cbp6q"]
 [ext_resource type="PackedScene" uid="uid://dknabkvrwdlgo" path="res://model/structure/wooden_railing_ver_1.tscn" id="17_udxuc"]
+[ext_resource type="PackedScene" uid="uid://cmaas2sclopj4" path="res://Inventory_ui/slot.tscn" id="19_bc84e"]
+[ext_resource type="PackedScene" uid="uid://dh4ns40qdxwam" path="res://Inventory_ui/hot_bar_inventory.tscn" id="23_bo7i5"]
+[ext_resource type="PackedScene" uid="uid://d3v1u6td3fyb6" path="res://inventory_script/item/pick_up_item/pick_up.tscn" id="25_mc2jv"]
 
 [sub_resource type="QuadMesh" id="QuadMesh_036b0"]
 flip_faces = true
@@ -53,6 +61,11 @@ shader_parameter/light_direction = Vector3(-0.96, -0.18, 0.2)
 [sub_resource type="BoxShape3D" id="BoxShape3D_udxuc"]
 size = Vector3(1, 0.183594, 1)
 
+[sub_resource type="Resource" id="Resource_k83mh"]
+script = ExtResource("6_4h6ng")
+slot_datas = Array[ExtResource("12_mc2jv")]([null])
+metadata/_custom_type_script = "uid://coxl8vipyuvgd"
+
 [sub_resource type="BoxMesh" id="BoxMesh_udxuc"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_udxuc"]
@@ -71,7 +84,7 @@ shader_parameter/leaf_color = Color(0.23469, 0.441225, 0.173158, 1)
 shader_parameter/wind_strength = 0.2
 shader_parameter/wind_speed = 2.0
 
-[sub_resource type="ArrayMesh" id="ArrayMesh_i0aew"]
+[sub_resource type="ArrayMesh" id="ArrayMesh_bc84e"]
 _surfaces = [{
 "aabb": AABB(-0.335667, -0.484598, 0.00362498, 0.671335, 0.969195, 1e-05),
 "format": 34896613377,
@@ -101,7 +114,7 @@ _surfaces = [{
 "vertex_data": PackedByteArray("PVf/f4oA+YD/////FQGwkMGo/3+KALuE/3+0xdcAo4P/PwTxBAFDkAAA//8VAUaN/39KOj4AKIj//wAAAACxl/8/OQ0NAGqOAAAAAAAAm4r/f/9/igD7g55r/3+KAJ+B/3//f///////f/9//3//f/9//3//f/9///////9//3//////////////////f/9/")
 }]
 blend_shape_mode = 0
-shadow_mesh = SubResource("ArrayMesh_i0aew")
+shadow_mesh = SubResource("ArrayMesh_bc84e")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_o45tv"]
 render_priority = 0
@@ -126,7 +139,18 @@ _surfaces = [{
 "vertex_data": PackedByteArray("PVf/f4oA+YD/////FQGwkMGo/3+KALuE/3+0xdcAo4P/PwTxBAFDkAAA//8VAUaN/39KOj4AKIj//wAAAACxl/8/OQ0NAGqOAAAAAAAAm4r/f/9/igD7g55r/3+KAJ+B/3//f///////f/9//3//f/9//3//f/9///////9//3//////////////////f/9/")
 }]
 blend_shape_mode = 0
-shadow_mesh = SubResource("ArrayMesh_i0aew")
+shadow_mesh = SubResource("ArrayMesh_bc84e")
+
+[sub_resource type="Resource" id="Resource_4h6ng"]
+script = ExtResource("12_mc2jv")
+item_data = ExtResource("13_bo7i5")
+quantity = 3
+metadata/_custom_type_script = "uid://bspkgwkxsy8mn"
+
+[sub_resource type="Resource" id="Resource_o3ebs"]
+script = ExtResource("11_wjb0r")
+slot_datas = Array[ExtResource("12_mc2jv")]([SubResource("Resource_4h6ng"), null, null, null, null])
+metadata/_custom_type_script = "uid://csfrg4socg8bj"
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_2o6r5"]
 render_priority = 0
@@ -175,6 +199,12 @@ volumetric_fog_density = 0.0005
 volumetric_fog_anisotropy = 0.9
 volumetric_fog_ambient_inject = 0.23
 
+[sub_resource type="Resource" id="Resource_mc2jv"]
+script = ExtResource("12_mc2jv")
+item_data = ExtResource("13_bo7i5")
+quantity = 3
+metadata/_custom_type_script = "uid://bspkgwkxsy8mn"
+
 [node name="World" type="Node3D"]
 script = ExtResource("1_dwbse")
 
@@ -206,7 +236,6 @@ surface_material_override/0 = SubResource("ShaderMaterial_dwbse")
 transform = Transform3D(1, 0, 0, 0, 0.00750488, 0.999972, 0, -0.999972, 0.00750488, 0.180526, -35.304, 0)
 extra_cull_margin = 16384.0
 mesh = SubResource("QuadMesh_2u3nc")
-skeleton = NodePath("../SpringArm3D/Camera3D")
 surface_material_override/0 = SubResource("ShaderMaterial_udxuc")
 
 [node name="SpringArm3D" type="SpringArm3D" parent="SubViewportContainer/SubViewport"]
@@ -214,7 +243,7 @@ transform = Transform3D(1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, 
 visible = false
 spring_length = 7.0
 script = ExtResource("3_036b0")
-player_path = NodePath("../Player")
+player_path = NodePath("../MainFarmer")
 max_zoom = 10.0
 
 [node name="Camera3D" type="Camera3D" parent="SubViewportContainer/SubViewport/SpringArm3D"]
@@ -232,7 +261,9 @@ skeleton = NodePath("../..")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.224822, 0)
 shape = SubResource("BoxShape3D_udxuc")
 
-[node name="Player" parent="SubViewportContainer/SubViewport" groups=["player"] instance=ExtResource("6_k3n1d")]
+[node name="MainFarmer" parent="SubViewportContainer/SubViewport" groups=["player"] instance=ExtResource("5_26xuy")]
+equip_inventory_data = SubResource("Resource_k83mh")
+use_gravity = true
 camera_ref_path = NodePath("../SpringArm3D")
 
 [node name="GroundGenerator" type="Node3D" parent="SubViewportContainer/SubViewport" groups=["ground_generator"]]
@@ -253,19 +284,18 @@ light_grass_mesh = SubResource("ArrayMesh_ikiii")
 grass_mesh = ExtResource("9_cbp6q")
 grass_scale_min = 0.3
 grass_scale_max = 0.5
-grass_count_per_block = 300
+grass_count_per_block = 10
 grass_spawn_chance = 0.05
 grass_spacing = 0.34
 max_grass_per_block = 1
 decorative_grass_chance = 0.05
 
+[node name="WoodenCrate" parent="SubViewportContainer/SubViewport" instance=ExtResource("10_26xuy")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.911861, 2.46392)
+inventory_data = SubResource("Resource_o3ebs")
+
 [node name="TimeManager" type="Node" parent="." groups=["time_manager"]]
 script = ExtResource("5_dwbse")
-
-[node name="PlayerInventory" type="Node" parent="." groups=["player_inventory"]]
-script = ExtResource("7_pkg7o")
-
-[node name="HUD" parent="." instance=ExtResource("8_gbfbk")]
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(0.920737, 0.0568298, 0.386023, -0.372582, -0.165744, 0.913078, 0.115871, -0.98453, -0.131433, 0, 1.37714, 0)
@@ -275,27 +305,92 @@ shadow_enabled = true
 shadow_opacity = 0.83
 shadow_blur = 0.0
 
-[node name="CloudShadow" type="MeshInstance3D" parent="."]
+[node name="Environment" type="Node3D" parent="."]
+
+[node name="BigTerrainMoutain" parent="Environment" instance=ExtResource("14_70uel")]
+transform = Transform3D(41.375, 0, 0, 0, 41.375, 0, 0, 0, 41.375, -0.373759, -2.67757, -0.241655)
+
+[node name="GroundFrame" parent="Environment" instance=ExtResource("16_2u3nc")]
+transform = Transform3D(6.83, 0, 0, 0, 6.83, 0, 0, 0, 6.83, -2.33437, -1.02769, -1.05087)
+
+[node name="GroundFrame2" parent="Environment" instance=ExtResource("16_2u3nc")]
+transform = Transform3D(9.905, 0, 0, 0, 9.905, 0, 0, 0, 9.905, -2.34504, 0.273685, -0.404768)
+
+[node name="WoodenRailingVer1" parent="Environment" instance=ExtResource("17_udxuc")]
+transform = Transform3D(1.645, 0, 0, 0, 1.3, 0, 0, 0, 1.645, 0, -0.169381, 0)
+
+[node name="SimpleHouseVer2" parent="Environment" instance=ExtResource("16_udxuc")]
+transform = Transform3D(-6.513e-08, 0, 1.49, 0, 1.49, 0, -1.49, 0, -6.513e-08, -7.13712, 1.10801, 3.11973e-07)
+
+[node name="CloudShadow" type="MeshInstance3D" parent="Environment"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.50035, 11.1946, 0)
 visible = false
 mesh = SubResource("PlaneMesh_ic0uy")
+skeleton = NodePath("../..")
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="InventoryInterface" type="Control" parent="UI"]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("17_26xuy")
+
+[node name="PlayerInventory" parent="UI/InventoryInterface" instance=ExtResource("17_cbp6q")]
+layout_mode = 0
+offset_left = 126.9
+offset_top = 251.0
+offset_right = 166.9
+offset_bottom = 291.0
+
+[node name="EquipInventory" parent="UI/InventoryInterface" instance=ExtResource("17_cbp6q")]
+layout_mode = 0
+offset_left = 126.9
+offset_top = 161.93
+offset_right = 166.9
+offset_bottom = 201.93
+
+[node name="ExternalInventory" parent="UI/InventoryInterface" instance=ExtResource("17_cbp6q")]
+visible = false
+layout_mode = 0
+offset_left = 599.3
+offset_top = 251.0
+offset_right = 639.3
+offset_bottom = 291.0
+
+[node name="GrabbedSlot" parent="UI/InventoryInterface" instance=ExtResource("19_bc84e")]
+visible = false
+modulate = Color(1, 1, 1, 0.52549)
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 0
+
+[node name="HotBarInventory" parent="UI" instance=ExtResource("23_bo7i5")]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -241.0
+offset_top = -74.0
+offset_right = 241.0
+offset_bottom = 0.0
+grow_horizontal = 2
+grow_vertical = 0
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_ic0uy")
 
-[node name="BigTerrainMoutain" parent="." instance=ExtResource("14_70uel")]
-transform = Transform3D(41.375, 0, 0, 0, 41.375, 0, 0, 0, 41.375, -0.373759, -2.67757, -0.241655)
+[node name="PickUp" parent="." instance=ExtResource("25_mc2jv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.2472, -2.43978)
+slot_data = SubResource("Resource_mc2jv")
 
-[node name="GroundFrame" parent="." instance=ExtResource("16_2u3nc")]
-transform = Transform3D(6.83, 0, 0, 0, 6.83, 0, 0, 0, 6.83, -2.33437, -1.02769, -1.05087)
+[connection signal="drop_slot_data" from="UI/InventoryInterface" to="." method="_on_inventory_interface_drop_slot_data"]
+[connection signal="drop_slot_data" from="UI/InventoryInterface" to="UI/InventoryInterface" method="_on_drop_slot_data"]
+[connection signal="gui_input" from="UI/InventoryInterface" to="UI/InventoryInterface" method="_on_gui_input"]
+[connection signal="visibility_changed" from="UI/InventoryInterface" to="UI/InventoryInterface" method="_on_visibility_changed"]
 
-[node name="GroundFrame2" parent="." instance=ExtResource("16_2u3nc")]
-transform = Transform3D(9.905, 0, 0, 0, 9.905, 0, 0, 0, 9.905, -2.34504, 0.273685, -0.404768)
-
-[node name="WoodenRailingVer1" parent="." instance=ExtResource("17_udxuc")]
-transform = Transform3D(1.645, 0, 0, 0, 1.3, 0, 0, 0, 1.645, 0, -0.169381, 0)
-
-[node name="SimpleHouseVer2" parent="." instance=ExtResource("16_udxuc")]
-transform = Transform3D(-6.513e-08, 0, 1.49, 0, 1.49, 0, -1.49, 0, -6.513e-08, -7.13712, 1.10801, 3.11973e-07)
-
-[editable path="SimpleHouseVer2"]
+[editable path="Environment/SimpleHouseVer2"]

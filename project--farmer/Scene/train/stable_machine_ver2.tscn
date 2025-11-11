@@ -1,0 +1,19 @@
+[gd_scene load_steps=6 format=3 uid="uid://c0nu5wulw7inx"]
+
+[ext_resource type="PackedScene" uid="uid://buluu7mp2bc3u" path="res://model/train/TrainTrackTestVer2.glb" id="1_pqfnd"]
+[ext_resource type="Texture2D" uid="uid://8omoph2koloe" path="res://model/train/concretePixel.png" id="2_hy56d"]
+[ext_resource type="Texture2D" uid="uid://1gysjnj7jqbq" path="res://assets/ImphenziaPalette01-256-Gradient.png" id="3_6qggw"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_sm33g"]
+albedo_texture = ExtResource("2_hy56d")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3llwi"]
+albedo_texture = ExtResource("3_6qggw")
+
+[node name="TrainTrackTestVer2" instance=ExtResource("1_pqfnd")]
+
+[node name="StableMachine" parent="." index="0"]
+material_override = SubResource("StandardMaterial3D_sm33g")
+
+[node name="StableMachine_001" parent="." index="1"]
+material_override = SubResource("StandardMaterial3D_3llwi")

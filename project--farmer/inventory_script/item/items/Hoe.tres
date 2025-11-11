@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="ItemDataEquip" load_steps=4 format=3 uid="uid://cg5sjscdq0ir3"]
+
+[ext_resource type="Script" uid="uid://ddrq4s3ix6d4f" path="res://inventory_script/item/item_data_equip.gd" id="1_q5aq0"]
+[ext_resource type="Texture2D" uid="uid://omvd8ed3fie6" path="res://inventory_script/item/#2 - Transparent Icons & Drop Shadow.png" id="2_gq541"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rrplq"]
+atlas = ExtResource("2_gq541")
+region = Rect2(64, 320, 32, 32)
+
+[resource]
+script = ExtResource("1_q5aq0")
+name = "Hoe"
+description = ""
+stackable = false
+texture = SubResource("AtlasTexture_rrplq")
+metadata/_custom_type_script = "uid://ddrq4s3ix6d4f"

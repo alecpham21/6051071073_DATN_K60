@@ -1,71 +1,59 @@
 extends Node3D
 
 @onready var cast: RayCast3D = $"../../../../../HoeCast3D"
-@onready var player_inventory = get_node("/root/World/PlayerInventory")
-var item_active := true
+@onready var ground_gen = get_tree().get_first_node_in_group("ground_generator")
 
-var last_highlighted_block: BlockGround = null
+var item_active := true
+var last_grid_pos: Vector2i = Vector2i(-1, -1)
+
 
 func _process(delta: float) -> void:
-	visible = HotBar.active_item.item_name == ItemNames.sickle
 	cast.force_raycast_update()
 	
-	if cast.is_colliding():
-		var hit = cast.get_collider()
-		var block = BlockGround.get_block_from_hit(hit)
-		##HightLight Box
-		if block:
-			if last_highlighted_block and last_highlighted_block != block:
-				last_highlighted_block.set_highlighted(false)
-			
-			block.set_highlighted(true)
-			last_highlighted_block = block
-		else:
-			_clear_highlight()
-	else:
-		_clear_highlight()
 
-
-func _clear_highlight() -> void:
-	if last_highlighted_block:
-		last_highlighted_block.set_highlighted(false)
-		last_highlighted_block = null
-
-func is_holding_sickle() ->bool:
-	return HotBar.active_item.item_name == ItemNames.sickle
-	#if player_inventory == null:
-		#return false
-	#var slot_index = player_inventory.active_item_slot
-	#var item_data = player_inventory.inventory[slot_index]
-	#var item_name = item_data["item_name"]
-	#print("Active slot:", slot_index, "Item:", item_name)
-	#return item_name == "sickle"
-
+func is_holding_sickle():
+	print("is holding sickle")
+	
+	
 func swing_sickle() -> void:
 	cast.force_raycast_update()
 	if not cast.is_colliding():
-		print("Raycast miss")
+		print("❌ Raycast miss")
 		return
 
-	var hit = cast.get_collider()
-	var block = BlockGround.get_block_from_hit(hit)
+	var hit_pos = cast.get_collision_point()
+	var grid_pos = ground_gen.get_grid_pos_from_world(hit_pos)
 
-	if not block:
-		print("No valid block to hit")
+	if not ground_gen.is_valid_grid_pos(grid_pos):
+		print("❌ Grid position out of range:", grid_pos)
 		return
 
-	# Nếu có cây thu hoạch được
-	if block.crop_ready and block.has_method("harvest_plant"):
-		block.harvest_plant()
+	var block = ground_gen.block_data[grid_pos.x][grid_pos.y]
+
+	# Nếu có cây sẵn sàng thu hoạch
+	if block.crop_ready:
+		block.crop_ready = false
+		block.mode = BlockGroundData.Mode.TILLED
+		ground_gen.renderer.set_mode(grid_pos.x, grid_pos.y, block.mode)
+
+		# Tìm cây ở vị trí đó và gọi harvest
+		for child in ground_gen.get_children():
+			if child.has_method("harvest") and \
+				child.global_position.distance_to(ground_gen.get_world_pos_from_grid(grid_pos)) < 0.3:
+				child.harvest()
+				break
+
+
+		print("✅ Harvested crop at:", grid_pos)
 		return
 
-	# Nếu block là GRASS hoặc có windgrass thì cắt
-	if block.mode == BlockGround.Mode.GRASS or (block.wind_grass_node and block.wind_grass_node.visible):
-		block.cut_grass()
-		if block.wind_grass_node:
-			block.wind_grass_node.visible = false
-			block.current_windgrass = max(0, block.current_windgrass - 1)
-		print("Cut grass or windgrass at:", block.name)
+
+
+	# Nếu là cỏ thì cắt, chuyển sang CUT
+	if block.mode == BlockGroundData.Mode.GRASS:
+		block.mode = BlockGroundData.Mode.CUT
+		ground_gen.renderer.set_mode(grid_pos.x, grid_pos.y, block.mode)
+		print("✂️ Cut grass at:", grid_pos)
 		return
 
-	print("No valid target to swing at")
+	print("No valid target to swing at:", grid_pos)

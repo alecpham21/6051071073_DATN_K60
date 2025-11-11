@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="ItemData" load_steps=4 format=3 uid="uid://cts13hjvusdcw"]
+
+[ext_resource type="Script" uid="uid://oj6faifeyt6a" path="res://inventory_script/item_data.gd" id="1_u1tw6"]
+[ext_resource type="Texture2D" uid="uid://omvd8ed3fie6" path="res://inventory_script/item/#2 - Transparent Icons & Drop Shadow.png" id="2_d5bdm"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nyd3x"]
+atlas = ExtResource("2_d5bdm")
+region = Rect2(224, 544, 32, 32)
+
+[resource]
+script = ExtResource("1_u1tw6")
+name = "Wheat"
+description = "Ground Wheat"
+stackable = true
+texture = SubResource("AtlasTexture_nyd3x")
+metadata/_custom_type_script = "uid://oj6faifeyt6a"

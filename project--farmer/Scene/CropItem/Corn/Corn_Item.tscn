@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://btpkxeoduqb6m"]
+
+[ext_resource type="PackedScene" uid="uid://b3eciw7bgex20" path="res://modelTscn/plant/corn_item.tscn" id="1_oo6by"]
+
+[node name="Corn_item" type="Node3D"]
+
+[node name="Corn_Item" parent="." instance=ExtResource("1_oo6by")]

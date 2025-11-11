@@ -246,7 +246,7 @@ func spawn_decorative_grass():
 
 
 
-func set_mode(x: int, z: int, mode: int, variant: int = 0):
+func set_mode(x: int, z: int, mode: int, _variant: int = 0):
 	if grid_size_x == 0 or grid_size_z == 0:
 		return
 

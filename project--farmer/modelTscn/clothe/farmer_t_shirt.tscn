@@ -1,0 +1,5 @@
+[gd_scene load_steps=2 format=3 uid="uid://dees3mff2xof7"]
+
+[ext_resource type="PackedScene" uid="uid://3f40lptae1qs" path="res://model/clothe/FarmerTShirt.glb" id="1_rr1v5"]
+
+[node name="FarmerTShirt" instance=ExtResource("1_rr1v5")]

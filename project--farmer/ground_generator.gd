@@ -43,7 +43,7 @@ func setup_data():
 			block_data[x].append(d)
 
 func gen_ground(extents:Vector2i):
-	var start_pos = Vector3(-extents.x / 2, 0, -extents.y / 2)
+	var _start_pos = Vector3(-extents.x / 2, 0, -extents.y / 2)
 	for x in extents.x:
 		for z in extents.y:
 			renderer.set_mode(x, z, BlockGroundData.Mode.GRASS)
@@ -160,3 +160,12 @@ func get_world_pos_from_grid(grid_pos: Vector2i) -> Vector3:
 	var world_z = grid_pos.y * spacing - half_z + spacing / 2.0
 
 	return Vector3(world_x, 0.0, world_z)
+
+func is_valid_grid_pos(pos: Vector2i) -> bool:
+	return pos.x >= 0 and pos.y >= 0 and pos.x < ground_extents.x and pos.y < ground_extents.y
+
+func on_crop_ready(crop_node: Node):
+	var grid_pos = get_grid_pos_from_world(crop_node.global_position)
+	if is_valid_grid_pos(grid_pos):
+		block_data[grid_pos.x][grid_pos.y].crop_ready = true
+		print("🌾 Crop ready tại ô:", grid_pos)

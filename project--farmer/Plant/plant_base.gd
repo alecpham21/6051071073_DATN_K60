@@ -1,5 +1,5 @@
 extends Node3D
-
+class_name Corn
 @export var growth_chance: float = 0.1
 @export var crop_item_scene: PackedScene
 
@@ -7,10 +7,13 @@ extends Node3D
 @export var texture_default: StandardMaterial3D
 @export var texture_seeding: Texture2D
 
+@export var harvest_yield: int = 2
+
+
 var growth: int = 0
 var harvestable: bool = false
 
-@export var harvest_yield: int = 2
+
 @onready var graphic_seeding = $ModelCorn/Seeding/Tilled_Ground
 @onready var graphic_sapling = $ModelCorn/Sapling
 @onready var graphic_middle = $ModelCorn/Middle
@@ -41,6 +44,14 @@ func _apply_green_soil_initial():
 			ground_mesh.set_surface_override_material(0, mat)
 			print("✅ Immediate green soil on spawn")
 
+func _reset_soil_to_default():
+	if ground_mesh and texture_default:
+		var mat := ground_mesh.get_active_material(0)
+		if mat:
+			mat = mat.duplicate()
+			mat.albedo_texture = texture_default
+			ground_mesh.set_surface_override_material(0, mat)
+			print("🌾 Soil reset to default")
 
 func grow_plant():
 	growth += 1
@@ -81,16 +92,6 @@ func update_plant_graphic():
 		_reset_soil_to_default()
 
 
-func _reset_soil_to_default():
-	if ground_mesh and texture_default:
-		var mat := ground_mesh.get_active_material(0)
-		if mat:
-			mat = mat.duplicate()
-			mat.albedo_texture = texture_default
-			ground_mesh.set_surface_override_material(0, mat)
-			print("🌾 Soil reset to default")
-
-
 func on_tick():
 	if not harvestable and randf() < growth_chance:
 		grow_plant()
@@ -105,4 +106,16 @@ func harvest():
 	if crop_item_scene:
 		for i in range(harvest_yield):
 			var item = crop_item_scene.instantiate()
-			get_tree().get_root().ad
+			get_tree().get_root().add_child(item)
+			item.global_position = global_position
+
+			var start_pos = item.global_position
+			var peak_pos = start_pos + Vector3(randf() - 0.5, 2.0, randf() - 0.5)
+			var end_pos = start_pos + Vector3(randf() - 0.5, 0.2, randf() - 0.5)
+
+			var tween = get_tree().create_tween()
+			tween.tween_property(item, "global_position", peak_pos, 0.3).set_ease(Tween.EASE_OUT)
+			tween.tween_property(item, "global_position", end_pos, 0.6).set_ease(Tween.EASE_IN)
+			print(">>> spawned:", item.name, "at", item.global_position)
+
+	queue_free()

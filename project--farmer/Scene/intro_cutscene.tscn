@@ -1,0 +1,276 @@
+[gd_scene load_steps=24 format=3 uid="uid://cyhmnuqjtj5d0"]
+
+[ext_resource type="PackedScene" uid="uid://dq7yemwgjrvnk" path="res://Scene/ocean/water.tscn" id="1_p0apu"]
+[ext_resource type="Shader" uid="uid://bguo0qtyegd6e" path="res://ocean.gdshader" id="2_70nt4"]
+[ext_resource type="Shader" uid="uid://viqy3uwh6ns7" path="res://PixelShader.gdshader" id="3_17m65"]
+[ext_resource type="PackedScene" uid="uid://cm75kxa8g0ebf" path="res://Scene/train/train_track_test.tscn" id="4_5mulq"]
+[ext_resource type="PackedScene" uid="uid://d2wgup4tot7gq" path="res://Scene/train/ocean_train_test.tscn" id="4_hmt2l"]
+[ext_resource type="PackedScene" uid="uid://c0nu5wulw7inx" path="res://Scene/train/stable_machine_ver2.tscn" id="4_tsy0l"]
+[ext_resource type="Script" uid="uid://bwr2w1axxfkrw" path="res://Scene/pillar_stable_array.gd" id="5_tsy0l"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_17m65"]
+render_priority = 0
+shader = ExtResource("2_70nt4")
+shader_parameter/WATER_COL = Color(0.184771, 0.723465, 0.822832, 1)
+shader_parameter/WATER2_COL = Color(0.0588235, 0.529412, 0.776471, 1)
+shader_parameter/FOAM_COL = Color(0.87451, 0.988235, 1, 1)
+shader_parameter/distortion_speed = 10.275
+shader_parameter/tile = Vector2(187.005, 69.27)
+shader_parameter/offset = Vector2(0, 0)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_hmt2l"]
+material = SubResource("ShaderMaterial_17m65")
+size = Vector2(120, 80)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_tsy0l"]
+top_radius = 0.085
+bottom_radius = 0.085
+height = 100.0
+
+[sub_resource type="QuadMesh" id="QuadMesh_hmt2l"]
+flip_faces = true
+size = Vector2(4, 4)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_5ngwd"]
+render_priority = 0
+shader = ExtResource("3_17m65")
+shader_parameter/depth_threshold = 0.315
+shader_parameter/reverse_depth_threshold = 0.076
+shader_parameter/normal_threshold = 0.802
+shader_parameter/darken_amount = 0.0
+shader_parameter/lighten_amount = 2.39
+shader_parameter/normal_edge_bias = Vector3(1, 1, 1)
+shader_parameter/light_direction = Vector3(-0.96, -0.18, 0.2)
+
+[sub_resource type="Animation" id="Animation_fi1it"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(-300.205, 16.3657, 51.7615)]
+}
+
+[sub_resource type="Animation" id="Animation_a37r8"]
+resource_name = "camera_shake"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.25, 0.5, 0.75, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(-300.205, 16.3657, 51.7615), Vector3(-300.205, 16.5, 51.761), Vector3(-300.205, 16.3657, 51.7615), Vector3(-300.205, 16.1, 51.761), Vector3(-300.205, 16.3657, 51.7615)]
+}
+
+[sub_resource type="Animation" id="Animation_jrvjr"]
+resource_name = "camera_shake_horizontal"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.25, 0.5, 0.75, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(-300.205, 16.3657, 51.7615), Vector3(-300.067, 16.3657, 51.7615), Vector3(-300.205, 16.3657, 51.7615), Vector3(-300.425, 16.366, 51.761), Vector3(-300.205, 16.3657, 51.7615)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_jrvjr"]
+_data = {
+&"RESET": SubResource("Animation_fi1it"),
+&"camera_shake": SubResource("Animation_a37r8"),
+&"camera_shake_horizontal": SubResource("Animation_jrvjr")
+}
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_tsy0l"]
+emission_shape_scale = Vector3(0.5, 0.1, 0.2)
+emission_shape = 3
+emission_box_extents = Vector3(1, 1, 1)
+direction = Vector3(-1, 1, 0)
+gravity = Vector3(-18.14, -2.525, 0)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_fopkk"]
+transparency = 1
+shading_mode = 0
+billboard_mode = 1
+
+[sub_resource type="BoxMesh" id="BoxMesh_a37r8"]
+material = SubResource("StandardMaterial3D_fopkk")
+size = Vector3(0.195, 0.165, 0.25)
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_fopkk"]
+emission_shape_scale = Vector3(0.5, 0.1, 0.2)
+emission_shape = 3
+emission_box_extents = Vector3(1, 1, 1)
+direction = Vector3(-1, 1, 0)
+gravity = Vector3(-5.345, 33.45, 0)
+
+[sub_resource type="Animation" id="Animation_fopkk"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_tsy0l"]
+resource_name = "Train_Expressing"
+length = 24.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 24),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(-400, 0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_a37r8"]
+_data = {
+&"RESET": SubResource("Animation_fopkk"),
+&"Train_Expressing": SubResource("Animation_tsy0l")
+}
+
+[node name="Intro_Cutscene" type="Node3D"]
+
+[node name="Node3D" type="Node3D" parent="."]
+transform = Transform3D(2.33, 0, 0, 0, 1.535, 0, 0, 0, 1.535, 0, 0, 0)
+
+[node name="Water" parent="Node3D" instance=ExtResource("1_p0apu")]
+transform = Transform3D(2.65, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+
+[node name="MeshInstance3D" parent="Node3D/Water" index="0"]
+mesh = SubResource("PlaneMesh_hmt2l")
+
+[node name="Train" type="Node3D" parent="Node3D"]
+transform = Transform3D(0.605, 0, 0, 0, 0.605, 0, 0, 0, 0.605, -30.1767, 0, 26.406)
+
+[node name="TrainTrackTest" parent="Node3D/Train" instance=ExtResource("4_5mulq")]
+transform = Transform3D(24.005, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.404263, 0)
+
+[node name="SableMachineVer2" parent="Node3D/Train" instance=ExtResource("4_tsy0l")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.272682, 0)
+visible = false
+
+[node name="PillarStableMachine" type="Node3D" parent="Node3D/Train"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -205.534, 0.561457, 0)
+script = ExtResource("5_tsy0l")
+item_scene = ExtResource("4_tsy0l")
+count = 14
+offset = Vector3(39.735, 0, 0)
+
+[node name="SeaCable" type="MeshInstance3D" parent="Node3D/Train"]
+transform = Transform3D(-4.37114e-08, -7.13, 0, 1, -3.11662e-07, 0, 0, 0, 1, 13.336, 5.29886, 0)
+mesh = SubResource("CylinderMesh_tsy0l")
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="."]
+texture_filter = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -6.52002
+grow_horizontal = 2
+grow_vertical = 2
+stretch = true
+stretch_shrink = 3
+
+[node name="SubViewport" type="SubViewport" parent="SubViewportContainer"]
+handle_input_locally = false
+size = Vector2i(381, 216)
+render_target_update_mode = 4
+
+[node name="ShaderOutline2" type="MeshInstance3D" parent="SubViewportContainer/SubViewport"]
+transform = Transform3D(1, 0, 0, 0, 0.00750488, 0.999972, 0, -0.999972, 0.00750488, 0.180526, -35.304, 0)
+extra_cull_margin = 16384.0
+mesh = SubResource("QuadMesh_hmt2l")
+surface_material_override/0 = SubResource("ShaderMaterial_5ngwd")
+
+[node name="Camera3D" type="Camera3D" parent="SubViewportContainer/SubViewport"]
+transform = Transform3D(0.943366, -0.275264, 0.185175, 0.0157237, 0.594643, 0.803836, -0.33138, -0.7554, 0.565294, -300.205, 16.3657, 51.7615)
+fov = 71.4
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="SubViewportContainer/SubViewport/Camera3D"]
+libraries = {
+&"": SubResource("AnimationLibrary_jrvjr")
+}
+autoplay = "camera_shake_horizontal"
+
+[node name="OceanTrainTest" parent="SubViewportContainer/SubViewport" instance=ExtResource("4_hmt2l")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -310.091, 0.445159, 40.4905)
+
+[node name="OmniLight3D" type="OmniLight3D" parent="SubViewportContainer/SubViewport/OceanTrainTest"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.59082, 2.15746, 0)
+omni_range = 77.875
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="SubViewportContainer/SubViewport/OceanTrainTest"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.2543, 0.061924, 1.85995)
+amount = 20
+lifetime = 0.75
+process_material = SubResource("ParticleProcessMaterial_tsy0l")
+draw_pass_1 = SubResource("BoxMesh_a37r8")
+
+[node name="GPUParticles3D2" type="GPUParticles3D" parent="SubViewportContainer/SubViewport/OceanTrainTest"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.24789, 0.061924, -0.568127)
+amount = 10
+lifetime = 0.19
+process_material = SubResource("ParticleProcessMaterial_fopkk")
+draw_pass_1 = SubResource("BoxMesh_a37r8")
+
+[node name="GPUParticles3D3" type="GPUParticles3D" parent="SubViewportContainer/SubViewport/OceanTrainTest"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.00366, 0.061924, 0.60091)
+amount = 10
+lifetime = 0.19
+process_material = SubResource("ParticleProcessMaterial_fopkk")
+draw_pass_1 = SubResource("BoxMesh_a37r8")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.786461, 0.0944687, 0.610373, -0.61764, 0.12029, 0.777207, 0, -0.988234, 0.152951, 0, 19.5769, 0)
+light_color = Color(0.929412, 1, 0.905882, 1)
+light_energy = 2.0
+shadow_enabled = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+root_node = NodePath("../Node3D")
+libraries = {
+&"": SubResource("AnimationLibrary_a37r8")
+}
+autoplay = "Train_Expressing"
+
+[node name="ReflectionProbe" type="ReflectionProbe" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -310.091, 0.445159, 40.4905)
+update_mode = 1
+intensity = 0.15
+blend_distance = 3.0
+size = Vector3(30, 19.805, 22.92)
+origin_offset = Vector3(8.125, 2.205, 0)
+
+[node name="SpotLight3D" type="SpotLight3D" parent="."]
+transform = Transform3D(-0.893834, -0.448399, 0, -0.033316, 0.0664118, 0.997236, -0.447159, 0.891363, -0.0743, -305.792, 7.04905, 38.643)
+spot_range = 3.62
+
+[editable path="Node3D/Water"]

@@ -1,6 +1,5 @@
 [gd_scene load_steps=50 format=4 uid="uid://xyhcp7k5jujw"]
 
-[ext_resource type="Script" uid="uid://d1orx8whk8kx0" path="res://player.gd" id="1_4guyi"]
 [ext_resource type="Script" uid="uid://b8uwlbndebh26" path="res://Scripts/player_hoe.gd" id="3_8kg18"]
 [ext_resource type="Texture2D" uid="uid://1gysjnj7jqbq" path="res://assets/ImphenziaPalette01-256-Gradient.png" id="3_btwys"]
 [ext_resource type="Script" uid="uid://5rrequ0bhhjs" path="res://player_sickle.gd" id="4_btwys"]
@@ -256,11 +255,11 @@ bind/72/name = &"DEF-breast.R"
 bind/72/bone = -1
 bind/72/pose = Transform3D(-1, -2.33305e-07, -8.41341e-17, 2.03698e-10, 3.55747e-14, 1, -2.32978e-07, 1, -1.96014e-23, -0.0679609, -0.0274278, -1.17002)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_i3pqv"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ptf7u"]
 albedo_color = Color(0.572212, 0.325593, 0.151253, 1)
 
 [sub_resource type="BoxMesh" id="BoxMesh_syber"]
-material = SubResource("StandardMaterial3D_i3pqv")
+material = SubResource("StandardMaterial3D_ptf7u")
 size = Vector3(0.15, 0.14, 2.515)
 
 [sub_resource type="BoxMesh" id="BoxMesh_8y40t"]
@@ -27331,7 +27330,7 @@ _data = {
 [sub_resource type="BoxShape3D" id="BoxShape3D_4cwdc"]
 size = Vector3(1, 1.5703, 0.636169)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ptf7u"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8kg18"]
 transparency = 1
 no_depth_test = true
 albedo_texture = ExtResource("7_ptf7u")
@@ -27340,22 +27339,23 @@ emission = Color(1, 1, 1, 1)
 emission_energy_multiplier = 4.0
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_4guyi"]
-material = SubResource("StandardMaterial3D_ptf7u")
+material = SubResource("StandardMaterial3D_8kg18")
 size = Vector2(1, 1)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8kg18"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_btwys"]
 transparency = 1
 no_depth_test = true
 shading_mode = 0
 albedo_color = Color(0.956619, 0.8196, 0.376665, 0.133333)
 
 [sub_resource type="BoxMesh" id="BoxMesh_ptf7u"]
-material = SubResource("StandardMaterial3D_8kg18")
+material = SubResource("StandardMaterial3D_btwys")
 size = Vector3(1, 0.145, 1)
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_ptf7u"]
+size = Vector3(1, 1.65323, 1.18237)
+
 [node name="Player" type="CharacterBody3D"]
-script = ExtResource("1_4guyi")
-use_gravity = true
 
 [node name="Jordax" type="Node3D" parent="."]
 transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0, 0, 0)
@@ -27374,7 +27374,7 @@ bones/1/name = "DEF-spine.001"
 bones/1/parent = 0
 bones/1/rest = Transform3D(1, 1.20185e-08, 3.03117e-10, -1.20185e-08, 0.998729, 0.0504091, 3.03108e-10, -0.0504091, 0.998729, -3.80257e-15, 0.117173, 1.76951e-08)
 bones/1/enabled = true
-bones/1/position = Vector3(-3.80257e-15, 0.117173, 1.76951e-08)
+bones/1/position = Vector3(-3.75293e-15, 0.117173, 1.76951e-08)
 bones/1/rotation = Quaternion(-0.0253168, -1.88814e-15, -6.0361e-09, 0.99968)
 bones/1/scale = Vector3(1, 0.999789, 1.00025)
 bones/2/name = "DEF-spine.002"
@@ -27928,6 +27928,8 @@ target_position = Vector3(0, -1.505, 0)
 
 [node name="InteractRay" type="RayCast3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1)
+collision_mask = 17
+collide_with_areas = true
 
 [node name="HighlightSelector" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05, 0)
@@ -27936,3 +27938,11 @@ mesh = SubResource("PlaneMesh_4guyi")
 [node name="HighlightBox" type="MeshInstance3D" parent="HighlightSelector"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0151415, 0)
 mesh = SubResource("BoxMesh_ptf7u")
+
+[node name="Interact_Area" type="Area3D" parent="."]
+collision_layer = 0
+collision_mask = 16
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Interact_Area"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.778824, -0.279419)
+shape = SubResource("BoxShape3D_ptf7u")
