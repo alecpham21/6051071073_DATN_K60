@@ -21,6 +21,7 @@ PlantDatabase="*res://Scripts/plant_database.gd"
 GameData="*res://Scripts/game_data.gd"
 SimpleGrass="*res://addons/simplegrasstextured/singleton.tscn"
 Watcher="*res://watcher.gd"
+PlayerData="*res://player/player_data.gd"
 
 [editor_plugins]
 

@@ -1,10 +1,8 @@
-[gd_scene load_steps=16 format=3 uid="uid://c2mndlfrs1dsl"]
+[gd_scene load_steps=13 format=3 uid="uid://c2mndlfrs1dsl"]
 
 [ext_resource type="PackedScene" uid="uid://y055erqk78ec" path="res://model/building/SimpleHouseVer2.glb" id="1_ftsh5"]
 [ext_resource type="Texture2D" uid="uid://1gysjnj7jqbq" path="res://assets/ImphenziaPalette01-256-Gradient.png" id="2_ud8fd"]
 [ext_resource type="Material" uid="uid://bb43ngplsfis2" path="res://addons/flexible_toon_shader/FlexibleToonMaterial.tres" id="2_x0w2x"]
-[ext_resource type="Script" uid="uid://dvc8yikg61w6b" path="res://modelTscn/building/house/door_area_3d.gd" id="3_ud8fd"]
-[ext_resource type="PackedScene" uid="uid://o1wmcaqylahd" path="res://Scene/InBuilding/house_inside.tscn" id="4_jl1y3"]
 [ext_resource type="Shader" uid="uid://botnpoehv8fmw" path="res://characterModel/Cel-shading.gdshader" id="4_kn35q"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_leuyj"]
@@ -12,15 +10,15 @@ cull_mode = 2
 albedo_texture = ExtResource("2_ud8fd")
 
 [sub_resource type="Gradient" id="Gradient_leuyj"]
-offsets = PackedFloat32Array(0.426471, 1)
-colors = PackedColorArray(0, 0, 0, 1, 0.693417, 0.449051, 0.334874, 1)
+offsets = PackedFloat32Array(0.479167, 0.991071)
+colors = PackedColorArray(0.0353867, 0.0191051, 3.00817e-09, 1, 0.767387, 0, 0.178384, 1)
 
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_in7vu"]
 gradient = SubResource("Gradient_leuyj")
 
 [sub_resource type="Gradient" id="Gradient_f6dph"]
-offsets = PackedFloat32Array(0.117647, 0.647059, 1)
-colors = PackedColorArray(0.910387, 0.136172, 0.050911, 1, 0.762397, 0.229307, 0.14522, 1, 0.86616, 0.383591, 0.148059, 1)
+offsets = PackedFloat32Array(0.110119, 0.647059, 1)
+colors = PackedColorArray(0.901116, 0.121281, 0.296301, 1, 0.817397, 0.0765322, 0.207442, 1, 0.86616, 0.383591, 0.148059, 1)
 
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_3girw"]
 gradient = SubResource("Gradient_f6dph")
@@ -28,7 +26,7 @@ gradient = SubResource("Gradient_f6dph")
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_f6dph"]
 render_priority = 0
 shader = ExtResource("4_kn35q")
-shader_parameter/albedo = Color(0.594386, 0.157067, 0.108065, 1)
+shader_parameter/albedo = Color(0.600747, 0.120862, 0.236638, 1)
 shader_parameter/color_gradient = SubResource("GradientTexture1D_in7vu")
 shader_parameter/fresnel_gradient = SubResource("GradientTexture1D_3girw")
 
@@ -37,9 +35,6 @@ size = Vector3(2.69739, 1.48358, 2.09549)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_ud8fd"]
 size = Vector3(1.62292, 0.194336, 0.847168)
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_jl1y3"]
-size = Vector3(1, 1.31396, 1)
 
 [node name="SimpleHouseVer2" instance=ExtResource("1_ftsh5")]
 
@@ -104,12 +99,3 @@ polygon = PackedVector2Array(-0.511242, -1.44673, 1.06101, -1.48632, 0.392286, -
 [node name="CollisionShape3D2" type="CollisionShape3D" parent="StaticBody3D" index="2"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0067749, -0.617811, 1.33929)
 shape = SubResource("BoxShape3D_ud8fd")
-
-[node name="DoorArea3D" type="Area3D" parent="." index="17"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.0936925)
-script = ExtResource("3_ud8fd")
-interior_scene = ExtResource("4_jl1y3")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="DoorArea3D" index="0"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.156982, 0.886935)
-shape = SubResource("BoxShape3D_jl1y3")

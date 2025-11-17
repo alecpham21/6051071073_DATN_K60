@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="ItemDataOutfit" load_steps=5 format=3 uid="uid://wnqnqmyfw1cp"]
+
+[ext_resource type="ArrayMesh" uid="uid://b2ly37uy3fh3p" path="res://inventory_script/item/items/item_clothe/mesh/black_shirt.mesh" id="1_xdwdt"]
+[ext_resource type="Script" uid="uid://bjgwngm01lr5n" path="res://inventory_script/item/item_data_outfit.gd" id="2_jewjq"]
+[ext_resource type="Texture2D" uid="uid://omvd8ed3fie6" path="res://inventory_script/item/#2 - Transparent Icons & Drop Shadow.png" id="2_ylenk"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xdwdt"]
+atlas = ExtResource("2_ylenk")
+region = Rect2(256, 224, 32, 32)
+
+[resource]
+script = ExtResource("2_jewjq")
+outfit_type = 1
+equip_mesh = ExtResource("1_xdwdt")
+name = "Black Shirt"
+description = "A black t-shirt"
+stackable = false
+texture = SubResource("AtlasTexture_xdwdt")
+metadata/_custom_type_script = "uid://bjgwngm01lr5n"

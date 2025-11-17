@@ -1,2 +1,2 @@
 extends ItemData
-class_name ItemDataEquip
+class_name QuickItemData

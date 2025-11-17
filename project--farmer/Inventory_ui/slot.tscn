@@ -29,6 +29,7 @@ expand_mode = 1
 stretch_mode = 5
 
 [node name="Selected" type="TextureRect" parent="MarginContainer"]
+visible = false
 layout_mode = 2
 texture = ExtResource("3_kfv3o")
 expand_mode = 1

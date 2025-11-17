@@ -1,9 +1,7 @@
 extends Node3D
 
 @onready var inventory_data: InventoryData
-
 @onready var cast: RayCast3D = $"../SeedCast3D"
-@onready var player_inventory = get_node("/root/World/PlayerInventory")
 @onready var anim: AnimationPlayer = $"../Farmer/AnimationPlayer"
 @onready var ground_gen = get_tree().get_first_node_in_group("ground_generator")
 

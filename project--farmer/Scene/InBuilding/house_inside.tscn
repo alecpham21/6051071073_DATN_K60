@@ -1,12 +1,17 @@
-[gd_scene load_steps=12 format=3 uid="uid://o1wmcaqylahd"]
+[gd_scene load_steps=20 format=3 uid="uid://o1wmcaqylahd"]
 
-[ext_resource type="Script" uid="uid://dc2vaxsvuh1vh" path="res://Scene/InBuilding/house_inside.gd" id="1_jkmmo"]
+[ext_resource type="Script" uid="uid://hctai00r4njf" path="res://world.gd" id="1_idvps"]
 [ext_resource type="PackedScene" uid="uid://bl1mg832slikq" path="res://modelTscn/building/house/uncle_room.tscn" id="1_me50k"]
 [ext_resource type="Shader" uid="uid://c6qhkhar3xobg" path="res://Shader/edge_detection.gdshader" id="3_lgcd7"]
 [ext_resource type="Shader" uid="uid://viqy3uwh6ns7" path="res://PixelShader.gdshader" id="4_idvps"]
 [ext_resource type="Script" uid="uid://bsrl0vcdxurk1" path="res://Camera_spring_arm.gd" id="5_2twfi"]
-[ext_resource type="PackedScene" uid="uid://xyhcp7k5jujw" path="res://characterModel/Jordax.tscn" id="6_v2v5f"]
+[ext_resource type="PackedScene" uid="uid://bnxu42mjbjp8x" path="res://player/main_farmer.tscn" id="6_idvps"]
+[ext_resource type="Script" uid="uid://y0d42bllc0fd" path="res://inventory_script/inventory_interface.gd" id="8_dff8o"]
 [ext_resource type="Script" uid="uid://5ej0tp0e5sk5" path="res://time_manager.gd" id="9_87avh"]
+[ext_resource type="PackedScene" uid="uid://470pnke8j1j2" path="res://Inventory_ui/inventory.tscn" id="9_p1g3l"]
+[ext_resource type="PackedScene" uid="uid://cmaas2sclopj4" path="res://Inventory_ui/slot.tscn" id="10_87avh"]
+[ext_resource type="PackedScene" uid="uid://dh4ns40qdxwam" path="res://Inventory_ui/hot_bar_inventory.tscn" id="11_vkefo"]
+[ext_resource type="PackedScene" uid="uid://km0edqcbty58" path="res://level/level script/door.tscn" id="12_p1g3l"]
 
 [sub_resource type="QuadMesh" id="QuadMesh_5q01f"]
 flip_faces = true
@@ -36,13 +41,19 @@ shader_parameter/lighten_amount = 2.39
 shader_parameter/normal_edge_bias = Vector3(1, 1, 1)
 shader_parameter/light_direction = Vector3(-0.96, -0.18, 0.2)
 
-[node name="House" type="Node3D"]
-script = ExtResource("1_jkmmo")
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_p1g3l"]
+sky_top_color = Color(0.504973, 0.432455, 0.382989, 1)
+energy_multiplier = 2.0
 
-[node name="UncleRoom" parent="." instance=ExtResource("1_me50k")]
+[sub_resource type="Sky" id="Sky_87avh"]
+sky_material = SubResource("ProceduralSkyMaterial_p1g3l")
 
-[node name="PlayerSpawn" type="Marker3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.00279, -8.24035)
+[sub_resource type="Environment" id="Environment_vkefo"]
+background_mode = 2
+sky = SubResource("Sky_87avh")
+
+[node name="simple_house" type="Node3D"]
+script = ExtResource("1_idvps")
 
 [node name="SubViewportContainer" type="SubViewportContainer" parent="."]
 texture_filter = 1
@@ -79,13 +90,100 @@ transform = Transform3D(1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, 
 visible = false
 spring_length = 7.0
 script = ExtResource("5_2twfi")
-player_path = NodePath("../Player")
+player_path = NodePath("../MainFarmer")
 max_zoom = 10.0
 
 [node name="Camera3D" type="Camera3D" parent="SubViewportContainer/SubViewport/SpringArm3D"]
 fov = 69.0
 
-[node name="Player" parent="SubViewportContainer/SubViewport" groups=["player"] instance=ExtResource("6_v2v5f")]
+[node name="UncleRoom" parent="SubViewportContainer/SubViewport" instance=ExtResource("1_me50k")]
+transform = Transform3D(0.68, 0, 0, 0, 0.68, 0, 0, 0, 0.68, 0, 0, 0)
+
+[node name="Door" parent="SubViewportContainer/SubViewport" instance=ExtResource("12_p1g3l")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.17663, -3.35658)
+collision_layer = 16
+collision_mask = 0
+target_scene_path = "res://world.tscn"
+
+[node name="MainFarmer" parent="SubViewportContainer/SubViewport" instance=ExtResource("6_idvps")]
+unique_name_in_owner = true
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0, 0, 0)
+camera_ref_path = NodePath("../SpringArm3D")
 
 [node name="TimeManager" type="Node" parent="." groups=["time_manager"]]
 script = ExtResource("9_87avh")
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="InventoryInterface" type="Control" parent="UI"]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("8_dff8o")
+
+[node name="PlayerInventory" parent="UI/InventoryInterface" instance=ExtResource("9_p1g3l")]
+layout_mode = 0
+offset_left = 126.9
+offset_top = 251.0
+offset_right = 166.9
+offset_bottom = 291.0
+
+[node name="EquipInventory" parent="UI/InventoryInterface" instance=ExtResource("9_p1g3l")]
+layout_mode = 0
+offset_left = 126.9
+offset_top = 161.93
+offset_right = 166.9
+offset_bottom = 201.93
+
+[node name="OutfitInventory" parent="UI/InventoryInterface" instance=ExtResource("9_p1g3l")]
+layout_mode = 0
+offset_left = 256.885
+offset_top = 161.93
+offset_right = 296.885
+offset_bottom = 201.93
+
+[node name="ExternalInventory" parent="UI/InventoryInterface" instance=ExtResource("9_p1g3l")]
+visible = false
+layout_mode = 0
+offset_left = 661.285
+offset_top = 251.0
+offset_right = 701.285
+offset_bottom = 291.0
+
+[node name="GrabbedSlot" parent="UI/InventoryInterface" instance=ExtResource("10_87avh")]
+visible = false
+modulate = Color(1, 1, 1, 0.52549)
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 0
+
+[node name="HotBarInventory" parent="UI" instance=ExtResource("11_vkefo")]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -241.0
+offset_top = -74.0
+offset_right = 241.0
+offset_bottom = 0.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="Day_light_window" type="SpotLight3D" parent="."]
+transform = Transform3D(0.973311, 1.00313e-08, -0.229489, 0.229489, -4.25448e-08, 0.973311, 0, -1, -4.37114e-08, -3.70405, 2.26203, 0)
+
+[node name="Day_light_window2" type="SpotLight3D" parent="."]
+transform = Transform3D(0.973179, -1.17239e-09, 0.23005, -0.23005, -1.00558e-08, 0.973179, 1.17239e-09, -1, -1.00558e-08, 3.704, 2.262, 0)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_vkefo")
+
+[connection signal="drop_slot_data" from="UI/InventoryInterface" to="UI/InventoryInterface" method="_on_drop_slot_data"]
+[connection signal="gui_input" from="UI/InventoryInterface" to="UI/InventoryInterface" method="_on_gui_input"]
+[connection signal="visibility_changed" from="UI/InventoryInterface" to="UI/InventoryInterface" method="_on_visibility_changed"]
+
+[editable path="SubViewportContainer/SubViewport/Door"]

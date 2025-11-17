@@ -28,10 +28,10 @@ func set_inventory_data(inventory_data: InventoryData) -> void:
 
 func populate_hot_bar(inventory_data: InventoryData) -> void:
 	var children = h_box_container.get_children()
-	for i in range(children.size() - 1, -1, -1): # Lặp ngược
+	for i in range(children.size() - 1, -1, -1): 
 		var child = children[i]
-		h_box_container.remove_child(child) # Xóa khỏi HBox
-		child.free() # Xóa khỏi bộ nhớ NGAY LẬP TỨC
+		h_box_container.remove_child(child) 
+		child.free() 
 		
 	var i = 0 
 	for slot_data in inventory_data.slot_datas.slice(0, 7):
@@ -61,20 +61,18 @@ func set_active_slot(index: int):
 		var active_slot_data = current_inventory_data.slot_datas[active_index]
 		active_slot_changed.emit(active_slot_data)
 
-# HÀM MỚI: Cập nhật hình ảnh (ví dụ: viền highlight)
 func update_active_slot_visuals():
 	if not h_box_container: # Đảm bảo h_box_container đã sẵn sàng
 		return
 		
 	var i = 0
 	for slot in h_box_container.get_children():
-		# Giả sử Slot.tscn của bạn có 1 node tên "Selected" để làm highlight
 		var selected_visual = slot.get_node_or_null("MarginContainer/Selected")
 		if selected_visual:
 			selected_visual.visible = (i == active_index)
 		i += 1
 
-# HÀM MỚI: Để Player có thể hỏi "Tôi đang cầm gì?"
+
 func get_active_item() -> SlotData:
 	if current_inventory_data:
 		return current_inventory_data.slot_datas[active_index]

@@ -1,0 +1,18 @@
+[gd_scene load_steps=5 format=3 uid="uid://cb3w8fvw4gt62"]
+
+[ext_resource type="PackedScene" uid="uid://bd0b1rntk4s7o" path="res://model/structure/StoneStair.glb" id="1_rcoqk"]
+[ext_resource type="Texture2D" uid="uid://8omoph2koloe" path="res://model/train/concretePixel.png" id="2_7g50y"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6i06e"]
+albedo_texture = ExtResource("2_7g50y")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_o6d15"]
+albedo_texture = ExtResource("2_7g50y")
+
+[node name="StoneStair" instance=ExtResource("1_rcoqk")]
+
+[node name="Stair_002" parent="." index="0"]
+material_override = SubResource("StandardMaterial3D_6i06e")
+
+[node name="Stair_003" parent="." index="1"]
+material_override = SubResource("StandardMaterial3D_o6d15")

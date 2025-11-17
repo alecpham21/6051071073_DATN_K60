@@ -11,7 +11,6 @@ var last_grid_pos: Vector2i = Vector2i(-1, -1)
 func _process(delta: float) -> void:
 	#print(HotBar.active_idx())
 	if ground_gen == null:
-		print("❌ ground_gen null rồi, path sai hoặc scene chưa load GroundGenerator")
 		return
 	cast.force_raycast_update()
 

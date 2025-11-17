@@ -1,0 +1,45 @@
+[gd_resource type="Resource" script_class="InventoryDataOutfit" load_steps=10 format=3 uid="uid://0dhxrdaq6ebs"]
+
+[ext_resource type="Script" uid="uid://c72nday65rj1i" path="res://inventory_script/inventory_data_outfit.gd" id="1_w672a"]
+[ext_resource type="Script" uid="uid://bspkgwkxsy8mn" path="res://inventory_script/slot_data.gd" id="2_7ce1t"]
+[ext_resource type="Resource" uid="uid://wnqnqmyfw1cp" path="res://inventory_script/item/items/item_clothe/black_shirt.tres" id="3_7ce1t"]
+[ext_resource type="Script" uid="uid://bjgwngm01lr5n" path="res://inventory_script/item/item_data_outfit.gd" id="3_s0sk5"]
+
+[sub_resource type="Resource" id="Resource_m724b"]
+script = ExtResource("3_s0sk5")
+outfit_type = 0
+name = ""
+description = ""
+stackable = false
+metadata/_custom_type_script = "uid://bjgwngm01lr5n"
+
+[sub_resource type="Resource" id="Resource_s0sk5"]
+script = ExtResource("2_7ce1t")
+item_data = SubResource("Resource_m724b")
+quantity = 1
+metadata/_custom_type_script = "uid://bspkgwkxsy8mn"
+
+[sub_resource type="Resource" id="Resource_eyhq8"]
+script = ExtResource("2_7ce1t")
+item_data = ExtResource("3_7ce1t")
+quantity = 1
+metadata/_custom_type_script = "uid://bspkgwkxsy8mn"
+
+[sub_resource type="Resource" id="Resource_soo06"]
+script = ExtResource("3_s0sk5")
+outfit_type = 2
+name = ""
+description = ""
+stackable = false
+metadata/_custom_type_script = "uid://bjgwngm01lr5n"
+
+[sub_resource type="Resource" id="Resource_dvas7"]
+script = ExtResource("2_7ce1t")
+item_data = SubResource("Resource_soo06")
+quantity = 1
+metadata/_custom_type_script = "uid://bspkgwkxsy8mn"
+
+[resource]
+script = ExtResource("1_w672a")
+slot_datas = Array[ExtResource("2_7ce1t")]([SubResource("Resource_s0sk5"), SubResource("Resource_eyhq8"), SubResource("Resource_dvas7")])
+metadata/_custom_type_script = "uid://c72nday65rj1i"

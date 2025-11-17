@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="ItemDataOutfit" load_steps=5 format=3 uid="uid://ced42cx2oi7g6"]
+
+[ext_resource type="ArrayMesh" uid="uid://cv7mrl7dyw0j0" path="res://inventory_script/item/items/item_clothe/mesh/blue_shirt.tres" id="1_8l4h6"]
+[ext_resource type="Script" uid="uid://bjgwngm01lr5n" path="res://inventory_script/item/item_data_outfit.gd" id="1_574po"]
+[ext_resource type="Texture2D" uid="uid://omvd8ed3fie6" path="res://inventory_script/item/#2 - Transparent Icons & Drop Shadow.png" id="3_mvenn"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yww5d"]
+atlas = ExtResource("3_mvenn")
+region = Rect2(256, 224, 32, 32)
+
+[resource]
+script = ExtResource("1_574po")
+outfit_type = 1
+equip_mesh = ExtResource("1_8l4h6")
+name = "Blue Shirt"
+description = "This shirt was made by someone in somewhere that using something"
+stackable = false
+texture = SubResource("AtlasTexture_yww5d")
+metadata/_custom_type_script = "uid://bjgwngm01lr5n"

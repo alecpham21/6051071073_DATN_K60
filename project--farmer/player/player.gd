@@ -1,24 +1,29 @@
-extends CharacterBody3D
+class_name Player
+extends Character
 
+@export var player_actions : PlayerActions
+@export var input: PlayerInput
+@export var character : Character
 
 @onready var anim: AnimationPlayer = $Farmer/AnimationPlayer
 @onready var hoe: Node3D = $Farmer/rig/Skeleton3D/BoneAttachment3D/Hoe
 @onready var sickle: Node3D = $Farmer/rig/Skeleton3D/BoneAttachment3D/Sickle
 @onready var seeding: Node3D = $Seeding
 @onready var grid_check_ray: RayCast3D = $GridCheckRay
-@onready var ground_gen = get_node("../GroundGenerator")
+@onready var ground_gen = get_node_or_null("../GroundGenerator")
 @onready var hl_select: MeshInstance3D = $HighlightSelector
 @onready var interact_area: Area3D = $Interact_Area
-
-@export var equip_inventory_data: InventoryDataEquip
-@export var inventory_data: InventoryData
+var equip_inventory_data: QuickInventoryData
+var outfit_inventory_data: InventoryDataOutfit
+var inventory_data: InventoryData
 @export var move_speed: float = 5.0
 @export var accel: float = 20.0
 @export var use_gravity: bool = false
+@onready var ao_mesh_node: MeshInstance3D = $Farmer/rig/Skeleton3D/FarmerTShirt
 @export_node_path("Node3D") var camera_ref_path: NodePath
 
 
-
+var blackboard : Blackboard
 var last_block_pos: Vector2i = Vector2i(-1, -1)
 var cam_ref: Node3D
 var mouse_captured := true
@@ -31,8 +36,17 @@ signal toggle_inventory()
 
 
 func _ready() -> void:
+	super()
+	if PlayerData.used_spawn_position == false:
+		self.global_position = PlayerData.next_spawn_position
+		PlayerData.used_spawn_position = true
+	
+	self.inventory_data = PlayerData.player_inventory_data
+	self.equip_inventory_data = PlayerData.player_equip_data
+	self.outfit_inventory_data = PlayerData.player_outfit_data
 	interact_area.area_entered.connect(func(a): can_interact = true)
 	interact_area.area_exited.connect(func(a): can_interact = false)
+	
 	if hoe:
 		print("=== HOE DEBUG ===")
 		print("hoe node:", hoe, "class:", hoe.get_class())
@@ -58,16 +72,18 @@ func _ready() -> void:
 
 	_set_mouse_captured(true)
 	anim.animation_finished.connect(_on_anim_finished)
-
-	## HighLightBox Shader Code Only
-	#var mat:= StandardMaterial3D.new()
-	#mat.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
-	#mat.albedo_texture = preload("res://Textures/FrameUI/FrameHighlight.png")
-	#mat.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
-	#mat.no_depth_test = true
-	#mat.albedo_color = Color(1, 1, 1, 0.9)
-	#hl_select.material_override = mat
+	## Highlight Box
 	hl_select.visible = false
+	var hsm := get_node_or_null("LimboHSM")
+	if hsm:
+		blackboard = hsm.blackboard
+	else:
+		push_warning("Không tìm thấy LimboHSM => blackboard sẽ là null!")
+
+## Outfit
+	if outfit_inventory_data:
+			outfit_inventory_data.inventory_updated.connect(update_all_outfits)
+			update_all_outfits()
 
 
 func _process(_delta):
@@ -180,61 +196,35 @@ func _on_anim_finished(name: String) -> void:
 				sickle.swing_sickle()
 			is_busy = false
 
+func update_visuals(slot_index: int, target_node: MeshInstance3D):
+	if slot_index >= outfit_inventory_data.slot_datas.size():
+		return 
+	
+	if not target_node:
+		push_error("Target node (ao_mesh_node) bị null!")
+		return
+		
+	var slot_data = outfit_inventory_data.slot_datas[slot_index]
+	
+	if slot_data and slot_data.item_data and slot_data.item_data.equip_mesh:
+		target_node.mesh = slot_data.item_data.equip_mesh
+		target_node.visible = true
+	else:
+		target_node.mesh = null
+		target_node.visible = false
+
+func update_all_outfits(_inventory_data = null):
+	if not outfit_inventory_data: return
+
+		# (Nhớ thêm kiểm tra an toàn cho size mảng)
+	if outfit_inventory_data.slot_datas.size() < 3: return 
+	update_visuals(1, ao_mesh_node)    # Slot 1 = BODY
 
 
 func _physics_process(delta: float) -> void:
-	## Gravity
-	if use_gravity and not is_on_floor():
-		velocity += get_gravity() * delta
-	else:
-		velocity.y = 0.0
-
-	## Stop Moving if Busy
-	if is_busy:
-		velocity.x = 0.0
-		velocity.z = 0.0
-		move_and_slide()
-		return
-
-	## Stop Moving if Interacting
-	if not mouse_captured:
-		velocity.x = lerpf(velocity.x, 0.0, clampf(accel * delta, 0.0, 1.0))
-		velocity.z = lerpf(velocity.z, 0.0, clampf(accel * delta, 0.0, 1.0))
-		move_and_slide()
-		return
-
-	## Input
-	var iv: Vector2 = Vector2(0, 0)
-	if GState.is_playing(): iv = Input.get_vector("left", "right", "back", "forward")
-	else: iv = Vector2.ZERO
-	if iv.length() > 1.0:
-		iv = iv.normalized()
-
-	## Hướng theo yaw camera
-	var eul: Vector3 = cam_ref.global_transform.basis.get_euler()
-	var cam_yaw: float = eul.y
-	var forward: Vector3 = Vector3(-sin(cam_yaw), 0.0, -cos(cam_yaw))
-	var right: Vector3 = Vector3(cos(cam_yaw), 0.0, -sin(cam_yaw))
-	var move_dir: Vector3 = right * iv.x + forward * iv.y
-
-	## Animation
-	if move_dir.length() > 0.0:
-		anim.play("Walking")
-	else:
-		anim.play("Idle1")
-
-	## Velocity
-	var target_vel: Vector3 = move_dir * move_speed
-	var k: float = clampf(accel * delta, 0.0, 1.0)
-	velocity.x = lerpf(velocity.x, target_vel.x, k)
-	velocity.z = lerpf(velocity.z, target_vel.z, k)
-
-	move_and_slide()
-
-	## Rotate on moving direction
-	if move_dir.length() > 0.0:
-		var target_yaw: float = atan2(-move_dir.x, -move_dir.z)
-		rotation.y = lerp_angle(rotation.y, target_yaw, 10.0 * delta)
+	super(delta)
+	if bt_player:
+		bt_player.update(delta)
 
 
 func _set_mouse_captured(enable: bool) -> void:

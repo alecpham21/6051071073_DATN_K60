@@ -1,0 +1,69 @@
+[gd_scene load_steps=10 format=3 uid="uid://battkqubkudj8"]
+
+[ext_resource type="PackedScene" uid="uid://diddnhiln04ey" path="res://model/structure/WoodenRailingVer2.glb" id="1_f3pmp"]
+[ext_resource type="Texture2D" uid="uid://1gysjnj7jqbq" path="res://assets/ImphenziaPalette01-256-Gradient.png" id="2_bcy0p"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1oy4w"]
+albedo_texture = ExtResource("2_bcy0p")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_bcy0p"]
+size = Vector3(37.6854, 1, 1.85205)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_m27v4"]
+size = Vector3(71.0424, 1, 1.85205)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_1oy4w"]
+size = Vector3(150.662, 1, 1.85205)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_lsaeu"]
+size = Vector3(162.262, 1, 1.85205)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lsaeu"]
+albedo_texture = ExtResource("2_bcy0p")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_f3pmp"]
+size = Vector3(1.55176, 1.6347, 19.6243)
+
+[node name="WoodenRailingVer2" instance=ExtResource("1_f3pmp")]
+
+[node name="Cube_089" parent="." index="0"]
+material_override = SubResource("StandardMaterial3D_1oy4w")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Cube_089" index="0"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Cube_089/StaticBody3D" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15.7966, 0, -0.426024)
+shape = SubResource("BoxShape3D_bcy0p")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="Cube_089/StaticBody3D" index="1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15.7966, 0, 22.0574)
+shape = SubResource("BoxShape3D_bcy0p")
+
+[node name="CollisionShape3D6" type="CollisionShape3D" parent="Cube_089/StaticBody3D" index="2"]
+transform = Transform3D(-4.37114e-08, 0, 0.999999, 0, 0.999996, 0, -0.999999, 0, -4.37114e-08, -34.9203, 0, 56.976)
+shape = SubResource("BoxShape3D_m27v4")
+
+[node name="CollisionShape3D7" type="CollisionShape3D" parent="Cube_089/StaticBody3D" index="3"]
+transform = Transform3D(-4.37114e-08, 0, 0.999999, 0, 0.999996, 0, -0.999999, 0, -4.37114e-08, -34.9203, 0, -36.1777)
+shape = SubResource("BoxShape3D_m27v4")
+
+[node name="CollisionShape3D3" type="CollisionShape3D" parent="Cube_089/StaticBody3D" index="4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -110.052, 0, 91.9897)
+shape = SubResource("BoxShape3D_1oy4w")
+
+[node name="CollisionShape3D4" type="CollisionShape3D" parent="Cube_089/StaticBody3D" index="5"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -110.052, 0, -71.5975)
+shape = SubResource("BoxShape3D_1oy4w")
+
+[node name="CollisionShape3D5" type="CollisionShape3D" parent="Cube_089/StaticBody3D" index="6"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 0.999992, 0, -0.999999, 0, -4.37114e-08, -183.623, 0, 10.3107)
+shape = SubResource("BoxShape3D_lsaeu")
+
+[node name="Gate" parent="." index="1"]
+material_override = SubResource("StandardMaterial3D_lsaeu")
+
+[node name="AnimatableBody3D" type="AnimatableBody3D" parent="Gate" index="0"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Gate/AnimatableBody3D" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.275879, 0.0565491, -9.31213)
+shape = SubResource("BoxShape3D_f3pmp")
