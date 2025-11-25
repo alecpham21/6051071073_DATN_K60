@@ -9,7 +9,8 @@ func _ready():
 	
 
 	multimesh.instance_count = 0 
-	multimesh.instance_count = 10000
+	multimesh.instance_count = 5000
+	
 
 	for i in range(multimesh.instance_count):
 		var x = rng.randf_range(-extents.x, extents.x)
@@ -18,7 +19,7 @@ func _ready():
 		var trans := Transform3D()
 		var random_angle = rng.randf_range(-PI, PI)
 		trans = trans.rotated(Vector3.UP, random_angle)
-		var random_scale = rng.randf_range(1, 1.6)
+		var random_scale = rng.randf_range(0.5, 1.2)
 		trans = trans.scaled(Vector3(random_scale, random_scale, random_scale))
 
 

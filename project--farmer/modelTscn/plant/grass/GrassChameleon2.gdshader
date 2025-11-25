@@ -1,4 +1,5 @@
 shader_type spatial;
+// Tắt cull_disabled để nó hiện 2 mặt, các chế độ khác giữ nguyên
 render_mode cull_disabled, diffuse_toon, specular_disabled;
 
 uniform sampler2D grass_texture : filter_nearest, source_color;
@@ -13,14 +14,46 @@ float random(vec2 uv) {
 }
 
 void vertex() {
-	// 1. GIỮ NGUYÊN CHUYỂN ĐỘNG GIÓ
+	// --- PHẦN MỚI: XOAY THEO CAMERA (Y-BILLBOARD) ---
+	
+	// 1. Lấy vị trí gốc của bụi cỏ trong thế giới thực
+	// MODEL_MATRIX[3].xyz là vị trí gốc (origin) của object hiện tại
+	vec3 world_origin = MODEL_MATRIX[3].xyz;
+
+	// 2. Tính vector hướng từ gốc cỏ đến camera
+	vec3 dir_to_camera = normalize(CAMERA_POSITION_WORLD - world_origin);
+	
+	// 3. "Ép" phẳng vector này xuống mặt đất (chỉ giữ lại X và Z)
+	// Để cỏ chỉ xoay trái phải, không bị ngửa lên trời hay úp xuống đất
+	dir_to_camera.y = 0.0;
+	dir_to_camera = normalize(dir_to_camera); // Chuẩn hóa lại sau khi ép phẳng
+
+	// 4. Tạo hệ trục tọa độ mới để xoay
+	vec3 up_vec = vec3(0.0, 1.0, 0.0); // Trục lên chuẩn của thế giới
+	vec3 new_z = dir_to_camera; // Trục Z mới hướng về camera
+	vec3 new_x = normalize(cross(up_vec, new_z)); // Trục X mới vuông góc với Y và Z (Tích có hướng)
+	// Tính lại trục Y mới để đảm bảo vuông góc hoàn toàn (dù thường thì nó vẫn là 0,1,0)
+	vec3 new_y = cross(new_z, new_x); 
+
+	// 5. Tạo ma trận xoay từ 3 trục mới
+	mat3 rotation_matrix = mat3(new_x, new_y, new_z);
+
+	// 6. Áp dụng ma trận xoay vào vị trí đỉnh (VERTEX) BAN ĐẦU
+	// Lưu ý: Phải xoay trước khi áp dụng gió
+	VERTEX = rotation_matrix * VERTEX;
+
+
+	// --- PHẦN CŨ: HIỆU ỨNG GIÓ (Áp dụng lên VERTEX đã được xoay) ---
+	
+	// Dùng NODE_POSITION_WORLD để gió đồng bộ trên cả bụi cỏ sau khi đã xoay
 	float sway_x = sin(NODE_POSITION_WORLD.x + TIME * 1.25 + UV.y) * (1.0 - UV.y) * 0.2;
 	float sway_z = cos(NODE_POSITION_WORLD.z + TIME * 0.45 + UV.y) * (1.0 - UV.y) * 0.15;
 	
+	// Lúc này VERTEX.x là trục ngang nhìn từ camera, VERTEX.z là trục sâu nhìn từ camera
 	VERTEX.x += sway_x;
 	VERTEX.z += sway_z;
 
-	// 2. ÉP PHÁP TUYẾN (Quan trọng nhất để đồng bộ sáng với đất)
+	// KỸ THUẬT "ĐÁNH LỪA ÁNH SÁNG" (Vẫn giữ nguyên)
 	NORMAL = vec3(0.0, 1.0, 0.0);
 }
 
@@ -32,15 +65,9 @@ void fragment() {
 		discard;
 	}
 
-	// 3. XỬ LÝ MÀU SẮC ĐƠN GIẢN
-	// Random nhẹ để thảm cỏ không bị đều màu quá mức (chết cứng)
+	// XỬ LÝ MÀU SẮC
 	float noise = random(NODE_POSITION_WORLD.xz);
-	
-	// Pha màu đất với màu biến thiên (khoảng 20% thôi cho tự nhiên)
 	vec3 final_color = mix(terrain_color.rgb, color_variation.rgb, noise * 0.2);
-	
-	// Nhân với texture gốc (Nếu texture bạn là màu trắng thì nó ra đúng màu đất. 
-	// Nếu texture có vân xám thì nó sẽ giữ lại vân chi tiết đó)
 	final_color *= grass_sample.rgb;
 
 	ALBEDO = final_color;
@@ -48,8 +75,9 @@ void fragment() {
 
 void light() {
 	float NdotL = dot(NORMAL, LIGHT);
-	
 	float light_intensity = smoothstep(0.0, 0.05, abs(NdotL));
 	
-	DIFFUSE_LIGHT += light_intensity * LIGHT_COLOR * ALBEDO;
+	// Thêm bóng đổ (ATTENUATION) để cỏ có chiều sâu hơn khi có vật che
+	float shadow = ATTENUATION;
+	DIFFUSE_LIGHT += light_intensity * LIGHT_COLOR * ALBEDO * shadow;
 }
