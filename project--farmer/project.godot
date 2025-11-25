@@ -194,3 +194,15 @@ sgt_wind_pattern={
 "type": "sampler2D",
 "value": "res://addons/simplegrasstextured/images/wind_pattern.png"
 }
+wind_intensity={
+"type": "float",
+"value": 1.5
+}
+wind_direction={
+"type": "vec3",
+"value": Vector3(0.5, 0, 2)
+}
+player_position={
+"type": "vec3",
+"value": Vector3(0, 0, 0)
+}

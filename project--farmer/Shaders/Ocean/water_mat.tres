@@ -1,0 +1,61 @@
+[gd_resource type="ShaderMaterial" load_steps=7 format=3 uid="uid://7yimpm2wyl7g"]
+
+[ext_resource type="Shader" uid="uid://b4s70mn666gsf" path="res://Shaders/Ocean/ocean.gdshader" id="1_6p81g"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_6p81g"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_tagjx"]
+frequency = 0.0035
+offset = Vector3(305.08, 0, 0)
+cellular_jitter = 0.795
+cellular_return_type = 3
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_7od40"]
+seamless = true
+noise = SubResource("FastNoiseLite_tagjx")
+
+[sub_resource type="Gradient" id="Gradient_6p81g"]
+offsets = PackedFloat32Array(0, 0.0823529, 0.147059, 1)
+colors = PackedColorArray(0.864675, 0.864675, 0.864675, 1, 1, 1, 1, 1, 0.00351916, 0.00351917, 0.00351916, 1, 0.00566116, 0.00566115, 0.00566115, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_tagjx"]
+gradient = SubResource("Gradient_6p81g")
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_6p81g")
+shader_parameter/absorption_color = Color(1, 0.35, 0, 1)
+shader_parameter/fresnel_radius = 1.22
+shader_parameter/fresnel_color = Color(0, 0.57, 0.72, 1)
+shader_parameter/roughness = 0.15
+shader_parameter/specular = 0.25
+shader_parameter/depth_distance = 25.0
+shader_parameter/beers_law = 4.5
+shader_parameter/displacement_strength = 0.3
+shader_parameter/displacement_scroll_speed = 0.05
+shader_parameter/displacement_scroll_offset = Vector2(-0.2, 0.3)
+shader_parameter/displacement_scale_offset = 0.62
+shader_parameter/displacement_scale = Vector2(0.09, 0.08)
+shader_parameter/displacement_texture = SubResource("NoiseTexture2D_6p81g")
+shader_parameter/edge_thickness = 0.378
+shader_parameter/edge_speed = 0.142
+shader_parameter/edge_noise_scale = Vector2(0.195, 2.215)
+shader_parameter/edge_noise = SubResource("NoiseTexture2D_7od40")
+shader_parameter/edge_ramp = SubResource("GradientTexture1D_tagjx")
+shader_parameter/influence_size = 0.7
+shader_parameter/player_wave_frequenzy = 10.0
+shader_parameter/player_wave_speed = 5.0
+shader_parameter/caustic_size = 2.08
+shader_parameter/caustic_range = 56.8
+shader_parameter/caustic_strength = 0.44
+shader_parameter/ssr_mix_strength = 0.65
+shader_parameter/ssr_travel = 100.0
+shader_parameter/ssr_resolution_near = 1.0
+shader_parameter/ssr_resolution_far = 5.0
+shader_parameter/ssr_tolerance = 1.0
+shader_parameter/refraction_strength = 0.42
+shader_parameter/normal_map_strength = 1.0
+shader_parameter/scroll_speed = 0.3
+shader_parameter/scroll_offset = Vector2(0.1, -0.3)
+shader_parameter/scale_offset = 0.5
+shader_parameter/normal_map_scale = Vector2(0.1, 0.1)

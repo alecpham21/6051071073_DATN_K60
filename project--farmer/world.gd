@@ -8,10 +8,12 @@ const PickUp = preload("res://inventory_script/item/pick_up_item/pick_up.tscn")
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	Watcher.indoor = false
 	player.toggle_inventory.connect(toggle_inventory_interface)
 	inventory_interface.set_player_inventory_data(player.inventory_data)
 	inventory_interface.set_equip_inventory_data(player.equip_inventory_data)
 	inventory_interface.set_outfit_inventory_data(player.outfit_inventory_data)
+	inventory_interface.force_close.connect(toggle_inventory_interface)
 	hot_bar_inventory.set_inventory_data(player.inventory_data)
 	GameData.set_current_stage(self)
 	

@@ -263,7 +263,6 @@ func set_mode(x: int, z: int, mode: int, _variant: int = 0):
 		BlockGroundData.Mode.TILLED:
 			y_offset = -0.04
 
-	# Tạo transform mới
 	var t = Transform3D(Basis(), base_pos + Vector3(0, y_offset, 0))
 
 	# Xóa vị trí cũ để tránh chồng
@@ -286,14 +285,6 @@ func set_mode(x: int, z: int, mode: int, _variant: int = 0):
 				mm_grass_decor.set_instance_transform(slot, Transform3D())
 			grass_index_per_block[block_idx].clear()
 
-#
-	## Chọn màu/material dựa trên variant
-	#if variant == 1 and mode == BlockGroundData.Mode.GRASS:
-		#inst_grass.material_override.albedo_color = Color(0.2, 0.7, 0.2) # dark
-	#elif variant == 2 and mode == BlockGroundData.Mode.GRASS:
-		#inst_grass.material_override.albedo_color = Color(0.4, 0.9, 0.4) # light
-	#else:
-		#inst_grass.material_override.albedo_color = Color(0.3, 0.8, 0.3)
 
 	match mode:
 		BlockGroundData.Mode.GRASS:

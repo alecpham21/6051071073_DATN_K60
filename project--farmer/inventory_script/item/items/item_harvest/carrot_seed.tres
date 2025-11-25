@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="ItemDataUsable" load_steps=4 format=3 uid="uid://djph6j4pxvvie"]
+
+[ext_resource type="Script" uid="uid://bf2bbfvsrqnsf" path="res://inventory_script/item/item_data/item_data_usable.gd" id="1_gygyr"]
+[ext_resource type="Texture2D" uid="uid://omvd8ed3fie6" path="res://inventory_script/item/item_atlast/#2 - Transparent Icons & Drop Shadow.png" id="2_gygyr"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cxv6h"]
+atlas = ExtResource("2_gygyr")
+region = Rect2(128, 704, 32, 32)
+
+[resource]
+script = ExtResource("1_gygyr")
+name = "Carrot Seed"
+description = ""
+stackable = true
+texture = SubResource("AtlasTexture_cxv6h")
+metadata/_custom_type_script = "uid://8qjn0t0dq2pu"

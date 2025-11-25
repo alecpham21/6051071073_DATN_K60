@@ -1,8 +1,26 @@
-[gd_scene load_steps=2 format=3 uid="uid://c08vlcycibqcj"]
+[gd_scene load_steps=7 format=3 uid="uid://c08vlcycibqcj"]
 
-[ext_resource type="PackedScene" uid="uid://fpp7smsocfla" path="res://modelTscn/plant/wheat/wheat_item.tscn" id="1_flahv"]
+[ext_resource type="PackedScene" uid="uid://d3v1u6td3fyb6" path="res://inventory_script/item/pick_up_item/pick_up.tscn" id="1_cy8t2"]
+[ext_resource type="Resource" uid="uid://b52qumcoelf4w" path="res://inventory_script/item/items/item_harvest/wheat_seed.tres" id="2_rwwhe"]
+[ext_resource type="Script" uid="uid://bspkgwkxsy8mn" path="res://inventory_script/slot_data.gd" id="3_u72jw"]
+[ext_resource type="Resource" uid="uid://cqmw3b5kabv83" path="res://inventory_script/item/items/item_harvest/wheat.tres" id="4_rwwhe"]
+
+[sub_resource type="Resource" id="Resource_rwwhe"]
+script = ExtResource("3_u72jw")
+item_data = ExtResource("2_rwwhe")
+quantity = 3
+metadata/_custom_type_script = "uid://bspkgwkxsy8mn"
+
+[sub_resource type="Resource" id="Resource_u72jw"]
+script = ExtResource("3_u72jw")
+item_data = ExtResource("4_rwwhe")
+quantity = 7
+metadata/_custom_type_script = "uid://bspkgwkxsy8mn"
 
 [node name="WheatItem" type="Node3D"]
 
-[node name="Wheat_Item" parent="." instance=ExtResource("1_flahv")]
-transform = Transform3D(-0.0200176, 0, -0.9998, 0.99956, -0.0219022, -0.0200128, -0.0218978, -0.99976, 0.00043843, 0, 0, 0.367137)
+[node name="PickUp" parent="." instance=ExtResource("1_cy8t2")]
+slot_data = SubResource("Resource_rwwhe")
+
+[node name="PickUp2" parent="." instance=ExtResource("1_cy8t2")]
+slot_data = SubResource("Resource_u72jw")

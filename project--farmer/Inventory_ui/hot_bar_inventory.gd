@@ -2,6 +2,7 @@ extends PanelContainer
 
 signal hot_bar_use(index: int)
 signal active_slot_changed(slot_data: SlotData)
+signal hot_bar_action(index: int)
 
 const Slot = preload("res://Inventory_ui/slot.tscn")
 
@@ -9,14 +10,39 @@ const Slot = preload("res://Inventory_ui/slot.tscn")
 
 var active_index: int = 0
 var current_inventory_data: InventoryData
+var active_tool:Array[Node3D] = []
+
+func _ready() -> void:
+	active_slot_changed.connect(func(_slot:SlotData):
+		tool_cache()
+		if _slot && _slot.item_data is ItemDataTool:
+			var tool:Node3D = _slot.item_data.equip_scene.instantiate()
+			match(_slot.item_data.name.to_lower()):
+				"hoe": PlayerData.player.hoe.add_child(tool)
+				"sickle":
+					PlayerData.player.sickle.add_child(tool)
+					tool.scale *= 0.3
+			active_tool.append(tool)
+		)
+	PlayerData.player_inventory_data.inventory_updated.connect(populate_hot_bar)
 
 func _unhandled_key_input(event: InputEvent) -> void:
+	if not is_inside_tree(): 
+		return
 	if not visible or not event.is_pressed():
 		return
 	
+	if event.is_action_pressed("use_item"):
+		hot_bar_action.emit(active_index)
+	
 	if range(KEY_1, KEY_7).has(event.keycode):
 		var index_pressed = event.keycode - KEY_1
+		if index_pressed == active_index:
+			index_pressed = -1
+		active_index = index_pressed
+		HotBar.select_item(PlayerData.player_inventory_data.slot_datas[index_pressed])
 		hot_bar_use.emit(index_pressed)
+		active_slot_changed.emit(PlayerData.player_inventory_data.slot_datas[index_pressed])
 		set_active_slot(index_pressed)
 
 func set_inventory_data(inventory_data: InventoryData) -> void:
@@ -34,7 +60,7 @@ func populate_hot_bar(inventory_data: InventoryData) -> void:
 		child.free() 
 		
 	var i = 0 
-	for slot_data in inventory_data.slot_datas.slice(0, 7):
+	for slot_data in inventory_data.slot_datas.slice(0, 6):
 		var slot = Slot.instantiate()
 		h_box_container.add_child(slot)
 		
@@ -77,3 +103,8 @@ func get_active_item() -> SlotData:
 	if current_inventory_data:
 		return current_inventory_data.slot_datas[active_index]
 	return null
+
+func tool_cache():
+	for i:Node3D in active_tool:
+		i.queue_free()
+		active_tool.erase(i)

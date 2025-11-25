@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="ItemData" load_steps=4 format=3 uid="uid://bh4g6q5c147wp"]
+
+[ext_resource type="Script" uid="uid://oj6faifeyt6a" path="res://inventory_script/item/item_data/item_data.gd" id="1_6158n"]
+[ext_resource type="Texture2D" uid="uid://omvd8ed3fie6" path="res://inventory_script/item/item_atlast/#2 - Transparent Icons & Drop Shadow.png" id="2_o5yh1"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vq0tb"]
+atlas = ExtResource("2_o5yh1")
+region = Rect2(192, 576, 32, 32)
+
+[resource]
+script = ExtResource("1_6158n")
+name = "Cabbage"
+description = "Cabbbbage"
+stackable = true
+texture = SubResource("AtlasTexture_vq0tb")
+metadata/_custom_type_script = "uid://oj6faifeyt6a"

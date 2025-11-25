@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="ItemDataOutfit" load_steps=4 format=3 uid="uid://c3eso4kmjc5en"]
+
+[ext_resource type="ArrayMesh" uid="uid://ddlwdb1yykf3b" path="res://inventory_script/item/items/item_clothe/mesh/long_black_pants.mesh" id="1_8c2ui"]
+[ext_resource type="Script" uid="uid://bjgwngm01lr5n" path="res://inventory_script/item/item_data/item_data_outfit.gd" id="1_kb5ad"]
+[ext_resource type="Texture2D" uid="uid://dlrwrt5rjw5cq" path="res://inventory_script/item/item_atlast/item_atlast.tres" id="3_f13dc"]
+
+[resource]
+script = ExtResource("1_kb5ad")
+outfit_type = 2
+equip_mesh = ExtResource("1_8c2ui")
+name = "Long Black Pants"
+description = ""
+stackable = false
+texture = ExtResource("3_f13dc")
+metadata/_custom_type_script = "uid://bjgwngm01lr5n"

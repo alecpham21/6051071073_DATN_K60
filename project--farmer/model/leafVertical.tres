@@ -2,12 +2,12 @@
 
 [ext_resource type="Shader" uid="uid://bpre3j5j2h6bt" path="res://LeafShader.gdshader" id="1_0va8s"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_o45tv"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_0va8s"]
 render_priority = 0
 shader = ExtResource("1_0va8s")
-shader_parameter/leaf_color = Color(0.284797, 0.528581, 0.212058, 1)
-shader_parameter/wind_strength = 0.2
-shader_parameter/wind_speed = 2.0
+shader_parameter/leaf_color = Color(0.247146, 0.462846, 0.182864, 1)
+shader_parameter/wind_strength = 0.15
+shader_parameter/wind_speed = 0.9
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_i0aew"]
 _surfaces = [{
@@ -32,7 +32,7 @@ _surfaces = [{
 "index_count": 36,
 "index_data": PackedByteArray("CgABAAIACgADAAEABgAKAAIABgACAAcACAAKAAYACwADAAoACAALAAoACQALAAgACwAEAAMACQAAAAsAAAAEAAsAAAAFAAQA"),
 "lods": [1e-10, PackedByteArray("AAABAAIAAAADAAEAAAAEAAMAAAAFAAQABgAAAAIABgACAAcACAAAAAYACQAAAAgA")],
-"material": SubResource("ShaderMaterial_o45tv"),
+"material": SubResource("ShaderMaterial_0va8s"),
 "primitive": 3,
 "uv_scale": Vector4(0, 0, 0, 0),
 "vertex_count": 12,

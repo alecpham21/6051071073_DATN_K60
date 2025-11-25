@@ -1,7 +1,8 @@
-[gd_scene load_steps=17 format=4 uid="uid://b2fs6n6m2oqn0"]
+[gd_scene load_steps=18 format=4 uid="uid://b2fs6n6m2oqn0"]
 
 [ext_resource type="Script" uid="uid://dwtqs8dj4xh8g" path="res://Scripts/chest.gd" id="1_2gbhh"]
 [ext_resource type="Texture2D" uid="uid://bwa8xtxlf1ptx" path="res://Textures/woodtexture.png" id="1_veghk"]
+[ext_resource type="Resource" uid="uid://wuplphvxje0g" path="res://inventory_script/inventory_chest/starter_chest_inventory.tres" id="2_n4vvc"]
 [ext_resource type="PackedScene" uid="uid://dw36bbfqny63n" path="res://Scripts/interact_area.tscn" id="3_n4vvc"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_veghk"]
@@ -40,7 +41,9 @@ blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_00yjn")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3gtyn"]
+diffuse_mode = 3
 albedo_texture = ExtResource("1_veghk")
+roughness = 0.86
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_dyrkx"]
 
@@ -151,6 +154,7 @@ _data = {
 
 [node name="WoodenCrate" type="Node3D" node_paths=PackedStringArray("ani", "interact_area") groups=["external_inventory"]]
 script = ExtResource("1_2gbhh")
+inventory_data = ExtResource("2_n4vvc")
 ani = NodePath("AnimationPlayer")
 interact_area = NodePath("InteractArea")
 

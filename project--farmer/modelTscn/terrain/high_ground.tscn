@@ -1,0 +1,30 @@
+[gd_scene load_steps=7 format=3 uid="uid://cn5p55ydjvvgl"]
+
+[ext_resource type="PackedScene" uid="uid://bspg7vwyaa8oe" path="res://model/terrain/FishingZone/high_ground.glb" id="1_brwq6"]
+[ext_resource type="Texture2D" uid="uid://1gysjnj7jqbq" path="res://assets/ImphenziaPalette01-256-Gradient.png" id="2_6im46"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_dhwb6"]
+albedo_texture = ExtResource("2_6im46")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ryjoh"]
+albedo_texture = ExtResource("2_6im46")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_kwimw"]
+albedo_texture = ExtResource("2_6im46")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_cd7hy"]
+albedo_texture = ExtResource("2_6im46")
+
+[node name="high_ground" instance=ExtResource("1_brwq6")]
+
+[node name="Cube" parent="." index="0"]
+material_override = SubResource("StandardMaterial3D_dhwb6")
+
+[node name="Cube_001" parent="." index="1"]
+material_override = SubResource("StandardMaterial3D_ryjoh")
+
+[node name="Cube_002" parent="." index="2"]
+material_override = SubResource("StandardMaterial3D_kwimw")
+
+[node name="Cube_003" parent="." index="3"]
+material_override = SubResource("StandardMaterial3D_cd7hy")

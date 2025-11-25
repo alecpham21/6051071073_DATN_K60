@@ -1,0 +1,20 @@
+[gd_resource type="Resource" script_class="ItemDataTool" load_steps=5 format=3 uid="uid://c5ju7kxb8sgep"]
+
+[ext_resource type="Script" uid="uid://cbuqv3ga5xd3c" path="res://inventory_script/item/item_data/item_data_tool.gd" id="1_b4fes"]
+[ext_resource type="PackedScene" uid="uid://dtr4blqarx2s3" path="res://Scene/tool_hoe.tscn" id="1_ggywg"]
+[ext_resource type="Texture2D" uid="uid://omvd8ed3fie6" path="res://inventory_script/item/item_atlast/#2 - Transparent Icons & Drop Shadow.png" id="3_spoao"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tlq7n"]
+atlas = ExtResource("3_spoao")
+region = Rect2(0, 768, 32, 32)
+
+[resource]
+script = ExtResource("1_b4fes")
+equip_scene = ExtResource("1_ggywg")
+harvest_speed = 1
+is_long_tool = true
+name = "Hoe"
+description = ""
+stackable = false
+texture = SubResource("AtlasTexture_tlq7n")
+metadata/_custom_type_script = "uid://cbuqv3ga5xd3c"

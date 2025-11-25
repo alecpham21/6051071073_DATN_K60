@@ -1,12 +1,13 @@
 extends Node
 
-enum PLANT_VARIANT {NONE, WHEAT, CARROT, CORN}
+enum PLANT_VARIANT {NONE, WHEAT, CARROT, CORN, CABBAGE}
 
 var plants = [
 	null,
 	preload("res://Plant/plant_wheat.tscn"),
 	preload("res://Plant/plant_carrot.tscn"),
-	preload("res://Plant/plant_corn.tscn")
+	preload("res://Plant/plant_corn.tscn"),
+	preload("res://Plant/plant_cabbage.tscn")
 ]
 
 func get_plant_node(type):
@@ -24,5 +25,7 @@ func get_variant_from_seed(seed_name: String) -> PLANT_VARIANT:
 			return PLANT_VARIANT.CARROT
 		"corn_seed":
 			return PLANT_VARIANT.CORN
+		"cabbage_seed":
+			return PLANT_VARIANT.CABBAGE
 		_:
 			return PLANT_VARIANT.NONE

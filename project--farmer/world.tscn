@@ -1,28 +1,27 @@
-[gd_scene load_steps=57 format=4 uid="uid://bbvhog32snru6"]
+[gd_scene load_steps=54 format=4 uid="uid://bbvhog32snru6"]
 
 [ext_resource type="Script" uid="uid://hctai00r4njf" path="res://world.gd" id="1_dwbse"]
+[ext_resource type="Script" uid="uid://dxa7xefsogpt0" path="res://pixel_movement.gd" id="2_bh8nc"]
+[ext_resource type="Shader" uid="uid://bkw4b21akjsc2" path="res://subViewportPixel.gdshader" id="2_gggvi"]
 [ext_resource type="Script" uid="uid://bsrl0vcdxurk1" path="res://Camera_spring_arm.gd" id="3_036b0"]
-[ext_resource type="Shader" uid="uid://c6qhkhar3xobg" path="res://Shader/edge_detection.gdshader" id="3_aqk2v"]
 [ext_resource type="Shader" uid="uid://viqy3uwh6ns7" path="res://PixelShader.gdshader" id="3_hiqwa"]
 [ext_resource type="PackedScene" uid="uid://bnxu42mjbjp8x" path="res://player/main_farmer.tscn" id="5_26xuy"]
 [ext_resource type="Script" uid="uid://6577es050bku" path="res://ground_generator.gd" id="5_036b0"]
 [ext_resource type="Script" uid="uid://5ej0tp0e5sk5" path="res://time_manager.gd" id="5_dwbse"]
+[ext_resource type="Script" uid="uid://cd2gkx8yxvr1x" path="res://camera_pixel_movement.gd" id="5_jjr1n"]
 [ext_resource type="PackedScene" uid="uid://te52jubb0t6m" path="res://Scene/Ground/ground_renderer.tscn" id="7_hiqwa"]
 [ext_resource type="Shader" uid="uid://bpre3j5j2h6bt" path="res://LeafShader.gdshader" id="8_cbp6q"]
-[ext_resource type="Script" uid="uid://cl2lorw1iii8k" path="res://Scripts/Resources/character_stats.gd" id="8_o3ebs"]
 [ext_resource type="ArrayMesh" uid="uid://baypagydj3poq" path="res://modelTscn/plant/grass/Grass_ver2.tres" id="9_cbp6q"]
 [ext_resource type="PackedScene" uid="uid://b2fs6n6m2oqn0" path="res://modelTscn/storage/WoodenCrate.tscn" id="10_26xuy"]
 [ext_resource type="Shader" uid="uid://kimc5meeodlx" path="res://Shader/sky_shader_level2.gdshader" id="11_k3n1d"]
-[ext_resource type="Script" uid="uid://csfrg4socg8bj" path="res://inventory_script/inventory_data.gd" id="11_wjb0r"]
+[ext_resource type="Resource" uid="uid://c05tf37csx4tp" path="res://inventory_script/test_inv.tres" id="11_k83mh"]
 [ext_resource type="Texture2D" uid="uid://bj14akt05culg" path="res://Shader/epic_sky.jpg" id="12_2o6r5"]
 [ext_resource type="Shader" uid="uid://d1pnwkrkiec0c" path="res://Shader/cloud_tét.gdshader" id="12_k3n1d"]
 [ext_resource type="Script" uid="uid://bspkgwkxsy8mn" path="res://inventory_script/slot_data.gd" id="12_mc2jv"]
-[ext_resource type="Resource" uid="uid://cts13hjvusdcw" path="res://inventory_script/item/items/wheat_seed.tres" id="13_bo7i5"]
 [ext_resource type="PackedScene" uid="uid://csnejiwkcvvuj" path="res://terrain/big_terrain_moutain.tscn" id="14_70uel"]
 [ext_resource type="PackedScene" uid="uid://ct3dfh117wqmh" path="res://model/terrain/ground_frame.tscn" id="16_2u3nc"]
-[ext_resource type="Resource" uid="uid://ced42cx2oi7g6" path="res://inventory_script/item/items/item_clothe/blue_shirt.tres" id="16_k83mh"]
 [ext_resource type="PackedScene" uid="uid://c2mndlfrs1dsl" path="res://modelTscn/building/house/simple_house_ver_2.tscn" id="16_udxuc"]
-[ext_resource type="Script" uid="uid://y0d42bllc0fd" path="res://inventory_script/inventory_interface.gd" id="17_26xuy"]
+[ext_resource type="Script" uid="uid://y0d42bllc0fd" path="res://Inventory_ui/inventory_interface.gd" id="17_26xuy"]
 [ext_resource type="PackedScene" uid="uid://470pnke8j1j2" path="res://Inventory_ui/inventory.tscn" id="17_cbp6q"]
 [ext_resource type="PackedScene" uid="uid://cmaas2sclopj4" path="res://Inventory_ui/slot.tscn" id="19_bc84e"]
 [ext_resource type="PackedScene" uid="uid://km0edqcbty58" path="res://level/level script/door.tscn" id="21_k83mh"]
@@ -31,19 +30,11 @@
 [ext_resource type="PackedScene" uid="uid://cb3w8fvw4gt62" path="res://modelTscn/structure/stone_stair.tscn" id="24_bh8nc"]
 [ext_resource type="PackedScene" uid="uid://battkqubkudj8" path="res://modelTscn/structure/wooden_railing_ver_2.tscn" id="24_jjr1n"]
 [ext_resource type="PackedScene" uid="uid://d3v1u6td3fyb6" path="res://inventory_script/item/pick_up_item/pick_up.tscn" id="25_mc2jv"]
+[ext_resource type="Resource" uid="uid://b52qumcoelf4w" path="res://inventory_script/item/items/item_harvest/wheat_seed.tres" id="28_qktwf"]
+[ext_resource type="Shader" uid="uid://c13esa4vg2n5k" path="res://level/posterization.gdshader" id="30_qktwf"]
 
-[sub_resource type="QuadMesh" id="QuadMesh_036b0"]
-flip_faces = true
-size = Vector2(4, 4)
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_dwbse"]
-render_priority = 0
-shader = ExtResource("3_aqk2v")
-shader_parameter/lightIntensity = 1.25
-shader_parameter/lineAlpha = 0.7
-shader_parameter/useLighting = true
-shader_parameter/lineHighlight = 0.09
-shader_parameter/lineShadow = 0.58
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_w44yn"]
+shader = ExtResource("2_gggvi")
 
 [sub_resource type="QuadMesh" id="QuadMesh_2u3nc"]
 flip_faces = true
@@ -55,27 +46,16 @@ shader = ExtResource("3_hiqwa")
 shader_parameter/depth_threshold = 0.315
 shader_parameter/reverse_depth_threshold = 0.076
 shader_parameter/normal_threshold = 0.802
-shader_parameter/darken_amount = 0.0
+shader_parameter/darken_amount = 0.23
 shader_parameter/lighten_amount = 2.39
 shader_parameter/normal_edge_bias = Vector3(1, 1, 1)
 shader_parameter/light_direction = Vector3(-0.96, -0.18, 0.2)
+shader_parameter/outline_thickness = 1.0
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_k3n1d"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_udxuc"]
 size = Vector3(1, 0.183594, 1)
-
-[sub_resource type="Resource" id="Resource_qktwf"]
-script = ExtResource("8_o3ebs")
-walk_speed = 5.0
-harvesting_speed = 2.5
-run_speed = 7.0
-cooking_speed = 5.0
-fishing_speed = 5.0
-sta_restore_speed = 5.0
-charisma = 5.0
-stamina = 20
-metadata/_custom_type_script = "uid://cl2lorw1iii8k"
 
 [sub_resource type="BoxMesh" id="BoxMesh_udxuc"]
 
@@ -152,22 +132,49 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_bc84e")
 
-[sub_resource type="Resource" id="Resource_4h6ng"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_bh8nc"]
+shader = ExtResource("30_qktwf")
+shader_parameter/mix_amount = 0.295
+shader_parameter/use_l = false
+shader_parameter/use_c = true
+shader_parameter/use_h = false
+shader_parameter/steps_l = 15.0
+shader_parameter/level_c = 5.0
+shader_parameter/level_h = 0.05
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ikiii"]
+shader = ExtResource("11_k3n1d")
+shader_parameter/skyColor = Color(0, 0, 0, 1)
+shader_parameter/horizonColor = Color(0, 0, 0, 1)
+shader_parameter/skyTexture = ExtResource("12_2o6r5")
+
+[sub_resource type="Sky" id="Sky_qktwf"]
+sky_material = SubResource("ShaderMaterial_ikiii")
+
+[sub_resource type="Environment" id="Environment_ic0uy"]
+background_mode = 2
+background_energy_multiplier = 0.85
+sky = SubResource("Sky_qktwf")
+ambient_light_source = 3
+ambient_light_color = Color(0.867691, 0.694261, 0.49108, 1)
+ambient_light_sky_contribution = 0.2
+tonemap_mode = 2
+fog_mode = 1
+fog_light_color = Color(0.552712, 0.667518, 0.637712, 1)
+fog_density = 0.6235
+fog_sky_affect = 0.0
+fog_height_density = 0.004
+fog_depth_begin = 2.0
+fog_depth_end = 250.0
+volumetric_fog_density = 0.0005
+volumetric_fog_anisotropy = 0.9
+volumetric_fog_ambient_inject = 0.23
+
+[sub_resource type="Resource" id="Resource_mc2jv"]
 script = ExtResource("12_mc2jv")
-item_data = ExtResource("13_bo7i5")
+item_data = ExtResource("28_qktwf")
 quantity = 3
 metadata/_custom_type_script = "uid://bspkgwkxsy8mn"
-
-[sub_resource type="Resource" id="Resource_bh8nc"]
-script = ExtResource("12_mc2jv")
-item_data = ExtResource("16_k83mh")
-quantity = 1
-metadata/_custom_type_script = "uid://bspkgwkxsy8mn"
-
-[sub_resource type="Resource" id="Resource_o3ebs"]
-script = ExtResource("11_wjb0r")
-slot_datas = Array[ExtResource("12_mc2jv")]([SubResource("Resource_4h6ng"), SubResource("Resource_bh8nc"), null, null, null])
-metadata/_custom_type_script = "uid://csfrg4socg8bj"
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_2o6r5"]
 render_priority = 0
@@ -191,42 +198,12 @@ shader_parameter/rotation_matrix = Transform2D(1.6, -1.2, 1.2, 1.6, 0, 0)
 material = SubResource("ShaderMaterial_2o6r5")
 size = Vector2(80.725, 70.965)
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_ikiii"]
-shader = ExtResource("11_k3n1d")
-shader_parameter/skyColor = Color(0, 0, 0, 1)
-shader_parameter/horizonColor = Color(0, 0, 0, 1)
-shader_parameter/skyTexture = ExtResource("12_2o6r5")
-
-[sub_resource type="Sky" id="Sky_cbp6q"]
-sky_material = SubResource("ShaderMaterial_ikiii")
-
-[sub_resource type="Environment" id="Environment_ic0uy"]
-background_mode = 2
-background_energy_multiplier = 0.85
-sky = SubResource("Sky_cbp6q")
-ambient_light_color = Color(0.176419, 0.176419, 0.176419, 1)
-fog_mode = 1
-fog_light_color = Color(0.552712, 0.667518, 0.637712, 1)
-fog_density = 0.6235
-fog_sky_affect = 0.0
-fog_height_density = 0.004
-fog_depth_begin = 2.0
-fog_depth_end = 250.0
-volumetric_fog_density = 0.0005
-volumetric_fog_anisotropy = 0.9
-volumetric_fog_ambient_inject = 0.23
-
-[sub_resource type="Resource" id="Resource_mc2jv"]
-script = ExtResource("12_mc2jv")
-item_data = ExtResource("13_bo7i5")
-quantity = 3
-metadata/_custom_type_script = "uid://bspkgwkxsy8mn"
-
 [node name="World" type="Node3D"]
 script = ExtResource("1_dwbse")
 
 [node name="SubViewportContainer" type="SubViewportContainer" parent="."]
 texture_filter = 1
+material = SubResource("ShaderMaterial_w44yn")
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -235,6 +212,7 @@ grow_horizontal = 2
 grow_vertical = 2
 stretch = true
 stretch_shrink = 2
+script = ExtResource("2_bh8nc")
 
 [node name="SubViewport" type="SubViewport" parent="SubViewportContainer"]
 handle_input_locally = false
@@ -243,14 +221,6 @@ render_target_update_mode = 4
 
 [node name="ShaderOutline" type="MeshInstance3D" parent="SubViewportContainer/SubViewport"]
 transform = Transform3D(1, 0, 0, 0, 0.00750488, 0.999972, 0, -0.999972, 0.00750488, 0.180526, -35.304, 0)
-visible = false
-extra_cull_margin = 16384.0
-mesh = SubResource("QuadMesh_036b0")
-skeleton = NodePath("../SpringArm3D/Camera3D")
-surface_material_override/0 = SubResource("ShaderMaterial_dwbse")
-
-[node name="ShaderOutline2" type="MeshInstance3D" parent="SubViewportContainer/SubViewport"]
-transform = Transform3D(1, 0, 0, 0, 0.00750488, 0.999972, 0, -0.999972, 0.00750488, 0.180526, -35.304, 0)
 extra_cull_margin = 16384.0
 mesh = SubResource("QuadMesh_2u3nc")
 surface_material_override/0 = SubResource("ShaderMaterial_udxuc")
@@ -258,13 +228,18 @@ surface_material_override/0 = SubResource("ShaderMaterial_udxuc")
 [node name="SpringArm3D" type="SpringArm3D" parent="SubViewportContainer/SubViewport"]
 transform = Transform3D(1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, 0, 0.659112, 0)
 visible = false
-spring_length = 7.0
+spring_length = 50.0
 script = ExtResource("3_036b0")
 player_path = NodePath("../MainFarmer")
-max_zoom = 10.0
+min_zoom = 6.0
+max_zoom = 8.0
 
 [node name="Camera3D" type="Camera3D" parent="SubViewportContainer/SubViewport/SpringArm3D"]
+projection = 1
+current = true
 fov = 69.0
+size = 10.0
+script = ExtResource("5_jjr1n")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="SubViewportContainer/SubViewport"]
 
@@ -278,19 +253,13 @@ skeleton = NodePath("../..")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.224822, 0)
 shape = SubResource("BoxShape3D_udxuc")
 
-[node name="MainFarmer" parent="SubViewportContainer/SubViewport" groups=["player"] instance=ExtResource("5_26xuy")]
-unique_name_in_owner = true
-use_gravity = true
-camera_ref_path = NodePath("../SpringArm3D")
-stats = SubResource("Resource_qktwf")
-
 [node name="GroundGenerator" type="Node3D" parent="SubViewportContainer/SubViewport" groups=["ground_generator"]]
 script = ExtResource("5_036b0")
 ground_extents = Vector2i(60, 60)
-tree_max_count = 8
+tree_max_count = 15
 grass_max_count = 0
-border_tree_count = 5
-outer_tree_count = 7
+border_tree_count = 10
+outer_tree_count = 15
 outer_offset = 7.0
 
 [node name="GroundRenderer" parent="SubViewportContainer/SubViewport/GroundGenerator" instance=ExtResource("7_hiqwa")]
@@ -309,67 +278,24 @@ grass_spacing = 0.34
 max_grass_per_block = 1
 decorative_grass_chance = 0.05
 
-[node name="WoodenCrate" parent="SubViewportContainer/SubViewport" instance=ExtResource("10_26xuy")]
-transform = Transform3D(0.775, 0, 0, 0, 0.775, 0, 0, 0, 0.775, -6.15343, 0.796471, -2.75172)
-inventory_data = SubResource("Resource_o3ebs")
-
 [node name="Door" parent="SubViewportContainer/SubViewport" instance=ExtResource("21_k83mh")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.28598, 1.60264, 0)
 collision_layer = 16
 collision_mask = 0
-target_scene_path = "res://Scene/InBuilding/house_inside.tscn"
+target_scene_path = "res://Scene/InBuilding/level_house.tscn"
+target_spawn_position = Vector3(0, 0, -2)
+
+[node name="WoodenCrate" parent="SubViewportContainer/SubViewport" instance=ExtResource("10_26xuy")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.54501, 0.421174, -3.06197)
+chest_id = "gei_chest"
+
+[node name="MainFarmer" parent="SubViewportContainer/SubViewport" instance=ExtResource("5_26xuy")]
+unique_name_in_owner = true
+camera_ref_path = NodePath("../SpringArm3D")
+inventory_data = ExtResource("11_k83mh")
 
 [node name="TimeManager" type="Node" parent="." groups=["time_manager"]]
 script = ExtResource("5_dwbse")
-
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(0.920737, 0.0568298, 0.386023, -0.372582, -0.165744, 0.913078, 0.115871, -0.98453, -0.131433, 0, 1.37714, 0)
-light_color = Color(0.902806, 0.819778, 0.677108, 1)
-light_energy = 0.7
-shadow_enabled = true
-shadow_opacity = 0.83
-shadow_blur = 0.0
-
-[node name="Environment" type="Node3D" parent="."]
-
-[node name="BigTerrainMoutain" parent="Environment" instance=ExtResource("14_70uel")]
-transform = Transform3D(41.375, 0, 0, 0, 41.375, 0, 0, 0, 41.375, -0.373759, -2.67757, -0.241655)
-
-[node name="GroundFrame" parent="Environment" instance=ExtResource("16_2u3nc")]
-transform = Transform3D(6.83, 0, 0, 0, 6.83, 0, 0, 0, 6.83, -2.33437, -1.02769, -1.05087)
-
-[node name="GroundFrame2" parent="Environment" instance=ExtResource("16_2u3nc")]
-transform = Transform3D(9.905, 0, 0, 0, 9.905, 0, 0, 0, 9.905, -2.34504, 0.273685, -0.404768)
-
-[node name="SimpleHouseVer2" parent="Environment" instance=ExtResource("16_udxuc")]
-transform = Transform3D(-6.513e-08, 0, 1.49, 0, 1.49, 0, -1.49, 0, -6.513e-08, -7.13712, 1.10801, 3.11973e-07)
-
-[node name="CloudShadow" type="MeshInstance3D" parent="Environment"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.50035, 11.1946, 0)
-visible = false
-mesh = SubResource("PlaneMesh_ic0uy")
-skeleton = NodePath("../..")
-
-[node name="GroundLeanFrame" parent="Environment" instance=ExtResource("23_bh8nc")]
-transform = Transform3D(7.17, 0, 0, 0, 7.17, 0, 0, 0, 7.17, 0, 1.00112, 0)
-
-[node name="GroundLeanFrame2" parent="Environment" instance=ExtResource("23_bh8nc")]
-transform = Transform3D(10.15, 0, 0, 0, 10.15, 0, 0, 0, 10.15, 0, 2.05611, 0)
-
-[node name="GroundLeanFrame3" parent="Environment" instance=ExtResource("23_bh8nc")]
-transform = Transform3D(14.985, 0, 0, 0, 14.985, 0, 0, 0, 14.985, -2.59664, 3.49665, 0)
-
-[node name="StoneStair" parent="Environment" instance=ExtResource("24_bh8nc")]
-transform = Transform3D(-1.655, 0, -2.49898e-07, 0, 1.655, 0, 2.49898e-07, 0, -1.655, 24.8899, -0.211237, 0)
-
-[node name="StoneStair2" parent="Environment" instance=ExtResource("24_bh8nc")]
-transform = Transform3D(-1.64506, 0.181122, -2.48397e-07, 0.181122, 1.64506, 2.73487e-08, 2.49898e-07, 0, -1.655, 37.8875, 2.1647, 0)
-
-[node name="StoneStair3" parent="Environment" instance=ExtResource("24_bh8nc")]
-transform = Transform3D(-1.65489, -0.0194393, -2.49881e-07, -0.0194393, 1.65489, -2.93525e-09, 2.49898e-07, 2.92527e-15, -1.655, 54.0913, 3.92101, 0)
-
-[node name="WoodenRailingVer2" parent="Environment" instance=ExtResource("24_jjr1n")]
-transform = Transform3D(1.4, 0, 0, 0, 1.4, 0, 0, 0, 1.4, 3.26653, 0, 0.755113)
 
 [node name="UI" type="CanvasLayer" parent="."]
 
@@ -424,12 +350,23 @@ anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -241.0
+offset_left = -207.885
 offset_top = -74.0
-offset_right = 241.0
+offset_right = 207.265
 offset_bottom = 0.0
 grow_horizontal = 2
 grow_vertical = 0
+
+[node name="MixColorShader" type="CanvasLayer" parent="."]
+
+[node name="ColorRect" type="ColorRect" parent="MixColorShader"]
+material = SubResource("ShaderMaterial_bh8nc")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_ic0uy")
@@ -438,9 +375,58 @@ environment = SubResource("Environment_ic0uy")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.2472, -2.43978)
 slot_data = SubResource("Resource_mc2jv")
 
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.920737, 0.0568297, 0.386023, -0.372582, -0.165744, 0.913078, 0.115871, -0.98453, -0.131433, 0, 1.37714, 0)
+light_color = Color(0.902806, 0.819778, 0.677108, 1)
+light_energy = 1.17
+shadow_enabled = true
+shadow_opacity = 0.83
+shadow_blur = 0.0
+
+[node name="LevelEnvironment" type="Node3D" parent="."]
+
+[node name="BigTerrainMoutain" parent="LevelEnvironment" instance=ExtResource("14_70uel")]
+transform = Transform3D(41.375, 0, 0, 0, 41.375, 0, 0, 0, 41.375, -0.373759, -2.67757, -0.241655)
+
+[node name="GroundFrame" parent="LevelEnvironment" instance=ExtResource("16_2u3nc")]
+transform = Transform3D(6.83, 0, 0, 0, 6.83, 0, 0, 0, 6.83, -2.33437, -1.02769, -1.05087)
+
+[node name="GroundFrame2" parent="LevelEnvironment" instance=ExtResource("16_2u3nc")]
+transform = Transform3D(9.905, 0, 0, 0, 9.905, 0, 0, 0, 9.905, -2.34504, 0.273685, -0.404768)
+
+[node name="SimpleHouseVer2" parent="LevelEnvironment" instance=ExtResource("16_udxuc")]
+transform = Transform3D(-6.513e-08, 0, 1.49, 0, 1.49, 0, -1.49, 0, -6.513e-08, -7.13712, 1.10801, 3.11973e-07)
+
+[node name="CloudShadow" type="MeshInstance3D" parent="LevelEnvironment"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.50035, 11.1946, 0)
+visible = false
+mesh = SubResource("PlaneMesh_ic0uy")
+skeleton = NodePath("../..")
+
+[node name="GroundLeanFrame" parent="LevelEnvironment" instance=ExtResource("23_bh8nc")]
+transform = Transform3D(7.17, 0, 0, 0, 7.17, 0, 0, 0, 7.17, 0, 1.00112, 0)
+
+[node name="GroundLeanFrame2" parent="LevelEnvironment" instance=ExtResource("23_bh8nc")]
+transform = Transform3D(10.15, 0, 0, 0, 10.15, 0, 0, 0, 10.15, 0, 2.05611, 0)
+
+[node name="GroundLeanFrame3" parent="LevelEnvironment" instance=ExtResource("23_bh8nc")]
+transform = Transform3D(14.985, 0, 0, 0, 14.985, 0, 0, 0, 14.985, -2.59664, 3.49665, 0)
+
+[node name="StoneStair" parent="LevelEnvironment" instance=ExtResource("24_bh8nc")]
+transform = Transform3D(-1.655, 0, -2.49898e-07, 0, 1.655, 0, 2.49898e-07, 0, -1.655, 24.8899, -0.211237, 0)
+
+[node name="StoneStair2" parent="LevelEnvironment" instance=ExtResource("24_bh8nc")]
+transform = Transform3D(-1.64506, 0.181122, -2.48397e-07, 0.181122, 1.64506, 2.73487e-08, 2.49898e-07, 0, -1.655, 37.8875, 2.1647, 0)
+
+[node name="StoneStair3" parent="LevelEnvironment" instance=ExtResource("24_bh8nc")]
+transform = Transform3D(-1.65489, -0.0194393, -2.49881e-07, -0.0194393, 1.65489, -2.93525e-09, 2.49898e-07, 2.92527e-15, -1.655, 54.0913, 3.92101, 0)
+
+[node name="WoodenRailingVer2" parent="LevelEnvironment" instance=ExtResource("24_jjr1n")]
+transform = Transform3D(1.4, 0, 0, 0, 1.4, 0, 0, 0, 1.4, 3.26653, 0, 0.755113)
+
 [connection signal="drop_slot_data" from="UI/InventoryInterface" to="." method="_on_inventory_interface_drop_slot_data"]
 [connection signal="drop_slot_data" from="UI/InventoryInterface" to="UI/InventoryInterface" method="_on_drop_slot_data"]
 [connection signal="gui_input" from="UI/InventoryInterface" to="UI/InventoryInterface" method="_on_gui_input"]
 [connection signal="visibility_changed" from="UI/InventoryInterface" to="UI/InventoryInterface" method="_on_visibility_changed"]
 
-[editable path="Environment/SimpleHouseVer2"]
+[editable path="LevelEnvironment/SimpleHouseVer2"]

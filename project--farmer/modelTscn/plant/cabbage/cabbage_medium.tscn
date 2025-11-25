@@ -1,0 +1,13 @@
+[gd_scene load_steps=4 format=3 uid="uid://rs7mf07awj2f"]
+
+[ext_resource type="PackedScene" uid="uid://ce8rnm05o43gn" path="res://model/plant/cabbage/Cabbage_Medium.glb" id="1_wraf8"]
+[ext_resource type="Texture2D" uid="uid://1gysjnj7jqbq" path="res://assets/ImphenziaPalette01-256-Gradient.png" id="2_44j5f"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vvbnx"]
+cull_mode = 2
+albedo_texture = ExtResource("2_44j5f")
+
+[node name="Cabbage_Medium2" instance=ExtResource("1_wraf8")]
+
+[node name="Cabbage_Medium" parent="." index="0"]
+material_override = SubResource("StandardMaterial3D_vvbnx")

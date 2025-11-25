@@ -1,0 +1,47 @@
+[gd_scene load_steps=8 format=3 uid="uid://dd7v1woe7juju"]
+
+[ext_resource type="PackedScene" uid="uid://b5nmmncxckws4" path="res://model/plant/carrot/Carrot_Middle.glb" id="1_7jhqe"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wfmnc"]
+cull_mode = 2
+albedo_color = Color(0.332244, 0.568901, 0.318659, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1kjcn"]
+cull_mode = 2
+albedo_color = Color(0.332244, 0.568901, 0.318659, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_drvfi"]
+cull_mode = 2
+albedo_color = Color(0.332244, 0.568901, 0.318659, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_nhqtr"]
+cull_mode = 2
+albedo_color = Color(0.332244, 0.568901, 0.318659, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_sml3e"]
+cull_mode = 2
+albedo_color = Color(0.332244, 0.568901, 0.318659, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8w8d8"]
+cull_mode = 2
+albedo_color = Color(0.332244, 0.568901, 0.318659, 1)
+
+[node name="Carrot_Middle" instance=ExtResource("1_7jhqe")]
+
+[node name="Carrot_Sprout" parent="." index="0"]
+surface_material_override/0 = SubResource("StandardMaterial3D_wfmnc")
+
+[node name="Carrot_Sprout_001" parent="." index="1"]
+surface_material_override/0 = SubResource("StandardMaterial3D_1kjcn")
+
+[node name="Carrot_Sprout_002" parent="." index="2"]
+surface_material_override/0 = SubResource("StandardMaterial3D_drvfi")
+
+[node name="Carrot_Germinate" parent="." index="3"]
+surface_material_override/0 = SubResource("StandardMaterial3D_nhqtr")
+
+[node name="Carrot_Germinate_001" parent="." index="4"]
+surface_material_override/0 = SubResource("StandardMaterial3D_sml3e")
+
+[node name="Carrot_Germinate_002" parent="." index="5"]
+surface_material_override/0 = SubResource("StandardMaterial3D_8w8d8")

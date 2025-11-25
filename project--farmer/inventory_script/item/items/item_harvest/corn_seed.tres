@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="ItemDataUsable" load_steps=4 format=3 uid="uid://de6rlscdhss8i"]
+
+[ext_resource type="Script" uid="uid://bf2bbfvsrqnsf" path="res://inventory_script/item/item_data/item_data_usable.gd" id="1_va6q0"]
+[ext_resource type="Texture2D" uid="uid://omvd8ed3fie6" path="res://inventory_script/item/item_atlast/#2 - Transparent Icons & Drop Shadow.png" id="2_khens"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jrrgo"]
+atlas = ExtResource("2_khens")
+region = Rect2(32, 704, 32, 32)
+
+[resource]
+script = ExtResource("1_va6q0")
+name = "Corn Seed"
+description = "It is a corn but in a seed form"
+stackable = true
+texture = SubResource("AtlasTexture_jrrgo")
+metadata/_custom_type_script = "uid://bf2bbfvsrqnsf"

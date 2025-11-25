@@ -6,19 +6,22 @@ extends Node
 @export var limbo_hsm: LimboHSM
 
 var blackboard: Blackboard
-var input_direction: Vector3
 
 func _ready() -> void:
 	blackboard = limbo_hsm.blackboard
-	blackboard.bind_var_to_property(BBNames.direction_var, self, "input_direction", false)
 
 func _process(_delta: float) -> void:
-	var input_vec3 = Input.get_vector(
+	# 1. Lấy input 2D từ bàn phím
+	var input_vec2 = Input.get_vector(
 		player_actions.move_left, 
 		player_actions.move_right, 
 		player_actions.move_forward, 
 		player_actions.move_backward
 	)
+	var input_vec3 = Vector3(input_vec2.x, 0, input_vec2.y)
+	blackboard.set_var(BBNames.direction_var, input_vec3)
 
 func _unhandled_input(event: InputEvent) -> void:
+	if not is_inside_tree(): 
+		return
 	pass

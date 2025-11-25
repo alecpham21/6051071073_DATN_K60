@@ -1,4 +1,5 @@
 extends Node3D
+class_name Hoe
 
 @onready var cast: RayCast3D = $"../../../../../HoeCast3D"
 @onready var ground_gen = get_tree().get_first_node_in_group("ground_generator")
@@ -9,7 +10,8 @@ var last_grid_pos: Vector2i = Vector2i(-1, -1)
 
 
 func _process(delta: float) -> void:
-	#print(HotBar.active_idx())
+	#var a:ItemData = HotBar.active_item
+	#visible = true if a && a.name.to_lower() == "hoe" else false
 	if ground_gen == null:
 		return
 	cast.force_raycast_update()

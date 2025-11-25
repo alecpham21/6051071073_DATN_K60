@@ -23,6 +23,8 @@ var _tree_count := 0
 
 
 func _ready() -> void:
+	await get_tree().process_frame
+	await get_tree().physics_frame
 	setup_data()
 	renderer.setup(ground_extents.x, ground_extents.y)
 	
@@ -79,7 +81,7 @@ func _try_spawn_tree(pos: Vector3):
 		tree.position = pos
 		
 		# scale
-		var random_scale = randf_range(0.8, 1.5)
+		var random_scale = randf_range(2, 4)
 		tree.scale = Vector3.ONE * random_scale
 		tree.rotate_y(randf_range(0.0, TAU))
 		
@@ -104,7 +106,7 @@ func _spawn_border_trees():
 		add_child(border_tree)
 		border_tree.position = pos
 		
-		var random_scale = randf_range(3.0, 4.0)
+		var random_scale = randf_range(4.0, 5.0)
 		border_tree.scale = Vector3.ONE * random_scale
 		border_tree.rotate_y(randf_range(0.0, TAU))
 
@@ -130,7 +132,7 @@ func _spawn_outer_trees():
 		tree.position = pos
 		
 		# scale nhỏ hơn border tree
-		var random_scale = randf_range(1.2, 2.5)
+		var random_scale = randf_range(3, 4)
 		tree.scale = Vector3.ONE * random_scale
 		tree.rotate_y(randf_range(0.0, TAU))
 
@@ -169,3 +171,22 @@ func on_crop_ready(crop_node: Node):
 	if is_valid_grid_pos(grid_pos):
 		block_data[grid_pos.x][grid_pos.y].crop_ready = true
 		print("🌾 Crop ready tại ô:", grid_pos)
+
+func reset_block_after_harvest(grid_pos: Vector2i, keep_tilled: bool = true):
+	if not is_valid_grid_pos(grid_pos):
+		return
+		
+	var block = block_data[grid_pos.x][grid_pos.y]
+	
+	block.plant_type = PlantDatabase.PLANT_VARIANT.NONE
+	
+	block.crop_ready = false
+	
+	if keep_tilled:
+		block.mode = BlockGroundData.Mode.TILLED
+		renderer.set_mode(grid_pos.x, grid_pos.y, BlockGroundData.Mode.TILLED)
+	else:
+		block.mode = BlockGroundData.Mode.CUT
+		renderer.set_mode(grid_pos.x, grid_pos.y, BlockGroundData.Mode.CUT)
+
+	print("♻reset ô :", grid_pos)

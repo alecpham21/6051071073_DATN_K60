@@ -1,45 +1,9 @@
-[gd_scene load_steps=16 format=4 uid="uid://bjxrobwweubb3"]
+[gd_scene load_steps=9 format=4 uid="uid://bjxrobwweubb3"]
 
 [ext_resource type="Texture2D" uid="uid://dm3bx5cd78ba8" path="res://model/TestTree_UVGrid.png" id="1_58hx4"]
 [ext_resource type="Shader" uid="uid://bnjrpi2m352qw" path="res://Shader/tree_leaves.gdshader" id="2_2xpwx"]
 [ext_resource type="Texture2D" uid="uid://dkyt68e1exbnc" path="res://model/tree/tree_Opacity-01.png" id="3_70301"]
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_dr2xm"]
-
-[sub_resource type="ArrayMesh" id="ArrayMesh_4blrr"]
-_surfaces = [{
-"aabb": AABB(-0.866025, -1, -1, 1.73205, 2, 2),
-"format": 34896613377,
-"index_count": 60,
-"index_data": PackedByteArray("AAABAAIAAAAGAAEAAwACAAEABgADAAEABwAAAAIABwAGAAAABwACAAgABgAJAAMACgAHAAgABgAHAAQABAAHAAoABgAEAAkACQAFAAMACQAEAAUAAgADAAsAAgALAAgACwADAAUACgAIAAsABAALAAUABAAKAAsA"),
-"lods": [0.882971, PackedByteArray("AAABAAIAAwACAAEAAAAEAAEABAADAAEABAAAAAIAAgADAAUABAAFAAMABAACAAUA")],
-"primitive": 3,
-"uv_scale": Vector4(0, 0, 0, 0),
-"vertex_count": 12,
-"vertex_data": PackedByteArray("/38AAAAAAAD//////z8AAP9///8AAAAA//////+/AAD/fwAA//8AAP9//////wAA//8AAP8/AAAAAAAA/z8AAAAA////PwAA//8AAP+/AAAAAAAA/78AAAAA////vwAA")
-}]
-blend_shape_mode = 0
-
-[sub_resource type="ArrayMesh" id="ArrayMesh_idm7n"]
-resource_name = "TestTree_Cylinder"
-_surfaces = [{
-"aabb": AABB(-0.866025, -1, -1, 1.73205, 2, 2),
-"attribute_data": PackedByteArray("//+kwKnq/3////9//7+kwFTV/3//v/9/mbp78P+f78GZunPR/5////+/pMD/f/9//7//f/9/pMCp6qTAqeqkwFTV/3+p6v9/VNWkwFTVpMCpqv9/qaqkwGSFe/BkhXPRqaqkwFSV/3+pqv9/VJWkwFSVpMBUlf9/ZMVz0Zn6c9H/3+/B/9///2TFe/CZ+nvw"),
-"format": 34896613399,
-"index_count": 60,
-"index_data": PackedByteArray("AAABAAIAAAAOAAEADwAQABEADwASABAAEwAFAAQAEwADAAUACgAUAAwACgAVABQABgAHAAgABwAGABYAFgAGAAkABwAWABcAGAAZABoAGAAbABkAHAALAB0AHAANAAsAHgAfACAAHwAeACEAIQAeACIAHwAhACMA"),
-"lods": [0.882971, PackedByteArray("AAABAAIAAAADAAEAAwAEAAEAAwAFAAQABgAHAAgABwAGAAkACgALAAwACgANAAsA")],
-"material": SubResource("StandardMaterial3D_dr2xm"),
-"primitive": 3,
-"uv_scale": Vector4(2, 1.98, 0, 0),
-"vertex_count": 36,
-"vertex_data": PackedByteArray("/38AAAAAqer//////z+p6v9///8AAKnq/38AAP//VJX//////79Ulf9//////1SV//////+//7//f///AAD/v///////P/+//3///////7//fwAA//9Ulf9///8AAKnq/3//////VJX/fwAAAACp6v//AAD/P6nq//8AAP8//7///////7//v///////P/+///8AAP+//7///wAA/79UlQAA////v1SVAAAAAP+/VJUAAP///7//vwAA////P/+/AAAAAP+//78AAP///z//vwAA////v/+/AAAAAP8//78AAAAA/z+p6gAA////P6nqAAAAAP8//z///wAA/z//P/9/AAAAAP8//38AAP///z8AAAAA/7//P///AAD/v/8//38AAP9/AAD/fwAA/38AAP9/AAD/fwAA////f////3////9/////f/9/////f////3////9/////fwAA/38AAP9/AAD/fwAA/38AAP9/AAD/f////3///////3////9//3////9/////f////3////9/////f///AAD/fwAA/38AAP9/AAD/fwAA/38AAP9/")
-}]
-blend_shape_mode = 0
-shadow_mesh = SubResource("ArrayMesh_4blrr")
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_nhpyg"]
-albedo_color = Color(0.409022, 0.293999, 0.12452, 1)
+[ext_resource type="PackedScene" uid="uid://db4nxplpb0a0v" path="res://modelTscn/tree/tree_boidy.tscn" id="4_2xpwx"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rnshd"]
 resource_name = "TreeLeaves"
@@ -93,57 +57,13 @@ shader_parameter/deactiveGlobalVariation = false
 shader_parameter/clampTop = 1.0
 shader_parameter/clampBottom = 0.0
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8opk0"]
-
-[sub_resource type="ArrayMesh" id="ArrayMesh_xcxhn"]
-_surfaces = [{
-"aabb": AABB(-1, -1, -1, 4.34669, 2.71613, 2),
-"format": 34359742465,
-"index_count": 60,
-"index_data": PackedByteArray("AAABAAIAAAADAAEAAwAAAAQABAAAAAIAAwAEAAUABAACAAYABQAEAAYAAwAFAAcAAwAHAAEABQAGAAcAAgAIAAYABwAJAAEAAQAKAAIAAgAKAAgAAQAJAAoABgAIAAsABgALAAcACwAIAAoABwALAAkACwAKAAkA"),
-"primitive": 3,
-"uv_scale": Vector4(0, 0, 0, 0),
-"vertex_count": 12,
-"vertex_data": PackedByteArray("AACAvwAAgL8AAIA/AACAvwAAgD8AAIC/AACAvwAAgD8AAIA/AACAvwAAgL8AAIC/AACAPwAAgL8AAIA/AACAPwAAgL8AAIC/AACAPwAAgD8AAIA/AACAPwAAgD8AAIC/KTBWQDWq2z/5/38/UmCsPzWq2z8EAIC/UmCsPzWq2z/5/38/KTBWQDWq2z8EAIC/")
-}]
-blend_shape_mode = 0
-
-[sub_resource type="ArrayMesh" id="ArrayMesh_4gesf"]
-resource_name = "TestTree_Cube_003"
-_surfaces = [{
-"aabb": AABB(-1, -1, -1, 4.34669, 2.71613, 2),
-"attribute_data": PackedByteArray("AADAPgAAgD8AACA/AABAPwAAID8AAIA/AADAPgAAQD8AAMA+AABAPwAAID8AAAA/AAAgPwAAQD8AAMA+AAAAPwAAID8AAEA/AAAgPwAAAD8AAMA+AAAAPwAAID8AAIA+AAAgPwAAAD8AAMA+AACAPgAAwD4AAIA+AAAgPwAAAAAAACA/AACAPgAAwD4AAAAAAAAgPwAAgD4AACA/AAAAAAAAAD4AAAA/AADAPgAAgD4AAMA+AAAAPwAAAD4AAIA+AAAgPwAAAD8AAGA/AACAPgAAYD8AAAA/AAAgPwAAgD4AACA/AACAPgAAID8AAAA/AAAgPwAAAD8AACA/AACAPgAAID8AAEA/AAAgPwAAgD8AACA/AACAPwAAID8AAEA/"),
-"format": 34359742487,
-"index_count": 60,
-"index_data": PackedByteArray("AAABAAIAAAADAAEABAAFAAYABAAHAAUABQAIAAYABQAJAAgACgALAAwACgANAAsADgAPABAADgARAA8ADwASABAADwATABIAFAAVABYAFAAXABUAGAAZABoAGAAbABkAHAAdAB4AHAAfAB0AIAAhACIAIAAjACEA"),
-"material": SubResource("StandardMaterial3D_8opk0"),
-"primitive": 3,
-"uv_scale": Vector4(0, 0, 0, 0),
-"vertex_count": 36,
-"vertex_data": PackedByteArray("AACAvwAAgL8AAIA/AACAvwAAgD8AAIC/AACAvwAAgD8AAIA/AACAvwAAgL8AAIC/AACAvwAAgL8AAIC/AACAPwAAgD8AAIC/AACAvwAAgD8AAIC/AACAPwAAgL8AAIC/UmCsPzWq2z8EAIC/KTBWQDWq2z8EAIC/AACAPwAAgL8AAIC/AACAPwAAgD8AAIA/AACAPwAAgD8AAIC/AACAPwAAgL8AAIA/AACAPwAAgL8AAIA/AACAvwAAgD8AAIA/AACAPwAAgD8AAIA/AACAvwAAgL8AAIA/KTBWQDWq2z/5/38/UmCsPzWq2z/5/38/AACAvwAAgL8AAIC/AACAPwAAgL8AAIA/AACAPwAAgL8AAIC/AACAvwAAgL8AAIA/KTBWQDWq2z8EAIC/UmCsPzWq2z/5/38/UmCsPzWq2z8EAIC/KTBWQDWq2z/5/38/AACAPwAAgD8AAIA/KTBWQDWq2z8EAIC/AACAPwAAgD8AAIC/KTBWQDWq2z/5/38/AACAvwAAgD8AAIC/UmCsPzWq2z/5/38/AACAvwAAgD8AAIA/UmCsPzWq2z8EAIC/AAD/f/9///8AAP9//3///wAA/3//f///AAD/f/9//////////3//////////f/////////9//////////3////////////+//////////7////9//3///////3//f///////f/9///////9//3////9//3//f////3//f/9/////f/9//3////9//3//f////3//f////z//f/9/////P/9/AAD///+//38AAP///7//fwAA////v/9/AAD///+//3///wAA/7//f///AAD/v/9///8AAP+//3///wAA/7/tne0d////v+2d7R3///+/7Z3tHf///7/tne0d////vxFiEeL///+/EWIR4v///78RYhHi////vxFiEeL///+/")
-}]
-blend_shape_mode = 0
-shadow_mesh = SubResource("ArrayMesh_xcxhn")
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_y6ba6"]
-albedo_color = Color(0.409022, 0.293999, 0.12452, 1)
-
-[node name="TestTree" type="Node3D"]
-
-[node name="Cylinder" type="MeshInstance3D" parent="."]
-transform = Transform3D(0.251246, 0, 0, 0, 1.44831, 0, 0, 0, 0.251246, 0.150034, 1.47498, 0)
-mesh = SubResource("ArrayMesh_idm7n")
-skeleton = NodePath("")
-surface_material_override/0 = SubResource("StandardMaterial3D_nhpyg")
+[node name="TreeVer1" type="Node3D"]
 
 [node name="Cube" type="MeshInstance3D" parent="."]
-transform = Transform3D(0.889647, 0, 0, 0, 0.889647, 0, 0, 0, 0.889647, 0, 2.57363, 0)
+transform = Transform3D(0.889647, 0, 0, 0, 0.889647, 0, 0, 0, 0.889647, 0, 2.86024, 0)
 mesh = SubResource("ArrayMesh_jfydu")
 skeleton = NodePath("")
 surface_material_override/0 = SubResource("ShaderMaterial_jfe0b")
 
-[node name="Cube_002" type="MeshInstance3D" parent="."]
-transform = Transform3D(0.0742801, -0.208356, 0, 0.0335769, 0.460934, 0, 0, 0, 0.0815165, -0.20844, 1.73039, 0)
-mesh = SubResource("ArrayMesh_4gesf")
-skeleton = NodePath("")
-surface_material_override/0 = SubResource("StandardMaterial3D_y6ba6")
+[node name="TreeBoidy" parent="." instance=ExtResource("4_2xpwx")]
+transform = Transform3D(0.0129917, 0, -0.389784, 0, 0.39, 0, 0.389784, 0, 0.0129917, 0, 0, 0)

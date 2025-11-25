@@ -4,7 +4,7 @@ extends MultiMeshInstance3D
 @export var extents := Vector2.ONE
 @export var spawn_outside_circle := false
 @export var radius := 12.0
-#@onready var character_path := "res://player.tscn"
+#@onready var character_path := "res://player/main_farmer.tscn"
 #
 #@onready var _character: Node3D = load(character_path).instantiate()
 

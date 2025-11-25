@@ -1,0 +1,26 @@
+[gd_scene load_steps=7 format=3 uid="uid://brthdr0tkuyvv"]
+
+[ext_resource type="PackedScene" uid="uid://d3v1u6td3fyb6" path="res://inventory_script/item/pick_up_item/pick_up.tscn" id="1_yrevx"]
+[ext_resource type="Resource" uid="uid://c7om45kke1quw" path="res://inventory_script/item/items/item_harvest/carrot.tres" id="2_8jj8h"]
+[ext_resource type="Script" uid="uid://bspkgwkxsy8mn" path="res://inventory_script/slot_data.gd" id="3_u07yv"]
+[ext_resource type="Resource" uid="uid://djph6j4pxvvie" path="res://inventory_script/item/items/item_harvest/carrot_seed.tres" id="4_u07yv"]
+
+[sub_resource type="Resource" id="Resource_28ced"]
+script = ExtResource("3_u07yv")
+item_data = ExtResource("2_8jj8h")
+quantity = 1
+metadata/_custom_type_script = "uid://bspkgwkxsy8mn"
+
+[sub_resource type="Resource" id="Resource_2q0m5"]
+script = ExtResource("3_u07yv")
+item_data = ExtResource("4_u07yv")
+quantity = 1
+metadata/_custom_type_script = "uid://bspkgwkxsy8mn"
+
+[node name="CarrotItem" type="Node3D"]
+
+[node name="PickUp" parent="." instance=ExtResource("1_yrevx")]
+slot_data = SubResource("Resource_28ced")
+
+[node name="PickUp2" parent="." instance=ExtResource("1_yrevx")]
+slot_data = SubResource("Resource_2q0m5")

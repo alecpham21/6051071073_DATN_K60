@@ -1,0 +1,287 @@
+[gd_scene load_steps=28 format=3 uid="uid://bpiirx52ltrdi"]
+
+[ext_resource type="Shader" uid="uid://c6qhkhar3xobg" path="res://Shader/edge_detection.gdshader" id="1_fjxe5"]
+[ext_resource type="Script" uid="uid://hctai00r4njf" path="res://world.gd" id="1_fv1ki"]
+[ext_resource type="Shader" uid="uid://viqy3uwh6ns7" path="res://PixelShader.gdshader" id="2_pt525"]
+[ext_resource type="Script" uid="uid://bsrl0vcdxurk1" path="res://Camera_spring_arm.gd" id="3_unurr"]
+[ext_resource type="PackedScene" uid="uid://bnxu42mjbjp8x" path="res://player/main_farmer.tscn" id="4_hcwyd"]
+[ext_resource type="Script" uid="uid://5ej0tp0e5sk5" path="res://time_manager.gd" id="5_fv1ki"]
+[ext_resource type="Resource" uid="uid://c05tf37csx4tp" path="res://inventory_script/test_inv.tres" id="6_gv5vd"]
+[ext_resource type="Script" uid="uid://y0d42bllc0fd" path="res://Inventory_ui/inventory_interface.gd" id="6_ql0nu"]
+[ext_resource type="PackedScene" uid="uid://470pnke8j1j2" path="res://Inventory_ui/inventory.tscn" id="7_gv5vd"]
+[ext_resource type="PackedScene" uid="uid://cmaas2sclopj4" path="res://Inventory_ui/slot.tscn" id="8_5itgm"]
+[ext_resource type="PackedScene" uid="uid://dh4ns40qdxwam" path="res://Inventory_ui/hot_bar_inventory.tscn" id="9_oinrv"]
+[ext_resource type="PackedScene" uid="uid://5c7f4f6oph7m" path="res://level/fishing_shore.tscn" id="10_urabl"]
+[ext_resource type="Shader" uid="uid://kimc5meeodlx" path="res://Shader/sky_shader_level2.gdshader" id="11_unurr"]
+[ext_resource type="Texture2D" uid="uid://bj14akt05culg" path="res://Shader/epic_sky.jpg" id="12_hcwyd"]
+[ext_resource type="PackedScene" uid="uid://csnejiwkcvvuj" path="res://terrain/big_terrain_moutain.tscn" id="13_hcwyd"]
+[ext_resource type="Shader" uid="uid://c13esa4vg2n5k" path="res://level/posterization.gdshader" id="16_gv5vd"]
+[ext_resource type="Shader" uid="uid://j5xlygyuf3yq" path="res://Shaders/procedural_quad_godray/procedural_quad_godray/godrays_shader.gdshader" id="17_5itgm"]
+
+[sub_resource type="QuadMesh" id="QuadMesh_oxgav"]
+flip_faces = true
+size = Vector2(4, 4)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_iv05u"]
+render_priority = 0
+shader = ExtResource("1_fjxe5")
+shader_parameter/lightIntensity = 4.55
+shader_parameter/lineAlpha = 0.64
+shader_parameter/useLighting = true
+shader_parameter/lineHighlight = 0.2
+shader_parameter/lineShadow = 5.12
+
+[sub_resource type="QuadMesh" id="QuadMesh_xeps2"]
+flip_faces = true
+size = Vector2(4, 4)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_3oj2u"]
+render_priority = 0
+shader = ExtResource("2_pt525")
+shader_parameter/depth_threshold = 0.315
+shader_parameter/reverse_depth_threshold = 0.076
+shader_parameter/normal_threshold = 0.802
+shader_parameter/darken_amount = 0.21
+shader_parameter/lighten_amount = 2.39
+shader_parameter/normal_edge_bias = Vector3(1, 1, 1)
+shader_parameter/light_direction = Vector3(-0.96, -0.18, 0.2)
+shader_parameter/outline_thickness = 1.1
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_fv1ki"]
+shader = ExtResource("11_unurr")
+shader_parameter/skyColor = Color(0, 0, 0, 1)
+shader_parameter/horizonColor = Color(0, 0, 0, 1)
+shader_parameter/skyTexture = ExtResource("12_hcwyd")
+
+[sub_resource type="Sky" id="Sky_5itgm"]
+sky_material = SubResource("ShaderMaterial_fv1ki")
+
+[sub_resource type="Environment" id="Environment_ql0nu"]
+background_mode = 2
+background_energy_multiplier = 0.85
+sky = SubResource("Sky_5itgm")
+ambient_light_color = Color(0.176419, 0.176419, 0.176419, 1)
+fog_enabled = true
+fog_mode = 1
+fog_light_color = Color(0.836897, 0.821253, 0.676797, 1)
+fog_light_energy = 0.15
+fog_density = 0.6235
+fog_sky_affect = 0.0
+fog_height_density = 0.004
+fog_depth_begin = 2.0
+fog_depth_end = 250.0
+volumetric_fog_density = 0.0155
+volumetric_fog_albedo = Color(0.929124, 0.920751, 0.850451, 1)
+volumetric_fog_anisotropy = 0.9
+volumetric_fog_ambient_inject = 0.23
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_5itgm"]
+shader = ExtResource("16_gv5vd")
+shader_parameter/mix_amount = 0.13
+shader_parameter/use_l = true
+shader_parameter/use_c = true
+shader_parameter/use_h = false
+shader_parameter/steps_l = 25.0
+shader_parameter/level_c = 5.0
+shader_parameter/level_h = 0.05
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_oxgav"]
+render_priority = 0
+shader = ExtResource("17_5itgm")
+shader_parameter/light_color = Color(1, 0.8, 0.4, 1)
+shader_parameter/emission_color = Color(1, 0.8, 0.4, 1)
+shader_parameter/emission_strength = 3.0
+shader_parameter/base_alpha = 0.085
+shader_parameter/use_edge_fade = false
+shader_parameter/use_gradient_mask = true
+shader_parameter/debug_distance_mode = false
+shader_parameter/debug_near_distance = 5.0
+shader_parameter/debug_far_distance = 50.0
+shader_parameter/use_distance_fade = true
+shader_parameter/distance_fade_start = 100.0
+shader_parameter/distance_fade_end = 0.0
+shader_parameter/depth_fade_distance = 10.0
+shader_parameter/use_depth_fade = false
+shader_parameter/use_depth_blur = true
+shader_parameter/depth_blur_size = 1.0
+shader_parameter/depth_blur_samples = 3
+shader_parameter/use_hard_shadows = true
+shader_parameter/shadow_threshold = 0.0
+shader_parameter/use_view_angle_fade = true
+shader_parameter/fade_angle_start = 30.0
+shader_parameter/fade_angle_end = 5.0
+shader_parameter/godray_direction = Vector3(0, -1, 0.5)
+shader_parameter/debug_view_angle = false
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_gv5vd"]
+material = SubResource("ShaderMaterial_oxgav")
+top_radius = 0.315
+bottom_radius = 1.287
+height = 29.662
+radial_segments = 15
+
+[node name="lake_level" type="Node3D"]
+script = ExtResource("1_fv1ki")
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="."]
+texture_filter = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+stretch = true
+stretch_shrink = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="SubViewport" type="SubViewport" parent="SubViewportContainer"]
+handle_input_locally = false
+size = Vector2i(576, 324)
+render_target_update_mode = 4
+
+[node name="ShaderOutline" type="MeshInstance3D" parent="SubViewportContainer/SubViewport"]
+transform = Transform3D(1, 0, 0, 0, 0.00750488, 0.999972, 0, -0.999972, 0.00750488, 0.180526, -35.304, 0)
+visible = false
+extra_cull_margin = 16384.0
+mesh = SubResource("QuadMesh_oxgav")
+skeleton = NodePath("../SpringArm3D/Camera3D")
+surface_material_override/0 = SubResource("ShaderMaterial_iv05u")
+
+[node name="ShaderOutline2" type="MeshInstance3D" parent="SubViewportContainer/SubViewport"]
+transform = Transform3D(1, 0, 0, 0, 0.00750488, 0.999972, 0, -0.999972, 0.00750488, 0.180526, -64.8065, -0.221419)
+extra_cull_margin = 16384.0
+mesh = SubResource("QuadMesh_xeps2")
+skeleton = NodePath("../SpringArm3D/Camera3D")
+surface_material_override/0 = SubResource("ShaderMaterial_3oj2u")
+
+[node name="SpringArm3D" type="SpringArm3D" parent="SubViewportContainer/SubViewport"]
+transform = Transform3D(1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, 0, 0.659112, 0)
+spring_length = 7.0
+script = ExtResource("3_unurr")
+player_path = NodePath("../MainFarmer")
+min_zoom = 5.0
+max_zoom = 8.0
+
+[node name="Camera3D" type="Camera3D" parent="SubViewportContainer/SubViewport/SpringArm3D"]
+fov = 69.0
+
+[node name="MainFarmer" parent="SubViewportContainer/SubViewport" instance=ExtResource("4_hcwyd")]
+unique_name_in_owner = true
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0, 0, 0)
+use_gravity = true
+camera_ref_path = NodePath("../SpringArm3D")
+inventory_data = ExtResource("6_gv5vd")
+
+[node name="TimeManager" type="Node" parent="." groups=["time_manager"]]
+script = ExtResource("5_fv1ki")
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="InventoryInterface" type="Control" parent="UI"]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("6_ql0nu")
+
+[node name="PlayerInventory" parent="UI/InventoryInterface" instance=ExtResource("7_gv5vd")]
+layout_mode = 0
+offset_left = 126.9
+offset_top = 251.0
+offset_right = 166.9
+offset_bottom = 291.0
+
+[node name="EquipInventory" parent="UI/InventoryInterface" instance=ExtResource("7_gv5vd")]
+layout_mode = 0
+offset_left = 126.9
+offset_top = 161.93
+offset_right = 166.9
+offset_bottom = 201.93
+
+[node name="OutfitInventory" parent="UI/InventoryInterface" instance=ExtResource("7_gv5vd")]
+layout_mode = 0
+offset_left = 256.885
+offset_top = 161.93
+offset_right = 296.885
+offset_bottom = 201.93
+
+[node name="ExternalInventory" parent="UI/InventoryInterface" instance=ExtResource("7_gv5vd")]
+visible = false
+layout_mode = 0
+offset_left = 661.285
+offset_top = 251.0
+offset_right = 701.285
+offset_bottom = 291.0
+
+[node name="GrabbedSlot" parent="UI/InventoryInterface" instance=ExtResource("8_5itgm")]
+visible = false
+modulate = Color(1, 1, 1, 0.52549)
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 0
+
+[node name="HotBarInventory" parent="UI" instance=ExtResource("9_oinrv")]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -241.0
+offset_top = -74.0
+offset_right = 241.0
+offset_bottom = 0.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="FishingShore" parent="." instance=ExtResource("10_urabl")]
+transform = Transform3D(0.445, 0, 0, 0, 0.445, 0, 0, 0, 0.445, 0, -1.47497, 0)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_ql0nu")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -0.0399047, 0.999204, 0, -0.999204, -0.0399047, 0, 0.634487, 0)
+shadow_enabled = true
+
+[node name="background" type="Node3D" parent="."]
+
+[node name="BigTerrainMoutain" parent="background" instance=ExtResource("13_hcwyd")]
+transform = Transform3D(41.375, 0, 0, 0, 41.375, 0, 0, 0, 41.375, -0.373759, -12.362, -0.241655)
+
+[node name="MixColorShader" type="CanvasLayer" parent="."]
+
+[node name="ColorRect" type="ColorRect" parent="MixColorShader"]
+material = SubResource("ShaderMaterial_5itgm")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="Godrays" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.955844, -0.293873, 0, 0.293873, 0.955844, 0, 0, 0, 1, 1.6414, 6.78115, 15.8382)
+cast_shadow = 0
+mesh = SubResource("CylinderMesh_gv5vd")
+
+[node name="Godrays2" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.955844, -0.293873, 0, 0.293873, 0.955844, 0, 0, 0, 1, 8.54669, 8.47762, 15.8382)
+cast_shadow = 0
+mesh = SubResource("CylinderMesh_gv5vd")
+
+[node name="Godrays3" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.950087, -0.311986, 0, 0.311986, 0.950087, 0, 0, 0, 1, 10.0666, 7.51391, 4.68754)
+cast_shadow = 0
+mesh = SubResource("CylinderMesh_gv5vd")
+
+[node name="Godrays4" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.950087, -0.311986, 0, 0.311986, 0.950087, 0, 0, 0, 1, 17.5332, 9.96576, 12.1552)
+cast_shadow = 0
+mesh = SubResource("CylinderMesh_gv5vd")
+
+[connection signal="drop_slot_data" from="UI/InventoryInterface" to="UI/InventoryInterface" method="_on_drop_slot_data"]
+[connection signal="gui_input" from="UI/InventoryInterface" to="UI/InventoryInterface" method="_on_gui_input"]
+[connection signal="visibility_changed" from="UI/InventoryInterface" to="UI/InventoryInterface" method="_on_visibility_changed"]

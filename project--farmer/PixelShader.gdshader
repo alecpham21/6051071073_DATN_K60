@@ -15,6 +15,9 @@ uniform float lighten_amount : hint_range(0, 10, 0.01) = 1.5;
 uniform vec3 normal_edge_bias = vec3(1, 1, 1);
 uniform vec3 light_direction = vec3(-0.96, -0.18, 0.2);
 
+// --- THÊM MỚI: CHỈNH ĐỘ DÀY ---
+uniform float outline_thickness : hint_range(0.0, 5.0, 0.1) = 1.0;
+
 float get_depth(vec2 screen_uv, mat4 inv_projection_matrix) {
 	float depth = texture(depth_texture, screen_uv).r;
 	vec3 ndc = vec3(screen_uv * 2.0 - 1.0, depth);
@@ -30,7 +33,9 @@ void vertex() {
 void fragment() {
 	float depth = get_depth(SCREEN_UV, INV_PROJECTION_MATRIX);
 	vec3 normal = texture(normal_texture, SCREEN_UV).xyz * 2.0 - 1.0;
-	vec2 texel_size = 1.0 / VIEWPORT_SIZE.xy;
+	
+	// Nhân thêm outline_thickness vào kích thước pixel
+	vec2 texel_size = (1.0 / VIEWPORT_SIZE.xy) * outline_thickness;
 
 	vec2 uvs[4];
 	uvs[0] = vec2(SCREEN_UV.x, min(1.0 - 0.001, SCREEN_UV.y + texel_size.y));
@@ -57,16 +62,12 @@ void fragment() {
 		vec3 n = texture(normal_texture, uvs[i]).xyz * 2.0 - 1.0;
 		vec3 normal_diff = normal - n;
 
-		// Edge pixels should yield to the normal closest to the bias direction
 		float normal_bias_diff = dot(normal_diff, normal_edge_bias);
 		float normal_indicator = smoothstep(-0.01, 0.01, normal_bias_diff);
 
 		normal_sum += dot(normal_diff, normal_diff) * normal_indicator;
 	}
 	float depth_edge = step(depth_threshold, depth_diff);
-
-	// The reverse depth sum produces depth lines inside of the object, but they don't look as nice as the normal depth_diff
-	// Instead, we can use this value to mask the normal edge along the outside of the object
 	float reverse_depth_edge = step(reverse_depth_threshold, depth_diff_reversed);
 
 	float indicator = sqrt(normal_sum);

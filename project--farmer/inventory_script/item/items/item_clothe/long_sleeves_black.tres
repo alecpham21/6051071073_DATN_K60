@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="ItemDataOutfit" load_steps=5 format=3 uid="uid://cdqyplbcmcvvq"]
+
+[ext_resource type="ArrayMesh" uid="uid://koa684vs715l" path="res://inventory_script/item/items/item_clothe/mesh/long_sleeves_black.tres" id="1_11cbh"]
+[ext_resource type="Script" uid="uid://bjgwngm01lr5n" path="res://inventory_script/item/item_data/item_data_outfit.gd" id="1_da87q"]
+[ext_resource type="Texture2D" uid="uid://omvd8ed3fie6" path="res://inventory_script/item/item_atlast/#2 - Transparent Icons & Drop Shadow.png" id="3_xnsta"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bps6x"]
+atlas = ExtResource("3_xnsta")
+region = Rect2(32, 736, 32, 32)
+
+[resource]
+script = ExtResource("1_da87q")
+outfit_type = 1
+equip_mesh = ExtResource("1_11cbh")
+name = "Long Sleeves Black"
+description = ""
+stackable = false
+texture = SubResource("AtlasTexture_bps6x")
+metadata/_custom_type_script = "uid://bjgwngm01lr5n"

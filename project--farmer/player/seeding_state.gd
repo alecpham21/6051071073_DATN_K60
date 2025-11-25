@@ -1,19 +1,23 @@
 extends GardeningState
 
 @onready var inventory_data: InventoryData
-@onready var cast: RayCast3D = $"../SeedCast3D"
-@onready var anim: AnimationPlayer = $"../Farmer/AnimationPlayer"
+@onready var cast: RayCast3D = $"../../SeedCast3D"
+@onready var anim: AnimationPlayer = $"../../Farmer/AnimationPlayer"
 @onready var ground_gen = get_tree().get_first_node_in_group("ground_generator")
 
 var item_active := true
 var last_grid_pos: Vector2i = Vector2i(-1, -1)
+var seed:SlotData
 
-func _update(delta: float) -> void:
-	super(delta)
-	if !(character.velocity).is_zero_approx(): dispatch("move")
-	else: dispatch("idle")
-	
-	
+func _enter() -> void:
+	super()
+	seed = HotBar.active_slot
+	character.ani.animation_finished.connect(func(a):
+		plant_seed(HotBar.active_item.name.strip_edges().to_lower().replace(" ", "_"))
+		dispatch("idle")
+		, CONNECT_ONE_SHOT)
+
+
 func plant_seed(seed_name: String) -> void:
 	if not is_inside_tree():
 		await ready
@@ -48,9 +52,9 @@ func plant_seed(seed_name: String) -> void:
 		block.plant_type = plant_variant
 		block.crop_ready = false
 		block.mode = BlockGroundData.Mode.PLANTED
-
+		var index = PlayerData.player_inventory_data.slot_datas.find(HotBar.active_slot)
+		if index != -1:
+			PlayerData.player_inventory_data.actual_use_slot_data(index)
 
 func is_holding_seed():
-	#if player_inventory == null:
-		#return false
 	print("Is Holding Seed")

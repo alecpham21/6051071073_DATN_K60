@@ -1,7 +1,7 @@
 [gd_scene load_steps=39 format=4 uid="uid://boi6271jw0nnk"]
 
 [ext_resource type="Texture2D" uid="uid://1gysjnj7jqbq" path="res://assets/ImphenziaPalette01-256-Gradient.png" id="1_gh4bh"]
-[ext_resource type="ArrayMesh" uid="uid://cv7mrl7dyw0j0" path="res://inventory_script/item/items/item_clothe/mesh/blue_shirt.tres" id="2_68mgj"]
+[ext_resource type="ArrayMesh" uid="uid://cx7qmo5fku7t2" path="res://inventory_script/item/items/item_clothe/mesh/green_shirt.tres" id="2_68mgj"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_68mgj"]
 albedo_texture = ExtResource("1_gh4bh")

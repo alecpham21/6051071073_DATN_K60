@@ -1,10 +1,10 @@
 [gd_resource type="Resource" script_class="InventoryData" load_steps=9 format=3 uid="uid://2isd2h75v5xm"]
 
-[ext_resource type="Script" uid="uid://csfrg4socg8bj" path="res://inventory_script/inventory_data.gd" id="1_2080v"]
+[ext_resource type="Script" uid="uid://csfrg4socg8bj" path="res://inventory_script/inventory_data/inventory_data.gd" id="1_2080v"]
 [ext_resource type="Script" uid="uid://bspkgwkxsy8mn" path="res://inventory_script/slot_data.gd" id="2_sunoh"]
 [ext_resource type="Resource" uid="uid://d3pjlk6ev6gkq" path="res://inventory_script/item/items/coffee_potion.tres" id="3_m3nc5"]
-[ext_resource type="Resource" uid="uid://yxvsmb6b0dto" path="res://inventory_script/item/items/corn.tres" id="4_e3fg3"]
-[ext_resource type="Resource" uid="uid://cts13hjvusdcw" path="res://inventory_script/item/items/wheat_seed.tres" id="5_yhi4s"]
+[ext_resource type="Resource" uid="uid://yxvsmb6b0dto" path="res://inventory_script/item/items/item_harvest/corn.tres" id="4_e3fg3"]
+[ext_resource type="Resource" uid="uid://cts13hjvusdcw" path="res://inventory_script/item/items/item_harvest/wheat_seed.tres" id="5_yhi4s"]
 
 [sub_resource type="Resource" id="Resource_hwf0w"]
 script = ExtResource("2_sunoh")

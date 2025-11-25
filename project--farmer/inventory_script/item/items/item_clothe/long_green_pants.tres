@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="ItemDataOutfit" load_steps=5 format=3 uid="uid://dvhj81m1gabcl"]
+
+[ext_resource type="ArrayMesh" uid="uid://2gf5cg2yrhou" path="res://inventory_script/item/items/item_clothe/mesh/long_green_pants.tres" id="1_dhpae"]
+[ext_resource type="Script" uid="uid://bjgwngm01lr5n" path="res://inventory_script/item/item_data/item_data_outfit.gd" id="1_t4kmn"]
+[ext_resource type="Texture2D" uid="uid://omvd8ed3fie6" path="res://inventory_script/item/item_atlast/#2 - Transparent Icons & Drop Shadow.png" id="3_76iwn"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rj4ml"]
+atlas = ExtResource("3_76iwn")
+region = Rect2(224, 736, 32, 32)
+
+[resource]
+script = ExtResource("1_t4kmn")
+outfit_type = 2
+equip_mesh = ExtResource("1_dhpae")
+name = "Long Green Pants"
+description = "It is a pants"
+stackable = false
+texture = SubResource("AtlasTexture_rj4ml")
+metadata/_custom_type_script = "uid://bjgwngm01lr5n"

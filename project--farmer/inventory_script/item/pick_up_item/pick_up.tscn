@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://d3v1u6td3fyb6"]
 
-[ext_resource type="Texture2D" uid="uid://dlrwrt5rjw5cq" path="res://inventory_script/item/item_atlast.tres" id="1_5i1pt"]
+[ext_resource type="Texture2D" uid="uid://dlrwrt5rjw5cq" path="res://inventory_script/item/item_atlast/item_atlast.tres" id="1_5i1pt"]
 [ext_resource type="Script" uid="uid://50ntiegfvi8v" path="res://inventory_script/item/pick_up_item/pick_up.gd" id="1_yd68m"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_yd68m"]
