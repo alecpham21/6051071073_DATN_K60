@@ -125,8 +125,6 @@ spring_length = 7.0
 script = ExtResource("3_v8ox3")
 player_path = NodePath("../MainFarmer")
 min_vertical_angle = -0.698132
-min_zoom = 5.0
-max_zoom = 8.0
 
 [node name="Camera3D" type="Camera3D" parent="SubViewportContainer/SubViewport/SpringArm3D"]
 fov = 69.0

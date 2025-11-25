@@ -106,7 +106,7 @@ func _spawn_border_trees():
 		add_child(border_tree)
 		border_tree.position = pos
 		
-		var random_scale = randf_range(4.0, 5.0)
+		var random_scale = randf_range(3.0, 4.0)	
 		border_tree.scale = Vector3.ONE * random_scale
 		border_tree.rotate_y(randf_range(0.0, TAU))
 
@@ -132,7 +132,7 @@ func _spawn_outer_trees():
 		tree.position = pos
 		
 		# scale nhỏ hơn border tree
-		var random_scale = randf_range(3, 4)
+		var random_scale = randf_range(1, 2)
 		tree.scale = Vector3.ONE * random_scale
 		tree.rotate_y(randf_range(0.0, TAU))
 

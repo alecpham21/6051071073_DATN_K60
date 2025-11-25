@@ -1,14 +1,12 @@
-[gd_scene load_steps=54 format=4 uid="uid://bbvhog32snru6"]
+[gd_scene load_steps=52 format=4 uid="uid://bbvhog32snru6"]
 
 [ext_resource type="Script" uid="uid://hctai00r4njf" path="res://world.gd" id="1_dwbse"]
-[ext_resource type="Script" uid="uid://dxa7xefsogpt0" path="res://pixel_movement.gd" id="2_bh8nc"]
 [ext_resource type="Shader" uid="uid://bkw4b21akjsc2" path="res://subViewportPixel.gdshader" id="2_gggvi"]
-[ext_resource type="Script" uid="uid://bsrl0vcdxurk1" path="res://Camera_spring_arm.gd" id="3_036b0"]
 [ext_resource type="Shader" uid="uid://viqy3uwh6ns7" path="res://PixelShader.gdshader" id="3_hiqwa"]
+[ext_resource type="Script" uid="uid://bshrove7rvagv" path="res://spring_arm_camera.gd" id="4_qktwf"]
 [ext_resource type="PackedScene" uid="uid://bnxu42mjbjp8x" path="res://player/main_farmer.tscn" id="5_26xuy"]
 [ext_resource type="Script" uid="uid://6577es050bku" path="res://ground_generator.gd" id="5_036b0"]
 [ext_resource type="Script" uid="uid://5ej0tp0e5sk5" path="res://time_manager.gd" id="5_dwbse"]
-[ext_resource type="Script" uid="uid://cd2gkx8yxvr1x" path="res://camera_pixel_movement.gd" id="5_jjr1n"]
 [ext_resource type="PackedScene" uid="uid://te52jubb0t6m" path="res://Scene/Ground/ground_renderer.tscn" id="7_hiqwa"]
 [ext_resource type="Shader" uid="uid://bpre3j5j2h6bt" path="res://LeafShader.gdshader" id="8_cbp6q"]
 [ext_resource type="ArrayMesh" uid="uid://baypagydj3poq" path="res://modelTscn/plant/grass/Grass_ver2.tres" id="9_cbp6q"]
@@ -33,7 +31,7 @@
 [ext_resource type="Resource" uid="uid://b52qumcoelf4w" path="res://inventory_script/item/items/item_harvest/wheat_seed.tres" id="28_qktwf"]
 [ext_resource type="Shader" uid="uid://c13esa4vg2n5k" path="res://level/posterization.gdshader" id="30_qktwf"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_w44yn"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_jjr1n"]
 shader = ExtResource("2_gggvi")
 
 [sub_resource type="QuadMesh" id="QuadMesh_2u3nc"]
@@ -203,7 +201,7 @@ script = ExtResource("1_dwbse")
 
 [node name="SubViewportContainer" type="SubViewportContainer" parent="."]
 texture_filter = 1
-material = SubResource("ShaderMaterial_w44yn")
+material = SubResource("ShaderMaterial_jjr1n")
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -212,7 +210,6 @@ grow_horizontal = 2
 grow_vertical = 2
 stretch = true
 stretch_shrink = 2
-script = ExtResource("2_bh8nc")
 
 [node name="SubViewport" type="SubViewport" parent="SubViewportContainer"]
 handle_input_locally = false
@@ -227,19 +224,12 @@ surface_material_override/0 = SubResource("ShaderMaterial_udxuc")
 
 [node name="SpringArm3D" type="SpringArm3D" parent="SubViewportContainer/SubViewport"]
 transform = Transform3D(1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, 0, 0.659112, 0)
-visible = false
-spring_length = 50.0
-script = ExtResource("3_036b0")
+spring_length = 7.0
+script = ExtResource("4_qktwf")
 player_path = NodePath("../MainFarmer")
-min_zoom = 6.0
-max_zoom = 8.0
 
 [node name="Camera3D" type="Camera3D" parent="SubViewportContainer/SubViewport/SpringArm3D"]
-projection = 1
-current = true
 fov = 69.0
-size = 10.0
-script = ExtResource("5_jjr1n")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="SubViewportContainer/SubViewport"]
 
@@ -291,7 +281,8 @@ chest_id = "gei_chest"
 
 [node name="MainFarmer" parent="SubViewportContainer/SubViewport" instance=ExtResource("5_26xuy")]
 unique_name_in_owner = true
-camera_ref_path = NodePath("../SpringArm3D")
+use_gravity = true
+camera_ref_path = NodePath("../SpringArm3D/Camera3D")
 inventory_data = ExtResource("11_k83mh")
 
 [node name="TimeManager" type="Node" parent="." groups=["time_manager"]]

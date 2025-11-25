@@ -3,7 +3,7 @@
 [ext_resource type="Shader" uid="uid://c6qhkhar3xobg" path="res://Shader/edge_detection.gdshader" id="1_fjxe5"]
 [ext_resource type="Script" uid="uid://hctai00r4njf" path="res://world.gd" id="1_fv1ki"]
 [ext_resource type="Shader" uid="uid://viqy3uwh6ns7" path="res://PixelShader.gdshader" id="2_pt525"]
-[ext_resource type="Script" uid="uid://bsrl0vcdxurk1" path="res://Camera_spring_arm.gd" id="3_unurr"]
+[ext_resource type="Script" uid="uid://bshrove7rvagv" path="res://spring_arm_camera.gd" id="4_5itgm"]
 [ext_resource type="PackedScene" uid="uid://bnxu42mjbjp8x" path="res://player/main_farmer.tscn" id="4_hcwyd"]
 [ext_resource type="Script" uid="uid://5ej0tp0e5sk5" path="res://time_manager.gd" id="5_fv1ki"]
 [ext_resource type="Resource" uid="uid://c05tf37csx4tp" path="res://inventory_script/test_inv.tres" id="6_gv5vd"]
@@ -157,10 +157,8 @@ surface_material_override/0 = SubResource("ShaderMaterial_3oj2u")
 [node name="SpringArm3D" type="SpringArm3D" parent="SubViewportContainer/SubViewport"]
 transform = Transform3D(1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, 0, 0.659112, 0)
 spring_length = 7.0
-script = ExtResource("3_unurr")
+script = ExtResource("4_5itgm")
 player_path = NodePath("../MainFarmer")
-min_zoom = 5.0
-max_zoom = 8.0
 
 [node name="Camera3D" type="Camera3D" parent="SubViewportContainer/SubViewport/SpringArm3D"]
 fov = 69.0
