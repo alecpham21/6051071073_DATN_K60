@@ -33,7 +33,7 @@ void vertex() {
 void fragment() {
 	float depth = get_depth(SCREEN_UV, INV_PROJECTION_MATRIX);
 	vec3 normal = texture(normal_texture, SCREEN_UV).xyz * 2.0 - 1.0;
-	
+
 	// Nhân thêm outline_thickness vào kích thước pixel
 	vec2 texel_size = (1.0 / VIEWPORT_SIZE.xy) * outline_thickness;
 

@@ -1,9 +1,9 @@
-[gd_scene load_steps=24 format=3 uid="uid://o1wmcaqylahd"]
+[gd_scene load_steps=26 format=3 uid="uid://o1wmcaqylahd"]
 
 [ext_resource type="Script" uid="uid://dg34046jf1xjo" path="res://Scene/InBuilding/level_house.gd" id="1_iipvn"]
 [ext_resource type="Shader" uid="uid://c6qhkhar3xobg" path="res://Shader/edge_detection.gdshader" id="2_ofysm"]
+[ext_resource type="Script" uid="uid://bshrove7rvagv" path="res://spring_arm_camera.gd" id="3_hou3o"]
 [ext_resource type="Shader" uid="uid://viqy3uwh6ns7" path="res://PixelShader.gdshader" id="3_iipvn"]
-[ext_resource type="Script" uid="uid://bsrl0vcdxurk1" path="res://Camera_spring_arm.gd" id="4_hou3o"]
 [ext_resource type="PackedScene" uid="uid://bl1mg832slikq" path="res://modelTscn/building/house/uncle_room.tscn" id="5_02qar"]
 [ext_resource type="PackedScene" uid="uid://km0edqcbty58" path="res://level/level script/door.tscn" id="6_scj0i"]
 [ext_resource type="PackedScene" uid="uid://bnxu42mjbjp8x" path="res://player/main_farmer.tscn" id="7_yns1g"]
@@ -15,6 +15,7 @@
 [ext_resource type="PackedScene" uid="uid://dh4ns40qdxwam" path="res://Inventory_ui/hot_bar_inventory.tscn" id="12_gh1d0"]
 [ext_resource type="PackedScene" uid="uid://cnh3uiwulfbdd" path="res://modelTscn/storage/wardrope.tscn" id="14_iipvn"]
 [ext_resource type="Shader" uid="uid://c13esa4vg2n5k" path="res://level/posterization.gdshader" id="15_hou3o"]
+[ext_resource type="Material" uid="uid://fcrap08w717d" path="res://EnvironmentResources/emissive_mat.tres" id="16_02qar"]
 
 [sub_resource type="QuadMesh" id="QuadMesh_5q01f"]
 flip_faces = true
@@ -45,14 +46,23 @@ shader_parameter/normal_edge_bias = Vector3(1, 1, 1)
 shader_parameter/light_direction = Vector3(-0.96, -0.18, 0.2)
 shader_parameter/outline_thickness = 1.0
 
-[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_ofysm"]
+[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_02qar"]
+energy_multiplier = 0.0
 
 [sub_resource type="Sky" id="Sky_87avh"]
-sky_material = SubResource("PanoramaSkyMaterial_ofysm")
+sky_material = SubResource("PanoramaSkyMaterial_02qar")
 
 [sub_resource type="Environment" id="Environment_vkefo"]
 background_mode = 2
+background_energy_multiplier = 0.0
 sky = SubResource("Sky_87avh")
+ambient_light_source = 3
+ambient_light_color = Color(0.629629, 0.426889, 0.141005, 1)
+glow_enabled = true
+glow_levels/2 = 1.0
+glow_levels/4 = 0.5
+glow_levels/5 = 0.2
+glow_blend_mode = 1
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_02qar"]
 shader = ExtResource("15_hou3o")
@@ -63,6 +73,9 @@ shader_parameter/use_h = false
 shader_parameter/steps_l = 15.0
 shader_parameter/level_c = 5.0
 shader_parameter/level_h = 0.05
+
+[sub_resource type="BoxMesh" id="BoxMesh_scj0i"]
+size = Vector3(1.525, 0.085, 0.05)
 
 [node name="level_house" type="Node3D"]
 script = ExtResource("1_iipvn")
@@ -87,25 +100,26 @@ transform = Transform3D(1, 0, 0, 0, 0.00750488, 0.999972, 0, -0.999972, 0.007504
 visible = false
 extra_cull_margin = 16384.0
 mesh = SubResource("QuadMesh_5q01f")
-skeleton = NodePath("../SpringArm3D/Camera3D")
+skeleton = NodePath("")
 surface_material_override/0 = SubResource("ShaderMaterial_dff8o")
+
+[node name="SpringArm3D2" type="SpringArm3D" parent="SubViewportContainer/SubViewport"]
+transform = Transform3D(1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, 0, 0.659112, 0)
+visible = false
+spring_length = 7.0
+script = ExtResource("3_hou3o")
+player_path = NodePath("../MainFarmer")
+
+[node name="Camera3D" type="Camera3D" parent="SubViewportContainer/SubViewport/SpringArm3D2"]
+current = true
+fov = 69.0
 
 [node name="ShaderOutline2" type="MeshInstance3D" parent="SubViewportContainer/SubViewport"]
 transform = Transform3D(1, 0, 0, 0, 0.00750488, 0.999972, 0, -0.999972, 0.00750488, 0.180526, -35.304, 0)
 extra_cull_margin = 16384.0
 mesh = SubResource("QuadMesh_p1g3l")
-skeleton = NodePath("../SpringArm3D/Camera3D")
+skeleton = NodePath("")
 surface_material_override/0 = SubResource("ShaderMaterial_87avh")
-
-[node name="SpringArm3D" type="SpringArm3D" parent="SubViewportContainer/SubViewport"]
-transform = Transform3D(1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, 0, 0.659112, 0)
-visible = false
-spring_length = 7.0
-script = ExtResource("4_hou3o")
-player_path = NodePath("../MainFarmer")
-
-[node name="Camera3D" type="Camera3D" parent="SubViewportContainer/SubViewport/SpringArm3D"]
-fov = 69.0
 
 [node name="UncleRoom" parent="SubViewportContainer/SubViewport" instance=ExtResource("5_02qar")]
 transform = Transform3D(0.68, 0, 0, 0, 0.68, 0, 0, 0, 0.68, 0, 0, 0)
@@ -121,7 +135,7 @@ target_spawn_position = Vector3(-3, 0, 0)
 unique_name_in_owner = true
 transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0, 0, 0)
 use_gravity = true
-camera_ref_path = NodePath("../SpringArm3D")
+camera_ref_path = NodePath("../SpringArm3D2/Camera3D")
 inventory_data = ExtResource("8_ofysm")
 
 [node name="Camera3D" type="Camera3D" parent="SubViewportContainer/SubViewport"]
@@ -207,11 +221,13 @@ environment = SubResource("Environment_vkefo")
 [node name="OmniLight3D" type="OmniLight3D" parent="Lighting"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.0665, 1.72507)
 light_energy = 2.0
+light_size = 1.0
 omni_range = 284.466
 
 [node name="OmniLight3D2" type="OmniLight3D" parent="Lighting"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.0665, -2.36482)
 light_energy = 2.0
+light_size = 1.0
 omni_range = 284.466
 
 [node name="wardrope" parent="." instance=ExtResource("14_iipvn")]
@@ -227,6 +243,11 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
+
+[node name="LongLightBulp" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.88853, 3.6709)
+material_override = ExtResource("16_02qar")
+mesh = SubResource("BoxMesh_scj0i")
 
 [connection signal="drop_slot_data" from="UI/InventoryInterface" to="UI/InventoryInterface" method="_on_drop_slot_data"]
 [connection signal="gui_input" from="UI/InventoryInterface" to="UI/InventoryInterface" method="_on_gui_input"]

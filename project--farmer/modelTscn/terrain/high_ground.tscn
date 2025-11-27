@@ -21,10 +21,13 @@ albedo_texture = ExtResource("2_6im46")
 material_override = SubResource("StandardMaterial3D_dhwb6")
 
 [node name="Cube_001" parent="." index="1"]
+transform = Transform3D(14.2627, 0, 59.164, 0, 13.1623, 0, -19.7866, 0, 42.6469, -30.0125, -3.58619, 61.5125)
 material_override = SubResource("StandardMaterial3D_ryjoh")
 
 [node name="Cube_002" parent="." index="2"]
+transform = Transform3D(-13.445, 0, 60.8393, 0, 10.8541, 0, -20.2941, 0, -40.3066, 88.9693, 5.36434, 53.5707)
 material_override = SubResource("StandardMaterial3D_kwimw")
 
 [node name="Cube_003" parent="." index="3"]
+transform = Transform3D(-12.2983, 0, 73.1547, 0, 9.20574, 0, -21.0081, 0, -42.8253, 191.284, -0.89526, -30.7647)
 material_override = SubResource("StandardMaterial3D_cd7hy")

@@ -1,0 +1,47 @@
+[gd_resource type="ShaderMaterial" load_steps=8 format=3 uid="uid://wyikf3yxoy6x"]
+
+[ext_resource type="Shader" uid="uid://dd0hy15j1vlka" path="res://addons/DayNightCycle.v1.0.0/DayNightCycle/Sky.gdshader" id="1_r4who"]
+
+[sub_resource type="Curve" id="Curve_q845u"]
+_data = [Vector2(0, 0.011236), 0.0, 0.0, 0, 0, Vector2(0.189189, 1), 0.0, 0.0, 0, 0, Vector2(0.983784, 0.595506), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_50ya4"]
+curve = SubResource("Curve_q845u")
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_2oef4"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_810ki"]
+noise = SubResource("FastNoiseLite_2oef4")
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_asxnq"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_tqg44"]
+seamless = true
+noise = SubResource("FastNoiseLite_asxnq")
+
+[resource]
+shader = ExtResource("1_r4who")
+shader_parameter/cloud_shape_sampler = SubResource("NoiseTexture2D_tqg44")
+shader_parameter/cloud_noise_sampler = SubResource("NoiseTexture2D_810ki")
+shader_parameter/cloud_curves = SubResource("CurveTexture_50ya4")
+shader_parameter/clouds_samples = 32
+shader_parameter/shadow_sample = 4
+shader_parameter/clouds_density = 0.4
+shader_parameter/clouds_scale = 1.0
+shader_parameter/clouds_smoothness = 0.03
+shader_parameter/clouds_light_color = Color(1, 1, 1, 1)
+shader_parameter/clouds_shadow_intensity = 3.5
+shader_parameter/high_clouds_density = 0.0
+shader_parameter/top_color = Color(0.01, 0.5, 1, 1)
+shader_parameter/bottom_color = Color(0, 0.441227, 0.89101, 1)
+shader_parameter/sun_scatter = Color(0.3, 0.3, 0.3, 1)
+shader_parameter/sun_tint = Color(1, 1, 0.8, 1)
+shader_parameter/sun_scale = 20.0
+shader_parameter/sun_intensity = 5.0
+shader_parameter/moon_tint = Color(1, 1, 0.8, 1)
+shader_parameter/moon_scale = 30.0
+shader_parameter/moon_intensity = 1.0
+shader_parameter/stars_intensity = 0.0
+shader_parameter/shooting_stars_intensity = 0.0
+shader_parameter/shooting_star_tint = Color(1, 1, 1, 1)

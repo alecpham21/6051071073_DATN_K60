@@ -151,5 +151,3 @@ void fragment() {
 
 	COLOR = vec4(final_sc, 1.0);
 }
-
-

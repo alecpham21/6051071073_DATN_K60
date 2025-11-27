@@ -1,8 +1,8 @@
-[gd_scene load_steps=27 format=3 uid="uid://r4vbsuv0yw71"]
+[gd_scene load_steps=25 format=3 uid="uid://r4vbsuv0yw71"]
 
 [ext_resource type="Shader" uid="uid://c6qhkhar3xobg" path="res://Shader/edge_detection.gdshader" id="1_bjjjs"]
 [ext_resource type="Shader" uid="uid://viqy3uwh6ns7" path="res://PixelShader.gdshader" id="2_gwcwr"]
-[ext_resource type="Script" uid="uid://bsrl0vcdxurk1" path="res://Camera_spring_arm.gd" id="3_v8ox3"]
+[ext_resource type="Script" uid="uid://bshrove7rvagv" path="res://spring_arm_camera.gd" id="3_ngi1u"]
 [ext_resource type="PackedScene" uid="uid://bnxu42mjbjp8x" path="res://player/main_farmer.tscn" id="4_ngi1u"]
 [ext_resource type="Resource" uid="uid://c05tf37csx4tp" path="res://inventory_script/test_inv.tres" id="5_kcivo"]
 [ext_resource type="Script" uid="uid://5ej0tp0e5sk5" path="res://time_manager.gd" id="6_vk6vg"]
@@ -10,14 +10,15 @@
 [ext_resource type="PackedScene" uid="uid://470pnke8j1j2" path="res://Inventory_ui/inventory.tscn" id="8_ohymk"]
 [ext_resource type="PackedScene" uid="uid://cmaas2sclopj4" path="res://Inventory_ui/slot.tscn" id="9_rw7wq"]
 [ext_resource type="PackedScene" uid="uid://dh4ns40qdxwam" path="res://Inventory_ui/hot_bar_inventory.tscn" id="10_tphcj"]
-[ext_resource type="Shader" uid="uid://kimc5meeodlx" path="res://Shader/sky_shader_level2.gdshader" id="11_u0gjg"]
-[ext_resource type="Texture2D" uid="uid://bj14akt05culg" path="res://Shader/epic_sky.jpg" id="12_omicy"]
 [ext_resource type="PackedScene" uid="uid://csnejiwkcvvuj" path="res://terrain/big_terrain_moutain.tscn" id="13_83m1q"]
 [ext_resource type="Shader" uid="uid://c13esa4vg2n5k" path="res://level/posterization.gdshader" id="14_5jqrs"]
 [ext_resource type="PackedScene" uid="uid://oxqdgfctyeo" path="res://level/traditional_town_full_1.tscn" id="15_auj8g"]
 [ext_resource type="PackedScene" uid="uid://03bjah3n70ep" path="res://Scene/WindGrass/WindGrassScene.tscn" id="16_gwcwr"]
 [ext_resource type="PackedScene" uid="uid://ba2xtjdegyqnt" path="res://modelTscn/plant/grass/grassPixel.tscn" id="17_v8ox3"]
 [ext_resource type="PackedScene" uid="uid://c3gcddyset4iw" path="res://Scene/Tree/tree_sway.tscn" id="18_ngi1u"]
+[ext_resource type="PackedScene" uid="uid://bjxrobwweubb3" path="res://model/tree/TreeVer1.tscn" id="19_kcivo"]
+[ext_resource type="PackedScene" uid="uid://dd48ywngxd2oc" path="res://Scene/Environment/day_night_cycle.tscn" id="19_vk6vg"]
+[ext_resource type="LightmapGIData" uid="uid://de8s4oe3qu5k4" path="res://level/level script/level_town.lmbake" id="20_vk6vg"]
 
 [sub_resource type="QuadMesh" id="QuadMesh_7py64"]
 flip_faces = true
@@ -58,34 +59,6 @@ shader_parameter/steps_l = 16.0
 shader_parameter/level_c = 5.0
 shader_parameter/level_h = 0.05
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_bjjjs"]
-shader = ExtResource("11_u0gjg")
-shader_parameter/skyColor = Color(0, 0, 0, 1)
-shader_parameter/horizonColor = Color(0, 0, 0, 1)
-shader_parameter/skyTexture = ExtResource("12_omicy")
-
-[sub_resource type="Sky" id="Sky_o3ebs"]
-sky_material = SubResource("ShaderMaterial_bjjjs")
-
-[sub_resource type="Environment" id="Environment_gwcwr"]
-background_mode = 2
-background_energy_multiplier = 0.85
-sky = SubResource("Sky_o3ebs")
-ambient_light_source = 3
-ambient_light_color = Color(0.867691, 0.694261, 0.49108, 1)
-ambient_light_sky_contribution = 0.2
-tonemap_mode = 2
-fog_mode = 1
-fog_light_color = Color(0.552712, 0.667518, 0.637712, 1)
-fog_density = 0.6235
-fog_sky_affect = 0.0
-fog_height_density = 0.004
-fog_depth_begin = 2.0
-fog_depth_end = 250.0
-volumetric_fog_density = 0.0005
-volumetric_fog_anisotropy = 0.9
-volumetric_fog_ambient_inject = 0.23
-
 [node name="level_town" type="Node3D"]
 
 [node name="SubViewportContainer" type="SubViewportContainer" parent="."]
@@ -109,22 +82,22 @@ transform = Transform3D(1, 0, 0, 0, 0.00750488, 0.999972, 0, -0.999972, 0.007504
 visible = false
 extra_cull_margin = 16384.0
 mesh = SubResource("QuadMesh_7py64")
-skeleton = NodePath("../SpringArm3D/Camera3D")
+skeleton = NodePath("")
 surface_material_override/0 = SubResource("ShaderMaterial_75k2r")
 
 [node name="ShaderOutline2" type="MeshInstance3D" parent="SubViewportContainer/SubViewport"]
-transform = Transform3D(1, 0, 0, 0, 0.00750488, 0.999972, 0, -0.999972, 0.00750488, 0.180526, -64.8065, -0.221419)
+transform = Transform3D(1, 0, 0, 0, 0.00750488, 0.999972, 0, -0.999972, 0.00750488, 0.180526, -101.684, -0.221419)
 extra_cull_margin = 16384.0
 mesh = SubResource("QuadMesh_nghhb")
-skeleton = NodePath("../SpringArm3D/Camera3D")
+skeleton = NodePath("")
 surface_material_override/0 = SubResource("ShaderMaterial_2wbn3")
 
 [node name="SpringArm3D" type="SpringArm3D" parent="SubViewportContainer/SubViewport"]
 transform = Transform3D(1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, 0, 0.659112, 0)
 spring_length = 7.0
-script = ExtResource("3_v8ox3")
+script = ExtResource("3_ngi1u")
 player_path = NodePath("../MainFarmer")
-min_vertical_angle = -0.698132
+max_zoom = 10.0
 
 [node name="Camera3D" type="Camera3D" parent="SubViewportContainer/SubViewport/SpringArm3D"]
 fov = 69.0
@@ -133,7 +106,7 @@ fov = 69.0
 unique_name_in_owner = true
 transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0, 0, 0)
 use_gravity = true
-camera_ref_path = NodePath("../SpringArm3D")
+camera_ref_path = NodePath("../SpringArm3D/Camera3D")
 inventory_data = ExtResource("5_kcivo")
 
 [node name="TimeManager" type="Node" parent="." groups=["time_manager"]]
@@ -199,15 +172,11 @@ offset_bottom = 0.0
 grow_horizontal = 2
 grow_vertical = 0
 
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, -0.0399047, 0.999204, 0, -0.999204, -0.0399047, 0, 0.634487, 0)
-shadow_enabled = true
-
 [node name="background" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 7.57244, 0)
+transform = Transform3D(-0.34056, 0, -0.940223, 0, 1, 0, 0.940223, 0, -0.34056, 99.2333, 4.54498, -120.373)
 
 [node name="BigTerrainMoutain" parent="background" instance=ExtResource("13_83m1q")]
-transform = Transform3D(41.375, 0, 0, 0, 41.375, 0, 0, 0, 41.375, -0.373759, -12.362, -0.241655)
+transform = Transform3D(63.86, 0, 0, 0, 63.86, 0, 0, 0, 63.86, -0.373759, -13.9444, -0.241655)
 
 [node name="MixColorShader" type="CanvasLayer" parent="."]
 
@@ -223,9 +192,6 @@ mouse_filter = 2
 [node name="TraditionalTownFull1" parent="." instance=ExtResource("15_auj8g")]
 transform = Transform3D(2.12, 0, 0, 0, 2.12, 0, 0, 0, 2.12, -9.74293, 0.977251, 0)
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource("Environment_gwcwr")
-
 [node name="WindGrass" parent="." instance=ExtResource("16_gwcwr")]
 transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, -15.7559, -0.32397, 0)
 
@@ -233,8 +199,147 @@ transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, -15.7559, -0.32397, 0)
 transform = Transform3D(0.8, 0, 0, 0, 0.8, 0, 0, 0, 0.8, 0, -0.761794, 0)
 visible = false
 
-[node name="TreeSway" parent="." instance=ExtResource("18_ngi1u")]
+[node name="Forest" type="Node3D" parent="."]
+
+[node name="TreeVer1" parent="Forest" instance=ExtResource("19_kcivo")]
+transform = Transform3D(3.68222, 0, 1.69831, 0, 4.055, 0, -1.69831, 0, 3.68222, -21.2458, 0, -83.9027)
+
+[node name="TreeVer2" parent="Forest" instance=ExtResource("19_kcivo")]
+transform = Transform3D(3.68222, 0, 1.69831, 0, 4.055, 0, -1.69831, 0, 3.68222, -47.3867, 0, -67.2565)
+
+[node name="TreeVer3" parent="Forest" instance=ExtResource("19_kcivo")]
+transform = Transform3D(3.68222, 0, 1.69831, 0, 4.055, 0, -1.69831, 0, 3.68222, -38.2651, 0, -76.83)
+
+[node name="TreeVer4" parent="Forest" instance=ExtResource("19_kcivo")]
+transform = Transform3D(3.68222, 0, 1.69831, 0, 4.055, 0, -1.69831, 0, 3.68222, -11.5448, 0, -72.3126)
+
+[node name="TreeVer5" parent="Forest" instance=ExtResource("19_kcivo")]
+transform = Transform3D(3.68222, 0, 1.69831, 0, 4.055, 0, -1.69831, 0, 3.68222, 3.89441, 0, -90.3093)
+
+[node name="TreeVer6" parent="Forest" instance=ExtResource("19_kcivo")]
+transform = Transform3D(3.68222, 0, 1.69831, 0, 4.055, 0, -1.69831, 0, 3.68222, 9.28168, 0, -78.2319)
+
+[node name="TreeVer7" parent="Forest" instance=ExtResource("19_kcivo")]
+transform = Transform3D(3.68222, 0, 1.69831, 0, 4.055, 0, -1.69831, 0, 3.68222, -31.4332, 0, -61.5858)
+
+[node name="TreeVer8" parent="Forest" instance=ExtResource("19_kcivo")]
+transform = Transform3D(3.68222, 0, 1.69831, 0, 4.055, 0, -1.69831, 0, 3.68222, -19.1343, 0, -71.1592)
+
+[node name="TreeVer14" parent="Forest" instance=ExtResource("19_kcivo")]
+transform = Transform3D(3.18733, 0, 1.47005, 0, 3.51, 0, -1.47005, 0, 3.18733, -42.9083, -0.819826, -68.0219)
+
+[node name="TreeVer15" parent="Forest" instance=ExtResource("19_kcivo")]
+transform = Transform3D(3.18733, 0, 1.47005, 0, 3.51, 0, -1.47005, 0, 3.18733, -16.1881, -0.819826, -63.5046)
+
+[node name="TreeVer16" parent="Forest" instance=ExtResource("19_kcivo")]
+transform = Transform3D(3.18733, 0, 1.47005, 0, 3.51, 0, -1.47005, 0, 3.18733, -23.7776, -0.819826, -62.3512)
+
+[node name="TreeVer17" parent="Forest" instance=ExtResource("19_kcivo")]
+transform = Transform3D(3.18733, 0, 1.47005, 0, 3.51, 0, -1.47005, 0, 3.18733, 6.40986, -0.819826, -68.0219)
+
+[node name="TreeVer18" parent="Forest" instance=ExtResource("19_kcivo")]
+transform = Transform3D(3.18733, 0, 1.47005, 0, 3.51, 0, -1.47005, 0, 3.18733, 33.1301, -0.819826, -63.5046)
+
+[node name="TreeVer19" parent="Forest" instance=ExtResource("19_kcivo")]
+transform = Transform3D(3.18733, 0, 1.47005, 0, 3.51, 0, -1.47005, 0, 3.18733, 25.5406, -0.819826, -62.3512)
+
+[node name="TreeVer9" parent="Forest" instance=ExtResource("19_kcivo")]
+transform = Transform3D(3.68222, 0, 1.69831, 0, 4.055, 0, -1.69831, 0, 3.68222, 12.0891, 0, -66.6418)
+
+[node name="TreeVer11" parent="Forest" instance=ExtResource("19_kcivo")]
+transform = Transform3D(3.68222, 0, 1.69831, 0, 4.055, 0, -1.69831, 0, 3.68222, 35.6465, 0, -90.3093)
+
+[node name="TreeVer12" parent="Forest" instance=ExtResource("19_kcivo")]
+transform = Transform3D(3.68222, 0, 1.69831, 0, 4.055, 0, -1.69831, 0, 3.68222, 41.0338, 0, -78.2319)
+
+[node name="TreeVer13" parent="Forest" instance=ExtResource("19_kcivo")]
+transform = Transform3D(3.68222, 0, 1.69831, 0, 4.055, 0, -1.69831, 0, 3.68222, 43.8412, 0, -66.6418)
+
+[node name="TreeVer10" parent="Forest" instance=ExtResource("19_kcivo")]
+transform = Transform3D(3.68222, 0, 1.69831, 0, 4.055, 0, -1.69831, 0, 3.68222, 23.0252, 0, -84.6385)
+
+[node name="Forest2" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.29242, 0, -49.1643)
+
+[node name="TreeVer1" parent="Forest2" instance=ExtResource("19_kcivo")]
+transform = Transform3D(3.68222, 0, 1.69831, 0, 4.055, 0, -1.69831, 0, 3.68222, -21.2458, 0, -83.9027)
+
+[node name="TreeVer2" parent="Forest2" instance=ExtResource("19_kcivo")]
+transform = Transform3D(3.68222, 0, 1.69831, 0, 4.055, 0, -1.69831, 0, 3.68222, -47.3867, 0, -67.2565)
+
+[node name="TreeVer3" parent="Forest2" instance=ExtResource("19_kcivo")]
+transform = Transform3D(3.68222, 0, 1.69831, 0, 4.055, 0, -1.69831, 0, 3.68222, -38.2651, 0, -76.83)
+
+[node name="TreeVer4" parent="Forest2" instance=ExtResource("19_kcivo")]
+transform = Transform3D(3.68222, 0, 1.69831, 0, 4.055, 0, -1.69831, 0, 3.68222, -11.5448, 0, -72.3126)
+
+[node name="TreeVer5" parent="Forest2" instance=ExtResource("19_kcivo")]
+transform = Transform3D(3.68222, 0, 1.69831, 0, 4.055, 0, -1.69831, 0, 3.68222, 3.89441, 0, -90.3093)
+
+[node name="TreeVer6" parent="Forest2" instance=ExtResource("19_kcivo")]
+transform = Transform3D(3.68222, 0, 1.69831, 0, 4.055, 0, -1.69831, 0, 3.68222, 9.28168, 0, -78.2319)
+
+[node name="TreeVer7" parent="Forest2" instance=ExtResource("19_kcivo")]
+transform = Transform3D(3.68222, 0, 1.69831, 0, 4.055, 0, -1.69831, 0, 3.68222, -31.4332, 0, -61.5858)
+
+[node name="TreeVer8" parent="Forest2" instance=ExtResource("19_kcivo")]
+transform = Transform3D(3.68222, 0, 1.69831, 0, 4.055, 0, -1.69831, 0, 3.68222, -19.1343, 0, -71.1592)
+
+[node name="TreeVer14" parent="Forest2" instance=ExtResource("19_kcivo")]
+transform = Transform3D(3.18733, 0, 1.47005, 0, 3.51, 0, -1.47005, 0, 3.18733, -42.9083, -0.819826, -68.0219)
+
+[node name="TreeVer15" parent="Forest2" instance=ExtResource("19_kcivo")]
+transform = Transform3D(3.18733, 0, 1.47005, 0, 3.51, 0, -1.47005, 0, 3.18733, -16.1881, -0.819826, -63.5046)
+
+[node name="TreeVer16" parent="Forest2" instance=ExtResource("19_kcivo")]
+transform = Transform3D(3.18733, 0, 1.47005, 0, 3.51, 0, -1.47005, 0, 3.18733, -23.7776, -0.819826, -62.3512)
+
+[node name="TreeVer17" parent="Forest2" instance=ExtResource("19_kcivo")]
+transform = Transform3D(3.18733, 0, 1.47005, 0, 3.51, 0, -1.47005, 0, 3.18733, 6.40986, -0.819826, -68.0219)
+
+[node name="TreeVer18" parent="Forest2" instance=ExtResource("19_kcivo")]
+transform = Transform3D(3.18733, 0, 1.47005, 0, 3.51, 0, -1.47005, 0, 3.18733, 33.1301, -0.819826, -63.5046)
+
+[node name="TreeVer19" parent="Forest2" instance=ExtResource("19_kcivo")]
+transform = Transform3D(3.18733, 0, 1.47005, 0, 3.51, 0, -1.47005, 0, 3.18733, 25.5406, -0.819826, -62.3512)
+
+[node name="TreeVer9" parent="Forest2" instance=ExtResource("19_kcivo")]
+transform = Transform3D(3.68222, 0, 1.69831, 0, 4.055, 0, -1.69831, 0, 3.68222, 12.0891, 0, -66.6418)
+
+[node name="TreeVer11" parent="Forest2" instance=ExtResource("19_kcivo")]
+transform = Transform3D(3.68222, 0, 1.69831, 0, 4.055, 0, -1.69831, 0, 3.68222, 35.6465, 0, -90.3093)
+
+[node name="TreeVer12" parent="Forest2" instance=ExtResource("19_kcivo")]
+transform = Transform3D(3.68222, 0, 1.69831, 0, 4.055, 0, -1.69831, 0, 3.68222, 41.0338, 0, -78.2319)
+
+[node name="TreeVer13" parent="Forest2" instance=ExtResource("19_kcivo")]
+transform = Transform3D(3.68222, 0, 1.69831, 0, 4.055, 0, -1.69831, 0, 3.68222, 43.8412, 0, -66.6418)
+
+[node name="TreeVer10" parent="Forest2" instance=ExtResource("19_kcivo")]
+transform = Transform3D(3.68222, 0, 1.69831, 0, 4.055, 0, -1.69831, 0, 3.68222, 23.0252, 0, -84.6385)
+
+[node name="TownTree" type="Node3D" parent="."]
+
+[node name="TreeSway" parent="TownTree" instance=ExtResource("18_ngi1u")]
 transform = Transform3D(0.0312404, 0, 0.278252, 0, 0.28, 0, -0.278252, 0, 0.0312404, -17.762, 0, 0)
+
+[node name="TreeSway2" parent="TownTree" instance=ExtResource("18_ngi1u")]
+transform = Transform3D(0.0312404, 0, 0.278252, 0, 0.28, 0, -0.278252, 0, 0.0312404, 23.5151, 0, 5.99935)
+
+[node name="TreeSway3" parent="TownTree" instance=ExtResource("18_ngi1u")]
+transform = Transform3D(0.0312404, 0, 0.278252, 0, 0.28, 0, -0.278252, 0, 0.0312404, -11.3487, 0, 19.2798)
+
+[node name="TreeSway4" parent="TownTree" instance=ExtResource("18_ngi1u")]
+transform = Transform3D(0.0312404, 0, 0.278252, 0, 0.28, 0, -0.278252, 0, 0.0312404, 6.7527, 0, 39.7351)
+
+[node name="TreeSway5" parent="TownTree" instance=ExtResource("18_ngi1u")]
+transform = Transform3D(0.0312404, 0, 0.278252, 0, 0.28, 0, -0.278252, 0, 0.0312404, 31.8255, 0, 26.9644)
+
+[node name="LightmapGI" type="LightmapGI" parent="."]
+visible = false
+light_data = ExtResource("20_vk6vg")
+
+[node name="DayNightCycle" parent="." instance=ExtResource("19_vk6vg")]
 
 [connection signal="drop_slot_data" from="UI/InventoryInterface" to="UI/InventoryInterface" method="_on_drop_slot_data"]
 [connection signal="gui_input" from="UI/InventoryInterface" to="UI/InventoryInterface" method="_on_gui_input"]

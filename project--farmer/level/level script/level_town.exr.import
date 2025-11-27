@@ -1,0 +1,27 @@
+[remap]
+
+importer="2d_array_texture"
+type="CompressedTexture2DArray"
+uid="uid://i0kqfamj3lik"
+path.bptc="res://.godot/imported/level_town.exr-bf0531536edd2f97ac77f4b68003acd6.bptc.ctexarray"
+metadata={
+"imported_formats": ["s3tc_bptc"],
+"vram_texture": true
+}
+
+[deps]
+
+source_file="res://level/level script/level_town.exr"
+dest_files=["res://.godot/imported/level_town.exr-bf0531536edd2f97ac77f4b68003acd6.bptc.ctexarray"]
+
+[params]
+
+compress/mode=2
+compress/high_quality=false
+compress/lossy_quality=0.7
+compress/hdr_compression=1
+compress/channel_pack=1
+mipmaps/generate=false
+mipmaps/limit=-1
+slices/horizontal=1
+slices/vertical=2

@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=3 uid="uid://bpiirx52ltrdi"]
+[gd_scene load_steps=24 format=3 uid="uid://bpiirx52ltrdi"]
 
 [ext_resource type="Shader" uid="uid://c6qhkhar3xobg" path="res://Shader/edge_detection.gdshader" id="1_fjxe5"]
 [ext_resource type="Script" uid="uid://hctai00r4njf" path="res://world.gd" id="1_fv1ki"]
@@ -12,9 +12,8 @@
 [ext_resource type="PackedScene" uid="uid://cmaas2sclopj4" path="res://Inventory_ui/slot.tscn" id="8_5itgm"]
 [ext_resource type="PackedScene" uid="uid://dh4ns40qdxwam" path="res://Inventory_ui/hot_bar_inventory.tscn" id="9_oinrv"]
 [ext_resource type="PackedScene" uid="uid://5c7f4f6oph7m" path="res://level/fishing_shore.tscn" id="10_urabl"]
-[ext_resource type="Shader" uid="uid://kimc5meeodlx" path="res://Shader/sky_shader_level2.gdshader" id="11_unurr"]
-[ext_resource type="Texture2D" uid="uid://bj14akt05culg" path="res://Shader/epic_sky.jpg" id="12_hcwyd"]
 [ext_resource type="PackedScene" uid="uid://csnejiwkcvvuj" path="res://terrain/big_terrain_moutain.tscn" id="13_hcwyd"]
+[ext_resource type="PackedScene" uid="uid://dd48ywngxd2oc" path="res://Scene/Environment/day_night_cycle.tscn" id="16_5itgm"]
 [ext_resource type="Shader" uid="uid://c13esa4vg2n5k" path="res://level/posterization.gdshader" id="16_gv5vd"]
 [ext_resource type="Shader" uid="uid://j5xlygyuf3yq" path="res://Shaders/procedural_quad_godray/procedural_quad_godray/godrays_shader.gdshader" id="17_5itgm"]
 
@@ -47,39 +46,11 @@ shader_parameter/normal_edge_bias = Vector3(1, 1, 1)
 shader_parameter/light_direction = Vector3(-0.96, -0.18, 0.2)
 shader_parameter/outline_thickness = 1.1
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_fv1ki"]
-shader = ExtResource("11_unurr")
-shader_parameter/skyColor = Color(0, 0, 0, 1)
-shader_parameter/horizonColor = Color(0, 0, 0, 1)
-shader_parameter/skyTexture = ExtResource("12_hcwyd")
-
-[sub_resource type="Sky" id="Sky_5itgm"]
-sky_material = SubResource("ShaderMaterial_fv1ki")
-
-[sub_resource type="Environment" id="Environment_ql0nu"]
-background_mode = 2
-background_energy_multiplier = 0.85
-sky = SubResource("Sky_5itgm")
-ambient_light_color = Color(0.176419, 0.176419, 0.176419, 1)
-fog_enabled = true
-fog_mode = 1
-fog_light_color = Color(0.836897, 0.821253, 0.676797, 1)
-fog_light_energy = 0.15
-fog_density = 0.6235
-fog_sky_affect = 0.0
-fog_height_density = 0.004
-fog_depth_begin = 2.0
-fog_depth_end = 250.0
-volumetric_fog_density = 0.0155
-volumetric_fog_albedo = Color(0.929124, 0.920751, 0.850451, 1)
-volumetric_fog_anisotropy = 0.9
-volumetric_fog_ambient_inject = 0.23
-
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_5itgm"]
 shader = ExtResource("16_gv5vd")
-shader_parameter/mix_amount = 0.13
-shader_parameter/use_l = true
-shader_parameter/use_c = true
+shader_parameter/mix_amount = -0.5
+shader_parameter/use_l = false
+shader_parameter/use_c = false
 shader_parameter/use_h = false
 shader_parameter/steps_l = 25.0
 shader_parameter/level_c = 5.0
@@ -159,9 +130,12 @@ transform = Transform3D(1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, 
 spring_length = 7.0
 script = ExtResource("4_5itgm")
 player_path = NodePath("../MainFarmer")
+max_zoom = 10.0
 
 [node name="Camera3D" type="Camera3D" parent="SubViewportContainer/SubViewport/SpringArm3D"]
 fov = 69.0
+size = 10.0
+near = 0.001
 
 [node name="MainFarmer" parent="SubViewportContainer/SubViewport" instance=ExtResource("4_hcwyd")]
 unique_name_in_owner = true
@@ -236,13 +210,6 @@ grow_vertical = 0
 [node name="FishingShore" parent="." instance=ExtResource("10_urabl")]
 transform = Transform3D(0.445, 0, 0, 0, 0.445, 0, 0, 0, 0.445, 0, -1.47497, 0)
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource("Environment_ql0nu")
-
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, -0.0399047, 0.999204, 0, -0.999204, -0.0399047, 0, 0.634487, 0)
-shadow_enabled = true
-
 [node name="background" type="Node3D" parent="."]
 
 [node name="BigTerrainMoutain" parent="background" instance=ExtResource("13_hcwyd")]
@@ -279,6 +246,8 @@ mesh = SubResource("CylinderMesh_gv5vd")
 transform = Transform3D(0.950087, -0.311986, 0, 0.311986, 0.950087, 0, 0, 0, 1, 17.5332, 9.96576, 12.1552)
 cast_shadow = 0
 mesh = SubResource("CylinderMesh_gv5vd")
+
+[node name="DayNightCycle" parent="." instance=ExtResource("16_5itgm")]
 
 [connection signal="drop_slot_data" from="UI/InventoryInterface" to="UI/InventoryInterface" method="_on_drop_slot_data"]
 [connection signal="gui_input" from="UI/InventoryInterface" to="UI/InventoryInterface" method="_on_gui_input"]

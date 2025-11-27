@@ -1,4 +1,4 @@
-[gd_scene load_steps=52 format=4 uid="uid://bbvhog32snru6"]
+[gd_scene load_steps=48 format=4 uid="uid://bbvhog32snru6"]
 
 [ext_resource type="Script" uid="uid://hctai00r4njf" path="res://world.gd" id="1_dwbse"]
 [ext_resource type="Shader" uid="uid://bkw4b21akjsc2" path="res://subViewportPixel.gdshader" id="2_gggvi"]
@@ -11,9 +11,7 @@
 [ext_resource type="Shader" uid="uid://bpre3j5j2h6bt" path="res://LeafShader.gdshader" id="8_cbp6q"]
 [ext_resource type="ArrayMesh" uid="uid://baypagydj3poq" path="res://modelTscn/plant/grass/Grass_ver2.tres" id="9_cbp6q"]
 [ext_resource type="PackedScene" uid="uid://b2fs6n6m2oqn0" path="res://modelTscn/storage/WoodenCrate.tscn" id="10_26xuy"]
-[ext_resource type="Shader" uid="uid://kimc5meeodlx" path="res://Shader/sky_shader_level2.gdshader" id="11_k3n1d"]
 [ext_resource type="Resource" uid="uid://c05tf37csx4tp" path="res://inventory_script/test_inv.tres" id="11_k83mh"]
-[ext_resource type="Texture2D" uid="uid://bj14akt05culg" path="res://Shader/epic_sky.jpg" id="12_2o6r5"]
 [ext_resource type="Shader" uid="uid://d1pnwkrkiec0c" path="res://Shader/cloud_tét.gdshader" id="12_k3n1d"]
 [ext_resource type="Script" uid="uid://bspkgwkxsy8mn" path="res://inventory_script/slot_data.gd" id="12_mc2jv"]
 [ext_resource type="PackedScene" uid="uid://csnejiwkcvvuj" path="res://terrain/big_terrain_moutain.tscn" id="14_70uel"]
@@ -29,6 +27,7 @@
 [ext_resource type="PackedScene" uid="uid://battkqubkudj8" path="res://modelTscn/structure/wooden_railing_ver_2.tscn" id="24_jjr1n"]
 [ext_resource type="PackedScene" uid="uid://d3v1u6td3fyb6" path="res://inventory_script/item/pick_up_item/pick_up.tscn" id="25_mc2jv"]
 [ext_resource type="Resource" uid="uid://b52qumcoelf4w" path="res://inventory_script/item/items/item_harvest/wheat_seed.tres" id="28_qktwf"]
+[ext_resource type="PackedScene" uid="uid://dd48ywngxd2oc" path="res://Scene/Environment/day_night_cycle.tscn" id="29_k83mh"]
 [ext_resource type="Shader" uid="uid://c13esa4vg2n5k" path="res://level/posterization.gdshader" id="30_qktwf"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_jjr1n"]
@@ -140,34 +139,6 @@ shader_parameter/steps_l = 15.0
 shader_parameter/level_c = 5.0
 shader_parameter/level_h = 0.05
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_ikiii"]
-shader = ExtResource("11_k3n1d")
-shader_parameter/skyColor = Color(0, 0, 0, 1)
-shader_parameter/horizonColor = Color(0, 0, 0, 1)
-shader_parameter/skyTexture = ExtResource("12_2o6r5")
-
-[sub_resource type="Sky" id="Sky_qktwf"]
-sky_material = SubResource("ShaderMaterial_ikiii")
-
-[sub_resource type="Environment" id="Environment_ic0uy"]
-background_mode = 2
-background_energy_multiplier = 0.85
-sky = SubResource("Sky_qktwf")
-ambient_light_source = 3
-ambient_light_color = Color(0.867691, 0.694261, 0.49108, 1)
-ambient_light_sky_contribution = 0.2
-tonemap_mode = 2
-fog_mode = 1
-fog_light_color = Color(0.552712, 0.667518, 0.637712, 1)
-fog_density = 0.6235
-fog_sky_affect = 0.0
-fog_height_density = 0.004
-fog_depth_begin = 2.0
-fog_depth_end = 250.0
-volumetric_fog_density = 0.0005
-volumetric_fog_anisotropy = 0.9
-volumetric_fog_ambient_inject = 0.23
-
 [sub_resource type="Resource" id="Resource_mc2jv"]
 script = ExtResource("12_mc2jv")
 item_data = ExtResource("28_qktwf")
@@ -227,9 +198,15 @@ transform = Transform3D(1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, 
 spring_length = 7.0
 script = ExtResource("4_qktwf")
 player_path = NodePath("../MainFarmer")
+max_zoom = 10.0
 
 [node name="Camera3D" type="Camera3D" parent="SubViewportContainer/SubViewport/SpringArm3D"]
 fov = 69.0
+
+[node name="CameraOrthgonal" type="Camera3D" parent="SubViewportContainer/SubViewport/SpringArm3D"]
+visible = false
+projection = 1
+size = 4.817
 
 [node name="StaticBody3D" type="StaticBody3D" parent="SubViewportContainer/SubViewport"]
 
@@ -359,15 +336,13 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource("Environment_ic0uy")
-
 [node name="PickUp" parent="." instance=ExtResource("25_mc2jv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.2472, -2.43978)
 slot_data = SubResource("Resource_mc2jv")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(0.920737, 0.0568297, 0.386023, -0.372582, -0.165744, 0.913078, 0.115871, -0.98453, -0.131433, 0, 1.37714, 0)
+visible = false
 light_color = Color(0.902806, 0.819778, 0.677108, 1)
 light_energy = 1.17
 shadow_enabled = true
@@ -414,6 +389,8 @@ transform = Transform3D(-1.65489, -0.0194393, -2.49881e-07, -0.0194393, 1.65489,
 
 [node name="WoodenRailingVer2" parent="LevelEnvironment" instance=ExtResource("24_jjr1n")]
 transform = Transform3D(1.4, 0, 0, 0, 1.4, 0, 0, 0, 1.4, 3.26653, 0, 0.755113)
+
+[node name="DayNightCycle" parent="." instance=ExtResource("29_k83mh")]
 
 [connection signal="drop_slot_data" from="UI/InventoryInterface" to="." method="_on_inventory_interface_drop_slot_data"]
 [connection signal="drop_slot_data" from="UI/InventoryInterface" to="UI/InventoryInterface" method="_on_drop_slot_data"]

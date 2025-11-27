@@ -1,0 +1,16 @@
+[gd_resource type="QuadMesh" load_steps=4 format=3 uid="uid://bi1g6ao5dirbk"]
+
+[ext_resource type="Shader" uid="uid://q5l2ocx1d4mp" path="res://modelTscn/plant/grass/GrassChameleon2.gdshader" id="1_kvx1u"]
+[ext_resource type="Texture2D" uid="uid://1iwd2m2c4m3j" path="res://Textures/Grass_texture..png" id="2_e6g2y"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ah2rn"]
+render_priority = 0
+shader = ExtResource("1_kvx1u")
+shader_parameter/grass_texture = ExtResource("2_e6g2y")
+shader_parameter/terrain_color = Color(0.568627, 0.756863, 0.34902, 1)
+shader_parameter/color_variation = Color(0.266667, 0.913725, 0.423529, 1)
+shader_parameter/wind_speed = 0.5
+
+[resource]
+material = SubResource("ShaderMaterial_ah2rn")
+size = Vector2(0.135, 0.135)
