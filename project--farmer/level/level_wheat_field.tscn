@@ -96,6 +96,7 @@ max_zoom = 10.0
 
 [node name="Camera3D" type="Camera3D" parent="SubViewportContainer/SubViewport/SpringArm3D"]
 fov = 69.0
+far = 1000.0
 
 [node name="MainFarmer" parent="SubViewportContainer/SubViewport" instance=ExtResource("4_l81cg")]
 unique_name_in_owner = true
@@ -168,10 +169,10 @@ grow_horizontal = 2
 grow_vertical = 0
 
 [node name="background" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 7.57244, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 56.6367, 12.7882, 0)
 
 [node name="BigTerrainMoutain" parent="background" instance=ExtResource("11_q63e7")]
-transform = Transform3D(63.16, 0, 0, 0, 63.16, 0, 0, 0, 63.16, -0.373759, -22.7722, -0.241655)
+transform = Transform3D(74.945, 0, 0, 0, 74.945, 0, 0, 0, 74.945, -0.373759, -22.7722, -0.241655)
 
 [node name="MixColorShader" type="CanvasLayer" parent="."]
 

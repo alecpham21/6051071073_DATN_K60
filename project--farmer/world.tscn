@@ -223,10 +223,10 @@ shape = SubResource("BoxShape3D_udxuc")
 [node name="GroundGenerator" type="Node3D" parent="SubViewportContainer/SubViewport" groups=["ground_generator"]]
 script = ExtResource("5_036b0")
 ground_extents = Vector2i(60, 60)
-tree_max_count = 15
+tree_max_count = 10
 grass_max_count = 0
-border_tree_count = 10
-outer_tree_count = 15
+border_tree_count = 4
+outer_tree_count = 5
 outer_offset = 7.0
 
 [node name="GroundRenderer" parent="SubViewportContainer/SubViewport/GroundGenerator" instance=ExtResource("7_hiqwa")]
@@ -239,7 +239,7 @@ light_grass_mesh = SubResource("ArrayMesh_ikiii")
 grass_mesh = ExtResource("9_cbp6q")
 grass_scale_min = 0.3
 grass_scale_max = 0.5
-grass_count_per_block = 10
+grass_count_per_block = 0
 grass_spawn_chance = 0.05
 grass_spacing = 0.34
 max_grass_per_block = 1
@@ -351,9 +351,6 @@ shadow_blur = 0.0
 
 [node name="LevelEnvironment" type="Node3D" parent="."]
 
-[node name="BigTerrainMoutain" parent="LevelEnvironment" instance=ExtResource("14_70uel")]
-transform = Transform3D(41.375, 0, 0, 0, 41.375, 0, 0, 0, 41.375, -0.373759, -2.67757, -0.241655)
-
 [node name="GroundFrame" parent="LevelEnvironment" instance=ExtResource("16_2u3nc")]
 transform = Transform3D(6.83, 0, 0, 0, 6.83, 0, 0, 0, 6.83, -2.33437, -1.02769, -1.05087)
 
@@ -391,6 +388,12 @@ transform = Transform3D(-1.65489, -0.0194393, -2.49881e-07, -0.0194393, 1.65489,
 transform = Transform3D(1.4, 0, 0, 0, 1.4, 0, 0, 0, 1.4, 3.26653, 0, 0.755113)
 
 [node name="DayNightCycle" parent="." instance=ExtResource("29_k83mh")]
+
+[node name="background" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 56.6367, 12.7882, 0)
+
+[node name="BigTerrainMoutain" parent="background" instance=ExtResource("14_70uel")]
+transform = Transform3D(74.945, 0, 0, 0, 74.945, 0, 0, 0, 74.945, -0.373759, -22.7722, -0.241655)
 
 [connection signal="drop_slot_data" from="UI/InventoryInterface" to="." method="_on_inventory_interface_drop_slot_data"]
 [connection signal="drop_slot_data" from="UI/InventoryInterface" to="UI/InventoryInterface" method="_on_drop_slot_data"]
