@@ -1,4 +1,4 @@
-[gd_scene load_steps=48 format=4 uid="uid://bbvhog32snru6"]
+[gd_scene load_steps=49 format=4 uid="uid://bbvhog32snru6"]
 
 [ext_resource type="Script" uid="uid://hctai00r4njf" path="res://world.gd" id="1_dwbse"]
 [ext_resource type="Shader" uid="uid://bkw4b21akjsc2" path="res://subViewportPixel.gdshader" id="2_gggvi"]
@@ -28,6 +28,7 @@
 [ext_resource type="Resource" uid="uid://b52qumcoelf4w" path="res://inventory_script/item/items/item_harvest/wheat_seed.tres" id="28_qktwf"]
 [ext_resource type="PackedScene" uid="uid://dd48ywngxd2oc" path="res://Scene/Environment/day_night_cycle.tscn" id="29_k83mh"]
 [ext_resource type="Script" uid="uid://djj2m2skea716" path="res://TimeCheck.gd" id="29_qktwf"]
+[ext_resource type="PackedScene" uid="uid://bjxrobwweubb3" path="res://model/tree/TreeVer1.tscn" id="30_bh8nc"]
 [ext_resource type="Shader" uid="uid://c13esa4vg2n5k" path="res://level/posterization.gdshader" id="30_qktwf"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_jjr1n"]
@@ -189,7 +190,6 @@ render_target_update_mode = 4
 
 [node name="ShaderOutline" type="MeshInstance3D" parent="SubViewportContainer/SubViewport"]
 transform = Transform3D(1, 0, 0, 0, 0.00750488, 0.999972, 0, -0.999972, 0.00750488, 0.180526, -35.304, 0)
-visible = false
 extra_cull_margin = 16384.0
 mesh = SubResource("QuadMesh_2u3nc")
 surface_material_override/0 = SubResource("ShaderMaterial_udxuc")
@@ -392,6 +392,29 @@ transform = Transform3D(74.945, 0, 0, 0, 74.945, 0, 0, 0, 74.945, -0.373759, -22
 offset_right = 340.0
 offset_bottom = 79.0
 script = ExtResource("29_qktwf")
+
+[node name="Tree" type="Node3D" parent="."]
+
+[node name="TreeVer1" parent="Tree" instance=ExtResource("30_bh8nc")]
+transform = Transform3D(2.11, 0, 0, 0, 2.11, 0, 0, 0, 2.11, 0, 0, -20.2775)
+
+[node name="TreeVer3" parent="Tree" instance=ExtResource("30_bh8nc")]
+transform = Transform3D(2.72, 0, 0, 0, 2.72, 0, 0, 0, 2.72, -18.5308, 0, -20.2775)
+
+[node name="TreeVer4" parent="Tree" instance=ExtResource("30_bh8nc")]
+transform = Transform3D(-0.785349, 0, 2.60416, 0, 2.72, 0, -2.60416, 0, -0.785349, -18.5308, 0, 3.25392)
+
+[node name="TreeVer5" parent="Tree" instance=ExtResource("30_bh8nc")]
+transform = Transform3D(-0.903728, 0, 2.99669, 0, 3.13, 0, -2.99669, 0, -0.903728, -18.5308, 0, 17.0265)
+
+[node name="TreeVer6" parent="Tree" instance=ExtResource("30_bh8nc")]
+transform = Transform3D(-0.659751, 0, 2.18768, 0, 2.285, 0, -2.18768, 0, -0.659751, 8.76259, -0.296392, 17.0265)
+
+[node name="TreeVer7" parent="Tree" instance=ExtResource("30_bh8nc")]
+transform = Transform3D(-0.8532, 0, 2.82915, 0, 2.955, 0, -2.82915, 0, -0.8532, 18.3027, -0.296392, 12.2617)
+
+[node name="TreeVer2" parent="Tree" instance=ExtResource("30_bh8nc")]
+transform = Transform3D(-1.55376, 0, 1.42756, 0, 2.11, 0, -1.42756, 0, -1.55376, 15.654, 0, -20.2775)
 
 [connection signal="drop_slot_data" from="UI/InventoryInterface" to="." method="_on_inventory_interface_drop_slot_data"]
 [connection signal="drop_slot_data" from="UI/InventoryInterface" to="UI/InventoryInterface" method="_on_drop_slot_data"]

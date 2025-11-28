@@ -42,7 +42,8 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_atyg8")
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_atyg8"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_1egsg"]
+size = Vector3(1, 1.27979, 1)
 
 [node name="PlantCorn" type="Node3D" node_paths=PackedStringArray("mesh_seeding", "mesh_sapling", "mesh_middle", "mesh_ready", "ground_mesh")]
 script = ExtResource("1_f5wae")
@@ -84,8 +85,8 @@ visible = false
 [node name="CornFinalBunch" parent="ModelCorn/Ready" instance=ExtResource("4_atyg8")]
 transform = Transform3D(0.45, 0, 0, 0, 0.621, 0, 0, 0, 0.45, 0, 0, 0)
 
-[node name="Area3D" type="Area3D" parent="."]
+[node name="Hitbox" type="Area3D" parent="."]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.597341, 0)
-shape = SubResource("BoxShape3D_atyg8")
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Hitbox"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.139893, 0)
+shape = SubResource("BoxShape3D_1egsg")

@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=4 uid="uid://d1lnxkilap5vp"]
+[gd_scene load_steps=10 format=4 uid="uid://d1lnxkilap5vp"]
 
 [ext_resource type="Script" uid="uid://cychfrm8ggmeu" path="res://Plant/plant_cabbage.gd" id="1_5kgsd"]
 [ext_resource type="PackedScene" uid="uid://bnibp3q4vsiyo" path="res://modelTscn/plant/cabbage/cabbage_item.tscn" id="2_eiltb"]
@@ -40,6 +40,9 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_0ggln")
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_h4b4r"]
+size = Vector3(1, 1.27979, 1)
+
 [node name="PlantCabbage" type="Node3D" node_paths=PackedStringArray("mesh_seeding", "mesh_sapling", "mesh_middle", "mesh_ready", "ground_mesh")]
 script = ExtResource("1_5kgsd")
 crop_item_scene = ExtResource("2_eiltb")
@@ -78,3 +81,9 @@ visible = false
 
 [node name="Cabbage_Final" parent="ModelCabbage/Ready" instance=ExtResource("4_isex7")]
 transform = Transform3D(1.09, 0, 0, 0, 1.09, 0, 0, 0, 1.09, 0, 0.192796, 0)
+
+[node name="Hitbox" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Hitbox"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.139893, 0)
+shape = SubResource("BoxShape3D_h4b4r")

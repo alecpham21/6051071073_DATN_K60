@@ -28598,6 +28598,7 @@ target_position = Vector3(0, -1.27, 0)
 [node name="HoeCast3D" type="RayCast3D" parent="."]
 transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0.00440803, 1.129, -0.803475)
 target_position = Vector3(0, -1.505, 0)
+collide_with_areas = true
 
 [node name="GridCheckRay" type="RayCast3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.803475)

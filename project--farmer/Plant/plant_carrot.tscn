@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=4 uid="uid://d3osmu23upnic"]
+[gd_scene load_steps=12 format=4 uid="uid://d3osmu23upnic"]
 
 [ext_resource type="Script" uid="uid://bq7r24vlkmi2k" path="res://Plant/plant_carrot.gd" id="1_atruf"]
 [ext_resource type="PackedScene" uid="uid://cewxcupr637mx" path="res://modelTscn/plant/carrot/carrot_sprout.tscn" id="1_ixg4p"]
@@ -42,6 +42,9 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_cxupg")
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_7bk25"]
+size = Vector3(1, 1.27979, 1)
+
 [node name="PlantCarrot" type="Node3D" node_paths=PackedStringArray("mesh_seeding", "mesh_sapling", "mesh_middle", "mesh_ready", "ground_mesh")]
 script = ExtResource("1_atruf")
 crop_item_scene = ExtResource("2_hh7u0")
@@ -82,3 +85,9 @@ visible = false
 
 [node name="Carrot_Final" parent="ModelCarrot/Ready" instance=ExtResource("3_dnkbr")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.152564, 0)
+
+[node name="Hitbox" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Hitbox"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.139893, 0)
+shape = SubResource("BoxShape3D_7bk25")
