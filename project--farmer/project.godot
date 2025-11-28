@@ -22,6 +22,7 @@ GameData="*res://Scripts/game_data.gd"
 SimpleGrass="*res://addons/simplegrasstextured/singleton.tscn"
 Watcher="*res://watcher.gd"
 PlayerData="*res://player/player_data.gd"
+TimeManager="*res://time_manager.gd"
 
 [editor_plugins]
 

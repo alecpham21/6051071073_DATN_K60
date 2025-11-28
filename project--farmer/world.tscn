@@ -6,7 +6,6 @@
 [ext_resource type="Script" uid="uid://bshrove7rvagv" path="res://spring_arm_camera.gd" id="4_qktwf"]
 [ext_resource type="PackedScene" uid="uid://bnxu42mjbjp8x" path="res://player/main_farmer.tscn" id="5_26xuy"]
 [ext_resource type="Script" uid="uid://6577es050bku" path="res://ground_generator.gd" id="5_036b0"]
-[ext_resource type="Script" uid="uid://5ej0tp0e5sk5" path="res://time_manager.gd" id="5_dwbse"]
 [ext_resource type="PackedScene" uid="uid://te52jubb0t6m" path="res://Scene/Ground/ground_renderer.tscn" id="7_hiqwa"]
 [ext_resource type="Shader" uid="uid://bpre3j5j2h6bt" path="res://LeafShader.gdshader" id="8_cbp6q"]
 [ext_resource type="ArrayMesh" uid="uid://baypagydj3poq" path="res://modelTscn/plant/grass/Grass_ver2.tres" id="9_cbp6q"]
@@ -28,6 +27,7 @@
 [ext_resource type="PackedScene" uid="uid://d3v1u6td3fyb6" path="res://inventory_script/item/pick_up_item/pick_up.tscn" id="25_mc2jv"]
 [ext_resource type="Resource" uid="uid://b52qumcoelf4w" path="res://inventory_script/item/items/item_harvest/wheat_seed.tres" id="28_qktwf"]
 [ext_resource type="PackedScene" uid="uid://dd48ywngxd2oc" path="res://Scene/Environment/day_night_cycle.tscn" id="29_k83mh"]
+[ext_resource type="Script" uid="uid://djj2m2skea716" path="res://TimeCheck.gd" id="29_qktwf"]
 [ext_resource type="Shader" uid="uid://c13esa4vg2n5k" path="res://level/posterization.gdshader" id="30_qktwf"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_jjr1n"]
@@ -189,6 +189,7 @@ render_target_update_mode = 4
 
 [node name="ShaderOutline" type="MeshInstance3D" parent="SubViewportContainer/SubViewport"]
 transform = Transform3D(1, 0, 0, 0, 0.00750488, 0.999972, 0, -0.999972, 0.00750488, 0.180526, -35.304, 0)
+visible = false
 extra_cull_margin = 16384.0
 mesh = SubResource("QuadMesh_2u3nc")
 surface_material_override/0 = SubResource("ShaderMaterial_udxuc")
@@ -223,11 +224,6 @@ shape = SubResource("BoxShape3D_udxuc")
 [node name="GroundGenerator" type="Node3D" parent="SubViewportContainer/SubViewport" groups=["ground_generator"]]
 script = ExtResource("5_036b0")
 ground_extents = Vector2i(60, 60)
-tree_max_count = 10
-grass_max_count = 0
-border_tree_count = 4
-outer_tree_count = 5
-outer_offset = 7.0
 
 [node name="GroundRenderer" parent="SubViewportContainer/SubViewport/GroundGenerator" instance=ExtResource("7_hiqwa")]
 mesh = SubResource("BoxMesh_udxuc")
@@ -241,8 +237,6 @@ grass_scale_min = 0.3
 grass_scale_max = 0.5
 grass_count_per_block = 0
 grass_spawn_chance = 0.05
-grass_spacing = 0.34
-max_grass_per_block = 1
 decorative_grass_chance = 0.05
 
 [node name="Door" parent="SubViewportContainer/SubViewport" instance=ExtResource("21_k83mh")]
@@ -261,9 +255,6 @@ unique_name_in_owner = true
 use_gravity = true
 camera_ref_path = NodePath("../SpringArm3D/Camera3D")
 inventory_data = ExtResource("11_k83mh")
-
-[node name="TimeManager" type="Node" parent="." groups=["time_manager"]]
-script = ExtResource("5_dwbse")
 
 [node name="UI" type="CanvasLayer" parent="."]
 
@@ -394,6 +385,13 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 56.6367, 12.7882, 0)
 
 [node name="BigTerrainMoutain" parent="background" instance=ExtResource("14_70uel")]
 transform = Transform3D(74.945, 0, 0, 0, 74.945, 0, 0, 0, 74.945, -0.373759, -22.7722, -0.241655)
+
+[node name="TimeCheckUI" type="CanvasLayer" parent="."]
+
+[node name="TimeCheckLabel" type="Label" parent="TimeCheckUI"]
+offset_right = 340.0
+offset_bottom = 79.0
+script = ExtResource("29_qktwf")
 
 [connection signal="drop_slot_data" from="UI/InventoryInterface" to="." method="_on_inventory_interface_drop_slot_data"]
 [connection signal="drop_slot_data" from="UI/InventoryInterface" to="UI/InventoryInterface" method="_on_drop_slot_data"]

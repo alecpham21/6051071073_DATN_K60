@@ -10,10 +10,9 @@ var plants = [
 	preload("res://Plant/plant_cabbage.tscn")
 ]
 
-func get_plant_node(type):
-	if plants[type] != null:
-		var plant = plants[type].instantiate()
-		return plant
+func get_plant_scene(type):
+	if type >= 0 and type < plants.size():
+		return plants[type]
 	else:
 		return null
 

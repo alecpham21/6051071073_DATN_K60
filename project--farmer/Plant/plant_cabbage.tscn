@@ -1,14 +1,10 @@
-[gd_scene load_steps=11 format=4 uid="uid://d1lnxkilap5vp"]
+[gd_scene load_steps=9 format=4 uid="uid://d1lnxkilap5vp"]
 
 [ext_resource type="Script" uid="uid://cychfrm8ggmeu" path="res://Plant/plant_cabbage.gd" id="1_5kgsd"]
 [ext_resource type="PackedScene" uid="uid://bnibp3q4vsiyo" path="res://modelTscn/plant/cabbage/cabbage_item.tscn" id="2_eiltb"]
-[ext_resource type="Texture2D" uid="uid://fqxvnllgkvod" path="res://Textures/Seed_texture/carrot_seed.png" id="2_h4b4r"]
 [ext_resource type="PackedScene" uid="uid://dgmhplehmp2p5" path="res://modelTscn/plant/cabbage/cabbage_sprout.tscn" id="2_qj0ch"]
 [ext_resource type="PackedScene" uid="uid://rs7mf07awj2f" path="res://modelTscn/plant/cabbage/cabbage_medium.tscn" id="3_4ivtu"]
 [ext_resource type="PackedScene" uid="uid://cmjey3yb1rrf2" path="res://modelTscn/plant/cabbage/cabbage_final.tscn" id="4_isex7"]
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_isex7"]
-albedo_color = Color(0.567718, 0.330487, 0.123269, 1)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1egsg"]
 
@@ -44,11 +40,14 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_0ggln")
 
-[node name="PlantCabbage" type="Node3D"]
+[node name="PlantCabbage" type="Node3D" node_paths=PackedStringArray("mesh_seeding", "mesh_sapling", "mesh_middle", "mesh_ready", "ground_mesh")]
 script = ExtResource("1_5kgsd")
 crop_item_scene = ExtResource("2_eiltb")
-texture_default = SubResource("StandardMaterial3D_isex7")
-texture_seeding = ExtResource("2_h4b4r")
+mesh_seeding = NodePath("ModelCabbage/Seeding")
+mesh_sapling = NodePath("ModelCabbage/Sapling")
+mesh_middle = NodePath("ModelCabbage/Middle")
+mesh_ready = NodePath("ModelCabbage/Ready")
+ground_mesh = NodePath("ModelCabbage/Seeding/Tilled_Ground/Plane")
 
 [node name="ModelCabbage" type="Node3D" parent="."]
 

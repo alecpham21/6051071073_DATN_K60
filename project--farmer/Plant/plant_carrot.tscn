@@ -4,11 +4,9 @@
 [ext_resource type="PackedScene" uid="uid://cewxcupr637mx" path="res://modelTscn/plant/carrot/carrot_sprout.tscn" id="1_ixg4p"]
 [ext_resource type="PackedScene" uid="uid://brthdr0tkuyvv" path="res://modelTscn/plant/carrot/carrot_item.tscn" id="2_hh7u0"]
 [ext_resource type="PackedScene" uid="uid://dd7v1woe7juju" path="res://modelTscn/plant/carrot/carrot_middle.tscn" id="2_r4ur6"]
-[ext_resource type="Texture2D" uid="uid://dxl6xg3cnxwhy" path="res://Textures/Seed_texture/CornSeed_Tilled.png" id="3_cxupg"]
+[ext_resource type="Material" uid="uid://bcj814ve7y6h" path="res://Scene/Environment/mat_soil_dry.tres" id="3_7bk25"]
 [ext_resource type="PackedScene" uid="uid://chwxqy4jowor6" path="res://modelTscn/plant/carrot/carrot_final.tscn" id="3_dnkbr"]
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_cxupg"]
-albedo_color = Color(0.567718, 0.330487, 0.123269, 1)
+[ext_resource type="Material" uid="uid://bjpftqps8ru4s" path="res://Scene/Environment/mat_soil_wet.tres" id="4_sedmd"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1egsg"]
 
@@ -44,11 +42,16 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_cxupg")
 
-[node name="PlantCarrot" type="Node3D"]
+[node name="PlantCarrot" type="Node3D" node_paths=PackedStringArray("mesh_seeding", "mesh_sapling", "mesh_middle", "mesh_ready", "ground_mesh")]
 script = ExtResource("1_atruf")
 crop_item_scene = ExtResource("2_hh7u0")
-texture_default = SubResource("StandardMaterial3D_cxupg")
-texture_seeding = ExtResource("3_cxupg")
+material_default = ExtResource("3_7bk25")
+material_seeding = ExtResource("4_sedmd")
+mesh_seeding = NodePath("ModelCarrot/Seeding")
+mesh_sapling = NodePath("ModelCarrot/Sapling")
+mesh_middle = NodePath("ModelCarrot/Middle")
+mesh_ready = NodePath("ModelCarrot/Ready")
+ground_mesh = NodePath("ModelCarrot/Seeding/Tilled_Ground/Plane")
 
 [node name="ModelCarrot" type="Node3D" parent="."]
 

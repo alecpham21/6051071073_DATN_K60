@@ -3,12 +3,10 @@
 [ext_resource type="Script" uid="uid://332mpg76dhvy" path="res://Plant/plant_base.gd" id="1_f5wae"]
 [ext_resource type="PackedScene" uid="uid://btpkxeoduqb6m" path="res://Scene/CropItem/Corn/Corn_Item.tscn" id="2_atyg8"]
 [ext_resource type="PackedScene" uid="uid://dxxymyp80cuk0" path="res://modelTscn/plant/CornEarlyBunch.tscn" id="2_iu07y"]
-[ext_resource type="Texture2D" uid="uid://dxl6xg3cnxwhy" path="res://Textures/Seed_texture/CornSeed_Tilled.png" id="3_atyg8"]
+[ext_resource type="Material" uid="uid://bcj814ve7y6h" path="res://Scene/Environment/mat_soil_dry.tres" id="3_1egsg"]
 [ext_resource type="PackedScene" uid="uid://fgd5t75vaat8" path="res://modelTscn/plant/CornMidBunch.tscn" id="3_h501o"]
+[ext_resource type="Material" uid="uid://bjpftqps8ru4s" path="res://Scene/Environment/mat_soil_wet.tres" id="4_06csb"]
 [ext_resource type="PackedScene" uid="uid://cu15c0rqq1l2b" path="res://modelTscn/plant/CornFinalBunch.tscn" id="4_atyg8"]
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_atyg8"]
-albedo_color = Color(0.567718, 0.330487, 0.123269, 1)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1egsg"]
 
@@ -46,11 +44,16 @@ shadow_mesh = SubResource("ArrayMesh_atyg8")
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_atyg8"]
 
-[node name="PlantCorn" type="Node3D"]
+[node name="PlantCorn" type="Node3D" node_paths=PackedStringArray("mesh_seeding", "mesh_sapling", "mesh_middle", "mesh_ready", "ground_mesh")]
 script = ExtResource("1_f5wae")
 crop_item_scene = ExtResource("2_atyg8")
-texture_default = SubResource("StandardMaterial3D_atyg8")
-texture_seeding = ExtResource("3_atyg8")
+material_default = ExtResource("3_1egsg")
+material_seeding = ExtResource("4_06csb")
+mesh_seeding = NodePath("ModelCorn/Seeding")
+mesh_sapling = NodePath("ModelCorn/Sapling")
+mesh_middle = NodePath("ModelCorn/Middle")
+mesh_ready = NodePath("ModelCorn/Ready")
+ground_mesh = NodePath("ModelCorn/Seeding/Tilled_Ground/Plane")
 
 [node name="ModelCorn" type="Node3D" parent="."]
 

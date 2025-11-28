@@ -28592,15 +28592,15 @@ transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0, 0.7
 shape = SubResource("BoxShape3D_5e50v")
 
 [node name="SeedCast3D" type="RayCast3D" parent="."]
-transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, -0.00410208, 0.885, -1)
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, -0.00410208, 0.885, -0.803475)
 target_position = Vector3(0, -1.27, 0)
 
 [node name="HoeCast3D" type="RayCast3D" parent="."]
-transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0.00440803, 1.129, -1)
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0.00440803, 1.129, -0.803475)
 target_position = Vector3(0, -1.505, 0)
 
 [node name="GridCheckRay" type="RayCast3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.803475)
 collision_mask = 17
 collide_with_areas = true
 

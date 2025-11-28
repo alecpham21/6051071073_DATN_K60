@@ -8,7 +8,6 @@
 [ext_resource type="PackedScene" uid="uid://km0edqcbty58" path="res://level/level script/door.tscn" id="6_scj0i"]
 [ext_resource type="PackedScene" uid="uid://bnxu42mjbjp8x" path="res://player/main_farmer.tscn" id="7_yns1g"]
 [ext_resource type="Resource" uid="uid://c05tf37csx4tp" path="res://inventory_script/test_inv.tres" id="8_ofysm"]
-[ext_resource type="Script" uid="uid://5ej0tp0e5sk5" path="res://time_manager.gd" id="8_r6vy2"]
 [ext_resource type="Script" uid="uid://y0d42bllc0fd" path="res://Inventory_ui/inventory_interface.gd" id="9_ejw82"]
 [ext_resource type="PackedScene" uid="uid://470pnke8j1j2" path="res://Inventory_ui/inventory.tscn" id="10_8g7rj"]
 [ext_resource type="PackedScene" uid="uid://cmaas2sclopj4" path="res://Inventory_ui/slot.tscn" id="11_r2ay0"]
@@ -16,6 +15,7 @@
 [ext_resource type="PackedScene" uid="uid://cnh3uiwulfbdd" path="res://modelTscn/storage/wardrope.tscn" id="14_iipvn"]
 [ext_resource type="Shader" uid="uid://c13esa4vg2n5k" path="res://level/posterization.gdshader" id="15_hou3o"]
 [ext_resource type="Material" uid="uid://fcrap08w717d" path="res://EnvironmentResources/emissive_mat.tres" id="16_02qar"]
+[ext_resource type="Script" uid="uid://djj2m2skea716" path="res://TimeCheck.gd" id="17_scj0i"]
 
 [sub_resource type="QuadMesh" id="QuadMesh_5q01f"]
 flip_faces = true
@@ -142,9 +142,6 @@ inventory_data = ExtResource("8_ofysm")
 transform = Transform3D(-0.645857, -0.167718, 0.744808, -0.0353928, 0.9811, 0.190236, -0.762638, 0.0965047, -0.639587, 1.64814, 2.50409, -3.25485)
 fov = 40.6
 
-[node name="TimeManager" type="Node" parent="." groups=["time_manager"]]
-script = ExtResource("8_r6vy2")
-
 [node name="UI" type="CanvasLayer" parent="."]
 
 [node name="InventoryInterface" type="Control" parent="UI"]
@@ -248,6 +245,13 @@ mouse_filter = 2
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.88853, 3.6709)
 material_override = ExtResource("16_02qar")
 mesh = SubResource("BoxMesh_scj0i")
+
+[node name="TimeCheckUI" type="CanvasLayer" parent="."]
+
+[node name="TimeCheckLabel" type="Label" parent="TimeCheckUI"]
+offset_right = 340.0
+offset_bottom = 79.0
+script = ExtResource("17_scj0i")
 
 [connection signal="drop_slot_data" from="UI/InventoryInterface" to="UI/InventoryInterface" method="_on_drop_slot_data"]
 [connection signal="gui_input" from="UI/InventoryInterface" to="UI/InventoryInterface" method="_on_gui_input"]
