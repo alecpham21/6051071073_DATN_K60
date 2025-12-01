@@ -9,7 +9,20 @@ signal slot_clicked(index: int, button: int)
 func set_slot_data(slot_data: SlotData) -> void:
 	var item_data = slot_data.item_data
 	texture_rect.texture = item_data.texture
-	tooltip_text = "%s\n%s" % [item_data.name, item_data.description]
+	var text = "%s\n%s" % [item_data.name, item_data.description]
+	
+	if item_data is ItemDataOutfit:
+		# --- SỬA: Lấy độ dơ từ slot_data, lấy max từ item_data ---
+		var d_level = int(slot_data.current_dirt_level)
+		var max_d = int(item_data.max_dirt_level)
+		
+		text += "\n----------------"
+		if d_level == 0:
+			text += "\nTrạng thái: Sạch sẽ ✨"
+		else:
+			text += "\nĐộ dơ: %s / %s 💩" % [d_level, max_d]
+			
+	tooltip_text = text
 	
 	if slot_data.quantity > 1:
 		quantity_label.text = "x%s" % slot_data.quantity

@@ -1,0 +1,26 @@
+[gd_scene load_steps=8 format=3 uid="uid://jlymgu5ic30x"]
+
+[ext_resource type="PackedScene" uid="uid://cqqg0laxtni83" path="res://model/interior/Kitchen.glb" id="1_vw2n2"]
+[ext_resource type="Texture2D" uid="uid://1gysjnj7jqbq" path="res://assets/ImphenziaPalette01-256-Gradient.png" id="2_g81lu"]
+[ext_resource type="Texture2D" uid="uid://cu83m1oicf1f7" path="res://Textures/Wood_texture/woodpaintlight.png" id="3_ejl4i"]
+[ext_resource type="Texture2D" uid="uid://c3bys0pyfswmd" path="res://Textures/Panel/ElectricCooker.png" id="4_i6neg"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3mobb"]
+albedo_texture = ExtResource("2_g81lu")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_cykyy"]
+albedo_texture = ExtResource("3_ejl4i")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_l3hfl"]
+albedo_texture = ExtResource("4_i6neg")
+
+[node name="Kitchen" instance=ExtResource("1_vw2n2")]
+
+[node name="Table" parent="." index="0"]
+material_override = SubResource("StandardMaterial3D_3mobb")
+
+[node name="CuttingBoard" parent="." index="1"]
+material_override = SubResource("StandardMaterial3D_cykyy")
+
+[node name="ElectricCooking" parent="." index="2"]
+material_override = SubResource("StandardMaterial3D_l3hfl")

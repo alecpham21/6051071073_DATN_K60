@@ -8,7 +8,14 @@ signal item_used_up()
 
 @export var slot_datas: Array[SlotData]
 
+var is_locked: bool = false
+
 func grab_slot_data(index: int) -> SlotData:
+	
+	if is_locked:
+		print("Inventory is locked!")
+		return null
+	
 	var slot_data = slot_datas[index]
 	
 	if slot_data:

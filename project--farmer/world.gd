@@ -53,7 +53,7 @@ func _ready():
 	
 	for node in get_tree().get_nodes_in_group("external_inventory"):
 		node.toggle_inventory.connect(toggle_inventory_interface)
-
+	SceneTransition.reveal_scene()
 # --- [MỚI] HÀM SAVE (Sẽ được gọi bởi Cổng dịch chuyển hoặc Menu Save) ---
 func save_level_state():
 	if ground_generator:

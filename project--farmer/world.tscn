@@ -144,6 +144,7 @@ shader_parameter/level_h = 0.05
 script = ExtResource("12_mc2jv")
 item_data = ExtResource("28_qktwf")
 quantity = 3
+current_dirt_level = 0.0
 metadata/_custom_type_script = "uid://bspkgwkxsy8mn"
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_2o6r5"]
@@ -235,7 +236,6 @@ light_grass_mesh = SubResource("ArrayMesh_ikiii")
 grass_mesh = ExtResource("9_cbp6q")
 grass_scale_min = 0.3
 grass_scale_max = 0.5
-grass_count_per_block = 0
 grass_spawn_chance = 0.05
 decorative_grass_chance = 0.05
 

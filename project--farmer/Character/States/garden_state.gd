@@ -7,14 +7,14 @@ var is_moving := false
 
 func _enter() -> void:
 	super()
-	# Báo cho Player biết là không "bận" nữa
+	# Báo cho Player biết là không "bận" nữag
 	character.is_busy = false
 
 func _update(delta: float) -> void:
 	super(delta)
 	var accel = character.accel
 	var cam_ref:Node3D = character.cam_ref
-	var move_speed = character.move_speed
+	var move_speed = get_current_speed()
 	
 	## Gravity
 	if character.use_gravity and not character.is_on_floor():
@@ -22,7 +22,7 @@ func _update(delta: float) -> void:
 	else:
 		character.velocity.y = 0.0
 
-	## Dừng di chuyển nếu đang Tương tác/Mở UI (Logic từ Player)
+
 	if not character.mouse_captured:
 		character.velocity.x = lerpf(character.velocity.x, 0.0, clampf(accel * delta, 0.0, 1.0))
 		character.velocity.z = lerpf(character.velocity.z, 0.0, clampf(accel * delta, 0.0, 1.0))
@@ -43,12 +43,6 @@ func _update(delta: float) -> void:
 		var right: Vector3 = Vector3(cos(cam_yaw), 0.0, -sin(cam_yaw))
 		var move_dir: Vector3 = right * iv.x + forward * iv.y
 
-		## Animation (Logic từ Player)
-		#if move_dir.length() > 0.0:
-			#character.ani.play("Walking")
-		#else:
-			#character.ani.play("Idle1")
-
 		## Velocity (Logic từ Player)
 		var target_vel: Vector3 = move_dir * move_speed
 		var k: float = clampf(accel * delta, 0.0, 1.0)
@@ -62,3 +56,8 @@ func _update(delta: float) -> void:
 			var target_yaw: float = atan2(-move_dir.x, -move_dir.z)
 			character.rotation.y = lerp_angle(character.rotation.y, target_yaw, 10.0 * delta)
 			
+
+func get_current_speed() -> float:
+	if can_run and Input.is_action_pressed("running"):
+		return character.run_speed 
+	return character.move_speed

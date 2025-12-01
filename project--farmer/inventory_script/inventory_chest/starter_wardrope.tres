@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="InventoryData" load_steps=12 format=3 uid="uid://dcidm1raf45wi"]
+[gd_resource type="Resource" script_class="InventoryData" load_steps=14 format=3 uid="uid://dcidm1raf45wi"]
 
 [ext_resource type="Script" uid="uid://csfrg4socg8bj" path="res://inventory_script/inventory_data/inventory_data.gd" id="1_h68g7"]
 [ext_resource type="Script" uid="uid://bspkgwkxsy8mn" path="res://inventory_script/slot_data.gd" id="2_6s2pl"]
@@ -6,6 +6,7 @@
 [ext_resource type="Resource" uid="uid://ced42cx2oi7g6" path="res://inventory_script/item/items/item_clothe/blue_shirt.tres" id="4_ghvt5"]
 [ext_resource type="Resource" uid="uid://c3eso4kmjc5en" path="res://inventory_script/item/items/item_clothe/long_black_pants.tres" id="5_g1dl5"]
 [ext_resource type="Resource" uid="uid://cdqyplbcmcvvq" path="res://inventory_script/item/items/item_clothe/long_sleeves_black.tres" id="6_66p8m"]
+[ext_resource type="Resource" uid="uid://dvhj81m1gabcl" path="res://inventory_script/item/items/item_clothe/long_green_pants.tres" id="7_66p8m"]
 
 [sub_resource type="Resource" id="Resource_ghvt5"]
 script = ExtResource("2_6s2pl")
@@ -37,7 +38,13 @@ item_data = ExtResource("3_6s2pl")
 quantity = 1
 metadata/_custom_type_script = "uid://bspkgwkxsy8mn"
 
+[sub_resource type="Resource" id="Resource_p0si7"]
+script = ExtResource("2_6s2pl")
+item_data = ExtResource("7_66p8m")
+quantity = 1
+metadata/_custom_type_script = "uid://bspkgwkxsy8mn"
+
 [resource]
 script = ExtResource("1_h68g7")
-slot_datas = Array[ExtResource("2_6s2pl")]([SubResource("Resource_ghvt5"), SubResource("Resource_3mccm"), SubResource("Resource_jxao8"), SubResource("Resource_guxv0"), SubResource("Resource_t7bjo"), null, null, null, null, null, null, null])
+slot_datas = Array[ExtResource("2_6s2pl")]([SubResource("Resource_ghvt5"), SubResource("Resource_3mccm"), SubResource("Resource_jxao8"), SubResource("Resource_guxv0"), SubResource("Resource_t7bjo"), SubResource("Resource_p0si7"), null, null, null, null, null, null])
 metadata/_custom_type_script = "uid://csfrg4socg8bj"

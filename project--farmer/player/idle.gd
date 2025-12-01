@@ -6,6 +6,7 @@ var local_holding:bool
 
 func _enter() -> void:
 	super()
+	character.velocity = Vector3.ZERO
 	local_holding = limbo_hsm.long_tool
 	if limbo_hsm.long_tool: hold_ani.play(character.ani)
 	else: idle_ani.play(character.ani)
@@ -20,3 +21,5 @@ func check_dispatch():
 	if limbo_hsm.can_harvest(): dispatch("harvest")
 	if local_holding != limbo_hsm.long_tool:
 		dispatch("self")
+	if Input.is_action_just_pressed("toggle_vehicle"): 
+		dispatch("bike")

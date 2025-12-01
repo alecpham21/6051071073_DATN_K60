@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://bl1mg832slikq"]
+[gd_scene load_steps=14 format=3 uid="uid://bl1mg832slikq"]
 
 [ext_resource type="PackedScene" uid="uid://cgbo613ig4wgd" path="res://model/building/UncleRoom.glb" id="1_ctd6l"]
 [ext_resource type="Texture2D" uid="uid://bsjifq4m2edde" path="res://model/building/Pixelated Wooden Planks with Beams.png" id="2_8xspc"]
@@ -31,6 +31,9 @@ albedo_texture = ExtResource("3_ls28h")
 [sub_resource type="BoxShape3D" id="BoxShape3D_ctd6l"]
 size = Vector3(11.0837, 0.552734, 11.6514)
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_8xspc"]
+size = Vector3(1, 4.6073, 11.2314)
+
 [node name="UncleRoom" instance=ExtResource("1_ctd6l")]
 
 [node name="Plane" parent="." index="0"]
@@ -62,3 +65,19 @@ material_override = SubResource("StandardMaterial3D_y2hyw")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" index="0"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0687256, -0.223633, -0.174316)
 shape = SubResource("BoxShape3D_ctd6l")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="StaticBody3D" index="1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.71538, 1.80365, -0.105072)
+shape = SubResource("BoxShape3D_8xspc")
+
+[node name="CollisionShape3D3" type="CollisionShape3D" parent="StaticBody3D" index="2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.61511, 1.80365, -0.105072)
+shape = SubResource("BoxShape3D_8xspc")
+
+[node name="CollisionShape3D4" type="CollisionShape3D" parent="StaticBody3D" index="3"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0.107351, 1.80365, -5.71214)
+shape = SubResource("BoxShape3D_8xspc")
+
+[node name="CollisionShape3D5" type="CollisionShape3D" parent="StaticBody3D" index="4"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0.107351, 1.80365, 6.10004)
+shape = SubResource("BoxShape3D_8xspc")

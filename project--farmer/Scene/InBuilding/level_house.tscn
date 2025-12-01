@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://o1wmcaqylahd"]
+[gd_scene load_steps=28 format=3 uid="uid://o1wmcaqylahd"]
 
 [ext_resource type="Script" uid="uid://dg34046jf1xjo" path="res://Scene/InBuilding/level_house.gd" id="1_iipvn"]
 [ext_resource type="Shader" uid="uid://c6qhkhar3xobg" path="res://Shader/edge_detection.gdshader" id="2_ofysm"]
@@ -16,6 +16,8 @@
 [ext_resource type="Shader" uid="uid://c13esa4vg2n5k" path="res://level/posterization.gdshader" id="15_hou3o"]
 [ext_resource type="Material" uid="uid://fcrap08w717d" path="res://EnvironmentResources/emissive_mat.tres" id="16_02qar"]
 [ext_resource type="Script" uid="uid://djj2m2skea716" path="res://TimeCheck.gd" id="17_scj0i"]
+[ext_resource type="PackedScene" uid="uid://b60ga8o1kh6ch" path="res://modelTscn/machine/washing_cmachine.tscn" id="17_yns1g"]
+[ext_resource type="PackedScene" uid="uid://jlymgu5ic30x" path="res://modelTscn/interior/kitchen.tscn" id="18_yns1g"]
 
 [sub_resource type="QuadMesh" id="QuadMesh_5q01f"]
 flip_faces = true
@@ -129,7 +131,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.17663, -3.35658)
 collision_layer = 16
 collision_mask = 0
 target_scene_path = "res://world.tscn"
-target_spawn_position = Vector3(-3, 0, 0)
+target_spawn_position = Vector3(-2, 0, 0)
 
 [node name="MainFarmer" parent="SubViewportContainer/SubViewport" instance=ExtResource("7_yns1g")]
 unique_name_in_owner = true
@@ -228,7 +230,7 @@ light_size = 1.0
 omni_range = 284.466
 
 [node name="wardrope" parent="." instance=ExtResource("14_iipvn")]
-transform = Transform3D(-0.57, 0, -4.9831e-08, 0, 0.57, 0, 4.9831e-08, 0, -0.57, 3.50013, 0, 3.05567)
+transform = Transform3D(-0.57, 0, -4.9831e-08, 0, 0.57, 0, 4.9831e-08, 0, -0.57, 3.50013, 0, -2.67705)
 
 [node name="MixColorShader" type="CanvasLayer" parent="."]
 
@@ -252,6 +254,12 @@ mesh = SubResource("BoxMesh_scj0i")
 offset_right = 340.0
 offset_bottom = 79.0
 script = ExtResource("17_scj0i")
+
+[node name="WashingCmachine" parent="." groups=["external_inventory"] instance=ExtResource("17_yns1g")]
+transform = Transform3D(-0.495, 0, -4.32743e-08, 0, 0.495, 0, 4.32743e-08, 0, -0.495, 3.3092, 0.692934, 3.00083)
+
+[node name="Kitchen" parent="." instance=ExtResource("18_yns1g")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.42145, 0, 3.37305)
 
 [connection signal="drop_slot_data" from="UI/InventoryInterface" to="UI/InventoryInterface" method="_on_drop_slot_data"]
 [connection signal="gui_input" from="UI/InventoryInterface" to="UI/InventoryInterface" method="_on_gui_input"]

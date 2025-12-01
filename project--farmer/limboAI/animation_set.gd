@@ -2,12 +2,12 @@ class_name AnimationSet
 extends Resource
 
 @export_enum(
-	"Cooking_Cutting", "Cooking_Pan", "Cooking_Stirring", 
-	"Cutting_Plant", "DJ", "DefaultPose", "Fishing_Catch", 
+	"Chatting_hi","Chatting_inLove","Chatting_shy","Cooking_Cutting", "Cooking_Pan", "Cooking_Stirring", 
+	"Cutting_Plant","Cycling", "DJ", "DefaultPose", "Fishing_Catch", 
 	"Fishing_Drag", "Fishing_Fail", "Fishing_Idle", 
 	"Fishing_Start", "Fishing_Sucess", "Harvesting_Hand", 
-	"Harvesting_Knife", "Holding", "Holding_Idle", "Holding_Walking", 
-	"Idle1", "Idle1_001", "Idle2_Long_Tool", "Interact", "Interact_NPC", 
+	"Harvesting_Knife", "Holding", "Holding_Idle", "Holding_Walking","Human_Cycling", 
+	"Idle1", "Idle2_Long_Tool","Idle_thinking", "Interact", "Interact_NPC", 
 	"Running", "Seeding", "Till_Dirt", "Tired", "Tired2", "Walking")
 var ani_name:String
 @export var blend : float = -1

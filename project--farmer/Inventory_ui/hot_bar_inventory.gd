@@ -11,8 +11,11 @@ const Slot = preload("res://Inventory_ui/slot.tscn")
 var active_index: int = 0
 var current_inventory_data: InventoryData
 var active_tool:Array[Node3D] = []
+var is_locked: bool = false
+
 
 func _ready() -> void:
+	add_to_group("hotbar_ui")
 	active_slot_changed.connect(func(_slot:SlotData):
 		tool_cache()
 		if _slot && _slot.item_data is ItemDataTool:
@@ -28,6 +31,8 @@ func _ready() -> void:
 
 func _unhandled_key_input(event: InputEvent) -> void:
 	if not is_inside_tree(): 
+		return
+	if is_locked:
 		return
 	if not visible or not event.is_pressed():
 		return
@@ -108,3 +113,16 @@ func tool_cache():
 	for i:Node3D in active_tool:
 		i.queue_free()
 		active_tool.erase(i)
+
+func set_locked(state: bool) -> void:
+	is_locked = state
+	
+	if is_locked:
+		modulate.a = 0.5 
+		
+		tool_cache() 
+		active_tool.clear()
+	else:
+		# Trả lại độ sáng bình thường
+		modulate.a = 1.0
+		

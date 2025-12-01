@@ -1,8 +1,19 @@
 class_name Player
 extends Character
 
-@onready var ao_mesh_node: MeshInstance3D = $Farmer/rig/Skeleton3D/Farmer_TShirt
+
+# BODY
+@onready var body_base: MeshInstance3D = $Farmer/rig/Skeleton3D/Base
+@onready var body_feets: MeshInstance3D = $Farmer/rig/Skeleton3D/Feets
+@onready var body_legs: MeshInstance3D = $Farmer/rig/Skeleton3D/Legs
+@onready var body_lower: MeshInstance3D = $Farmer/rig/Skeleton3D/LowerBody
+@onready var body_upper: MeshInstance3D = $Farmer/rig/Skeleton3D/UpperBody
+
+
+@onready var ao_mesh_node: MeshInstance3D = $Farmer/rig/Skeleton3D/Base_002
 @onready var quan_mesh_node: MeshInstance3D = $Farmer/rig/Skeleton3D/LongPants
+
+
 @onready var seed_cast: RayCast3D = $SeedCast3D
 @onready var anim: AnimationPlayer = $Farmer/AnimationPlayer
 @onready var hoe: Node3D = $Farmer/rig/Skeleton3D/BoneAttachment3D/Hoe
@@ -13,7 +24,7 @@ extends Character
 @onready var interact_area: Area3D = $Interact_Area
 @onready var tool_cast: RayCast3D = $HoeCast3D
 
-
+@export var run_speed: float = 8.0
 @export var move_speed: float = 5.0
 @export var accel: float = 20.0
 @export var use_gravity: bool = false
@@ -37,7 +48,7 @@ var is_busy: bool = false:
 	set(val):
 		if !val && is_busy: action_finished.emit()
 		is_busy = val
-
+var body_parts_map = {}
 
 signal toggle_inventory()
 signal action_finished
@@ -47,6 +58,14 @@ func _ready() -> void:
 	super()
 	PlayerData.player = self
 	Watcher.player = self
+	
+	body_parts_map = {
+		ItemDataOutfit.BodyPart.BASE:       body_base,
+		ItemDataOutfit.BodyPart.FEETS:      body_feets,
+		ItemDataOutfit.BodyPart.LEGS:       body_legs,
+		ItemDataOutfit.BodyPart.LOWER_BODY: body_lower,
+		ItemDataOutfit.BodyPart.UPPER_BODY: body_upper
+	}
 	interact_area.area_entered.connect(func(a): can_interact = true)
 	interact_area.area_exited.connect(func(a): can_interact = false)
 	
@@ -160,35 +179,50 @@ func _physics_process(delta: float) -> void:
 		bt_player.update(delta)
 
 
-func update_visuals(slot_index: int, target_node: MeshInstance3D):
-	if slot_index >= outfit_inventory_data.slot_datas.size():
-		return 
-	
-	if not target_node:
-		push_error("Target node (ao_mesh_node) bị null!")
-		return
-		
-	var slot_data = outfit_inventory_data.slot_datas[slot_index]
-	
-	if slot_data and slot_data.item_data and slot_data.item_data.equip_mesh:
-		target_node.mesh = slot_data.item_data.equip_mesh
-		target_node.visible = true
-	else:
-		target_node.mesh = null
-		target_node.visible = false
-
 func update_all_outfits(_inventory_data = null):
 	if not outfit_inventory_data: return
 	
-	var slot_count = outfit_inventory_data.slot_datas.size()
-	print("DEBUG: Số lượng slot outfit hiện tại là: ", slot_count)
+	for part_node in body_parts_map.values():
+		if part_node: 
+			part_node.visible = true
 
-	# Cập nhật từng slot nếu tồn tại index đó
-	if slot_count > 1: # Có ít nhất 2 slot (0, 1)
-		update_visuals(1, ao_mesh_node) 
+	var slot_count = outfit_inventory_data.slot_datas.size()
+
+	# Slot 1:
+	if slot_count > 1: 
+		apply_outfit_visual(1, ao_mesh_node) 
 	
-	if slot_count > 2: # Có ít nhất 3 slot (0, 1, 2)
-		update_visuals(2, quan_mesh_node)
+	# Slot 2:
+	if slot_count > 2: 
+		apply_outfit_visual(2, quan_mesh_node)
+
+
+func apply_outfit_visual(slot_index: int, target_mesh_node: MeshInstance3D):
+	if not target_mesh_node: return
+	
+	var slot_data = outfit_inventory_data.slot_datas[slot_index]
+	
+	
+	if slot_data and slot_data.item_data and slot_data.item_data is ItemDataOutfit:
+		var item_outfit = slot_data.item_data as ItemDataOutfit
+		
+		
+		target_mesh_node.mesh = item_outfit.equip_mesh
+		target_mesh_node.visible = true
+		if target_mesh_node.mesh:
+			target_mesh_node.set_surface_override_material(0, null)
+		
+		# 2.Hide Body Part
+		#print("--- Outfit equipped slot: ", slot_index, " ---")
+		for part_enum in item_outfit.hidden_body_parts:
+			if body_parts_map.has(part_enum):
+				var body_part_node = body_parts_map[part_enum]
+				if body_part_node:
+					body_part_node.visible = false
+					#print("Hide body part: ", body_part_node.name)
+	else:
+		target_mesh_node.mesh = null
+		target_mesh_node.visible = false
 
 
 

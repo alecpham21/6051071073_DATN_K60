@@ -1,11 +1,10 @@
-[gd_scene load_steps=20 format=3 uid="uid://do6sbed68x140"]
+[gd_scene load_steps=19 format=3 uid="uid://do6sbed68x140"]
 
 [ext_resource type="Shader" uid="uid://c6qhkhar3xobg" path="res://Shader/edge_detection.gdshader" id="1_fkl30"]
 [ext_resource type="Shader" uid="uid://viqy3uwh6ns7" path="res://PixelShader.gdshader" id="2_w3ip3"]
 [ext_resource type="Script" uid="uid://bshrove7rvagv" path="res://spring_arm_camera.gd" id="3_cjq8t"]
 [ext_resource type="PackedScene" uid="uid://bnxu42mjbjp8x" path="res://player/main_farmer.tscn" id="4_l81cg"]
 [ext_resource type="Resource" uid="uid://c05tf37csx4tp" path="res://inventory_script/test_inv.tres" id="5_6x1ed"]
-[ext_resource type="Script" uid="uid://5ej0tp0e5sk5" path="res://time_manager.gd" id="6_v1owe"]
 [ext_resource type="Script" uid="uid://y0d42bllc0fd" path="res://Inventory_ui/inventory_interface.gd" id="7_id4et"]
 [ext_resource type="PackedScene" uid="uid://470pnke8j1j2" path="res://Inventory_ui/inventory.tscn" id="8_7wy0e"]
 [ext_resource type="PackedScene" uid="uid://cmaas2sclopj4" path="res://Inventory_ui/slot.tscn" id="9_2mb44"]
@@ -105,9 +104,6 @@ use_gravity = true
 camera_ref_path = NodePath("../SpringArm3D/Camera3D")
 inventory_data = ExtResource("5_6x1ed")
 
-[node name="TimeManager" type="Node" parent="." groups=["time_manager"]]
-script = ExtResource("6_v1owe")
-
 [node name="UI" type="CanvasLayer" parent="."]
 
 [node name="InventoryInterface" type="Control" parent="UI"]
@@ -172,7 +168,7 @@ grow_vertical = 0
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 56.6367, 12.7882, 0)
 
 [node name="BigTerrainMoutain" parent="background" instance=ExtResource("11_q63e7")]
-transform = Transform3D(74.945, 0, 0, 0, 74.945, 0, 0, 0, 74.945, -0.373759, -22.7722, -0.241655)
+transform = Transform3D(74.5778, 0, -66.6194, 0, 100, 0, 66.6194, 0, 74.5778, -0.37376, -39.9792, -11.8594)
 
 [node name="MixColorShader" type="CanvasLayer" parent="."]
 

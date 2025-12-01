@@ -8,6 +8,7 @@
 script = ExtResource("1_kb5ad")
 outfit_type = 2
 equip_mesh = ExtResource("1_8c2ui")
+hidden_body_parts = Array[int]([3, 2])
 name = "Long Black Pants"
 description = ""
 stackable = false

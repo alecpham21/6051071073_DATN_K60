@@ -1,0 +1,85 @@
+[gd_scene load_steps=11 format=3 uid="uid://dqclwo2j0tlif"]
+
+[ext_resource type="PackedScene" uid="uid://dcejqti7d8kl1" path="res://model/Vehicle/Bicycle/Bike1.glb" id="1_kw6x3"]
+[ext_resource type="Texture2D" uid="uid://1gysjnj7jqbq" path="res://assets/ImphenziaPalette01-256-Gradient.png" id="2_5yriy"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_x4y1r"]
+albedo_texture = ExtResource("2_5yriy")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_yxfri"]
+albedo_texture = ExtResource("2_5yriy")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2o7rr"]
+albedo_texture = ExtResource("2_5yriy")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_q3wsw"]
+albedo_texture = ExtResource("2_5yriy")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_pqqnx"]
+albedo_texture = ExtResource("2_5yriy")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vuhu7"]
+albedo_texture = ExtResource("2_5yriy")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1lmcx"]
+albedo_texture = ExtResource("2_5yriy")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jk67v"]
+albedo_texture = ExtResource("2_5yriy")
+
+[node name="Bike1" instance=ExtResource("1_kw6x3")]
+
+[node name="Skeleton3D" parent="Armature" index="0"]
+bones/2/rotation = Quaternion(-0.403594, 3.272e-07, 1.44321e-07, 0.914938)
+bones/5/rotation = Quaternion(0.189915, 2.1234e-14, 4.52793e-08, 0.981801)
+bones/8/rotation = Quaternion(-0.403594, 4.36274e-07, 9.62187e-08, 0.914938)
+bones/9/rotation = Quaternion(-1.49012e-07, -1.19209e-07, 6.09313e-12, 1)
+bones/11/rotation = Quaternion(-8.9407e-08, -1.19209e-07, 6.11067e-12, 1)
+
+[node name="BackWheel_2" parent="Armature/Skeleton3D" index="0"]
+transform = Transform3D(1.43772e-11, -0.419447, 1.87507e-08, 0.419447, 1.44005e-11, 6.25023e-09, 6.25025e-09, 1.87507e-08, 0.419447, 0.00900813, 2.64635, -3.78217)
+
+[node name="BackWheel_2" parent="Armature/Skeleton3D/BackWheel_2" index="0"]
+material_override = SubResource("StandardMaterial3D_x4y1r")
+
+[node name="FrontWheel_2" parent="Armature/Skeleton3D" index="1"]
+transform = Transform3D(1.65209e-06, -7.06659, -7.27135e-08, 7.06659, 1.68666e-06, -1.16229e-06, 1.14739e-06, -7.91459e-08, 7.06659, 7.46867e-11, 2.60454, 4.7856)
+
+[node name="FrontWheel_2" parent="Armature/Skeleton3D/FrontWheel_2" index="0"]
+material_override = SubResource("StandardMaterial3D_yxfri")
+
+[node name="Steering_2" parent="Armature/Skeleton3D" index="2"]
+transform = Transform3D(0.185143, 3.55271e-13, -2.84217e-14, -2.13163e-14, 2.49026, 0.0752546, 1.06581e-14, -1.10786, 0.169159, 2.4173e-13, 4.76518, 3.75224)
+
+[node name="Steering_2" parent="Armature/Skeleton3D/Steering_2" index="0"]
+material_override = SubResource("StandardMaterial3D_2o7rr")
+
+[node name="PedalRight" parent="Armature/Skeleton3D" index="3"]
+transform = Transform3D(0.225704, -7.48373e-15, 1.16598e-14, 1.2967e-14, 0.130262, 2.35424e-08, -1.8116e-14, -6.16005e-09, 0.497834, -0.35658, 2.22858, 1.3755)
+
+[node name="PedalRight" parent="Armature/Skeleton3D/PedalRight" index="0"]
+material_override = SubResource("StandardMaterial3D_q3wsw")
+
+[node name="PedalLeft" parent="Armature/Skeleton3D" index="4"]
+transform = Transform3D(0.225704, 1.0163e-14, -3.53731e-14, 1.76094e-14, -0.130262, 1.70226e-07, -2.88669e-14, -4.45411e-08, -0.497834, 0.35658, 2.22858, -1.81016)
+
+[node name="PedalLeft" parent="Armature/Skeleton3D/PedalLeft" index="0"]
+material_override = SubResource("StandardMaterial3D_pqqnx")
+
+[node name="CrankLeft" parent="Armature/Skeleton3D" index="5"]
+transform = Transform3D(0.138813, 9.36987e-15, -7.10543e-15, 9.3699e-15, -0.138813, 6.59157e-08, -1.42109e-14, -6.59157e-08, -0.138813, -0.35658, 2.22858, -0.21733)
+
+[node name="CrankLeft" parent="Armature/Skeleton3D/CrankLeft" index="0"]
+material_override = SubResource("StandardMaterial3D_vuhu7")
+
+[node name="CrankRight" parent="Armature/Skeleton3D" index="6"]
+transform = Transform3D(0.138813, -9.36997e-15, 7.10543e-15, 9.3699e-15, 0.138813, -2.06847e-08, -1.42109e-14, 2.06847e-08, 0.138813, -0.35658, 2.22858, -0.21733)
+
+[node name="CrankRight" parent="Armature/Skeleton3D/CrankRight" index="0"]
+material_override = SubResource("StandardMaterial3D_1lmcx")
+
+[node name="Frame_2" parent="Armature/Skeleton3D" index="7"]
+transform = Transform3D(0.0953802, -2.27374e-13, 1.06581e-14, 7.10543e-15, 1.44114, 0.0267669, -3.55271e-15, -0.421365, 0.0915473, -0.209903, 4.05465, -4.39351)
+
+[node name="Frame_2" parent="Armature/Skeleton3D/Frame_2" index="0"]
+material_override = SubResource("StandardMaterial3D_jk67v")

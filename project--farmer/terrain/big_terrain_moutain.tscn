@@ -20,6 +20,7 @@ size = Vector2(17.365, 22.815)
 
 [node name="Plane_006" parent="." index="0"]
 material_override = SubResource("StandardMaterial3D_cblue")
+cast_shadow = 0
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." index="1"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0592364, 0)
