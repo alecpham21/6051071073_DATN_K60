@@ -18,4 +18,5 @@ func check_dispatch():
 	if limbo_hsm.can_plant(): dispatch("plant")
 	if limbo_hsm.can_harvest(): dispatch("harvest")
 	if Input.is_action_just_pressed("toggle_vehicle"): 
-		dispatch("bike")
+		if not Watcher.indoor:
+			dispatch("bike")

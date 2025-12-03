@@ -1,0 +1,21 @@
+[gd_scene load_steps=6 format=3 uid="uid://bmplj1vxd2ygn"]
+
+[ext_resource type="Script" uid="uid://y8xeeyy2tn5f" path="res://ForageableObject.gd" id="1_f0ou7"]
+[ext_resource type="Script" uid="uid://oj6faifeyt6a" path="res://inventory_script/item/item_data/item_data.gd" id="2_uwcrt"]
+[ext_resource type="Texture2D" uid="uid://omvd8ed3fie6" path="res://inventory_script/item/item_atlast/#2 - Transparent Icons & Drop Shadow.png" id="3_whiu3"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6t7oa"]
+atlas = ExtResource("3_whiu3")
+region = Rect2(288, 544, 32, 32)
+
+[sub_resource type="Resource" id="Resource_tasiw"]
+script = ExtResource("2_uwcrt")
+name = "Bamboo Shoot"
+description = "Dont Shoot"
+stackable = true
+texture = SubResource("AtlasTexture_6t7oa")
+metadata/_custom_type_script = "uid://oj6faifeyt6a"
+
+[node name="BambooShoot" type="Node3D"]
+script = ExtResource("1_f0ou7")
+item_data = SubResource("Resource_tasiw")

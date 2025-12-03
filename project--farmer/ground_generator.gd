@@ -46,7 +46,6 @@ func load_from_data(data: Dictionary):
 
 	print("📂 Generator: Load map cũ...")
 
-	# 1. [QUAN TRỌNG] Dọn dẹp cây cũ/cây ma trước khi trồng lại để tránh trùng lặp
 	for child in get_children():
 		if child.has_method("harvest") or child.get("current_grid_pos") != null:
 			child.queue_free()

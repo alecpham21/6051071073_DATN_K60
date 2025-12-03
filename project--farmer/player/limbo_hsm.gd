@@ -49,15 +49,44 @@ func can_plant() -> bool:
 	if HotBar.active_slot.quantity <= 0:
 		return false
 	return HotBar.active_item && HotBar.active_item.name.to_lower().ends_with("seed") && use_item \
-	&& get_block().mode == BlockGround.Mode.TILLED && !Watcher.indoor 
+	&& get_block().mode == BlockGround.Mode.TILLED 
 
 func can_till() -> bool:
-	return HotBar.active_item && HotBar.active_item.name.to_lower() == "hoe" && use_item && !Watcher.indoor
+	var basic_check = HotBar.active_item \
+		&& HotBar.active_item.name.to_lower() == "hoe" \
+		&& use_item
+
+	if not basic_check:
+		return false
+		
+	#Check Block
+	var block = get_block()
+	if block == null:
+		return false
+	if block.mode != BlockGround.Mode.GRASS:
+		return false
+		
+	return true
+
 
 func can_harvest() -> bool:
+	if not use_item: return false
+
+	if character.current_interactable != null:
+		var target = character.current_interactable
+		# Check xem cây này có hái được không (biến has_bamboo_shoot)
+		if target.get("is_harvestable") == true:
+			return true
+			
+
+	#In Farm Harvest
 	var block = get_block()
-	return (block && block.crop_ready) && use_item \
-	&& (HotBar.active_item == null || HotBar.active_item.name.to_lower() == "sickle") && !Watcher.indoor
+	var crop_check = false
+	if block and block.crop_ready:
+		if HotBar.active_item == null or HotBar.active_item.name.to_lower() == "sickle":
+			crop_check = true
+	#Last result
+	return crop_check
 	
 func get_block():
 	var block = null

@@ -7,7 +7,7 @@ extends Resource
 	"Fishing_Drag", "Fishing_Fail", "Fishing_Idle", 
 	"Fishing_Start", "Fishing_Sucess", "Harvesting_Hand", 
 	"Harvesting_Knife", "Holding", "Holding_Idle", "Holding_Walking","Human_Cycling", 
-	"Idle1", "Idle2_Long_Tool","Idle_thinking", "Interact", "Interact_NPC", 
+	"Idle1", "Idle2_Long_Tool","Idle_thinking", "Interact", "Interact_NPC", "Mad_Cycling", 
 	"Running", "Seeding", "Till_Dirt", "Tired", "Tired2", "Walking")
 var ani_name:String
 @export var blend : float = -1

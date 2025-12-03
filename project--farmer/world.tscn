@@ -1,4 +1,4 @@
-[gd_scene load_steps=49 format=4 uid="uid://bbvhog32snru6"]
+[gd_scene load_steps=53 format=4 uid="uid://bbvhog32snru6"]
 
 [ext_resource type="Script" uid="uid://hctai00r4njf" path="res://world.gd" id="1_dwbse"]
 [ext_resource type="Shader" uid="uid://bkw4b21akjsc2" path="res://subViewportPixel.gdshader" id="2_gggvi"]
@@ -13,14 +13,15 @@
 [ext_resource type="Resource" uid="uid://c05tf37csx4tp" path="res://inventory_script/test_inv.tres" id="11_k83mh"]
 [ext_resource type="Shader" uid="uid://d1pnwkrkiec0c" path="res://Shader/cloud_tét.gdshader" id="12_k3n1d"]
 [ext_resource type="Script" uid="uid://bspkgwkxsy8mn" path="res://inventory_script/slot_data.gd" id="12_mc2jv"]
+[ext_resource type="PackedScene" uid="uid://dxe4dtsmib4py" path="res://level/level script/out_door.tscn" id="13_qktwf"]
 [ext_resource type="PackedScene" uid="uid://csnejiwkcvvuj" path="res://terrain/big_terrain_moutain.tscn" id="14_70uel"]
 [ext_resource type="PackedScene" uid="uid://ct3dfh117wqmh" path="res://model/terrain/ground_frame.tscn" id="16_2u3nc"]
+[ext_resource type="Script" uid="uid://bfas330ndllg" path="res://inventory_script/item/item_attribute/item_attribute.gd" id="16_bh8nc"]
 [ext_resource type="PackedScene" uid="uid://c2mndlfrs1dsl" path="res://modelTscn/building/house/simple_house_ver_2.tscn" id="16_udxuc"]
 [ext_resource type="Script" uid="uid://y0d42bllc0fd" path="res://Inventory_ui/inventory_interface.gd" id="17_26xuy"]
 [ext_resource type="PackedScene" uid="uid://470pnke8j1j2" path="res://Inventory_ui/inventory.tscn" id="17_cbp6q"]
 [ext_resource type="PackedScene" uid="uid://cmaas2sclopj4" path="res://Inventory_ui/slot.tscn" id="19_bc84e"]
 [ext_resource type="PackedScene" uid="uid://km0edqcbty58" path="res://level/level script/door.tscn" id="21_k83mh"]
-[ext_resource type="PackedScene" uid="uid://b1ju1nt3mtlrt" path="res://modelTscn/terrain/ground_lean_frame.tscn" id="23_bh8nc"]
 [ext_resource type="PackedScene" uid="uid://dh4ns40qdxwam" path="res://Inventory_ui/hot_bar_inventory.tscn" id="23_bo7i5"]
 [ext_resource type="PackedScene" uid="uid://cb3w8fvw4gt62" path="res://modelTscn/structure/stone_stair.tscn" id="24_bh8nc"]
 [ext_resource type="PackedScene" uid="uid://battkqubkudj8" path="res://modelTscn/structure/wooden_railing_ver_2.tscn" id="24_jjr1n"]
@@ -144,8 +145,17 @@ shader_parameter/level_h = 0.05
 script = ExtResource("12_mc2jv")
 item_data = ExtResource("28_qktwf")
 quantity = 3
-current_dirt_level = 0.0
+attributes = Array[ExtResource("16_bh8nc")]([])
 metadata/_custom_type_script = "uid://bspkgwkxsy8mn"
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_k83mh"]
+albedo_color = Color(0.425525, 0.674131, 0.327688, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qktwf"]
+albedo_color = Color(0.425525, 0.674131, 0.327688, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_bh8nc"]
+albedo_color = Color(0.425525, 0.674131, 0.327688, 1)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_2o6r5"]
 render_priority = 0
@@ -256,65 +266,10 @@ use_gravity = true
 camera_ref_path = NodePath("../SpringArm3D/Camera3D")
 inventory_data = ExtResource("11_k83mh")
 
-[node name="UI" type="CanvasLayer" parent="."]
-
-[node name="InventoryInterface" type="Control" parent="UI"]
-visible = false
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-script = ExtResource("17_26xuy")
-
-[node name="PlayerInventory" parent="UI/InventoryInterface" instance=ExtResource("17_cbp6q")]
-layout_mode = 0
-offset_left = 126.9
-offset_top = 251.0
-offset_right = 166.9
-offset_bottom = 291.0
-
-[node name="EquipInventory" parent="UI/InventoryInterface" instance=ExtResource("17_cbp6q")]
-layout_mode = 0
-offset_left = 126.9
-offset_top = 161.93
-offset_right = 166.9
-offset_bottom = 201.93
-
-[node name="OutfitInventory" parent="UI/InventoryInterface" instance=ExtResource("17_cbp6q")]
-layout_mode = 0
-offset_left = 256.885
-offset_top = 161.93
-offset_right = 296.885
-offset_bottom = 201.93
-
-[node name="ExternalInventory" parent="UI/InventoryInterface" instance=ExtResource("17_cbp6q")]
-visible = false
-layout_mode = 0
-offset_left = 661.285
-offset_top = 251.0
-offset_right = 701.285
-offset_bottom = 291.0
-
-[node name="GrabbedSlot" parent="UI/InventoryInterface" instance=ExtResource("19_bc84e")]
-visible = false
-modulate = Color(1, 1, 1, 0.52549)
-self_modulate = Color(1, 1, 1, 0)
-layout_mode = 0
-
-[node name="HotBarInventory" parent="UI" instance=ExtResource("23_bo7i5")]
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -207.885
-offset_top = -74.0
-offset_right = 207.265
-offset_bottom = 0.0
-grow_horizontal = 2
-grow_vertical = 0
+[node name="OutDoor" parent="SubViewportContainer/SubViewport" instance=ExtResource("13_qktwf")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22.7284, 0.419144, 0.422467)
+target_scene_path = "uid://bidc27ad8yi6o"
+target_spawn_position = Vector3(-14, 0, 0)
 
 [node name="MixColorShader" type="CanvasLayer" parent="."]
 
@@ -343,10 +298,22 @@ shadow_blur = 0.0
 [node name="LevelEnvironment" type="Node3D" parent="."]
 
 [node name="GroundFrame" parent="LevelEnvironment" instance=ExtResource("16_2u3nc")]
-transform = Transform3D(6.83, 0, 0, 0, 6.83, 0, 0, 0, 6.83, -2.33437, -1.02769, -1.05087)
+transform = Transform3D(7.735, 0, 0, 0, 7.735, 0, 0, 0, 7.735, -2.33437, 1.06844, -1.05087)
+
+[node name="Plane_001" parent="LevelEnvironment/GroundFrame" index="1"]
+surface_material_override/0 = SubResource("StandardMaterial3D_k83mh")
 
 [node name="GroundFrame2" parent="LevelEnvironment" instance=ExtResource("16_2u3nc")]
-transform = Transform3D(9.905, 0, 0, 0, 9.905, 0, 0, 0, 9.905, -2.34504, 0.273685, -0.404768)
+transform = Transform3D(10.995, 0, 0, 0, 10.995, 0, 0, 0, 10.995, -1.96572, 2.9388, -0.404768)
+
+[node name="Plane_001" parent="LevelEnvironment/GroundFrame2" index="1"]
+surface_material_override/0 = SubResource("StandardMaterial3D_qktwf")
+
+[node name="GroundFrame3" parent="LevelEnvironment" instance=ExtResource("16_2u3nc")]
+transform = Transform3D(14.705, 0, 0, 0, 14.705, 0, 0, 0, 14.705, -1.96572, 4.07363, -0.404768)
+
+[node name="Plane_001" parent="LevelEnvironment/GroundFrame3" index="1"]
+surface_material_override/0 = SubResource("StandardMaterial3D_bh8nc")
 
 [node name="SimpleHouseVer2" parent="LevelEnvironment" instance=ExtResource("16_udxuc")]
 transform = Transform3D(-6.513e-08, 0, 1.49, 0, 1.49, 0, -1.49, 0, -6.513e-08, -7.13712, 1.10801, 3.11973e-07)
@@ -357,20 +324,11 @@ visible = false
 mesh = SubResource("PlaneMesh_ic0uy")
 skeleton = NodePath("../..")
 
-[node name="GroundLeanFrame" parent="LevelEnvironment" instance=ExtResource("23_bh8nc")]
-transform = Transform3D(7.17, 0, 0, 0, 7.17, 0, 0, 0, 7.17, 0, 1.00112, 0)
-
-[node name="GroundLeanFrame2" parent="LevelEnvironment" instance=ExtResource("23_bh8nc")]
-transform = Transform3D(10.15, 0, 0, 0, 10.15, 0, 0, 0, 10.15, 0, 2.05611, 0)
-
-[node name="GroundLeanFrame3" parent="LevelEnvironment" instance=ExtResource("23_bh8nc")]
-transform = Transform3D(14.985, 0, 0, 0, 14.985, 0, 0, 0, 14.985, -2.59664, 3.49665, 0)
-
 [node name="StoneStair" parent="LevelEnvironment" instance=ExtResource("24_bh8nc")]
-transform = Transform3D(-1.655, 0, -2.49898e-07, 0, 1.655, 0, 2.49898e-07, 0, -1.655, 24.8899, -0.211237, 0)
+transform = Transform3D(-1.63603, 0.506496, -2.47034e-07, 0.249851, 3.31655, 3.77265e-08, 2.49898e-07, 2.97148e-15, -1.655, 24.8899, -1.61193, 0)
 
 [node name="StoneStair2" parent="LevelEnvironment" instance=ExtResource("24_bh8nc")]
-transform = Transform3D(-1.64506, 0.181122, -2.48397e-07, 0.181122, 1.64506, 2.73487e-08, 2.49898e-07, 0, -1.655, 37.8875, 2.1647, 0)
+transform = Transform3D(-1.81225, 0.236587, -2.75114e-07, 0.188237, 2.27775, 2.84127e-08, 2.76578e-07, -2.03926e-10, -1.822, 38.3439, 2.1647, 0)
 
 [node name="StoneStair3" parent="LevelEnvironment" instance=ExtResource("24_bh8nc")]
 transform = Transform3D(-1.65489, -0.0194393, -2.49881e-07, -0.0194393, 1.65489, -2.93525e-09, 2.49898e-07, 2.92527e-15, -1.655, 54.0913, 3.92101, 0)
@@ -416,9 +374,99 @@ transform = Transform3D(-0.8532, 0, 2.82915, 0, 2.955, 0, -2.82915, 0, -0.8532, 
 [node name="TreeVer2" parent="Tree" instance=ExtResource("30_bh8nc")]
 transform = Transform3D(-1.55376, 0, 1.42756, 0, 2.11, 0, -1.42756, 0, -1.55376, 15.654, 0, -20.2775)
 
-[connection signal="drop_slot_data" from="UI/InventoryInterface" to="." method="_on_inventory_interface_drop_slot_data"]
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="InventoryInterface" type="Control" parent="UI"]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("17_26xuy")
+
+[node name="PlayerInventory" parent="UI/InventoryInterface" instance=ExtResource("17_cbp6q")]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -326.0
+offset_top = -20.0
+offset_right = -286.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="EquipInventory" parent="UI/InventoryInterface" instance=ExtResource("17_cbp6q")]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -496.0
+offset_top = -144.0
+offset_right = -456.0
+offset_bottom = -104.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="OutfitInventory" parent="UI/InventoryInterface" instance=ExtResource("17_cbp6q")]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -291.0
+offset_top = -144.0
+offset_right = -251.0
+offset_bottom = -104.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ExternalInventory" parent="UI/InventoryInterface" instance=ExtResource("17_cbp6q")]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 224.0
+offset_top = -20.0
+offset_right = 264.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="GrabbedSlot" parent="UI/InventoryInterface" instance=ExtResource("19_bc84e")]
+visible = false
+modulate = Color(1, 1, 1, 0.52549)
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 0
+
+[node name="HotBarInventory" parent="UI" instance=ExtResource("23_bo7i5")]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -241.0
+offset_top = -74.0
+offset_right = 241.0
+offset_bottom = 0.0
+grow_horizontal = 2
+grow_vertical = 0
+
 [connection signal="drop_slot_data" from="UI/InventoryInterface" to="UI/InventoryInterface" method="_on_drop_slot_data"]
 [connection signal="gui_input" from="UI/InventoryInterface" to="UI/InventoryInterface" method="_on_gui_input"]
 [connection signal="visibility_changed" from="UI/InventoryInterface" to="UI/InventoryInterface" method="_on_visibility_changed"]
 
+[editable path="LevelEnvironment/GroundFrame"]
+[editable path="LevelEnvironment/GroundFrame2"]
+[editable path="LevelEnvironment/GroundFrame3"]
 [editable path="LevelEnvironment/SimpleHouseVer2"]

@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://yxffan0vylfv"]
+
+[ext_resource type="PackedScene" uid="uid://ccw4d1ows85v5" path="res://model/rock/aRock1.glb" id="1_lfpi2"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3thfd"]
+albedo_color = Color(0.473976, 0.473976, 0.473976, 1)
+
+[node name="aRock1" instance=ExtResource("1_lfpi2")]
+
+[node name="Rock" parent="." index="0"]
+material_override = SubResource("StandardMaterial3D_3thfd")

@@ -1,0 +1,27 @@
+[gd_scene load_steps=3 format=3 uid="uid://viw0xh7gair5"]
+
+[ext_resource type="Script" uid="uid://c6ehsxynkwbtr" path="res://ui/other/washing_machine_control.gd" id="1_0khqh"]
+[ext_resource type="PackedScene" uid="uid://470pnke8j1j2" path="res://Inventory_ui/inventory.tscn" id="1_ltltu"]
+
+[node name="WashingMachineUI" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_0khqh")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Label" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+text = "WashingMachine"
+
+[node name="Inventory" parent="VBoxContainer" instance=ExtResource("1_ltltu")]
+layout_mode = 2
+
+[node name="StartButton" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+text = "Turn On"

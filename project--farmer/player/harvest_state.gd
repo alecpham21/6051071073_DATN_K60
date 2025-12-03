@@ -30,28 +30,30 @@ func _exit() -> void:
 	character.is_busy = false
 
 func harvest(cast: RayCast3D, ground_gen) -> void:
+	var target = character.current_interactable
+	
+	if target != null and target.has_method("harvest"):
+		if target.get("is_harvestable"):
+			target.harvest()
+			print("✅ Đã hái từ Area3D")
+			return
+	
 	cast.force_raycast_update()
 	if not cast.is_colliding(): return
 
-	var collider = cast.get_collider() # Cái này sẽ là Hitbox (Area3D) hoặc Đất (StaticBody)
+	var collider = cast.get_collider()
 	
-	# --- 1. NẾU TRÚNG CÂY (HITBOX) ---
-	# Vì collider là Area3D (con), nên ta phải lấy cha nó (Cây lúa) để gọi harvest
 	var object_hit = collider.get_parent() 
 	
 	if object_hit.has_method("harvest"):
-		# Kiểm tra xem cây đã chín chưa (nếu cần)
-		# Giả sử biến is_harvestable nằm ở script cây
 		if object_hit.get("is_harvestable") == true: 
 			object_hit.harvest()
-			print("✅ Gặt lúa (Trúng Hitbox)")
+			print("✅ Trúng Hitbox")
 			return
 		else:
 			print("🚫 Cây chưa chín, không làm gì cả")
 			return # Return luôn để không đào đất dưới chân
 
-	# --- 2. NẾU TRÚNG ĐẤT (Logic cũ) ---
-	# Nếu collider không phải cây, thì check xem có phải đất không
 	var hit_pos = cast.get_collision_point()
 	if not ground_gen: return
 	
@@ -60,7 +62,6 @@ func harvest(cast: RayCast3D, ground_gen) -> void:
 
 	var block = ground_gen.block_data[grid_pos.x][grid_pos.y]
 
-	# Chỉ cho phép cắt cỏ/đào đất nếu ô đó KHÔNG CÓ CÂY (dựa trên data)
 	if block.plant_type == PlantDatabase.PLANT_VARIANT.NONE:
 		if block.mode == BlockGroundData.Mode.GRASS:
 			block.mode = BlockGroundData.Mode.CUT

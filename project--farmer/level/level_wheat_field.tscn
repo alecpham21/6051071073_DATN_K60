@@ -1,6 +1,7 @@
-[gd_scene load_steps=19 format=3 uid="uid://do6sbed68x140"]
+[gd_scene load_steps=21 format=3 uid="uid://do6sbed68x140"]
 
 [ext_resource type="Shader" uid="uid://c6qhkhar3xobg" path="res://Shader/edge_detection.gdshader" id="1_fkl30"]
+[ext_resource type="Script" uid="uid://bilxeqvesu7y3" path="res://level/level_wheat_field.gd" id="1_w3ip3"]
 [ext_resource type="Shader" uid="uid://viqy3uwh6ns7" path="res://PixelShader.gdshader" id="2_w3ip3"]
 [ext_resource type="Script" uid="uid://bshrove7rvagv" path="res://spring_arm_camera.gd" id="3_cjq8t"]
 [ext_resource type="PackedScene" uid="uid://bnxu42mjbjp8x" path="res://player/main_farmer.tscn" id="4_l81cg"]
@@ -13,6 +14,7 @@
 [ext_resource type="Shader" uid="uid://c13esa4vg2n5k" path="res://level/posterization.gdshader" id="12_dbu0w"]
 [ext_resource type="PackedScene" uid="uid://dd48ywngxd2oc" path="res://Scene/Environment/day_night_cycle.tscn" id="13_dptbf"]
 [ext_resource type="PackedScene" uid="uid://ur2pge51fxfv" path="res://Scene/path/wheat_path.tscn" id="14_xgc3j"]
+[ext_resource type="PackedScene" uid="uid://dxe4dtsmib4py" path="res://level/level script/out_door.tscn" id="15_w3ip3"]
 
 [sub_resource type="QuadMesh" id="QuadMesh_n1vqm"]
 flip_faces = true
@@ -54,6 +56,7 @@ shader_parameter/level_c = 5.0
 shader_parameter/level_h = 0.05
 
 [node name="level_wheat_field" type="Node3D"]
+script = ExtResource("1_w3ip3")
 
 [node name="SubViewportContainer" type="SubViewportContainer" parent="."]
 texture_filter = 1
@@ -104,66 +107,6 @@ use_gravity = true
 camera_ref_path = NodePath("../SpringArm3D/Camera3D")
 inventory_data = ExtResource("5_6x1ed")
 
-[node name="UI" type="CanvasLayer" parent="."]
-
-[node name="InventoryInterface" type="Control" parent="UI"]
-visible = false
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-script = ExtResource("7_id4et")
-
-[node name="PlayerInventory" parent="UI/InventoryInterface" instance=ExtResource("8_7wy0e")]
-layout_mode = 0
-offset_left = 126.9
-offset_top = 251.0
-offset_right = 166.9
-offset_bottom = 291.0
-
-[node name="EquipInventory" parent="UI/InventoryInterface" instance=ExtResource("8_7wy0e")]
-layout_mode = 0
-offset_left = 126.9
-offset_top = 161.93
-offset_right = 166.9
-offset_bottom = 201.93
-
-[node name="OutfitInventory" parent="UI/InventoryInterface" instance=ExtResource("8_7wy0e")]
-layout_mode = 0
-offset_left = 256.885
-offset_top = 161.93
-offset_right = 296.885
-offset_bottom = 201.93
-
-[node name="ExternalInventory" parent="UI/InventoryInterface" instance=ExtResource("8_7wy0e")]
-visible = false
-layout_mode = 0
-offset_left = 661.285
-offset_top = 251.0
-offset_right = 701.285
-offset_bottom = 291.0
-
-[node name="GrabbedSlot" parent="UI/InventoryInterface" instance=ExtResource("9_2mb44")]
-visible = false
-modulate = Color(1, 1, 1, 0.52549)
-self_modulate = Color(1, 1, 1, 0)
-layout_mode = 0
-
-[node name="HotBarInventory" parent="UI" instance=ExtResource("10_cchc6")]
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -241.0
-offset_top = -74.0
-offset_right = 241.0
-offset_bottom = 0.0
-grow_horizontal = 2
-grow_vertical = 0
-
 [node name="background" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 56.6367, 12.7882, 0)
 
@@ -184,6 +127,99 @@ mouse_filter = 2
 [node name="DayNightCycle" parent="." instance=ExtResource("13_dptbf")]
 
 [node name="WheatPath" parent="." instance=ExtResource("14_xgc3j")]
+
+[node name="OutDoor" parent="." instance=ExtResource("15_w3ip3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -114.045, 0.801798, 0)
+target_scene_path = "uid://bidc27ad8yi6o"
+target_spawn_position = Vector3(48, 2.033, 0)
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="InventoryInterface" type="Control" parent="UI"]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("7_id4et")
+
+[node name="PlayerInventory" parent="UI/InventoryInterface" instance=ExtResource("8_7wy0e")]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -326.0
+offset_top = -20.0
+offset_right = -286.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="EquipInventory" parent="UI/InventoryInterface" instance=ExtResource("8_7wy0e")]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -496.0
+offset_top = -144.0
+offset_right = -456.0
+offset_bottom = -104.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="OutfitInventory" parent="UI/InventoryInterface" instance=ExtResource("8_7wy0e")]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -291.0
+offset_top = -144.0
+offset_right = -251.0
+offset_bottom = -104.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ExternalInventory" parent="UI/InventoryInterface" instance=ExtResource("8_7wy0e")]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 224.0
+offset_top = -20.0
+offset_right = 264.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="GrabbedSlot" parent="UI/InventoryInterface" instance=ExtResource("9_2mb44")]
+visible = false
+modulate = Color(1, 1, 1, 0.52549)
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 0
+
+[node name="HotBarInventory" parent="UI" instance=ExtResource("10_cchc6")]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -241.0
+offset_top = -74.0
+offset_right = 241.0
+offset_bottom = 0.0
+grow_horizontal = 2
+grow_vertical = 0
 
 [connection signal="drop_slot_data" from="UI/InventoryInterface" to="UI/InventoryInterface" method="_on_drop_slot_data"]
 [connection signal="gui_input" from="UI/InventoryInterface" to="UI/InventoryInterface" method="_on_gui_input"]

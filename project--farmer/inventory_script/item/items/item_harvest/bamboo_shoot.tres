@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="ItemData" load_steps=4 format=3 uid="uid://c6nexybwi1f3"]
+
+[ext_resource type="Script" uid="uid://oj6faifeyt6a" path="res://inventory_script/item/item_data/item_data.gd" id="1_h3bv6"]
+[ext_resource type="Texture2D" uid="uid://omvd8ed3fie6" path="res://inventory_script/item/item_atlast/#2 - Transparent Icons & Drop Shadow.png" id="2_grwuu"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_s2rf4"]
+atlas = ExtResource("2_grwuu")
+region = Rect2(288, 544, 32, 32)
+
+[resource]
+script = ExtResource("1_h3bv6")
+name = "Bamboo Shoot"
+description = "Dont Shoot"
+stackable = true
+texture = SubResource("AtlasTexture_s2rf4")
+metadata/_custom_type_script = "uid://oj6faifeyt6a"

@@ -18,26 +18,25 @@ const PickUp = preload("res://inventory_script/item/pick_up_item/pick_up.tscn")
 func _ready():
 	Watcher.indoor = false
 	
-	# --- [SỬA] THÊM await VÀO ĐÂY ---
 	if Watcher.has_data(level_id):
 		print("📂 World: Load data...")
 		var data = Watcher.get_level_data(level_id)
-		# Chờ GroundGenerator setup xong rồi mới load
+		# wait for ground generator
 		await ground_generator.load_from_data(data) 
 	else:
 		print("✨ World: New map...")
-		# Chờ GroundGenerator setup xong rồi mới gen
+		# wait for ground generator setup then generate
 		await ground_generator.generate_new_map()
 		
-	# Hỏi thằng trùm Watcher xem có dữ liệu của map này chưa
+	# Ask the Watcher if have the data
 	if Watcher.has_data(level_id):
 		print("📂 World: Tìm thấy dữ liệu cũ của ", level_id, " -> Đang Load...")
 		var data = Watcher.get_level_data(level_id)
-		# Quăng data cho thợ vẽ làm việc
+		# Throw data for professional do the job
 		ground_generator.load_from_data(data)
 	else:
 		print("✨ World: Không có dữ liệu của ", level_id, " -> Tạo Mới...")
-		# Bảo thợ vẽ tạo map trắng
+		# Tell the professional to draw
 		ground_generator.generate_new_map()
 		
 	player.toggle_inventory.connect(toggle_inventory_interface)
@@ -47,24 +46,21 @@ func _ready():
 	inventory_interface.force_close.connect(toggle_inventory_interface)
 	hot_bar_inventory.set_inventory_data(player.inventory_data)
 	
-	# Lưu ý: Nếu Watcher và GameData là 1 thì dùng Watcher, nếu khác nhau thì giữ nguyên
 	if GameData.has_method("set_current_stage"):
 		GameData.set_current_stage(self)
 	
 	for node in get_tree().get_nodes_in_group("external_inventory"):
 		node.toggle_inventory.connect(toggle_inventory_interface)
 	SceneTransition.reveal_scene()
-# --- [MỚI] HÀM SAVE (Sẽ được gọi bởi Cổng dịch chuyển hoặc Menu Save) ---
+
 func save_level_state():
 	if ground_generator:
-		# 1. Lấy dữ liệu hiện tại từ thợ vẽ
 		var current_data = ground_generator.get_current_state()
 		
-		# 2. Gửi về kho tổng Watcher để cất
 		Watcher.save_level_data(level_id, current_data)
 		print("✅ World: Đã lưu trạng thái map ", level_id)
 
-# --- (CÁC HÀM CŨ GIỮ NGUYÊN) ---
+
 func _process(_delta: float) -> void:
 	pass
 

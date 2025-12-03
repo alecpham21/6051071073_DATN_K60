@@ -8,14 +8,16 @@ signal toggle_inventory(external_inventory_owner)
 @export var machine_id: String = ""
 @export var inventory_data: InventoryData
 @export var interact_area: InteractArea 
-@export var wash_duration_minutes: float = 30.0 # Giảm xuống 30p game để test cho lẹ
+@export var wash_duration_minutes: float = 60.0 # 60 phút game
 
 var open: bool = false
-var finish_time: float = -1.0
-var tween: Tween
+var is_washing: bool = false
+var finish_time: float = -1.0 # Mốc thời gian sẽ xong
 
 func _ready() -> void:
-	print("--- Washing Machine Init ---")
+	print("--- Washing Machine Init: ", machine_id, " ---")
+	
+	# 1. Setup Inventory
 	if machine_id.is_empty():
 		inventory_data = inventory_data.duplicate()
 	else:
@@ -26,91 +28,110 @@ func _ready() -> void:
 			PlayerData.chest_inventories[machine_id] = inventory_data
 			
 	interact_area.interacted.connect(on_interact)
-	
-	# Kết nối signal inventory
-	if not inventory_data.inventory_updated.is_connected(_on_inventory_updated):
-		inventory_data.inventory_updated.connect(_on_inventory_updated)
-	
-	# Kết nối signal thời gian
 	TimeManager.tick.connect(_on_time_tick)
 	
-	Watcher.game_state_changed.connect(func(a):
-		if GState.is_ui(): return)
-
+	# 2. Check Save Data (Lớn bù thời gian)
+	if !machine_id.is_empty() and PlayerData.washing_machine_timers.has(machine_id):
+		var saved_finish_time = PlayerData.washing_machine_timers[machine_id]
+		var current_time = TimeManager.get_total_minutes_played()
+		
+		if current_time >= saved_finish_time:
+			print("Máy giặt: Đã giặt xong khi player đi vắng!")
+			finish_washing(true)
+		else:
+			finish_time = saved_finish_time
+			is_washing = true
+			inventory_data.is_locked = true
+			print("Máy giặt: Tiếp tục giặt... Còn ", saved_finish_time - current_time, " phút")
 
 func _process(delta: float) -> void:
-	if finish_time > 0:
+	if is_washing:
 		shake_machine()
 	else:
 		if machine_mesh.rotation_degrees.z != 0:
 			machine_mesh.rotation_degrees.z = lerp(machine_mesh.rotation_degrees.z, 0.0, delta * 5)
 
 func shake_machine():
-	# Tạo hiệu ứng rung nhẹ bằng cách xoay qua lại trục Z
 	var time = Time.get_ticks_msec() / 100.0
-	machine_mesh.rotation_degrees.z = sin(time * 20) * 2.0 # Rung biên độ 2 độ
+	machine_mesh.rotation_degrees.z = sin(time * 20) * 2.0
 
 func on_interact():
+	if is_washing:
+		print("Máy đang giặt, không mở được!")
+		return
+
 	if open: close_chest()
 	else: open_chest()
 
 func open_chest(): 
 	if open: return
 	open = true
-	print("Máy giặt: Mở UI")
 	toggle_inventory.emit(self)
 
 func close_chest():
 	if !open: return
 	open = false
-	print("Máy giặt: Đóng UI")
 	toggle_inventory.emit(self)
 
-# --- DEBUG LOGIC GIẶT ---
-func _on_inventory_updated(_data: InventoryData) -> void:
-	if finish_time > 0: return
-
+func request_start_washing():
+	if is_washing: return
+	
+	# 1. Check xem có đồ dơ không
 	var found_dirty = false
 	for slot in inventory_data.slot_datas:
-		if slot and slot.item_data is ItemDataOutfit:
-			# --- SỬA: Check độ dơ từ SLOT ---
-			if slot.current_dirt_level > 0: 
-				print("-> Thấy đồ dơ: ", slot.item_data.name, " | Dơ: ", slot.current_dirt_level)
-				found_dirty = true
-				break
+		# --- SỬA LỖI 1: Thay current_dirt_level bằng get_stat("dirt") ---
+		if slot and slot.item_data is ItemDataOutfit and slot.get_stat("dirt") > 0:
+			found_dirty = true
+			break
 	
-	if found_dirty:
-		start_washing()
+	if not found_dirty:
+		print("Không có đồ dơ, không giặt!")
+		return
+	
+	# 2. Bắt đầu giặt
+	start_washing_process()
 
-func start_washing() -> void:
-	print(">>> MÁY GIẶT: BẮT ĐẦU CHẠY! <<<")
+func start_washing_process():
+	print(">>> BẤM NÚT: BẮT ĐẦU GIẶT <<<")
+	
+	close_chest()
+	
+	is_washing = true
 	inventory_data.is_locked = true
 	
 	var current_total_minutes = TimeManager.get_total_minutes_played()
 	finish_time = current_total_minutes + wash_duration_minutes
 	
-	print("Thời gian hiện tại: ", current_total_minutes)
+	if !machine_id.is_empty():
+		PlayerData.washing_machine_timers[machine_id] = finish_time
+	
 	print("Dự kiến xong lúc: ", finish_time)
 
 func _on_time_tick() -> void:
-	if finish_time == -1.0:
+	if not is_washing or finish_time == -1.0:
 		return
 		
 	var current = TimeManager.get_total_minutes_played()
-	print("Đang giặt... ", current, "/", finish_time) # Bật cái này nếu muốn soi kỹ
 	
 	if current >= finish_time:
 		finish_washing()
 
-func finish_washing() -> void:
+func finish_washing(instant: bool = false):
 	print(">>> MÁY GIẶT: HOÀN THÀNH! <<<")
 	
+	# Làm sạch đồ
 	for slot in inventory_data.slot_datas:
 		if slot and slot.item_data is ItemDataOutfit:
-			# --- SỬA: Gọi hàm clean của SLOT ---
-			slot.clean_slot()
-			print("-> Đã giặt sạch slot chứa: ", slot.item_data.name)
+			# --- SỬA LỖI 2: Thay current_dirt_level bằng get_stat("dirt") ---
+			if slot.get_stat("dirt") > 0:
+				slot.clean_slot() # Hàm này sẽ set "dirt" về 0
+				print("-> Đã giặt sạch: ", slot.item_data.name)
 	
+	is_washing = false
 	finish_time = -1.0
 	inventory_data.is_locked = false 
+	
 	inventory_data.inventory_updated.emit(inventory_data)
+
+	if !machine_id.is_empty():
+		PlayerData.washing_machine_timers.erase(machine_id)

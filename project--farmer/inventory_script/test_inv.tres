@@ -1,8 +1,9 @@
-[gd_resource type="Resource" script_class="InventoryData" load_steps=18 format=3 uid="uid://c05tf37csx4tp"]
+[gd_resource type="Resource" script_class="InventoryData" load_steps=21 format=3 uid="uid://c05tf37csx4tp"]
 
 [ext_resource type="Script" uid="uid://csfrg4socg8bj" path="res://inventory_script/inventory_data/inventory_data.gd" id="1_fx70d"]
 [ext_resource type="Script" uid="uid://bspkgwkxsy8mn" path="res://inventory_script/slot_data.gd" id="2_a72s1"]
 [ext_resource type="Resource" uid="uid://d3pjlk6ev6gkq" path="res://inventory_script/item/items/coffee_potion.tres" id="3_2l4u7"]
+[ext_resource type="Script" uid="uid://bfas330ndllg" path="res://inventory_script/item/item_attribute/item_attribute.gd" id="3_vdyg7"]
 [ext_resource type="Resource" uid="uid://wnqnqmyfw1cp" path="res://inventory_script/item/items/item_clothe/black_shirt.tres" id="4_q6td8"]
 [ext_resource type="Resource" uid="uid://yxvsmb6b0dto" path="res://inventory_script/item/items/item_harvest/corn.tres" id="5_vdyg7"]
 [ext_resource type="Resource" uid="uid://dq3p2yhpqqe3" path="res://inventory_script/item/items/item_tool/sickle.tres" id="6_q6td8"]
@@ -13,63 +14,75 @@
 script = ExtResource("2_a72s1")
 item_data = ExtResource("3_2l4u7")
 quantity = 3
-current_dirt_level = 0.0
+attributes = Array[ExtResource("3_vdyg7")]([])
 metadata/_custom_type_script = "uid://bspkgwkxsy8mn"
+
+[sub_resource type="Resource" id="Resource_w7jlk"]
+script = ExtResource("3_vdyg7")
+id = "dirt"
+value = 20.0
+metadata/_custom_type_script = "uid://bfas330ndllg"
 
 [sub_resource type="Resource" id="Resource_1ysir"]
 script = ExtResource("2_a72s1")
 item_data = ExtResource("4_q6td8")
 quantity = 1
-current_dirt_level = 10.0
+attributes = Array[ExtResource("3_vdyg7")]([SubResource("Resource_w7jlk")])
 metadata/_custom_type_script = "uid://bspkgwkxsy8mn"
 
 [sub_resource type="Resource" id="Resource_a5mve"]
 script = ExtResource("2_a72s1")
 item_data = ExtResource("5_vdyg7")
 quantity = 11
-current_dirt_level = 0.0
+attributes = Array[ExtResource("3_vdyg7")]([])
 metadata/_custom_type_script = "uid://bspkgwkxsy8mn"
 
 [sub_resource type="Resource" id="Resource_e8ap1"]
 script = ExtResource("2_a72s1")
 item_data = ExtResource("5_vdyg7")
 quantity = 90
-current_dirt_level = 0.0
+attributes = Array[ExtResource("3_vdyg7")]([])
 metadata/_custom_type_script = "uid://bspkgwkxsy8mn"
 
 [sub_resource type="Resource" id="Resource_vdyg7"]
 script = ExtResource("2_a72s1")
 item_data = ExtResource("6_q6td8")
 quantity = 1
-current_dirt_level = 0.0
+attributes = Array[ExtResource("3_vdyg7")]([])
 metadata/_custom_type_script = "uid://bspkgwkxsy8mn"
 
 [sub_resource type="Resource" id="Resource_q6td8"]
 script = ExtResource("2_a72s1")
 item_data = ExtResource("7_rn8ob")
 quantity = 1
-current_dirt_level = 0.0
+attributes = Array[ExtResource("3_vdyg7")]([])
 metadata/_custom_type_script = "uid://bspkgwkxsy8mn"
 
 [sub_resource type="Resource" id="Resource_a0sik"]
 script = ExtResource("2_a72s1")
 item_data = ExtResource("6_q6td8")
 quantity = 1
-current_dirt_level = 0.0
+attributes = Array[ExtResource("3_vdyg7")]([])
 metadata/_custom_type_script = "uid://bspkgwkxsy8mn"
 
 [sub_resource type="Resource" id="Resource_p831m"]
 script = ExtResource("2_a72s1")
 item_data = ExtResource("8_rn8ob")
 quantity = 1
-current_dirt_level = 0.0
+attributes = Array[ExtResource("3_vdyg7")]([])
 metadata/_custom_type_script = "uid://bspkgwkxsy8mn"
+
+[sub_resource type="Resource" id="Resource_4b2p8"]
+script = ExtResource("3_vdyg7")
+id = "dirt"
+value = 30.0
+metadata/_custom_type_script = "uid://bfas330ndllg"
 
 [sub_resource type="Resource" id="Resource_vpmq8"]
 script = ExtResource("2_a72s1")
 item_data = ExtResource("4_q6td8")
 quantity = 1
-current_dirt_level = 29.0
+attributes = Array[ExtResource("3_vdyg7")]([SubResource("Resource_4b2p8")])
 metadata/_custom_type_script = "uid://bspkgwkxsy8mn"
 
 [resource]

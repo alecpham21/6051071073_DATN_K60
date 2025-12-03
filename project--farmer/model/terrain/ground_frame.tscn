@@ -1,13 +1,10 @@
-[gd_scene load_steps=6 format=3 uid="uid://ct3dfh117wqmh"]
+[gd_scene load_steps=5 format=3 uid="uid://ct3dfh117wqmh"]
 
 [ext_resource type="PackedScene" uid="uid://dpbxprnux8cid" path="res://terrain/GroundFrame.glb" id="1_bv0mc"]
-[ext_resource type="Texture2D" uid="uid://1gysjnj7jqbq" path="res://assets/ImphenziaPalette01-256-Gradient.png" id="2_7txfd"]
+[ext_resource type="Texture2D" uid="uid://de11cb4s5jfrq" path="res://Textures/Terrain_texture/Pixelated Rocky Dirt Texture.png" id="2_bv0mc"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4h4o4"]
-albedo_texture = ExtResource("2_7txfd")
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_bv0mc"]
-albedo_color = Color(0.235294, 0.596078, 0.270588, 1)
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7txfd"]
+albedo_texture = ExtResource("2_bv0mc")
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_bv0mc"]
 size = Vector3(1, 1, 14.1246)
@@ -15,10 +12,7 @@ size = Vector3(1, 1, 14.1246)
 [node name="GroundFrame" instance=ExtResource("1_bv0mc")]
 
 [node name="Plane" parent="." index="0"]
-material_override = SubResource("StandardMaterial3D_4h4o4")
-
-[node name="Plane_001" parent="." index="1"]
-surface_material_override/0 = SubResource("StandardMaterial3D_bv0mc")
+material_override = SubResource("StandardMaterial3D_7txfd")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="." index="2"]
 

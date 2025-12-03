@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://jlymgu5ic30x"]
+[gd_scene load_steps=9 format=3 uid="uid://jlymgu5ic30x"]
 
 [ext_resource type="PackedScene" uid="uid://cqqg0laxtni83" path="res://model/interior/Kitchen.glb" id="1_vw2n2"]
 [ext_resource type="Texture2D" uid="uid://1gysjnj7jqbq" path="res://assets/ImphenziaPalette01-256-Gradient.png" id="2_g81lu"]
@@ -14,6 +14,9 @@ albedo_texture = ExtResource("3_ejl4i")
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_l3hfl"]
 albedo_texture = ExtResource("4_i6neg")
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_vw2n2"]
+size = Vector3(1.98181, 1, 0.635132)
+
 [node name="Kitchen" instance=ExtResource("1_vw2n2")]
 
 [node name="Table" parent="." index="0"]
@@ -24,3 +27,9 @@ material_override = SubResource("StandardMaterial3D_cykyy")
 
 [node name="ElectricCooking" parent="." index="2"]
 material_override = SubResource("StandardMaterial3D_l3hfl")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="." index="3"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.254211, 0.380725, 0.00213623)
+shape = SubResource("BoxShape3D_vw2n2")

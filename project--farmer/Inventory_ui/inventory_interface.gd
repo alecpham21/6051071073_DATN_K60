@@ -5,13 +5,18 @@ signal force_close
 
 var grabbed_slot_data: SlotData
 var external_inventory_owner
-
+var washing_machine_ui: Control
 
 @onready var player_inventory: PanelContainer = $PlayerInventory
 @onready var grabbed_slot: PanelContainer = $GrabbedSlot
 @onready var external_inventory: PanelContainer = $ExternalInventory
 @onready var equip_inventory: PanelContainer = $EquipInventory
 @onready var outfit_inventory: PanelContainer = $OutfitInventory
+
+
+func _ready():
+	washing_machine_ui = get_node_or_null("WashingMachineUI")
+
 func _physics_process(delta: float) -> void:
 	if grabbed_slot.visible:
 		grabbed_slot.global_position = get_global_mouse_position() + Vector2(5, 5)
@@ -35,26 +40,47 @@ func set_external_inventory(_external_inventory_owner) -> void:
 	external_inventory_owner = _external_inventory_owner
 	var inventory_data = external_inventory_owner.inventory_data
 	
-	inventory_data.inventory_interact.connect(on_inventory_interact)
-	external_inventory.set_inventory_data(inventory_data)
+	if not inventory_data.inventory_interact.is_connected(on_inventory_interact):
+		inventory_data.inventory_interact.connect(on_inventory_interact)
 	
 	if not force_close.is_connected(external_inventory_owner.close_chest):
 		force_close.connect(external_inventory_owner.close_chest)
 	
-	external_inventory.show()
-	
+	if external_inventory_owner is WashingMachine:
+		external_inventory.hide()
+		
+		if washing_machine_ui: 
+			washing_machine_ui.show()
+			if washing_machine_ui.has_method("setup_machine_ui"):
+				washing_machine_ui.setup_machine_ui(external_inventory_owner)
+		else:
+			print("Cảnh báo: Đang ở level không có UI Máy Giặt!")
+			
+	else:
+		if washing_machine_ui:
+			washing_machine_ui.hide()
+			
+		external_inventory.show()
+		external_inventory.set_inventory_data(inventory_data)
+
+
 func clear_external_inventory() -> void:
 	if external_inventory_owner:
 		var inventory_data = external_inventory_owner.inventory_data
-		inventory_data.inventory_interact.disconnect(on_inventory_interact)
+		
+		if inventory_data.inventory_interact.is_connected(on_inventory_interact):
+			inventory_data.inventory_interact.disconnect(on_inventory_interact)
 		
 		if force_close.is_connected(external_inventory_owner.close_chest):
 			force_close.disconnect(external_inventory_owner.close_chest)
 		
 		external_inventory.clear_inventory_data(inventory_data)
 		external_inventory.hide()
+		
+		if washing_machine_ui:
+			washing_machine_ui.hide()
+		
 		external_inventory_owner = null
-
 	
 func on_inventory_interact(invetory_data: InventoryData, 
 		index: int, button: int) -> void:

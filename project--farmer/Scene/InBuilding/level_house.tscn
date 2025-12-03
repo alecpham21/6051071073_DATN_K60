@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=3 uid="uid://o1wmcaqylahd"]
+[gd_scene load_steps=29 format=3 uid="uid://o1wmcaqylahd"]
 
 [ext_resource type="Script" uid="uid://dg34046jf1xjo" path="res://Scene/InBuilding/level_house.gd" id="1_iipvn"]
 [ext_resource type="Shader" uid="uid://c6qhkhar3xobg" path="res://Shader/edge_detection.gdshader" id="2_ofysm"]
@@ -12,6 +12,7 @@
 [ext_resource type="PackedScene" uid="uid://470pnke8j1j2" path="res://Inventory_ui/inventory.tscn" id="10_8g7rj"]
 [ext_resource type="PackedScene" uid="uid://cmaas2sclopj4" path="res://Inventory_ui/slot.tscn" id="11_r2ay0"]
 [ext_resource type="PackedScene" uid="uid://dh4ns40qdxwam" path="res://Inventory_ui/hot_bar_inventory.tscn" id="12_gh1d0"]
+[ext_resource type="PackedScene" uid="uid://viw0xh7gair5" path="res://ui/other/washing_machine_control.tscn" id="12_r6vy2"]
 [ext_resource type="PackedScene" uid="uid://cnh3uiwulfbdd" path="res://modelTscn/storage/wardrope.tscn" id="14_iipvn"]
 [ext_resource type="Shader" uid="uid://c13esa4vg2n5k" path="res://level/posterization.gdshader" id="15_hou3o"]
 [ext_resource type="Material" uid="uid://fcrap08w717d" path="res://EnvironmentResources/emissive_mat.tres" id="16_02qar"]
@@ -157,39 +158,82 @@ grow_vertical = 2
 script = ExtResource("9_ejw82")
 
 [node name="PlayerInventory" parent="UI/InventoryInterface" instance=ExtResource("10_8g7rj")]
-layout_mode = 0
-offset_left = 126.9
-offset_top = 251.0
-offset_right = 166.9
-offset_bottom = 291.0
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -326.0
+offset_top = -20.0
+offset_right = -286.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="EquipInventory" parent="UI/InventoryInterface" instance=ExtResource("10_8g7rj")]
-layout_mode = 0
-offset_left = 126.9
-offset_top = 161.93
-offset_right = 166.9
-offset_bottom = 201.93
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -496.0
+offset_top = -144.0
+offset_right = -456.0
+offset_bottom = -104.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="OutfitInventory" parent="UI/InventoryInterface" instance=ExtResource("10_8g7rj")]
-layout_mode = 0
-offset_left = 256.885
-offset_top = 161.93
-offset_right = 296.885
-offset_bottom = 201.93
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -291.0
+offset_top = -144.0
+offset_right = -251.0
+offset_bottom = -104.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="ExternalInventory" parent="UI/InventoryInterface" instance=ExtResource("10_8g7rj")]
 visible = false
-layout_mode = 0
-offset_left = 661.285
-offset_top = 251.0
-offset_right = 701.285
-offset_bottom = 291.0
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 224.0
+offset_top = -20.0
+offset_right = 264.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="GrabbedSlot" parent="UI/InventoryInterface" instance=ExtResource("11_r2ay0")]
 visible = false
 modulate = Color(1, 1, 1, 0.52549)
 self_modulate = Color(1, 1, 1, 0)
 layout_mode = 0
+
+[node name="WashingMachineUI" parent="UI/InventoryInterface" instance=ExtResource("12_r6vy2")]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 24.0
+offset_top = -74.0
+offset_right = 64.0
+offset_bottom = -34.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="HotBarInventory" parent="UI" instance=ExtResource("12_gh1d0")]
 anchors_preset = 7
@@ -259,7 +303,7 @@ script = ExtResource("17_scj0i")
 transform = Transform3D(-0.495, 0, -4.32743e-08, 0, 0.495, 0, 4.32743e-08, 0, -0.495, 3.3092, 0.692934, 3.00083)
 
 [node name="Kitchen" parent="." instance=ExtResource("18_yns1g")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.42145, 0, 3.37305)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.04002, 0, 3.37305)
 
 [connection signal="drop_slot_data" from="UI/InventoryInterface" to="UI/InventoryInterface" method="_on_drop_slot_data"]
 [connection signal="gui_input" from="UI/InventoryInterface" to="UI/InventoryInterface" method="_on_gui_input"]

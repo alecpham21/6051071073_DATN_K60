@@ -11,24 +11,28 @@
 script = ExtResource("2_22171")
 item_data = ExtResource("3_bursm")
 quantity = 3
+current_dirt_level = 0.0
 metadata/_custom_type_script = "uid://bspkgwkxsy8mn"
 
 [sub_resource type="Resource" id="Resource_reoft"]
 script = ExtResource("2_22171")
 item_data = ExtResource("4_igh2m")
 quantity = 4
+current_dirt_level = 0.0
 metadata/_custom_type_script = "uid://bspkgwkxsy8mn"
 
 [sub_resource type="Resource" id="Resource_l16nn"]
 script = ExtResource("2_22171")
 item_data = ExtResource("5_22171")
 quantity = 3
+current_dirt_level = 0.0
 metadata/_custom_type_script = "uid://bspkgwkxsy8mn"
 
 [sub_resource type="Resource" id="Resource_igh2m"]
 script = ExtResource("2_22171")
 item_data = ExtResource("6_l16nn")
 quantity = 3
+current_dirt_level = 0.0
 metadata/_custom_type_script = "uid://bspkgwkxsy8mn"
 
 [resource]

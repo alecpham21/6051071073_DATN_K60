@@ -49,6 +49,8 @@ var is_busy: bool = false:
 		if !val && is_busy: action_finished.emit()
 		is_busy = val
 var body_parts_map = {}
+var current_interactable: Node3D = null
+
 
 signal toggle_inventory()
 signal action_finished
@@ -106,6 +108,15 @@ func _ready() -> void:
 			outfit_inventory_data.inventory_updated.connect(update_all_outfits)
 			update_all_outfits()
 
+## Biking
+
+	if PlayerData.is_transitioning_with_bike:
+			await get_tree().process_frame 
+			if limbo_hsm:
+				(limbo_hsm as LimboPrimeHSM).dispatch("bike")
+			# Fix the "biking virus while switching scene"
+			PlayerData.is_transitioning_with_bike = false
+
 func _process(_delta):
 	if not ground_gen:
 		return
@@ -157,6 +168,11 @@ func _unhandled_input(event: InputEvent) -> void:
 		interact()
 
 	if event.is_action_pressed("use_item") and not is_busy:
+		if Watcher.indoor:
+			var current_slot = HotBar.active_slot
+			if current_slot and current_slot.item_data is ItemDataTool:
+				print("🚫 Không thể dùng công cụ trong nhà!")
+				return
 		(limbo_hsm as LimboPrimeHSM).use_item = true
 		print("DEBUG: Use item pressed, current_tool_name =", current_tool_name)
 	if event.is_action_released("use_item"):
@@ -177,6 +193,16 @@ func _physics_process(delta: float) -> void:
 	
 	if bt_player:
 		bt_player.update(delta)
+
+func register_interactable(object):
+	current_interactable = object
+	print("Đã vào vùng - Hiện UI Interact")
+	
+
+func unregister_interactable(object):
+	if current_interactable == object:
+		current_interactable = null
+		print("Đã ra khỏi vùng - Ẩn UI")
 
 
 func update_all_outfits(_inventory_data = null):

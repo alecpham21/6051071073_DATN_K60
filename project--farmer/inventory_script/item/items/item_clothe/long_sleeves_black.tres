@@ -13,6 +13,7 @@ script = ExtResource("1_da87q")
 outfit_type = 1
 equip_mesh = ExtResource("1_11cbh")
 hidden_body_parts = Array[int]([4])
+max_dirt_level = 100.0
 name = "Long Sleeves Black"
 description = ""
 stackable = false

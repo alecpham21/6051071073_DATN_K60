@@ -110,3 +110,10 @@ func on_slot_clicked(index: int, button: int) -> void:
 func inventory_cache(idx:int):
 	if slot_datas[idx] && slot_datas[idx].quantity <= 0: slot_datas[idx] = null
 	inventory_updated.emit(self)
+
+func add_item(item: ItemData, quantity: int) -> bool:
+	var new_slot_data = SlotData.new()
+	new_slot_data.item_data = item
+	new_slot_data.quantity = quantity
+	
+	return pick_up_slot_data(new_slot_data)

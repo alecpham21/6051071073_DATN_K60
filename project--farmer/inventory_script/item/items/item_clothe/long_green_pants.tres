@@ -13,6 +13,7 @@ script = ExtResource("1_t4kmn")
 outfit_type = 2
 equip_mesh = ExtResource("1_dhpae")
 hidden_body_parts = Array[int]([3, 2])
+max_dirt_level = 100.0
 name = "Long Green Pants"
 description = "It is a pants"
 stackable = false

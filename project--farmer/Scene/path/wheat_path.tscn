@@ -1,19 +1,20 @@
-[gd_scene load_steps=29 format=4 uid="uid://ur2pge51fxfv"]
+[gd_scene load_steps=30 format=4 uid="uid://ur2pge51fxfv"]
 
 [ext_resource type="PackedScene" uid="uid://bmhl8qko3n3tu" path="res://model/path/WheatPath.glb" id="1_kffy8"]
 [ext_resource type="Texture2D" uid="uid://1gysjnj7jqbq" path="res://assets/ImphenziaPalette01-256-Gradient.png" id="2_uutuv"]
 [ext_resource type="Shader" uid="uid://b4s70mn666gsf" path="res://Shaders/Ocean/ocean.gdshader" id="3_uutuv"]
-[ext_resource type="ArrayMesh" uid="uid://bj3luhgq8w0ps" path="res://model/grass.res" id="4_16mcv"]
+[ext_resource type="ArrayMesh" uid="uid://bj3luhgq8w0ps" path="res://model/otherGrass/grass.res" id="4_16mcv"]
 [ext_resource type="Script" uid="uid://51xjqd5mtm8b" path="res://Scene/path/multi_wheat.gd" id="5_0pyxl"]
 [ext_resource type="PackedScene" uid="uid://oovulyht40nw" path="res://modelTscn/building/bg/traditional_house_bg.tscn" id="7_16mcv"]
 [ext_resource type="PackedScene" uid="uid://bjxrobwweubb3" path="res://model/tree/TreeVer1.tscn" id="7_wuo3o"]
+[ext_resource type="PackedScene" uid="uid://dmwkrs1xd638u" path="res://modelTscn/tree/tre.tscn" id="7_ypvq8"]
 [ext_resource type="Texture2D" uid="uid://3r7famuqdlcn" path="res://model/building/Town/TraditionalTownFull2_ImphenziaPalette01-256-Gradient.png" id="8_wuo3o"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_16mcv"]
 albedo_color = Color(0.876581, 0.556309, 0.384695, 1)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_mvjl4"]
-size = Vector3(1.90112, 1.18494, 2.10742)
+size = Vector3(2.01288, 1.18494, 2.10742)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mvjl4"]
 albedo_texture = ExtResource("2_uutuv")
@@ -155,7 +156,7 @@ material_override = SubResource("StandardMaterial3D_16mcv")
 [node name="StaticBody3D" type="StaticBody3D" parent="PathToTown" index="0"]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="PathToTown/StaticBody3D" index="0"]
-transform = Transform3D(1, 0, 0, 0, 0.99999, 0, 0, 0, 1, 0.0635986, -0.582336, 0.0380859)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00771972, -0.582336, 0.0380859)
 shape = SubResource("BoxShape3D_mvjl4")
 
 [node name="GrassZone" parent="." index="1"]
@@ -321,6 +322,18 @@ transform = Transform3D(9.07, 0, 0, 0, 9.07, 0, 0, 0, 9.07, 220.325, 1.24016, -2
 
 [node name="TreeVer36" parent="Forest" index="35" instance=ExtResource("7_wuo3o")]
 transform = Transform3D(9.07, 0, 0, 0, 9.07, 0, 0, 0, 9.07, 220.325, 1.24016, -68.0652)
+
+[node name="tre" parent="Forest" index="36" instance=ExtResource("7_ypvq8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -186.794, 0, -6.68676)
+
+[node name="tre2" parent="Forest" index="37" instance=ExtResource("7_ypvq8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -186.794, 0, 7.70405)
+
+[node name="tre3" parent="Forest" index="38" instance=ExtResource("7_ypvq8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -191.414, 0, 22.9732)
+
+[node name="tre4" parent="Forest" index="39" instance=ExtResource("7_ypvq8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -191.414, 0, -20.9659)
 
 [node name="FakeWaterField" type="MeshInstance3D" parent="." index="12"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.23579, -1.74394, -115.196)

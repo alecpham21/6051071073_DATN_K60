@@ -12,36 +12,42 @@
 script = ExtResource("2_6s2pl")
 item_data = ExtResource("3_6s2pl")
 quantity = 1
+current_dirt_level = 0.0
 metadata/_custom_type_script = "uid://bspkgwkxsy8mn"
 
 [sub_resource type="Resource" id="Resource_3mccm"]
 script = ExtResource("2_6s2pl")
 item_data = ExtResource("4_ghvt5")
 quantity = 1
+current_dirt_level = 0.0
 metadata/_custom_type_script = "uid://bspkgwkxsy8mn"
 
 [sub_resource type="Resource" id="Resource_jxao8"]
 script = ExtResource("2_6s2pl")
 item_data = ExtResource("5_g1dl5")
 quantity = 1
+current_dirt_level = 0.0
 metadata/_custom_type_script = "uid://bspkgwkxsy8mn"
 
 [sub_resource type="Resource" id="Resource_guxv0"]
 script = ExtResource("2_6s2pl")
 item_data = ExtResource("6_66p8m")
 quantity = 1
+current_dirt_level = 0.0
 metadata/_custom_type_script = "uid://bspkgwkxsy8mn"
 
 [sub_resource type="Resource" id="Resource_t7bjo"]
 script = ExtResource("2_6s2pl")
 item_data = ExtResource("3_6s2pl")
 quantity = 1
+current_dirt_level = 0.0
 metadata/_custom_type_script = "uid://bspkgwkxsy8mn"
 
 [sub_resource type="Resource" id="Resource_p0si7"]
 script = ExtResource("2_6s2pl")
 item_data = ExtResource("7_66p8m")
 quantity = 1
+current_dirt_level = 0.0
 metadata/_custom_type_script = "uid://bspkgwkxsy8mn"
 
 [resource]

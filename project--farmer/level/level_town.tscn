@@ -108,6 +108,23 @@ use_gravity = true
 camera_ref_path = NodePath("../SpringArm3D/Camera3D")
 inventory_data = ExtResource("5_kcivo")
 
+[node name="background" type="Node3D" parent="."]
+transform = Transform3D(-0.34056, 0, -0.940223, 0, 1, 0, 0.940223, 0, -0.34056, 99.2333, 4.54498, -120.373)
+
+[node name="BigTerrainMoutain" parent="background" instance=ExtResource("13_83m1q")]
+transform = Transform3D(63.86, 0, 0, 0, 63.86, 0, 0, 0, 63.86, -0.373759, -13.9444, -0.241655)
+
+[node name="MixColorShader" type="CanvasLayer" parent="."]
+
+[node name="ColorRect" type="ColorRect" parent="MixColorShader"]
+material = SubResource("ShaderMaterial_fiaav")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
 [node name="UI" type="CanvasLayer" parent="."]
 
 [node name="InventoryInterface" type="Control" parent="UI"]
@@ -121,33 +138,61 @@ grow_vertical = 2
 script = ExtResource("7_iu1fk")
 
 [node name="PlayerInventory" parent="UI/InventoryInterface" instance=ExtResource("8_ohymk")]
-layout_mode = 0
-offset_left = 126.9
-offset_top = 251.0
-offset_right = 166.9
-offset_bottom = 291.0
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -326.0
+offset_top = -20.0
+offset_right = -286.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="EquipInventory" parent="UI/InventoryInterface" instance=ExtResource("8_ohymk")]
-layout_mode = 0
-offset_left = 126.9
-offset_top = 161.93
-offset_right = 166.9
-offset_bottom = 201.93
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -496.0
+offset_top = -144.0
+offset_right = -456.0
+offset_bottom = -104.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="OutfitInventory" parent="UI/InventoryInterface" instance=ExtResource("8_ohymk")]
-layout_mode = 0
-offset_left = 256.885
-offset_top = 161.93
-offset_right = 296.885
-offset_bottom = 201.93
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -291.0
+offset_top = -144.0
+offset_right = -251.0
+offset_bottom = -104.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="ExternalInventory" parent="UI/InventoryInterface" instance=ExtResource("8_ohymk")]
 visible = false
-layout_mode = 0
-offset_left = 661.285
-offset_top = 251.0
-offset_right = 701.285
-offset_bottom = 291.0
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 224.0
+offset_top = -20.0
+offset_right = 264.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="GrabbedSlot" parent="UI/InventoryInterface" instance=ExtResource("9_rw7wq")]
 visible = false
@@ -167,23 +212,6 @@ offset_right = 241.0
 offset_bottom = 0.0
 grow_horizontal = 2
 grow_vertical = 0
-
-[node name="background" type="Node3D" parent="."]
-transform = Transform3D(-0.34056, 0, -0.940223, 0, 1, 0, 0.940223, 0, -0.34056, 99.2333, 4.54498, -120.373)
-
-[node name="BigTerrainMoutain" parent="background" instance=ExtResource("13_83m1q")]
-transform = Transform3D(63.86, 0, 0, 0, 63.86, 0, 0, 0, 63.86, -0.373759, -13.9444, -0.241655)
-
-[node name="MixColorShader" type="CanvasLayer" parent="."]
-
-[node name="ColorRect" type="ColorRect" parent="MixColorShader"]
-material = SubResource("ShaderMaterial_fiaav")
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
 
 [node name="TraditionalTownFull1" parent="." instance=ExtResource("15_auj8g")]
 transform = Transform3D(2.12, 0, 0, 0, 2.12, 0, 0, 0, 2.12, -9.74293, 0.977251, 0)

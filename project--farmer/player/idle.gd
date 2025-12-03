@@ -22,4 +22,5 @@ func check_dispatch():
 	if local_holding != limbo_hsm.long_tool:
 		dispatch("self")
 	if Input.is_action_just_pressed("toggle_vehicle"): 
-		dispatch("bike")
+		if not Watcher.indoor:
+			dispatch("bike")

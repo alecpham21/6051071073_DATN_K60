@@ -6,22 +6,40 @@ const MAX_TAC_SIZE: int = 99.0
 @export var item_data: ItemData
 @export_range(1, MAX_TAC_SIZE) var quantity: int = 1:
 	set = set_quantity
-@export var current_dirt_level: float = 0.0
+@export var attributes: Array[ItemAttribute] = []
+
+
+func get_stat(id: String) -> float:
+	for attr in attributes:
+		if attr.id == id:
+			return attr.value
+	return 0.0 # Không tìm thấy trả về 0
+
+func set_stat(id: String, new_value: float) -> void:
+	# 1. Tìm xem có chưa, có thì sửa
+	for attr in attributes:
+		if attr.id == id:
+			attr.value = new_value
+			return
+	
+	# 2. Chưa có thì tạo mới
+	var new_attr = ItemAttribute.new()
+	new_attr.id = id
+	new_attr.value = new_value
+	attributes.append(new_attr)
+
 
 func is_dirty() -> bool:
-	return current_dirt_level > 0
+	return get_stat("dirt") > 0.0
 
 func clean_slot() -> void:
-	current_dirt_level = 0.0
-	
+	set_stat("dirt", 0.0)
 
 func add_dirt(amount: float) -> void:
-	# Cần lấy max_dirt từ item_data gốc
-	var max_d = 100.0
 	if item_data is ItemDataOutfit:
-		max_d = item_data.max_dirt_level
-		
-	current_dirt_level = clamp(current_dirt_level + amount, 0, max_d)
+		var current = get_stat("dirt")
+		var max_d = item_data.max_dirt_level 
+		set_stat("dirt", clamp(current + amount, 0, max_d))
 
 func can_merge_with(other_slot_data: SlotData) -> bool:
 	return item_data == other_slot_data.item_data \
@@ -38,7 +56,14 @@ func fully_merge_with(other_slot_data: SlotData) -> void:
 func create_single_slot_data() -> SlotData:
 	var new_slot_data = duplicate()
 	new_slot_data.quantity = 1
-	new_slot_data.current_dirt_level = current_dirt_level
+
+	new_slot_data.attributes = []
+	for attr in attributes:
+		var new_attr = ItemAttribute.new()
+		new_attr.id = attr.id
+		new_attr.value = attr.value
+		new_slot_data.attributes.append(new_attr)
+		
 	quantity -= 1
 	return new_slot_data
 

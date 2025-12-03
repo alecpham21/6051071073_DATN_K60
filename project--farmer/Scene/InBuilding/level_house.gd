@@ -1,5 +1,6 @@
 extends Level
 
+
 const PickUp = preload("res://inventory_script/item/pick_up_item/pick_up.tscn")
 
 @onready var player: CharacterBody3D = %MainFarmer

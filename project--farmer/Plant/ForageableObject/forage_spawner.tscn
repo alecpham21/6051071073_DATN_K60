@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://dstptr33cuh2f"]
+
+[ext_resource type="Script" uid="uid://dqoten6ld1a0r" path="res://forage_spawner.gd" id="1_nilvv"]
+[ext_resource type="PackedScene" uid="uid://bmplj1vxd2ygn" path="res://Plant/ForageableObject/bamboo_shoot.tscn" id="2_twsoq"]
+
+[node name="ForageSpawner" type="Node3D"]
+script = ExtResource("1_nilvv")
+forage_scene = ExtResource("2_twsoq")

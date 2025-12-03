@@ -8,6 +8,8 @@ var chest_inventories: Dictionary = {}
 
 var next_spawn_position: Vector3
 var used_spawn_position: bool = true
+var is_transitioning_with_bike: bool = false
+var washing_machine_timers: Dictionary = {}
 
 func _ready():
 	if player_inventory_data == null:
