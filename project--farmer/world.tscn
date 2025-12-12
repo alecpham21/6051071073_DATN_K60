@@ -1,4 +1,4 @@
-[gd_scene load_steps=54 format=4 uid="uid://bbvhog32snru6"]
+[gd_scene load_steps=55 format=4 uid="uid://bbvhog32snru6"]
 
 [ext_resource type="Script" uid="uid://hctai00r4njf" path="res://world.gd" id="1_dwbse"]
 [ext_resource type="Shader" uid="uid://bkw4b21akjsc2" path="res://subViewportPixel.gdshader" id="2_gggvi"]
@@ -31,6 +31,7 @@
 [ext_resource type="Script" uid="uid://djj2m2skea716" path="res://TimeCheck.gd" id="29_qktwf"]
 [ext_resource type="PackedScene" uid="uid://bjxrobwweubb3" path="res://model/tree/TreeVer1.tscn" id="30_bh8nc"]
 [ext_resource type="Shader" uid="uid://c13esa4vg2n5k" path="res://level/posterization.gdshader" id="30_qktwf"]
+[ext_resource type="PackedScene" uid="uid://b5bavm45lxiid" path="res://ui/Recipe/recipe_ui.tscn" id="32_gggvi"]
 [ext_resource type="PackedScene" uid="uid://cbksswef0oxs8" path="res://Scene/structureScene/well.tscn" id="32_jjr1n"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_jjr1n"]
@@ -465,6 +466,8 @@ offset_right = 241.0
 offset_bottom = 0.0
 grow_horizontal = 2
 grow_vertical = 0
+
+[node name="RecipeUI" parent="UI" instance=ExtResource("32_gggvi")]
 
 [node name="well" parent="." instance=ExtResource("32_jjr1n")]
 transform = Transform3D(-2.99423e-08, 0, 0.685, 0, 0.685, 0, -0.685, 0, -2.99423e-08, -6.74132, 0, -6.55389)

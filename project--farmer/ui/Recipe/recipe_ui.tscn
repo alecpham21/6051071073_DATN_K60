@@ -19,6 +19,8 @@ recipes = Array[ExtResource("2_o5va4")]([ExtResource("3_kukbk"), ExtResource("4_
 [node name="InteractiveBook2D" parent="." instance=ExtResource("5_kukbk")]
 position = Vector2(740, 300)
 scale = Vector2(12.875, 11.625)
+frame = 0
+frame_progress = 0.0
 
 [node name="ItemTexture" type="TextureRect" parent="."]
 layout_mode = 1
