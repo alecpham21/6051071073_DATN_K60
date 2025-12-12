@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://do6sbed68x140"]
+[gd_scene load_steps=23 format=3 uid="uid://do6sbed68x140"]
 
 [ext_resource type="Shader" uid="uid://c6qhkhar3xobg" path="res://Shader/edge_detection.gdshader" id="1_fkl30"]
 [ext_resource type="Script" uid="uid://bilxeqvesu7y3" path="res://level/level_wheat_field.gd" id="1_w3ip3"]
@@ -15,6 +15,7 @@
 [ext_resource type="PackedScene" uid="uid://dd48ywngxd2oc" path="res://Scene/Environment/day_night_cycle.tscn" id="13_dptbf"]
 [ext_resource type="PackedScene" uid="uid://ur2pge51fxfv" path="res://Scene/path/wheat_path.tscn" id="14_xgc3j"]
 [ext_resource type="PackedScene" uid="uid://dxe4dtsmib4py" path="res://level/level script/out_door.tscn" id="15_w3ip3"]
+[ext_resource type="Script" uid="uid://r5xbtfwav8ci" path="res://level/wheat_water_hazard.gd" id="16_cjq8t"]
 
 [sub_resource type="QuadMesh" id="QuadMesh_n1vqm"]
 flip_faces = true
@@ -36,11 +37,11 @@ size = Vector2(4, 4)
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_wbp06"]
 render_priority = 0
 shader = ExtResource("2_w3ip3")
-shader_parameter/depth_threshold = 0.315
-shader_parameter/reverse_depth_threshold = 0.076
-shader_parameter/normal_threshold = 0.802
-shader_parameter/darken_amount = 0.21
-shader_parameter/lighten_amount = 2.39
+shader_parameter/depth_threshold = 0.101
+shader_parameter/reverse_depth_threshold = 1.0
+shader_parameter/normal_threshold = 1.0
+shader_parameter/darken_amount = 0.66
+shader_parameter/lighten_amount = 4.2
 shader_parameter/normal_edge_bias = Vector3(1, 1, 1)
 shader_parameter/light_direction = Vector3(-0.96, -0.18, 0.2)
 shader_parameter/outline_thickness = 1.1
@@ -54,6 +55,9 @@ shader_parameter/use_h = false
 shader_parameter/steps_l = 16.0
 shader_parameter/level_c = 5.0
 shader_parameter/level_h = 0.05
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_w3ip3"]
+size = Vector3(290.19, 1.30859, 14.145)
 
 [node name="level_wheat_field" type="Node3D"]
 script = ExtResource("1_w3ip3")
@@ -220,6 +224,18 @@ offset_right = 241.0
 offset_bottom = 0.0
 grow_horizontal = 2
 grow_vertical = 0
+
+[node name="WaterArea" type="Area3D" parent="."]
+collision_mask = 2
+script = ExtResource("16_cjq8t")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="WaterArea"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.886, -2.885, 10.725)
+shape = SubResource("BoxShape3D_w3ip3")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="WaterArea"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.736526, -2.88465, -9.88706)
+shape = SubResource("BoxShape3D_w3ip3")
 
 [connection signal="drop_slot_data" from="UI/InventoryInterface" to="UI/InventoryInterface" method="_on_drop_slot_data"]
 [connection signal="gui_input" from="UI/InventoryInterface" to="UI/InventoryInterface" method="_on_gui_input"]

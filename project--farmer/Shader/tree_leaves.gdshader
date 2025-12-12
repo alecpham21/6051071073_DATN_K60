@@ -1,14 +1,18 @@
 shader_type spatial;
-render_mode blend_mix, depth_draw_opaque,cull_disabled;
+render_mode blend_mix, depth_draw_opaque, cull_disabled;
 
 uniform sampler2D alphaTexture;
 uniform vec4 leavesColor : source_color;
 uniform float alphaThreshold = 0.1;
 
+// --- THÊM MỚI ---
+uniform bool deactivateBillboard = false; 
+// ----------------
+
 uniform float offsetScale : hint_range(0.0001, 1.0, 0.001);
 
 //Fresnel
-uniform float fresnelStrength : hint_range(-2.0, 2.0) =  0.5;
+uniform float fresnelStrength : hint_range(-2.0, 2.0) = 0.5;
 uniform float fresnelBlend : hint_range(-1.0,1.0) = 1.0;
 uniform vec4 fresnelColor : source_color = vec4(0.58,0.65,0.33,1.0);
 
@@ -21,10 +25,7 @@ uniform bool deactiveGlobalVariation;
 uniform float clampTop : hint_range(0.0,1.0) = 1.0;
 uniform float clampBottom : hint_range(-1.0, 0.0) = 0.0;
 
-
-
 void fragment() {
-
 	//Fresnel Effect.
 	float rate_col = clamp(COLOR.r,0.0,1.0);
 	float fresnel = pow(1.0 - clamp(dot(NORMAL,VIEW),0.0,1.0),3.0);
@@ -43,11 +44,16 @@ void fragment() {
 }
 
 void vertex(){
-
-	vec2 uvOffset = vec2(UV.x * 2.0 - 1.0, -(UV.y * 2.0 - 1.0));
-	uvOffset /= 2.0;
-	vec4 off = inverse(MODELVIEW_MATRIX) * vec4(uvOffset,1.0,0.0);
-	off = vec4(normalize(off.xyz),0.0) * offsetScale;
+	// --- LOGIC BILLBOARD ĐÃ SỬA ---
+	vec3 billboard_offset = vec3(0.0);
+	
+	if (!deactivateBillboard) {
+		vec2 uvOffset = vec2(UV.x * 2.0 - 1.0, -(UV.y * 2.0 - 1.0));
+		uvOffset /= 2.0;
+		vec4 off = inverse(MODELVIEW_MATRIX) * vec4(uvOffset,1.0,0.0);
+		billboard_offset = vec4(normalize(off.xyz),0.0).xyz * offsetScale;
+	}
+	// ------------------------------
 
 	//Wind
 	vec3 world_pos = (MODEL_MATRIX*vec4(VERTEX,1.0)).xyz;
@@ -66,6 +72,6 @@ void vertex(){
 
 	vec3 wind_offset = vec3(VERTEX.x * si * mask, VERTEX.y * si * mask, VERTEX.z * csi * mask);
 
-	VERTEX += off.xyz + wind_offset;
+	// Cộng cả billboard_offset (nếu có) và wind_offset
+	VERTEX += billboard_offset + wind_offset;
 }
-

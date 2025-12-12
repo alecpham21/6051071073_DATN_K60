@@ -8,25 +8,27 @@ func update_visuals():
 	if mesh_middle: mesh_middle.visible = false
 	if mesh_ready: mesh_ready.visible = false
 	
-	# Tính phần trăm độ lớn (từ 0.0 đến 1.0)
-	# Ép kiểu float để chia có số thập phân
-	var progress = float(current_growth) / float(max_growth)
+	# Lấy trạng thái nước
+	var is_watered_real = false
+	var parent_gen = get_parent()
+	if parent_gen and "block_data" in parent_gen:
+		var block = parent_gen.block_data[current_grid_pos.x][current_grid_pos.y]
+		is_watered_real = block.is_watered
+
+	# Dùng hàm get_stage_id() từ class cha cho đồng bộ logic
+	var stage = get_stage_id()
 	
-	if progress <= 0.2:
-		if mesh_seeding: mesh_seeding.visible = true
-		_set_soil_wet(true)
-		
-	elif progress <= 0.5:
-		if mesh_seeding: mesh_seeding.visible = true 
-		if mesh_sapling: mesh_sapling.visible = true
-		_set_soil_wet(false)
-		
-	elif progress < 1.0:
-		if mesh_seeding: mesh_seeding.visible = true
-		if mesh_middle: mesh_middle.visible = true
-		_set_soil_wet(false)
-		
-	else:
-		if mesh_seeding: mesh_seeding.visible = true
-		if mesh_ready: mesh_ready.visible = true
-		_set_soil_wet(false)
+	match stage:
+		0:
+			if mesh_seeding: mesh_seeding.visible = true
+		1:
+			if mesh_seeding: mesh_seeding.visible = true 
+			if mesh_sapling: mesh_sapling.visible = true
+		2:
+			if mesh_seeding: mesh_seeding.visible = true
+			if mesh_middle: mesh_middle.visible = true
+		3:
+			if mesh_seeding: mesh_seeding.visible = true
+			if mesh_ready: mesh_ready.visible = true
+	
+	_set_soil_wet(is_watered_real)

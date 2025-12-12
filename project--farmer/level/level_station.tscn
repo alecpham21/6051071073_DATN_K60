@@ -1,0 +1,244 @@
+[gd_scene load_steps=29 format=3 uid="uid://bdq8ist3s8m2s"]
+
+[ext_resource type="Shader" uid="uid://bkw4b21akjsc2" path="res://subViewportPixel.gdshader" id="1_yfkc0"]
+[ext_resource type="Shader" uid="uid://viqy3uwh6ns7" path="res://PixelShader.gdshader" id="2_2bq7i"]
+[ext_resource type="Script" uid="uid://bshrove7rvagv" path="res://spring_arm_camera.gd" id="3_h51qb"]
+[ext_resource type="PackedScene" uid="uid://ccq4apmdu8hcc" path="res://npc/NPCJohn.tscn" id="6_2bq7i"]
+[ext_resource type="PackedScene" uid="uid://bnxu42mjbjp8x" path="res://player/main_farmer.tscn" id="10_7y74v"]
+[ext_resource type="PackedScene" uid="uid://cyg1l530dnfxw" path="res://model/mytree.tscn" id="10_h51qb"]
+[ext_resource type="Resource" uid="uid://c05tf37csx4tp" path="res://inventory_script/test_inv.tres" id="11_c0e4f"]
+[ext_resource type="PackedScene" uid="uid://dnbhv81qwnaeh" path="res://level/bus_station_design.tscn" id="12_n7b7q"]
+[ext_resource type="Shader" uid="uid://c13esa4vg2n5k" path="res://level/posterization.gdshader" id="13_4vxj8"]
+[ext_resource type="Material" uid="uid://7yimpm2wyl7g" path="res://Shaders/Ocean/water_mat.tres" id="13_q1x03"]
+[ext_resource type="PackedScene" uid="uid://dawcy3gjl661x" path="res://terrain/big_terrain_moutain_ver_2.tscn" id="14_7eeh6"]
+[ext_resource type="PackedScene" uid="uid://dd48ywngxd2oc" path="res://Scene/Environment/day_night_cycle.tscn" id="14_jfhus"]
+[ext_resource type="PackedScene" uid="uid://c3gcddyset4iw" path="res://Scene/Tree/tree_sway.tscn" id="15_2bq7i"]
+[ext_resource type="Script" uid="uid://djj2m2skea716" path="res://TimeCheck.gd" id="15_m2dnx"]
+[ext_resource type="PackedScene" uid="uid://oovulyht40nw" path="res://modelScene/building/bg/traditional_house_bg.tscn" id="15_yfkc0"]
+[ext_resource type="PackedScene" uid="uid://3jxa35euuhvp" path="res://model/tree/TreeVer2.tscn" id="16_h51qb"]
+[ext_resource type="PackedScene" uid="uid://yxffan0vylfv" path="res://modelScene/rock/a_rock_1.tscn" id="17_7upow"]
+[ext_resource type="PackedScene" uid="uid://bjxrobwweubb3" path="res://model/tree/TreeVer1.tscn" id="17_r82og"]
+[ext_resource type="Script" uid="uid://b61j7me8km5bx" path="res://level/cut_scene_trigger.gd" id="19_7upow"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_hv47h"]
+shader = ExtResource("1_yfkc0")
+
+[sub_resource type="QuadMesh" id="QuadMesh_3aim3"]
+flip_faces = true
+size = Vector2(4, 4)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_as0py"]
+render_priority = 0
+shader = ExtResource("2_2bq7i")
+shader_parameter/depth_threshold = 0.315
+shader_parameter/reverse_depth_threshold = 0.076
+shader_parameter/normal_threshold = 0.634
+shader_parameter/darken_amount = 0.23
+shader_parameter/lighten_amount = 2.39
+shader_parameter/normal_edge_bias = Vector3(1, 1, 1)
+shader_parameter/light_direction = Vector3(-0.96, -0.18, 0.2)
+shader_parameter/outline_thickness = 1.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_pxd7x"]
+shader = ExtResource("13_4vxj8")
+shader_parameter/mix_amount = 0.165
+shader_parameter/use_l = false
+shader_parameter/use_c = true
+shader_parameter/use_h = false
+shader_parameter/steps_l = 15.0
+shader_parameter/level_c = 5.0
+shader_parameter/level_h = 0.05
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_n7b7q"]
+size = Vector3(145.964, 4.76846, 158.393)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_h51qb"]
+size = Vector3(64.831, 17.4164, 90.7583)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_q1x03"]
+material = ExtResource("13_q1x03")
+size = Vector2(529.59, 218.89)
+subdivide_width = 32
+subdivide_depth = 32
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_7eeh6"]
+size = Vector2(200, 68.015)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_r82og"]
+size = Vector3(14.3547, 2.32129, 1)
+
+[node name="level_station" type="Node3D"]
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="."]
+texture_filter = 1
+material = SubResource("ShaderMaterial_hv47h")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -6.52002
+grow_horizontal = 2
+grow_vertical = 2
+stretch = true
+stretch_shrink = 2
+
+[node name="SubViewport" type="SubViewport" parent="SubViewportContainer"]
+handle_input_locally = false
+size = Vector2i(572, 324)
+render_target_update_mode = 4
+
+[node name="ShaderOutline" type="MeshInstance3D" parent="SubViewportContainer/SubViewport"]
+transform = Transform3D(1, 0, 0, 0, 0.00750488, 0.999972, 0, -0.999972, 0.00750488, 0.180526, -208.089, 0)
+extra_cull_margin = 16384.0
+mesh = SubResource("QuadMesh_3aim3")
+surface_material_override/0 = SubResource("ShaderMaterial_as0py")
+
+[node name="SpringArm3D" type="SpringArm3D" parent="SubViewportContainer/SubViewport"]
+transform = Transform3D(1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, 0, 0.659112, 0)
+spring_length = 7.0
+script = ExtResource("3_h51qb")
+player_path = NodePath("../MainFarmer")
+max_zoom = 10.0
+
+[node name="Camera3D" type="Camera3D" parent="SubViewportContainer/SubViewport/SpringArm3D"]
+fov = 69.0
+
+[node name="CameraOrthgonal" type="Camera3D" parent="SubViewportContainer/SubViewport/SpringArm3D"]
+visible = false
+projection = 1
+size = 4.817
+
+[node name="MainFarmer" parent="SubViewportContainer/SubViewport" instance=ExtResource("10_7y74v")]
+unique_name_in_owner = true
+use_gravity = true
+camera_ref_path = NodePath("../SpringArm3D/Camera3D")
+inventory_data = ExtResource("11_c0e4f")
+
+[node name="NPCJohn" parent="SubViewportContainer/SubViewport" instance=ExtResource("6_2bq7i")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -2.78281, 0, -17.7764)
+target_farm_scene = "uid://bbvhog32snru6"
+target_spawn_pos = Vector3(15.5, 0, 0)
+
+[node name="MixColorShader" type="CanvasLayer" parent="."]
+
+[node name="ColorRect" type="ColorRect" parent="MixColorShader"]
+material = SubResource("ShaderMaterial_pxd7x")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="TimeCheckUI" type="CanvasLayer" parent="."]
+
+[node name="TimeCheckLabel" type="Label" parent="TimeCheckUI"]
+offset_right = 340.0
+offset_bottom = 79.0
+script = ExtResource("15_m2dnx")
+
+[node name="BusStationDesign" parent="." instance=ExtResource("12_n7b7q")]
+transform = Transform3D(0.245, 0, 0, 0, 0.245, 0, 0, 0, 0.245, 0, 0, 0)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="BusStationDesign"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="BusStationDesign/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.79778, -2.27098, -41.5539)
+shape = SubResource("BoxShape3D_n7b7q")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="BusStationDesign/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -42.3643, 9.50793, -24.9369)
+shape = SubResource("BoxShape3D_h51qb")
+
+[node name="Mytree" parent="BusStationDesign" instance=ExtResource("10_h51qb")]
+transform = Transform3D(3.58, 0, 0, 0, 3.58, 0, 0, 0, 3.58, 52.1234, 1.66088, -34.8772)
+
+[node name="Mytree2" parent="BusStationDesign" instance=ExtResource("10_h51qb")]
+transform = Transform3D(3.58, 0, 0, 0, 3.58, 0, 0, 0, 3.58, 52.1202, 1.66088, -61.9431)
+
+[node name="Lake" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 25.1295, -1.59432, 66.7957)
+mesh = SubResource("PlaneMesh_q1x03")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Lake"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.5121, -4.93124, -56.2047)
+mesh = SubResource("PlaneMesh_7eeh6")
+
+[node name="background" type="Node3D" parent="."]
+
+[node name="BigTerrainMoutainVer2" parent="background" instance=ExtResource("14_7eeh6")]
+transform = Transform3D(-1.49799e-06, 0, 34.27, 0, 34.27, 0, -34.27, 0, -1.49799e-06, 14.8791, -10.6185, -77.9424)
+
+[node name="TraditionalHouseBG" parent="background" instance=ExtResource("15_yfkc0")]
+transform = Transform3D(-0.284785, 0, -0.958591, 0, 1, 0, 0.958591, 0, -0.284785, 9.38609, 1.14795, -140.133)
+
+[node name="TraditionalHouseBG2" parent="background" instance=ExtResource("15_yfkc0")]
+transform = Transform3D(-0.284785, 0, -0.958591, 0, 1, 0, 0.958591, 0, -0.284785, 17.5596, 1.14795, -142.778)
+
+[node name="TraditionalHouseBG3" parent="background" instance=ExtResource("15_yfkc0")]
+transform = Transform3D(-0.284785, 0, -0.958591, 0, 1, 0, 0.958591, 0, -0.284785, 22.4946, 1.14795, -137.339)
+
+[node name="TraditionalHouseBG4" parent="background" instance=ExtResource("15_yfkc0")]
+transform = Transform3D(-0.284785, 0, -0.958591, 0, 1, 0, 0.958591, 0, -0.284785, 35.1099, 1.14795, -144.49)
+
+[node name="TreeSway" parent="background" instance=ExtResource("15_2bq7i")]
+transform = Transform3D(0.275, 0, 0, 0, 0.275, 0, 0, 0, 0.275, -16.5425, 0, -51.8815)
+
+[node name="TreeSway2" parent="background" instance=ExtResource("15_2bq7i")]
+transform = Transform3D(0.585, 0, 0, 0, 0.585, 0, 0, 0, 0.585, 16.6021, -2.6277, -32.4177)
+
+[node name="TreeSway5" parent="background" instance=ExtResource("15_2bq7i")]
+transform = Transform3D(0.48, 0, 0, 0, 0.48, 0, 0, 0, 0.48, -6.86244, 0.310963, -70.3913)
+
+[node name="TreeSway6" parent="background" instance=ExtResource("15_2bq7i")]
+transform = Transform3D(0.42, 0, 0, 0, 0.42, 0, 0, 0, 0.42, 22.7499, -0.620277, -27.9651)
+
+[node name="TreeSway7" parent="background" instance=ExtResource("15_2bq7i")]
+transform = Transform3D(0.425, 0, 0, 0, 0.425, 0, 0, 0, 0.425, -4.06084, 1.49984, -34.9031)
+
+[node name="TreeSway3" parent="background" instance=ExtResource("15_2bq7i")]
+transform = Transform3D(0.415, 0, 0, 0, 0.415, 0, 0, 0, 0.415, 17.4541, 0.782048, -45.2349)
+
+[node name="TreeSway4" parent="background" instance=ExtResource("15_2bq7i")]
+transform = Transform3D(0.43, 0, 0, 0, 0.43, 0, 0, 0, 0.43, 10.7945, -0.591259, -37.6346)
+
+[node name="TreeVer2" parent="background" instance=ExtResource("16_h51qb")]
+transform = Transform3D(1.74, 0, 0, 0, 1.74, 0, 0, 0, 1.74, -9.9341, 0.856857, -33.2048)
+
+[node name="TreeVer3" parent="background" instance=ExtResource("16_h51qb")]
+transform = Transform3D(-1.73959, 0, -0.0378364, 0, 1.74, 0, 0.0378364, 0, -1.73959, -3.85229, -0.108359, -46.5221)
+
+[node name="TreeVer4" parent="background" instance=ExtResource("16_h51qb")]
+transform = Transform3D(0.755798, 0, 1.56728, 0, 1.74, 0, -1.56728, 0, 0.755798, 10.0585, -0.767409, -46.5221)
+
+[node name="TreeVer5" parent="background" instance=ExtResource("16_h51qb")]
+transform = Transform3D(-1.18278, 0, -1.27617, 0, 1.74, 0, 1.27617, 0, -1.18278, 14.8199, -0.767409, -54.3371)
+
+[node name="TreeVer1" parent="background" instance=ExtResource("17_r82og")]
+transform = Transform3D(-4.86352, 0, -4.83795, 0, 6.86, 0, 4.83795, 0, -4.86352, 72.2666, 0.451082, -71.9153)
+
+[node name="TreeVer6" parent="background" instance=ExtResource("17_r82og")]
+transform = Transform3D(3.78179, 0, -5.72343, 0, 6.86, 0, 5.72343, 0, 3.78179, 65.1933, -2.59673, -51.8959)
+
+[node name="TreeVer7" parent="background" instance=ExtResource("17_r82og")]
+transform = Transform3D(3.78179, 0, -5.72343, 0, 6.86, 0, 5.72343, 0, 3.78179, 44.8199, -1.95761, -16.8142)
+
+[node name="TreeVer8" parent="background" instance=ExtResource("17_r82og")]
+transform = Transform3D(1.51013, 0, 6.69172, 0, 6.86, 0, -6.69172, 0, 1.51013, 32.6852, -1.95761, -29.7271)
+
+[node name="aRock7" parent="background" instance=ExtResource("17_7upow")]
+transform = Transform3D(2.89303, 0, -2.29052, 0, 3.69, 0, 2.29052, 0, 2.89303, 47.2414, -0.402023, -30.3041)
+
+[node name="aRock8" parent="background" instance=ExtResource("17_7upow")]
+transform = Transform3D(3.26692, 0, 1.71561, 0, 3.69, 0, -1.71561, 0, 3.26692, 35.3634, -0.402023, -5.85679)
+
+[node name="DayNightCycle" parent="." instance=ExtResource("14_jfhus")]
+
+[node name="Area3D" type="Area3D" parent="." node_paths=PackedStringArray("npc_john")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -17.7512)
+collision_mask = 2
+script = ExtResource("19_7upow")
+npc_john = NodePath("../SubViewportContainer/SubViewport/NPCJohn")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.55983, 0.660645, 0)
+shape = SubResource("BoxShape3D_r82og")

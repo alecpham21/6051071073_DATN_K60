@@ -1,0 +1,133 @@
+[gd_scene load_steps=6 format=3 uid="uid://b5bavm45lxiid"]
+
+[ext_resource type="Script" uid="uid://bcto2lyoe8p4f" path="res://Scripts/recipe_ui.gd" id="1_d1g0w"]
+[ext_resource type="Script" uid="uid://cxjkim56kcobh" path="res://ui/Recipe/recipe.gd" id="2_o5va4"]
+[ext_resource type="Resource" uid="uid://m2mhsgf3i6vt" path="res://ui/Recipe/apple_pie_recipe.tres" id="3_kukbk"]
+[ext_resource type="Resource" uid="uid://bw1w03y46ey7m" path="res://ui/Recipe/cheese_recipe.tres" id="4_j8qhq"]
+[ext_resource type="PackedScene" uid="uid://c5l4nl6lbxxxe" path="res://assets/Book/recipe_book.tscn" id="5_kukbk"]
+
+[node name="RecipeUI" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_d1g0w")
+recipes = Array[ExtResource("2_o5va4")]([ExtResource("3_kukbk"), ExtResource("4_j8qhq")])
+
+[node name="InteractiveBook2D" parent="." instance=ExtResource("5_kukbk")]
+position = Vector2(740, 300)
+scale = Vector2(12.875, 11.625)
+
+[node name="ItemTexture" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -384.0
+offset_top = -196.0
+offset_right = -312.0
+offset_bottom = -124.0
+grow_horizontal = 0
+grow_vertical = 2
+
+[node name="ItemName" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -296.0
+offset_top = -196.0
+offset_right = -88.0
+offset_bottom = -132.0
+grow_horizontal = 0
+grow_vertical = 2
+theme_override_font_sizes/font_size = 25
+text = "Item name"
+
+[node name="ItemDescription" type="RichTextLabel" parent="."]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -384.0
+offset_top = -116.0
+offset_right = -64.0
+offset_bottom = 60.0
+grow_horizontal = 0
+grow_vertical = 2
+theme_override_font_sizes/normal_font_size = 20
+text = "Item description."
+
+[node name="CookBtn" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -288.0
+offset_top = 140.0
+offset_right = -184.0
+offset_bottom = 188.0
+grow_horizontal = 0
+grow_vertical = 2
+text = "Cook"
+
+[node name="PrevBtn" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -384.0
+offset_top = 76.0
+offset_right = -280.0
+offset_bottom = 124.0
+grow_horizontal = 0
+grow_vertical = 2
+text = "Prev"
+
+[node name="NextBtn" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -192.0
+offset_top = 76.0
+offset_right = -88.0
+offset_bottom = 124.0
+grow_horizontal = 0
+grow_vertical = 2
+text = "Next"
+
+[node name="Label" type="Label" parent="."]
+z_index = 1
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -11.5
+offset_right = 20.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.847059, 0, 0, 1)
+theme_override_colors/font_shadow_color = Color(1, 0.335514, 0.269596, 1)
+theme_override_font_sizes/font_size = 150
+text = "Inventory full"
+horizontal_alignment = 1
+vertical_alignment = 1

@@ -1,0 +1,32 @@
+[gd_scene load_steps=6 format=3 uid="uid://ccq4apmdu8hcc"]
+
+[ext_resource type="Script" uid="uid://b542n5rjm7j8m" path="res://npc/npc_john.gd" id="1_wcuve"]
+[ext_resource type="PackedScene" uid="uid://gr5bneed46n3" path="res://modelScene/NPC/uncle_john.tscn" id="2_15u0w"]
+[ext_resource type="Script" uid="uid://i4dr8fqs0tx7" path="res://Scripts/interactable.gd" id="3_petmx"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_b5l7d"]
+size = Vector3(0.507568, 1.72049, 0.470764)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_n7uyo"]
+size = Vector3(1.01379, 1.69379, 0.960632)
+
+[node name="NPCJohn" type="CharacterBody3D"]
+script = ExtResource("1_wcuve")
+
+[node name="UncleJohn" parent="." instance=ExtResource("2_15u0w")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00842285, 0.864487, 0.0479431)
+shape = SubResource("BoxShape3D_b5l7d")
+
+[node name="InteractArea" type="Area3D" parent="."]
+collision_layer = 16
+collision_mask = 2
+script = ExtResource("3_petmx")
+metadata/_custom_type_script = "uid://i4dr8fqs0tx7"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="InteractArea"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0415649, 0.90531, 0.260284)
+shape = SubResource("BoxShape3D_n7uyo")
+
+[editable path="UncleJohn"]

@@ -1,7 +1,7 @@
 [gd_scene load_steps=23 format=3 uid="uid://oxqdgfctyeo"]
 
 [ext_resource type="PackedScene" uid="uid://da8k7khs1cueb" path="res://model/building/Town/TraditionalTownFull2.glb" id="1_m8swe"]
-[ext_resource type="QuadMesh" uid="uid://bi1g6ao5dirbk" path="res://modelTscn/plant/grass/grassPixel.tres" id="2_cf4r2"]
+[ext_resource type="QuadMesh" uid="uid://bi1g6ao5dirbk" path="res://modelScene/plant/grass/grassPixel.tres" id="2_cf4r2"]
 [ext_resource type="Texture2D" uid="uid://1gysjnj7jqbq" path="res://assets/ImphenziaPalette01-256-Gradient.png" id="2_ckeyx"]
 [ext_resource type="Material" uid="uid://7yimpm2wyl7g" path="res://Shaders/Ocean/water_mat.tres" id="4_ewlml"]
 

@@ -30,29 +30,34 @@ func _exit() -> void:
 	character.is_busy = false
 
 func harvest(cast: RayCast3D, ground_gen) -> void:
+	# 1. Hái từ Area3D (Măng/Cây Tre)
 	var target = character.current_interactable
-	
 	if target != null and target.has_method("harvest"):
 		if target.get("is_harvestable"):
 			target.harvest()
 			print("✅ Đã hái từ Area3D")
+			
+			# Dirty Point for harvestin around
+			PlayerData.add_dirt_to_outfit(2.0)
 			return
 	
 	cast.force_raycast_update()
 	if not cast.is_colliding(): return
 
 	var collider = cast.get_collider()
-	
 	var object_hit = collider.get_parent() 
 	
 	if object_hit.has_method("harvest"):
 		if object_hit.get("is_harvestable") == true: 
 			object_hit.harvest()
 			print("✅ Trúng Hitbox")
+			
+			# Dirty Point for harvesting plant
+			PlayerData.add_dirt_to_outfit(3.0)
 			return
 		else:
 			print("🚫 Cây chưa chín, không làm gì cả")
-			return # Return luôn để không đào đất dưới chân
+			return 
 
 	var hit_pos = cast.get_collision_point()
 	if not ground_gen: return
@@ -67,3 +72,6 @@ func harvest(cast: RayCast3D, ground_gen) -> void:
 			block.mode = BlockGroundData.Mode.CUT
 			ground_gen.renderer.set_mode(grid_pos.x, grid_pos.y, block.mode)
 			print("✂️ Cắt cỏ")
+			
+			# Dirty Point for cutting grass
+			PlayerData.add_dirt_to_outfit(2.0)

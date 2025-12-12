@@ -1,0 +1,33 @@
+[gd_scene load_steps=6 format=3 uid="uid://c2mndlfrs1dsl"]
+
+[ext_resource type="PackedScene" uid="uid://y055erqk78ec" path="res://model/building/SimpleHouseVer2.glb" id="1_ftsh5"]
+[ext_resource type="Texture2D" uid="uid://1gysjnj7jqbq" path="res://assets/ImphenziaPalette01-256-Gradient.png" id="2_ud8fd"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ftsh5"]
+cull_mode = 2
+albedo_texture = ExtResource("2_ud8fd")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ftsh5"]
+size = Vector3(2.69739, 1.48358, 2.09549)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ud8fd"]
+size = Vector3(1.62292, 0.194336, 0.847168)
+
+[node name="SimpleHouseVer2" instance=ExtResource("1_ftsh5")]
+
+[node name="Cube_019" parent="." index="0"]
+material_override = SubResource("StandardMaterial3D_ftsh5")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="." index="1"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00689697, 0.0529354, 0.00878096)
+shape = SubResource("BoxShape3D_ftsh5")
+
+[node name="CollisionPolygon3D" type="CollisionPolygon3D" parent="StaticBody3D" index="1"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0.00949576, 0.771089, 1.21659)
+polygon = PackedVector2Array(-0.511242, -1.44673, 1.06101, -1.48632, 0.392286, -1.13495, -0.5014, -1.15845)
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="StaticBody3D" index="2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0067749, -0.617811, 1.33929)
+shape = SubResource("BoxShape3D_ud8fd")

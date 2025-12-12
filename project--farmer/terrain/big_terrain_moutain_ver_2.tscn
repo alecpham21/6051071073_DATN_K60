@@ -1,0 +1,22 @@
+[gd_scene load_steps=5 format=3 uid="uid://dawcy3gjl661x"]
+
+[ext_resource type="PackedScene" uid="uid://0uln6b63l4cu" path="res://terrain/BigTerrainMoutainVer2.glb" id="1_touk8"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_piw65"]
+albedo_color = Color(0.413383, 0.677326, 0.400876, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_bw1wt"]
+albedo_color = Color(0.457175, 0.716704, 0.46604, 1)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_piw65"]
+material = SubResource("StandardMaterial3D_bw1wt")
+size = Vector2(10.165, 20.8)
+
+[node name="BigTerrainMoutainVer2" instance=ExtResource("1_touk8")]
+
+[node name="Plane_006" parent="." index="0"]
+material_override = SubResource("StandardMaterial3D_piw65")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." index="1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.24321, 0.039836, 0)
+mesh = SubResource("PlaneMesh_piw65")

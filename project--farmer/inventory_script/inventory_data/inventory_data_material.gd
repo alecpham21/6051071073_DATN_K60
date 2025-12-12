@@ -1,0 +1,2 @@
+extends InventoryData
+class_name InventoryDataMatterial

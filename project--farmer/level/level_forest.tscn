@@ -1,10 +1,11 @@
-[gd_scene load_steps=32 format=3 uid="uid://bidc27ad8yi6o"]
+[gd_scene load_steps=33 format=3 uid="uid://bidc27ad8yi6o"]
 
 [ext_resource type="Script" uid="uid://d3iqm4mbygtkv" path="res://level/level_forest.gd" id="1_hvdwq"]
 [ext_resource type="PackedScene" uid="uid://daxrlts4xnp0u" path="res://level/design_forest.tscn" id="1_s6u3v"]
-[ext_resource type="PackedScene" uid="uid://dmwkrs1xd638u" path="res://modelTscn/tree/tre.tscn" id="2_vdsh4"]
-[ext_resource type="PackedScene" uid="uid://yxffan0vylfv" path="res://modelTscn/rock/a_rock_1.tscn" id="3_0q7td"]
-[ext_resource type="Script" uid="uid://bhbnja843o7mx" path="res://modelTscn/tree/tre.gd" id="4_o8i3a"]
+[ext_resource type="PackedScene" uid="uid://dmwkrs1xd638u" path="res://modelScene/tree/tre.tscn" id="2_vdsh4"]
+[ext_resource type="PackedScene" uid="uid://yxffan0vylfv" path="res://modelScene/rock/a_rock_1.tscn" id="3_0q7td"]
+[ext_resource type="PackedScene" uid="uid://c8hhv0qogrobd" path="res://modelScene/plant/tre_bg.tscn" id="3_x47ba"]
+[ext_resource type="Script" uid="uid://bhbnja843o7mx" path="res://modelScene/tree/tre.gd" id="4_o8i3a"]
 [ext_resource type="Shader" uid="uid://c6qhkhar3xobg" path="res://Shader/edge_detection.gdshader" id="4_u7up0"]
 [ext_resource type="Resource" uid="uid://c6nexybwi1f3" path="res://inventory_script/item/items/item_harvest/bamboo_shoot.tres" id="5_0idas"]
 [ext_resource type="Shader" uid="uid://viqy3uwh6ns7" path="res://PixelShader.gdshader" id="5_nol1c"]
@@ -19,18 +20,18 @@
 [ext_resource type="PackedScene" uid="uid://dd48ywngxd2oc" path="res://Scene/Environment/day_night_cycle.tscn" id="14_nol1c"]
 [ext_resource type="PackedScene" uid="uid://csnejiwkcvvuj" path="res://terrain/big_terrain_moutain.tscn" id="15_ubdqr"]
 [ext_resource type="PackedScene" uid="uid://uh2jiohhy6oy" path="res://Scene/plant/bush.tscn" id="16_guwsr"]
-[ext_resource type="PackedScene" uid="uid://bc816qoyhye60" path="res://modelTscn/plant/grass/leafbush.tscn" id="17_lhgvw"]
-[ext_resource type="PackedScene" uid="uid://cb3w8fvw4gt62" path="res://modelTscn/structure/stone_stair.tscn" id="18_ieo7o"]
+[ext_resource type="PackedScene" uid="uid://bc816qoyhye60" path="res://modelScene/plant/grass/leafbush.tscn" id="17_lhgvw"]
+[ext_resource type="PackedScene" uid="uid://cb3w8fvw4gt62" path="res://modelScene/structure/stone_stair.tscn" id="18_ieo7o"]
 [ext_resource type="PackedScene" uid="uid://dxe4dtsmib4py" path="res://level/level script/out_door.tscn" id="20_8nxh4"]
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_ubdqr"]
-size = Vector3(8.76596, 7.22803, 26.9066)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_vdsh4"]
 size = Vector3(3.249, 6.07672, 5.03198)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_8nxh4"]
 size = Vector3(5.02649, 4.71722, 6.32669)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ubdqr"]
+size = Vector3(8.76596, 7.22803, 26.9066)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_0q7td"]
 size = Vector3(1.79175, 1.24866, 2.10901)
@@ -82,125 +83,44 @@ transform = Transform3D(1.28, 0, 0, 0, 1.28, 0, 0, 0, 1.28, 0, 0, 0)
 
 [node name="TreForestBG" type="Node3D" parent="."]
 
-[node name="tre" parent="TreForestBG" instance=ExtResource("2_vdsh4")]
-transform = Transform3D(0.685, 0, 0, 0, 0.685, 0, 0, 0, 0.685, 0, 2.36465, -17.3171)
+[node name="treBG" parent="TreForestBG" instance=ExtResource("3_x47ba")]
+transform = Transform3D(-0.114802, 0, -0.655016, 0, 0.665, 0, 0.655016, 0, -0.114802, -4.24733, 0, -28.4985)
 
-[node name="tre15" parent="TreForestBG" instance=ExtResource("2_vdsh4")]
-transform = Transform3D(0.316552, 0, 0.60747, 0, 0.685, 0, -0.60747, 0, 0.316552, -3.75033, 2.36465, -17.1242)
+[node name="treBG2" parent="TreForestBG" instance=ExtResource("3_x47ba")]
+transform = Transform3D(-0.114802, 0, -0.655016, 0, 0.665, 0, 0.655016, 0, -0.114802, -18.9108, 0, -21.6045)
 
-[node name="tre2" parent="TreForestBG" instance=ExtResource("2_vdsh4")]
-transform = Transform3D(-0.347798, 0, 0.590137, 0, 0.685, 0, -0.590137, 0, -0.347798, -6.13184, 2.36465, -22.7156)
+[node name="treBG3" parent="TreForestBG" instance=ExtResource("3_x47ba")]
+transform = Transform3D(-0.114802, 0, -0.655016, 0, 0.665, 0, 0.655016, 0, -0.114802, 18.3844, 0, -23.8177)
 
-[node name="tre3" parent="TreForestBG" instance=ExtResource("2_vdsh4")]
-transform = Transform3D(0.295653, 0, 0.770204, 0, 0.825, 0, -0.770204, 0, 0.295653, -16.0578, 2.36465, -16.556)
+[node name="treBG6" parent="TreForestBG" instance=ExtResource("3_x47ba")]
+transform = Transform3D(-0.114802, 0, -0.655016, 0, 0.665, 0, 0.655016, 0, -0.114802, 7.67844, 4.76041, -37.3579)
 
-[node name="tre19" parent="TreForestBG" instance=ExtResource("2_vdsh4")]
-transform = Transform3D(0.295653, 0, 0.770204, 0, 0.825, 0, -0.770204, 0, 0.295653, -16.0578, 3.90854, -58.6216)
+[node name="treBG7" parent="TreForestBG" instance=ExtResource("3_x47ba")]
+transform = Transform3D(-2.90681e-08, 0, 0.665, 0, 0.665, 0, -0.665, 0, -2.90681e-08, 3.20967, 1.56248, 22.9227)
 
-[node name="tre21" parent="TreForestBG" instance=ExtResource("2_vdsh4")]
-transform = Transform3D(0.295653, 0, 0.770204, 0, 0.825, 0, -0.770204, 0, 0.295653, 6.24784, 3.90854, -60.228)
+[node name="treBG8" parent="TreForestBG" instance=ExtResource("3_x47ba")]
+transform = Transform3D(-2.90681e-08, 0, 0.665, 0, 0.665, 0, -0.665, 0, -2.90681e-08, -11.1275, 1.56248, 19.0381)
 
-[node name="tre22" parent="TreForestBG" instance=ExtResource("2_vdsh4")]
-transform = Transform3D(0.295653, 0, 0.770204, 0, 0.825, 0, -0.770204, 0, 0.295653, -3.73053, 3.90854, -41.8733)
+[node name="treBG13" parent="TreForestBG" instance=ExtResource("3_x47ba")]
+transform = Transform3D(-2.90681e-08, 0, 0.665, 0, 0.665, 0, -0.665, 0, -2.90681e-08, -18.9815, 4.50968, 37.0515)
 
-[node name="tre23" parent="TreForestBG" instance=ExtResource("2_vdsh4")]
-transform = Transform3D(0.295653, 0, 0.770204, 0, 0.825, 0, -0.770204, 0, 0.295653, 22.0209, 3.90854, -55.3918)
+[node name="treBG9" parent="TreForestBG" instance=ExtResource("3_x47ba")]
+transform = Transform3D(-2.90681e-08, 0, 0.665, 0, 0.665, 0, -0.665, 0, -2.90681e-08, 35.7316, 3.30145, 36.6367)
 
-[node name="tre24" parent="TreForestBG" instance=ExtResource("2_vdsh4")]
-transform = Transform3D(0.295653, 0, 0.770204, 0, 0.825, 0, -0.770204, 0, 0.295653, 31.9, 3.90854, -48.7139)
+[node name="treBG10" parent="TreForestBG" instance=ExtResource("3_x47ba")]
+transform = Transform3D(0.115293, 0, 0.654929, 0, 0.665, 0, -0.654929, 0, 0.115293, 12.3387, 3.30145, 36.6367)
 
-[node name="tre32" parent="TreForestBG" instance=ExtResource("2_vdsh4")]
-transform = Transform3D(0.295653, 0, 0.770204, 0, 0.825, 0, -0.770204, 0, 0.295653, 59.6227, 3.90854, -7.06381)
+[node name="treBG11" parent="TreForestBG" instance=ExtResource("3_x47ba")]
+transform = Transform3D(-0.623114, 0, 0.232279, 0, 0.665, 0, -0.232279, 0, -0.623114, 71.2279, 2.62139, 14.3665)
 
-[node name="tre33" parent="TreForestBG" instance=ExtResource("2_vdsh4")]
-transform = Transform3D(0.295653, 0, 0.770204, 0, 0.825, 0, -0.770204, 0, 0.295653, 59.6227, 3.90854, 7.78976)
+[node name="treBG12" parent="TreForestBG" instance=ExtResource("3_x47ba")]
+transform = Transform3D(-0.664738, 0, 0.0186607, 0, 0.665, 0, -0.0186607, 0, -0.664738, 71.2279, 2.62139, -14.5438)
 
-[node name="tre34" parent="TreForestBG" instance=ExtResource("2_vdsh4")]
-transform = Transform3D(0.295653, 0, 0.770204, 0, 0.825, 0, -0.770204, 0, 0.295653, 64.4605, 3.90854, 7.37858)
+[node name="treBG4" parent="TreForestBG" instance=ExtResource("3_x47ba")]
+transform = Transform3D(-0.114802, 0, -0.655016, 0, 0.665, 0, 0.655016, 0, -0.114802, 35.2251, 0, -20.8752)
 
-[node name="tre35" parent="TreForestBG" instance=ExtResource("2_vdsh4")]
-transform = Transform3D(0.295653, 0, 0.770204, 0, 0.825, 0, -0.770204, 0, 0.295653, 64.4605, 3.90854, -5.10302)
-
-[node name="tre36" parent="TreForestBG" instance=ExtResource("2_vdsh4")]
-transform = Transform3D(0.295653, 0, 0.770204, 0, 0.825, 0, -0.770204, 0, 0.295653, 83.2179, 3.90854, -5.10302)
-
-[node name="tre37" parent="TreForestBG" instance=ExtResource("2_vdsh4")]
-transform = Transform3D(0.295653, 0, 0.770204, 0, 0.825, 0, -0.770204, 0, 0.295653, 80.8517, 3.90854, 8.62113)
-
-[node name="tre38" parent="TreForestBG" instance=ExtResource("2_vdsh4")]
-transform = Transform3D(0.295653, 0, 0.770204, 0, 0.825, 0, -0.770204, 0, 0.295653, 80.8517, 3.90854, -20.261)
-
-[node name="tre39" parent="TreForestBG" instance=ExtResource("2_vdsh4")]
-transform = Transform3D(0.295653, 0, 0.770204, 0, 0.825, 0, -0.770204, 0, 0.295653, 75.6384, 3.90854, 15.4533)
-
-[node name="tre25" parent="TreForestBG" instance=ExtResource("2_vdsh4")]
-transform = Transform3D(0.295653, 0, 0.770204, 0, 0.825, 0, -0.770204, 0, 0.295653, 31.4616, 3.90854, 53.2643)
-
-[node name="tre27" parent="TreForestBG" instance=ExtResource("2_vdsh4")]
-transform = Transform3D(0.295653, 0, 0.770204, 0, 0.825, 0, -0.770204, 0, 0.295653, -14.3105, 3.90854, 39.9246)
-
-[node name="tre28" parent="TreForestBG" instance=ExtResource("2_vdsh4")]
-transform = Transform3D(0.295653, 0, 0.770204, 0, 0.825, 0, -0.770204, 0, 0.295653, 2.82134, 3.90854, 41.3903)
-
-[node name="tre26" parent="TreForestBG" instance=ExtResource("2_vdsh4")]
-transform = Transform3D(-3.60619e-08, 0, -0.825, 0, 0.825, 0, 0.825, 0, -3.60619e-08, 16.3049, 3.90854, 54.0044)
-
-[node name="tre29" parent="TreForestBG" instance=ExtResource("2_vdsh4")]
-transform = Transform3D(-3.60619e-08, 0, -0.825, 0, 0.825, 0, 0.825, 0, -3.60619e-08, 25.8159, 3.90854, 64.9192)
-
-[node name="tre31" parent="TreForestBG" instance=ExtResource("2_vdsh4")]
-transform = Transform3D(-3.60619e-08, 0, -0.825, 0, 0.825, 0, 0.825, 0, -3.60619e-08, 49.1883, 3.90854, 64.9192)
-
-[node name="tre20" parent="TreForestBG" instance=ExtResource("2_vdsh4")]
-transform = Transform3D(0.295653, 0, 0.770204, 0, 0.825, 0, -0.770204, 0, 0.295653, -10.9412, 3.90854, -41.3053)
-
-[node name="tre4" parent="TreForestBG" instance=ExtResource("2_vdsh4")]
-transform = Transform3D(-0.339638, 0, 0.59487, 0, 0.685, 0, -0.59487, 0, -0.339638, -16.0578, 2.36465, 19.0934)
-
-[node name="tre5" parent="TreForestBG" instance=ExtResource("2_vdsh4")]
-transform = Transform3D(-0.339638, 0, 0.59487, 0, 0.685, 0, -0.59487, 0, -0.339638, 18.2502, 2.36465, 18.0386)
-
-[node name="tre17" parent="TreForestBG" instance=ExtResource("2_vdsh4")]
-transform = Transform3D(0.47, 0, 0, 0, 0.47, 0, 0, 0, 0.47, 24.6753, 2.36465, 12.7617)
-
-[node name="tre18" parent="TreForestBG" instance=ExtResource("2_vdsh4")]
-transform = Transform3D(0.47, 0, 0, 0, 0.47, 0, 0, 0, 0.47, 24.6753, 2.36465, 15.4163)
-
-[node name="StaticBody3D" type="StaticBody3D" parent="TreForestBG/tre18"]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="TreForestBG/tre18/StaticBody3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.991043, 3.11401, 5.03228)
-shape = SubResource("BoxShape3D_ubdqr")
-
-[node name="tre14" parent="TreForestBG" instance=ExtResource("2_vdsh4")]
-transform = Transform3D(-0.339638, 0, 0.59487, 0, 0.685, 0, -0.59487, 0, -0.339638, 21.6675, 2.36465, 21.3648)
-
-[node name="tre6" parent="TreForestBG" instance=ExtResource("2_vdsh4")]
-transform = Transform3D(-0.339638, 0, 0.59487, 0, 0.685, 0, -0.59487, 0, -0.339638, 20.2176, 2.36465, -19.7369)
-
-[node name="tre13" parent="TreForestBG" instance=ExtResource("2_vdsh4")]
-transform = Transform3D(-0.3917, 0, 0.686055, 0, 0.79, 0, -0.686055, 0, -0.3917, 31.7062, 2.36465, -15.302)
-
-[node name="tre7" parent="TreForestBG" instance=ExtResource("2_vdsh4")]
-transform = Transform3D(0.214937, 0, 0.650405, 0, 0.685, 0, -0.650405, 0, 0.214937, 49.707, 2.36465, -16.1281)
-
-[node name="tre8" parent="TreForestBG" instance=ExtResource("2_vdsh4")]
-transform = Transform3D(0.214937, 0, 0.650405, 0, 0.685, 0, -0.650405, 0, 0.214937, 51.9936, 2.36465, 24.1485)
-
-[node name="tre9" parent="TreForestBG" instance=ExtResource("2_vdsh4")]
-transform = Transform3D(0.214937, 0, 0.650405, 0, 0.685, 0, -0.650405, 0, 0.214937, 50.1325, 2.36465, 7.31176)
-
-[node name="tre10" parent="TreForestBG" instance=ExtResource("2_vdsh4")]
-transform = Transform3D(0.214937, 0, 0.650405, 0, 0.685, 0, -0.650405, 0, 0.214937, 50.1325, 2.36465, -3.01006)
-
-[node name="tre11" parent="TreForestBG" instance=ExtResource("2_vdsh4")]
-transform = Transform3D(0.214937, 0, 0.650405, 0, 0.685, 0, -0.650405, 0, 0.214937, -21.1057, 2.36465, 20.8419)
-
-[node name="tre12" parent="TreForestBG" instance=ExtResource("2_vdsh4")]
-transform = Transform3D(0.214937, 0, 0.650405, 0, 0.685, 0, -0.650405, 0, 0.214937, -2.46123, 2.36465, 20.8419)
-
-[node name="tre16" parent="TreForestBG" instance=ExtResource("2_vdsh4")]
-transform = Transform3D(-0.545818, 0, 0.413893, 0, 0.685, 0, -0.413893, 0, -0.545818, 1.23088, 2.36465, 21.8776)
+[node name="treBG5" parent="TreForestBG" instance=ExtResource("3_x47ba")]
+transform = Transform3D(-0.525588, 0, -0.407409, 0, 0.665, 0, 0.407409, 0, -0.525588, 59.229, 0, -20.8752)
 
 [node name="TreForest" type="Node3D" parent="."]
 
@@ -353,6 +273,15 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2.00669)
 [node name="CollisionShape3D" type="CollisionShape3D" parent="TreForest/tre3/StaticBody3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.2436, 2.53836, -2.01599)
 shape = SubResource("BoxShape3D_vdsh4")
+
+[node name="tre18" parent="TreForest" instance=ExtResource("2_vdsh4")]
+transform = Transform3D(0.47, 0, 0, 0, 0.47, 0, 0, 0, 0.47, 24.6753, 2.36465, 15.4163)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="TreForest/tre18"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="TreForest/tre18/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.991043, 3.11401, 5.03228)
+shape = SubResource("BoxShape3D_ubdqr")
 
 [node name="Rock" type="Node3D" parent="."]
 

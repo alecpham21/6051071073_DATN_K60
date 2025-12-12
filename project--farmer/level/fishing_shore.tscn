@@ -1,10 +1,10 @@
 [gd_scene load_steps=14 format=4 uid="uid://5c7f4f6oph7m"]
 
 [ext_resource type="Material" uid="uid://7yimpm2wyl7g" path="res://Shaders/Ocean/water_mat.tres" id="1_7r6pk"]
-[ext_resource type="PackedScene" uid="uid://bvygryp05ny74" path="res://modelTscn/terrain/fishing_ground.tscn" id="2_h14ar"]
-[ext_resource type="PackedScene" uid="uid://cn5p55ydjvvgl" path="res://modelTscn/terrain/high_ground.tscn" id="3_2u1nm"]
+[ext_resource type="PackedScene" uid="uid://bvygryp05ny74" path="res://modelScene/terrain/fishing_ground.tscn" id="2_h14ar"]
+[ext_resource type="PackedScene" uid="uid://cn5p55ydjvvgl" path="res://modelScene/terrain/high_ground.tscn" id="3_2u1nm"]
 [ext_resource type="PackedScene" uid="uid://bjxrobwweubb3" path="res://model/tree/TreeVer1.tscn" id="4_n6qya"]
-[ext_resource type="PackedScene" uid="uid://bc816qoyhye60" path="res://modelTscn/plant/grass/leafbush.tscn" id="5_plctd"]
+[ext_resource type="PackedScene" uid="uid://bc816qoyhye60" path="res://modelScene/plant/grass/leafbush.tscn" id="5_plctd"]
 [ext_resource type="Texture2D" uid="uid://1gysjnj7jqbq" path="res://assets/ImphenziaPalette01-256-Gradient.png" id="6_h8exy"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_5ej8u"]

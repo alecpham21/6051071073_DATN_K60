@@ -2,7 +2,7 @@ class_name AnimationSet
 extends Resource
 
 @export_enum(
-	"Chatting_hi","Chatting_inLove","Chatting_shy","Cooking_Cutting", "Cooking_Pan", "Cooking_Stirring", 
+	"Care_debugging","Care_fertilize","Care_watering","Chatting_hi","Chatting_inLove","Chatting_shy","Cooking_Cutting", "Cooking_Pan", "Cooking_Stirring", 
 	"Cutting_Plant","Cycling", "DJ", "DefaultPose", "Fishing_Catch", 
 	"Fishing_Drag", "Fishing_Fail", "Fishing_Idle", 
 	"Fishing_Start", "Fishing_Sucess", "Harvesting_Hand", 

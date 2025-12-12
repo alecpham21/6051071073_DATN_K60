@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="ItemData" load_steps=4 format=3 uid="uid://vrxcpybaq3v6"]
+
+[ext_resource type="Script" uid="uid://oj6faifeyt6a" path="res://inventory_script/item/item_data/item_data.gd" id="1_i7wmj"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_i7wmj"]
+load_path = "res://.godot/imported/#2 - Transparent Icons & Drop Shadow.png-13890e0e4e0fefd427475c6bc7d09bff.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jmyt5"]
+atlas = SubResource("CompressedTexture2D_i7wmj")
+region = Rect2(416, 480, 32, 32)
+
+[resource]
+script = ExtResource("1_i7wmj")
+name = "Apple Pie"
+description = "Lecker"
+stackable = true
+texture = SubResource("AtlasTexture_jmyt5")
+metadata/_custom_type_script = "uid://oj6faifeyt6a"

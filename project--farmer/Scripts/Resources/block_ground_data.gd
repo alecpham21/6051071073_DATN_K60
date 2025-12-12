@@ -4,3 +4,5 @@ enum Mode { GRASS, CUT, TILLED, PLANTED }
 var mode: Mode = Mode.GRASS
 var crop_ready: bool = false
 var plant_type = PlantDatabase.PLANT_VARIANT.NONE
+
+var is_watered: bool = false

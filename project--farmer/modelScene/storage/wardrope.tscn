@@ -1,0 +1,41 @@
+[gd_scene load_steps=9 format=3 uid="uid://cnh3uiwulfbdd"]
+
+[ext_resource type="PackedScene" uid="uid://f0rc5jjj110h" path="res://model/storage/wardrope.glb" id="1_84kcu"]
+[ext_resource type="Texture2D" uid="uid://1gysjnj7jqbq" path="res://assets/ImphenziaPalette01-256-Gradient.png" id="2_2d1wr"]
+[ext_resource type="Script" uid="uid://bdp3qb3kgygby" path="res://modelScene/storage/wardrope.gd" id="2_ye6t6"]
+[ext_resource type="Resource" uid="uid://dcidm1raf45wi" path="res://inventory_script/inventory_chest/starter_wardrope.tres" id="3_r8xnl"]
+[ext_resource type="Script" uid="uid://i4dr8fqs0tx7" path="res://Scripts/interactable.gd" id="4_r8xnl"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ye6t6"]
+albedo_texture = ExtResource("2_2d1wr")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_m4ryi"]
+size = Vector3(1, 4.0907, 2.02563)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_2i2vj"]
+size = Vector3(1.52051, 4.0415, 1.82309)
+
+[node name="wardrope" node_paths=PackedStringArray("interact_area") groups=["external_inventory"] instance=ExtResource("1_84kcu")]
+script = ExtResource("2_ye6t6")
+chest_id = "starter_wardrope"
+inventory_data = ExtResource("3_r8xnl")
+interact_area = NodePath("InteractArea")
+
+[node name="Wardrope" parent="." index="0"]
+material_override = SubResource("StandardMaterial3D_ye6t6")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="." index="1"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.54535, 0.0135498)
+shape = SubResource("BoxShape3D_m4ryi")
+
+[node name="InteractArea" type="Area3D" parent="." index="2"]
+collision_layer = 16
+collision_mask = 0
+script = ExtResource("4_r8xnl")
+metadata/_custom_type_script = "uid://i4dr8fqs0tx7"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="InteractArea" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.260254, 1.52075, 0.0189056)
+shape = SubResource("BoxShape3D_2i2vj")

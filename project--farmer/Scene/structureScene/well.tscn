@@ -1,0 +1,33 @@
+[gd_scene load_steps=6 format=3 uid="uid://cbksswef0oxs8"]
+
+[ext_resource type="PackedScene" uid="uid://b6a1h442o11p3" path="res://modelScene/structure/water_well.tscn" id="1_wtmt8"]
+[ext_resource type="Script" uid="uid://3tmisgxecyve" path="res://Scene/structureScene/water_source.gd" id="2_kuc2w"]
+[ext_resource type="Script" uid="uid://i4dr8fqs0tx7" path="res://Scripts/interactable.gd" id="3_u3257"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_u3257"]
+size = Vector3(2.99074, 4.08899, 3.67615)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_phjjm"]
+size = Vector3(2.78101, 1.84912, 2.39508)
+
+[node name="well" type="Node3D"]
+script = ExtResource("2_kuc2w")
+
+[node name="waterWell" parent="." instance=ExtResource("1_wtmt8")]
+
+[node name="InteractArea" type="Area3D" parent="."]
+collision_layer = 16
+collision_mask = 0
+script = ExtResource("3_u3257")
+metadata/_custom_type_script = "uid://i4dr8fqs0tx7"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="InteractArea"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.105125, 1.54449, 0.041687)
+shape = SubResource("BoxShape3D_u3257")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.246033, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0257568, 0.424561, 0.0184021)
+shape = SubResource("BoxShape3D_phjjm")

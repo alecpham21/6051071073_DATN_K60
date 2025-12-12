@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="ItemData" load_steps=4 format=3 uid="uid://bylcqy2iiykrr"]
+
+[ext_resource type="Script" uid="uid://oj6faifeyt6a" path="res://inventory_script/item/item_data/item_data.gd" id="1_1ltqk"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_1ltqk"]
+load_path = "res://.godot/imported/#2 - Transparent Icons & Drop Shadow.png-13890e0e4e0fefd427475c6bc7d09bff.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_p4lsh"]
+atlas = SubResource("CompressedTexture2D_1ltqk")
+region = Rect2(448, 480, 32, 32)
+
+[resource]
+script = ExtResource("1_1ltqk")
+name = "Cup"
+description = "Certified liquid container"
+stackable = true
+texture = SubResource("AtlasTexture_p4lsh")
+metadata/_custom_type_script = "uid://oj6faifeyt6a"

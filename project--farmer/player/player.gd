@@ -23,9 +23,9 @@ extends Character
 @onready var hl_select: MeshInstance3D = $HighlightSelector
 @onready var interact_area: Area3D = $Interact_Area
 @onready var tool_cast: RayCast3D = $HoeCast3D
+@onready var watering: Node3D = $Farmer/rig/Skeleton3D/BoneAttachment3D/Watering
 
-@export var run_speed: float = 8.0
-@export var move_speed: float = 5.0
+
 @export var accel: float = 20.0
 @export var use_gravity: bool = false
 @export_node_path("Node3D") var camera_ref_path: NodePath
@@ -50,6 +50,8 @@ var is_busy: bool = false:
 		is_busy = val
 var body_parts_map = {}
 var current_interactable: Node3D = null
+var last_safe_position: Vector3
+var safe_time_counter: float = 0.0
 
 
 signal toggle_inventory()
@@ -58,6 +60,29 @@ signal action_finished
 
 func _ready() -> void:
 	super()
+	GState.reset()
+	Dialogic.timeline_started.connect(func(): 
+		GState.ui()
+		_set_mouse_captured(false)
+	)
+	
+	Dialogic.signal_event.connect(func(arg):
+		if arg == "end_talk":
+			GState.play()
+			_set_mouse_captured(true)
+	)
+	
+	Dialogic.timeline_ended.connect(func(): 
+		if not GState.is_playing(): GState.play()
+		_set_mouse_captured(true)
+	)
+	
+	GameData.game_state_changed.connect(func(old, new):
+		_set_mouse_captured(true)
+		if new == GState.state_enum.RECIPE || new == GState.state_enum.COOK:
+			_set_mouse_captured(false)
+		)
+	
 	PlayerData.player = self
 	Watcher.player = self
 	
@@ -160,10 +185,15 @@ func _unhandled_input(event: InputEvent) -> void:
 		_set_mouse_captured(false)
 	elif event.is_action_released("interact_mode"):
 		_set_mouse_captured(true)
+		
+	if event.is_action_pressed("recipe"):
+		if !GState.is_cook() && !GState.is_recipe():
+			GState.recipe()
+		else: GState.play()
 	
 	if Input.is_action_just_pressed("inventory"):
 		toggle_inventory.emit()
-
+	
 	if Input.is_action_just_pressed("interact") && can_interact:
 		interact()
 
@@ -193,6 +223,13 @@ func _physics_process(delta: float) -> void:
 	
 	if bt_player:
 		bt_player.update(delta)
+
+	if is_on_floor():
+			safe_time_counter += delta
+			if safe_time_counter > 2:
+				last_safe_position = global_position
+	else:
+		safe_time_counter = 0.0
 
 func register_interactable(object):
 	current_interactable = object

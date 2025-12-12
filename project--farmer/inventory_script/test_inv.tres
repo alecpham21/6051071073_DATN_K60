@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="InventoryData" load_steps=21 format=3 uid="uid://c05tf37csx4tp"]
+[gd_resource type="Resource" script_class="InventoryData" load_steps=26 format=3 uid="uid://c05tf37csx4tp"]
 
 [ext_resource type="Script" uid="uid://csfrg4socg8bj" path="res://inventory_script/inventory_data/inventory_data.gd" id="1_fx70d"]
 [ext_resource type="Script" uid="uid://bspkgwkxsy8mn" path="res://inventory_script/slot_data.gd" id="2_a72s1"]
@@ -8,7 +8,10 @@
 [ext_resource type="Resource" uid="uid://yxvsmb6b0dto" path="res://inventory_script/item/items/item_harvest/corn.tres" id="5_vdyg7"]
 [ext_resource type="Resource" uid="uid://dq3p2yhpqqe3" path="res://inventory_script/item/items/item_tool/sickle.tres" id="6_q6td8"]
 [ext_resource type="Resource" uid="uid://b52qumcoelf4w" path="res://inventory_script/item/items/item_harvest/wheat_seed.tres" id="7_rn8ob"]
+[ext_resource type="Resource" uid="uid://n3hnk3p8510v" path="res://inventory_script/item/items/item_tool/watering_can.tres" id="8_1ysir"]
 [ext_resource type="Resource" uid="uid://c5ju7kxb8sgep" path="res://inventory_script/item/items/item_tool/hoe.tres" id="8_rn8ob"]
+[ext_resource type="Resource" uid="uid://dom2oqd20bncl" path="res://inventory_script/item/items/milk.tres" id="11_p831m"]
+[ext_resource type="Resource" uid="uid://208q0fgbf0k5" path="res://inventory_script/item/items/egg.tres" id="12_vpmq8"]
 
 [sub_resource type="Resource" id="Resource_rn8ob"]
 script = ExtResource("2_a72s1")
@@ -51,6 +54,19 @@ quantity = 1
 attributes = Array[ExtResource("3_vdyg7")]([])
 metadata/_custom_type_script = "uid://bspkgwkxsy8mn"
 
+[sub_resource type="Resource" id="Resource_v4kv0"]
+script = ExtResource("3_vdyg7")
+id = "water_capacity"
+value = 5.0
+metadata/_custom_type_script = "uid://bfas330ndllg"
+
+[sub_resource type="Resource" id="Resource_wmnvh"]
+script = ExtResource("2_a72s1")
+item_data = ExtResource("8_1ysir")
+quantity = 1
+attributes = Array[ExtResource("3_vdyg7")]([SubResource("Resource_v4kv0")])
+metadata/_custom_type_script = "uid://bspkgwkxsy8mn"
+
 [sub_resource type="Resource" id="Resource_q6td8"]
 script = ExtResource("2_a72s1")
 item_data = ExtResource("7_rn8ob")
@@ -72,20 +88,21 @@ quantity = 1
 attributes = Array[ExtResource("3_vdyg7")]([])
 metadata/_custom_type_script = "uid://bspkgwkxsy8mn"
 
-[sub_resource type="Resource" id="Resource_4b2p8"]
-script = ExtResource("3_vdyg7")
-id = "dirt"
-value = 30.0
-metadata/_custom_type_script = "uid://bfas330ndllg"
-
-[sub_resource type="Resource" id="Resource_vpmq8"]
+[sub_resource type="Resource" id="Resource_6ytgi"]
 script = ExtResource("2_a72s1")
-item_data = ExtResource("4_q6td8")
-quantity = 1
-attributes = Array[ExtResource("3_vdyg7")]([SubResource("Resource_4b2p8")])
+item_data = ExtResource("11_p831m")
+quantity = 5
+attributes = Array[ExtResource("3_vdyg7")]([])
+metadata/_custom_type_script = "uid://bspkgwkxsy8mn"
+
+[sub_resource type="Resource" id="Resource_fs1cq"]
+script = ExtResource("2_a72s1")
+item_data = ExtResource("12_vpmq8")
+quantity = 5
+attributes = Array[ExtResource("3_vdyg7")]([])
 metadata/_custom_type_script = "uid://bspkgwkxsy8mn"
 
 [resource]
 script = ExtResource("1_fx70d")
-slot_datas = Array[ExtResource("2_a72s1")]([SubResource("Resource_rn8ob"), SubResource("Resource_1ysir"), SubResource("Resource_a5mve"), SubResource("Resource_e8ap1"), SubResource("Resource_vdyg7"), null, SubResource("Resource_q6td8"), SubResource("Resource_a0sik"), SubResource("Resource_p831m"), SubResource("Resource_vpmq8"), null, null])
+slot_datas = Array[ExtResource("2_a72s1")]([SubResource("Resource_rn8ob"), SubResource("Resource_1ysir"), SubResource("Resource_a5mve"), SubResource("Resource_e8ap1"), SubResource("Resource_vdyg7"), SubResource("Resource_wmnvh"), SubResource("Resource_q6td8"), SubResource("Resource_a0sik"), SubResource("Resource_p831m"), null, SubResource("Resource_6ytgi"), SubResource("Resource_fs1cq")])
 metadata/_custom_type_script = "uid://csfrg4socg8bj"

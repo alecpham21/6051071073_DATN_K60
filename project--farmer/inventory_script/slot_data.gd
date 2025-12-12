@@ -7,7 +7,7 @@ const MAX_TAC_SIZE: int = 99.0
 @export_range(1, MAX_TAC_SIZE) var quantity: int = 1:
 	set = set_quantity
 @export var attributes: Array[ItemAttribute] = []
-
+var locked:bool = false
 
 func get_stat(id: String) -> float:
 	for attr in attributes:

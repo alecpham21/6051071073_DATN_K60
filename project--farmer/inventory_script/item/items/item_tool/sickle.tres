@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="ItemDataTool" load_steps=5 format=3 uid="uid://dq3p2yhpqqe3"]
 
 [ext_resource type="Script" uid="uid://cbuqv3ga5xd3c" path="res://inventory_script/item/item_data/item_data_tool.gd" id="1_kjqty"]
-[ext_resource type="PackedScene" uid="uid://cq6e3i6iasa4u" path="res://modelTscn/tool/tool_sickle.tscn" id="1_pbevb"]
+[ext_resource type="PackedScene" uid="uid://cq6e3i6iasa4u" path="res://modelScene/tool/tool_sickle.tscn" id="1_pbevb"]
 [ext_resource type="Texture2D" uid="uid://omvd8ed3fie6" path="res://inventory_script/item/item_atlast/#2 - Transparent Icons & Drop Shadow.png" id="3_0hrb5"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_m624g"]

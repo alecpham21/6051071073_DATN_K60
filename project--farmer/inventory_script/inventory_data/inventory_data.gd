@@ -117,3 +117,40 @@ func add_item(item: ItemData, quantity: int) -> bool:
 	new_slot_data.quantity = quantity
 	
 	return pick_up_slot_data(new_slot_data)
+
+func has_item(_item:ItemData) -> bool:
+	return slot_datas.filter(func(x): return x!=null).map(func(x:SlotData): return x.item_data).has(_item)
+
+func get_slot_from_item(_item:ItemData) -> SlotData:
+	if !has_item(_item): return null
+	return slot_datas.filter(func(x:SlotData): return x!=null && x.item_data == _item)[0]
+
+func contains(_inv:InventoryData) -> bool:
+	for i:SlotData in _inv.slot_datas.filter(func(x:SlotData): return x!=null):
+		if !has_item(i.item_data): return false
+		if get_slot_from_item(i.item_data).quantity < i.quantity: return false
+	return true
+
+func clear():
+	var _size = slot_datas.size()
+	slot_datas.clear()
+	slot_datas.resize(_size)
+	inventory_updated.emit(self)
+
+func is_full():
+	return slot_datas.filter(func(x): return x == null).is_empty()
+
+func remove_slot(sd:SlotData):
+	if !has_item(sd.item_data): return
+	slot_datas[slot_datas.find(sd)] = null
+	inventory_updated.emit(self)
+
+func reduce_quantity(_item:ItemData, ammount:int = 1):
+	if !has_item(_item): return
+	var sd = get_slot_from_item(_item)
+	sd.quantity -= ammount
+	if ammount <= 0: sd = null
+	inventory_updated.emit(self)
+
+func refresh():
+	inventory_updated.emit(self)

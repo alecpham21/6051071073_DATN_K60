@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://c7g5ds4pvuq6o"]
 
 [ext_resource type="Script" uid="uid://j33toyv6wcru" path="res://player_bike.gd" id="1_hwfj5"]
-[ext_resource type="PackedScene" uid="uid://dqclwo2j0tlif" path="res://modelTscn/vehicle/bicycle/bike_1.tscn" id="2_scdy0"]
+[ext_resource type="PackedScene" uid="uid://dqclwo2j0tlif" path="res://modelScene/vehicle/bicycle/bike_1.tscn" id="2_scdy0"]
 [ext_resource type="PackedScene" uid="uid://d1eiftosoiaqj" path="res://model/characterModel/FarmerVer2.glb" id="3_epwka"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_egpgw"]

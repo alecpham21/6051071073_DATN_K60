@@ -1,9 +1,0 @@
-[gd_scene load_steps=3 format=3 uid="uid://lewwaqmawt7n"]
-
-[ext_resource type="PackedScene" uid="uid://cegn44wtho3bu" path="res://model/wheat/wetwheat/wetwheatFinal.glb" id="1_58y1q"]
-[ext_resource type="ArrayMesh" uid="uid://d4mi0awa3fu8m" path="res://modelTscn/plant/wheat/wet_wheat_final.tres" id="2_5us1j"]
-
-[node name="wetwheatFinal" instance=ExtResource("1_58y1q")]
-
-[node name="WetWheat_middle_stage" parent="." index="0"]
-mesh = ExtResource("2_5us1j")

@@ -8,30 +8,50 @@ signal slot_clicked(index: int, button: int)
 
 func set_slot_data(slot_data: SlotData) -> void:
 	var item_data = slot_data.item_data
+	
+	# 1. Reset màu về trắng trước (Fix lỗi ám màu)
+	texture_rect.modulate = Color.WHITE 
 	texture_rect.texture = item_data.texture
+	
 	var text = "%s\n%s" % [item_data.name, item_data.description]
 	
+	# --- KHAI BÁO BIẾN Ở ĐÂY ĐỂ DÙNG CHUNG CHO TOÀN HÀM ---
+	var water_max = slot_data.get_stat("water_capacity")
+	var water_cur = 0.0 # Khởi tạo mặc định
+	
+	# Xử lý Outfit (Quần áo)
 	if item_data is ItemDataOutfit:
-		# --- SỬA Ở ĐÂY ---
-		# Thay vì gọi .current_dirt_level (biến cũ)
-		# Hãy gọi hàm get_stat("dirt") hoặc get_attribute("dirt") tùy theo tên ông đặt bên SlotData
-		var d_level = int(slot_data.get_stat("dirt")) 
-		
-		# Max dirt thì vẫn lấy từ ItemData gốc là đúng rồi
+		var d_level = int(slot_data.get_stat("dirt"))
 		var max_d = int(item_data.max_dirt_level)
-		
 		text += "\n----------------"
-		if d_level == 0:
-			text += "\nTrạng thái: Sạch sẽ ✨"
-		else:
-			text += "\nĐộ dơ: %s / %s 💩" % [d_level, max_d]
-			
+		var status = ""
+		if d_level == 0: status = "Sạch sẽ ✨"
+		elif d_level <= 20: status = "Ổn 👌"
+		elif d_level <= 50: status = "Hơi dơ ☁️"
+		elif d_level <= 80: status = "Dơ 💩"
+		elif d_level < 100: status = "Rất dơ 🤢"
+		else: status = "Gớm 🤮"
+		text += "\nĐộ dơ: %s (%s/%s)" % [status, d_level, max_d]
+
+	# Xử lý Nước (Tooltip & Màu sắc)
+	if water_max > 0:
+		water_cur = slot_data.get_stat("water_current") # Gán giá trị vào biến đã khai báo ở trên
+		text += "\nNước: %s / %s" % [water_cur, water_max]
+		
+		if water_cur <= 0:
+			texture_rect.modulate = Color(0.5, 0.5, 0.5, 1.0)
+
 	tooltip_text = text
 	
-	if slot_data.quantity > 1:
+	## Label Quantity
+	if water_max > 0:
+		quantity_label.text = "%s" % int(water_cur)
+		quantity_label.show()
+	elif slot_data.quantity > 1:
 		quantity_label.text = "x%s" % slot_data.quantity
 		quantity_label.show()
 	else:
+		# Ẩn
 		quantity_label.hide()
 
 func _on_gui_input(event: InputEvent) -> void:

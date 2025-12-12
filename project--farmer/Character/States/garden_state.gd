@@ -59,5 +59,5 @@ func _update(delta: float) -> void:
 
 func get_current_speed() -> float:
 	if can_run and Input.is_action_pressed("running"):
-		return character.run_speed 
-	return character.move_speed
+		return character.stats.run_speed 
+	return character.stats.walk_speed

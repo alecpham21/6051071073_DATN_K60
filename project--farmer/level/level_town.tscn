@@ -13,7 +13,7 @@
 [ext_resource type="Shader" uid="uid://c13esa4vg2n5k" path="res://level/posterization.gdshader" id="14_5jqrs"]
 [ext_resource type="PackedScene" uid="uid://oxqdgfctyeo" path="res://level/traditional_town_full_1.tscn" id="15_auj8g"]
 [ext_resource type="PackedScene" uid="uid://03bjah3n70ep" path="res://Scene/WindGrass/WindGrassScene.tscn" id="16_gwcwr"]
-[ext_resource type="PackedScene" uid="uid://ba2xtjdegyqnt" path="res://modelTscn/plant/grass/grassPixel.tscn" id="17_v8ox3"]
+[ext_resource type="PackedScene" uid="uid://ba2xtjdegyqnt" path="res://modelScene/plant/grass/grassPixel.tscn" id="17_v8ox3"]
 [ext_resource type="PackedScene" uid="uid://c3gcddyset4iw" path="res://Scene/Tree/tree_sway.tscn" id="18_ngi1u"]
 [ext_resource type="PackedScene" uid="uid://bjxrobwweubb3" path="res://model/tree/TreeVer1.tscn" id="19_kcivo"]
 [ext_resource type="PackedScene" uid="uid://dd48ywngxd2oc" path="res://Scene/Environment/day_night_cycle.tscn" id="19_vk6vg"]

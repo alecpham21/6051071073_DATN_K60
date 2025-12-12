@@ -1,11 +1,11 @@
 [gd_scene load_steps=12 format=4 uid="uid://d3osmu23upnic"]
 
 [ext_resource type="Script" uid="uid://bq7r24vlkmi2k" path="res://Plant/plant_carrot.gd" id="1_atruf"]
-[ext_resource type="PackedScene" uid="uid://cewxcupr637mx" path="res://modelTscn/plant/carrot/carrot_sprout.tscn" id="1_ixg4p"]
-[ext_resource type="PackedScene" uid="uid://brthdr0tkuyvv" path="res://modelTscn/plant/carrot/carrot_item.tscn" id="2_hh7u0"]
-[ext_resource type="PackedScene" uid="uid://dd7v1woe7juju" path="res://modelTscn/plant/carrot/carrot_middle.tscn" id="2_r4ur6"]
+[ext_resource type="PackedScene" uid="uid://cewxcupr637mx" path="res://modelScene/plant/carrot/carrot_sprout.tscn" id="1_ixg4p"]
+[ext_resource type="PackedScene" uid="uid://brthdr0tkuyvv" path="res://modelScene/plant/carrot/carrot_item.tscn" id="2_hh7u0"]
+[ext_resource type="PackedScene" uid="uid://dd7v1woe7juju" path="res://modelScene/plant/carrot/carrot_middle.tscn" id="2_r4ur6"]
 [ext_resource type="Material" uid="uid://bcj814ve7y6h" path="res://Scene/Environment/mat_soil_dry.tres" id="3_7bk25"]
-[ext_resource type="PackedScene" uid="uid://chwxqy4jowor6" path="res://modelTscn/plant/carrot/carrot_final.tscn" id="3_dnkbr"]
+[ext_resource type="PackedScene" uid="uid://chwxqy4jowor6" path="res://modelScene/plant/carrot/carrot_final.tscn" id="3_dnkbr"]
 [ext_resource type="Material" uid="uid://bjpftqps8ru4s" path="res://Scene/Environment/mat_soil_wet.tres" id="4_sedmd"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1egsg"]

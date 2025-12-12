@@ -1,0 +1,15 @@
+NPC_John: Chào mừng tới với nông trại thân thương của chúng ta
+- Tại sao cháu không thấy một cái cây nào vậy
+	NPC_John: Rôi sẽ thấy thôi
+	player: Là sao chú ? Cây chú trồng chưa lên à hay chết hết rồi
+	NPC_John: Mày bớt hỏi được không
+- Nông trại ?
+	NPC_John: Ừ đúng rồi nông trại
+NPC_John: Mà chuyện dài lắm, tóm lại là người dân ở đảo xây cho chú mày cái nhà này để chú tiện đi lại, thích thì có thể trồng trọt
+player: Tại sao họ lại xây cho chú cái nhà rồi còn cho chú đất trồng cây vậy ?
+NPC_John: Thì thế tao mới bảo là chuyện dài lắm, tóm lại là giờ tao giao cái nhà này lại cho mày trông, miễn sao tới lúc tao về nó thành cái nông trại đúng nghĩa là được
+- Chú đi đâu vậy ? Rồi chừng nào mới về
+	NPC_John: Khi nào về chú sẽ báo trước, tóm lại là đi hơi lâu đấy
+- Đã rõ
+NPC_John: Giờ trong nhà coi thiếu gì không, thiếu thì báo chú một tiếng, dụng cụ với hạt giống chú để trong cái hộp gỗ, giờ cứ xem như nhà nhóc đi
+[signal arg="end_talk"]

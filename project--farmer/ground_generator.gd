@@ -74,6 +74,7 @@ func load_from_data(data: Dictionary):
 				d.mode = saved_tile["mode"]
 				d.plant_type = saved_tile.get("plant_type", PlantDatabase.PLANT_VARIANT.NONE)
 				d.crop_ready = saved_tile.get("crop_ready", false)
+				d.is_watered = saved_tile.get("is_watered", false)
 				saved_growth = saved_tile.get("growth", 0)
 			elif saved_tile is BlockGroundData:
 				d.mode = saved_tile.mode
@@ -114,7 +115,8 @@ func get_current_state() -> Dictionary:
 				"mode": block.mode,
 				"plant_type": block.plant_type,
 				"crop_ready": block.crop_ready,
-				"growth": 0
+				"growth": 0,
+				"is_watered": block.is_watered
 			}
 			
 			# [CHECK THỰC TẾ] Data bảo có cây, mà sân không có -> Xóa data ma
@@ -220,3 +222,15 @@ func reset_block_after_harvest(grid_pos: Vector2i, keep_tilled: bool = true):
 	else:
 		block.mode = BlockGroundData.Mode.CUT
 		renderer.set_mode(grid_pos.x, grid_pos.y, BlockGroundData.Mode.CUT)
+
+func get_plant_node(grid_pos: Vector2i) -> Node3D:
+	# Duyệt qua tất cả các con của GroundGenerator
+	for child in get_children():
+		# Kiểm tra xem child có phải là Cây không và tọa độ có khớp không
+		# (Lưu ý: phải chắc chắn script Plant của ông có biến current_grid_pos)
+		if child.get("current_grid_pos") != null and child.current_grid_pos == grid_pos:
+			# Kiểm tra thêm để chắc chắn nó không phải là mấy cục đất nền (renderer)
+			# Cách đơn giản là check xem nó có hàm 'grow' hay 'harvest' không
+			if child.has_method("grow"):
+				return child
+	return null

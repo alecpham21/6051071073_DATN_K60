@@ -1,37 +1,29 @@
-[gd_scene load_steps=29 format=3 uid="uid://o1wmcaqylahd"]
+[gd_scene load_steps=33 format=3 uid="uid://o1wmcaqylahd"]
 
 [ext_resource type="Script" uid="uid://dg34046jf1xjo" path="res://Scene/InBuilding/level_house.gd" id="1_iipvn"]
-[ext_resource type="Shader" uid="uid://c6qhkhar3xobg" path="res://Shader/edge_detection.gdshader" id="2_ofysm"]
 [ext_resource type="Script" uid="uid://bshrove7rvagv" path="res://spring_arm_camera.gd" id="3_hou3o"]
 [ext_resource type="Shader" uid="uid://viqy3uwh6ns7" path="res://PixelShader.gdshader" id="3_iipvn"]
-[ext_resource type="PackedScene" uid="uid://bl1mg832slikq" path="res://modelTscn/building/house/uncle_room.tscn" id="5_02qar"]
+[ext_resource type="PackedScene" uid="uid://bl1mg832slikq" path="res://modelScene/building/house/uncle_room.tscn" id="5_02qar"]
 [ext_resource type="PackedScene" uid="uid://km0edqcbty58" path="res://level/level script/door.tscn" id="6_scj0i"]
 [ext_resource type="PackedScene" uid="uid://bnxu42mjbjp8x" path="res://player/main_farmer.tscn" id="7_yns1g"]
 [ext_resource type="Resource" uid="uid://c05tf37csx4tp" path="res://inventory_script/test_inv.tres" id="8_ofysm"]
+[ext_resource type="PackedScene" uid="uid://b2fs6n6m2oqn0" path="res://modelScene/storage/WoodenCrate.tscn" id="8_r6vy2"]
 [ext_resource type="Script" uid="uid://y0d42bllc0fd" path="res://Inventory_ui/inventory_interface.gd" id="9_ejw82"]
 [ext_resource type="PackedScene" uid="uid://470pnke8j1j2" path="res://Inventory_ui/inventory.tscn" id="10_8g7rj"]
 [ext_resource type="PackedScene" uid="uid://cmaas2sclopj4" path="res://Inventory_ui/slot.tscn" id="11_r2ay0"]
 [ext_resource type="PackedScene" uid="uid://dh4ns40qdxwam" path="res://Inventory_ui/hot_bar_inventory.tscn" id="12_gh1d0"]
 [ext_resource type="PackedScene" uid="uid://viw0xh7gair5" path="res://ui/other/washing_machine_control.tscn" id="12_r6vy2"]
-[ext_resource type="PackedScene" uid="uid://cnh3uiwulfbdd" path="res://modelTscn/storage/wardrope.tscn" id="14_iipvn"]
+[ext_resource type="PackedScene" uid="uid://cnh3uiwulfbdd" path="res://modelScene/storage/wardrope.tscn" id="14_iipvn"]
+[ext_resource type="PackedScene" uid="uid://b5bavm45lxiid" path="res://ui/Recipe/recipe_ui.tscn" id="14_r2ay0"]
+[ext_resource type="PackedScene" uid="uid://dhvq674td0p8f" path="res://Scene/craft_bar.tscn" id="15_gh1d0"]
 [ext_resource type="Shader" uid="uid://c13esa4vg2n5k" path="res://level/posterization.gdshader" id="15_hou3o"]
 [ext_resource type="Material" uid="uid://fcrap08w717d" path="res://EnvironmentResources/emissive_mat.tres" id="16_02qar"]
+[ext_resource type="PackedScene" uid="uid://byania5tqerj4" path="res://Scene/material_inventory.tscn" id="16_2v4fx"]
 [ext_resource type="Script" uid="uid://djj2m2skea716" path="res://TimeCheck.gd" id="17_scj0i"]
-[ext_resource type="PackedScene" uid="uid://b60ga8o1kh6ch" path="res://modelTscn/machine/washing_cmachine.tscn" id="17_yns1g"]
-[ext_resource type="PackedScene" uid="uid://jlymgu5ic30x" path="res://modelTscn/interior/kitchen.tscn" id="18_yns1g"]
-
-[sub_resource type="QuadMesh" id="QuadMesh_5q01f"]
-flip_faces = true
-size = Vector2(4, 4)
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_dff8o"]
-render_priority = 0
-shader = ExtResource("2_ofysm")
-shader_parameter/lightIntensity = 4.55
-shader_parameter/lineAlpha = 0.64
-shader_parameter/useLighting = true
-shader_parameter/lineHighlight = 0.2
-shader_parameter/lineShadow = 5.12
+[ext_resource type="PackedScene" uid="uid://b60ga8o1kh6ch" path="res://modelScene/machine/washing_cmachine.tscn" id="17_yns1g"]
+[ext_resource type="PackedScene" uid="uid://jlymgu5ic30x" path="res://modelScene/interior/kitchen.tscn" id="18_yns1g"]
+[ext_resource type="Script" uid="uid://bspkgwkxsy8mn" path="res://inventory_script/slot_data.gd" id="23_2v4fx"]
+[ext_resource type="Script" uid="uid://cxjkim56kcobh" path="res://ui/Recipe/recipe.gd" id="24_rs3xq"]
 
 [sub_resource type="QuadMesh" id="QuadMesh_p1g3l"]
 flip_faces = true
@@ -41,8 +33,8 @@ size = Vector2(4, 4)
 render_priority = 0
 shader = ExtResource("3_iipvn")
 shader_parameter/depth_threshold = 0.039
-shader_parameter/reverse_depth_threshold = 0.189
-shader_parameter/normal_threshold = 0.475
+shader_parameter/reverse_depth_threshold = 0.0
+shader_parameter/normal_threshold = 1.0
 shader_parameter/darken_amount = 0.12
 shader_parameter/lighten_amount = 1.35
 shader_parameter/normal_edge_bias = Vector3(1, 1, 1)
@@ -80,6 +72,13 @@ shader_parameter/level_h = 0.05
 [sub_resource type="BoxMesh" id="BoxMesh_scj0i"]
 size = Vector3(1.525, 0.085, 0.05)
 
+[sub_resource type="Resource" id="Resource_gkoo6"]
+script = ExtResource("24_rs3xq")
+extra_drop = Array[ExtResource("23_2v4fx")]([])
+other_conditions = Array[StringName]([])
+slot_datas = Array[ExtResource("23_2v4fx")]([null, null, null, null, null])
+metadata/_custom_type_script = "uid://cxjkim56kcobh"
+
 [node name="level_house" type="Node3D"]
 script = ExtResource("1_iipvn")
 
@@ -98,14 +97,6 @@ handle_input_locally = false
 size = Vector2i(576, 324)
 render_target_update_mode = 4
 
-[node name="ShaderOutline" type="MeshInstance3D" parent="SubViewportContainer/SubViewport"]
-transform = Transform3D(1, 0, 0, 0, 0.00750488, 0.999972, 0, -0.999972, 0.00750488, 0.180526, -35.304, 0)
-visible = false
-extra_cull_margin = 16384.0
-mesh = SubResource("QuadMesh_5q01f")
-skeleton = NodePath("")
-surface_material_override/0 = SubResource("ShaderMaterial_dff8o")
-
 [node name="SpringArm3D2" type="SpringArm3D" parent="SubViewportContainer/SubViewport"]
 transform = Transform3D(1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, 0, 0.659112, 0)
 visible = false
@@ -117,7 +108,7 @@ player_path = NodePath("../MainFarmer")
 current = true
 fov = 69.0
 
-[node name="ShaderOutline2" type="MeshInstance3D" parent="SubViewportContainer/SubViewport"]
+[node name="ShaderOutline" type="MeshInstance3D" parent="SubViewportContainer/SubViewport"]
 transform = Transform3D(1, 0, 0, 0, 0.00750488, 0.999972, 0, -0.999972, 0.00750488, 0.180526, -35.304, 0)
 extra_cull_margin = 16384.0
 mesh = SubResource("QuadMesh_p1g3l")
@@ -133,6 +124,7 @@ collision_layer = 16
 collision_mask = 0
 target_scene_path = "res://world.tscn"
 target_spawn_position = Vector3(-2, 0, 0)
+trigger_john_leave = true
 
 [node name="MainFarmer" parent="SubViewportContainer/SubViewport" instance=ExtResource("7_yns1g")]
 unique_name_in_owner = true
@@ -145,9 +137,13 @@ inventory_data = ExtResource("8_ofysm")
 transform = Transform3D(-0.645857, -0.167718, 0.744808, -0.0353928, 0.9811, 0.190236, -0.762638, 0.0965047, -0.639587, 1.64814, 2.50409, -3.25485)
 fov = 40.6
 
+[node name="WoodenCrate" parent="SubViewportContainer/SubViewport" instance=ExtResource("8_r6vy2")]
+transform = Transform3D(0.765, 0, 0, 0, 0.765, 0, 0, 0, 0.765, -3.04543, 0.616039, -3.17967)
+chest_id = "starting_chest"
+
 [node name="UI" type="CanvasLayer" parent="."]
 
-[node name="InventoryInterface" type="Control" parent="UI"]
+[node name="InventoryInterface" type="Control" parent="UI" node_paths=PackedStringArray("craft_bar", "material_inventory")]
 visible = false
 layout_mode = 3
 anchors_preset = 15
@@ -156,6 +152,8 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("9_ejw82")
+craft_bar = NodePath("../CraftBar")
+material_inventory = NodePath("../MatterialInventory")
 
 [node name="PlayerInventory" parent="UI/InventoryInterface" instance=ExtResource("10_8g7rj")]
 layout_mode = 1
@@ -248,6 +246,13 @@ offset_bottom = 0.0
 grow_horizontal = 2
 grow_vertical = 0
 
+[node name="RecipeUI" parent="UI" instance=ExtResource("14_r2ay0")]
+
+[node name="CraftBar" parent="UI" instance=ExtResource("15_gh1d0")]
+
+[node name="MatterialInventory" parent="UI" instance=ExtResource("16_2v4fx")]
+visible = false
+
 [node name="Lighting" type="Node" parent="."]
 
 [node name="Day_light_window" type="SpotLight3D" parent="Lighting"]
@@ -304,6 +309,7 @@ transform = Transform3D(-0.495, 0, -4.32743e-08, 0, 0.495, 0, 4.32743e-08, 0, -0
 
 [node name="Kitchen" parent="." instance=ExtResource("18_yns1g")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.04002, 0, 3.37305)
+inventory_data = SubResource("Resource_gkoo6")
 
 [connection signal="drop_slot_data" from="UI/InventoryInterface" to="UI/InventoryInterface" method="_on_drop_slot_data"]
 [connection signal="gui_input" from="UI/InventoryInterface" to="UI/InventoryInterface" method="_on_gui_input"]

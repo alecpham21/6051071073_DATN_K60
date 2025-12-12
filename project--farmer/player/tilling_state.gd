@@ -30,12 +30,14 @@ func till(cast:RayCast3D, ground_gen) -> void:
 		var hit_pos = cast.get_collision_point()
 		var grid_pos = ground_gen.get_grid_pos_from_world(hit_pos)
 
-		# Truy cập block data và đổi mode
 		var block = ground_gen.block_data[grid_pos.x][grid_pos.y]
 		if block.mode != BlockGroundData.Mode.TILLED:
 			block.mode = BlockGroundData.Mode.TILLED
 			ground_gen.renderer.set_mode(grid_pos.x, grid_pos.y, BlockGroundData.Mode.TILLED)
 			print("Cuốc thành công ô:", grid_pos, "| mode mới:", block.mode)
+			# Dirty Point
+			PlayerData.add_dirt_to_outfit(5.0) 
+			
 		else:
 			print("Ô này đã được cuốc rồi:", grid_pos)
 	else:

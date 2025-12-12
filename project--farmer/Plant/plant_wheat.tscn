@@ -1,12 +1,12 @@
 [gd_scene load_steps=12 format=4 uid="uid://dbcj1k6soxi00"]
 
 [ext_resource type="Script" uid="uid://cnk6ujrkvvh53" path="res://Plant/plant_wheat.gd" id="1_5wa0p"]
-[ext_resource type="PackedScene" uid="uid://d0gtnctqjg8vr" path="res://modelTscn/plant/wheat/GroundWheatEarly.tscn" id="1_gk82f"]
+[ext_resource type="PackedScene" uid="uid://d0gtnctqjg8vr" path="res://modelScene/plant/wheat/GroundWheatEarly.tscn" id="1_gk82f"]
 [ext_resource type="PackedScene" uid="uid://c08vlcycibqcj" path="res://Scene/CropItem/Wheat/wheat_item.tscn" id="2_6epbd"]
-[ext_resource type="PackedScene" uid="uid://b3gws14t0yeb6" path="res://modelTscn/plant/wheat/GroundWheatMidMulti.tscn" id="3_5wa0p"]
+[ext_resource type="PackedScene" uid="uid://b3gws14t0yeb6" path="res://modelScene/plant/wheat/GroundWheatMidMulti.tscn" id="3_5wa0p"]
 [ext_resource type="Material" uid="uid://bcj814ve7y6h" path="res://Scene/Environment/mat_soil_dry.tres" id="3_whrkl"]
 [ext_resource type="Material" uid="uid://bjpftqps8ru4s" path="res://Scene/Environment/mat_soil_wet.tres" id="4_hkw44"]
-[ext_resource type="PackedScene" uid="uid://5n4f5va886ty" path="res://modelTscn/plant/wheat/GroundWheatFinalMulti.tscn" id="5_6epbd"]
+[ext_resource type="PackedScene" uid="uid://5n4f5va886ty" path="res://modelScene/plant/wheat/GroundWheatFinalMulti.tscn" id="5_6epbd"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1egsg"]
 

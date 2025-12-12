@@ -12,6 +12,8 @@ var states : Dictionary[StringName, CharacterState]
 var prev:CharacterState
 var use_item:bool = false
 var long_tool:bool = false
+var cook = false
+
 
 func _ready() -> void:
 	initialize(character)
@@ -87,7 +89,31 @@ func can_harvest() -> bool:
 			crop_check = true
 	#Last result
 	return crop_check
+
+# Thêm vào LimboPrimeHSM.gd
+
+func can_care() -> bool:
+	if not HotBar.active_slot or not HotBar.active_item:
+		return false
 	
+	# Lấy tên item viết thường cho dễ so sánh
+	var item_name = HotBar.active_item.name.to_lower()
+	
+	# Danh sách các món đồ "Chăm sóc"
+	var is_care_tool = item_name.contains("watering") or \
+					   item_name.contains("fertilizer") or \
+					   item_name.contains("debugging")
+					
+	# Check if right tool and block has data on it
+	if is_care_tool and use_item and !Watcher.indoor:
+		var block = get_block()
+		if block:
+			return block.mode == BlockGroundData.Mode.TILLED or \
+				   block.mode == BlockGroundData.Mode.PLANTED
+	
+	return false
+
+
 func get_block():
 	var block = null
 	if !ground_gen: return block

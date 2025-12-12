@@ -1,0 +1,20 @@
+[gd_scene load_steps=6 format=3 uid="uid://b6a1h442o11p3"]
+
+[ext_resource type="PackedScene" uid="uid://gxaflfiyspvy" path="res://model/structure/waterWell.glb" id="1_2a6dc"]
+[ext_resource type="Texture2D" uid="uid://5a6ix11qvhch" path="res://model/building/Town/TraditionalTownFull2_woodtexture.png" id="2_u7jwq"]
+[ext_resource type="Texture2D" uid="uid://1gysjnj7jqbq" path="res://assets/ImphenziaPalette01-256-Gradient.png" id="3_i52po"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_spen5"]
+albedo_texture = ExtResource("2_u7jwq")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_kxp10"]
+cull_mode = 2
+albedo_texture = ExtResource("3_i52po")
+
+[node name="waterWell" instance=ExtResource("1_2a6dc")]
+
+[node name="WoodPart" parent="." index="0"]
+material_override = SubResource("StandardMaterial3D_spen5")
+
+[node name="Well" parent="." index="1"]
+material_override = SubResource("StandardMaterial3D_kxp10")

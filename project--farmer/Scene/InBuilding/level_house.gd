@@ -16,6 +16,7 @@ func _ready():
 	inventory_interface.set_outfit_inventory_data(player.outfit_inventory_data)
 	inventory_interface.force_close.connect(toggle_inventory_interface)
 	hot_bar_inventory.set_inventory_data(player.inventory_data)
+	inventory_interface.set_material_inventory_data(PlayerData.material_data)
 	GameData.set_current_stage(self)
 	
 	for node in get_tree().get_nodes_in_group("external_inventory"):

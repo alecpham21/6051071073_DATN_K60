@@ -1,0 +1,13 @@
+NPC_John: Long phải không?
+player: Yes?
+player: Uncle John ?
+NPC_John: Chú của mày không nói tiếng anh thì thôi mắc gì mày nói vậy ?
+player: Yes
+NPC_John: Mẹ mày
+player: Ơ mắc gì chú chửi cháu
+NPC_John: Mẹ mày nhờ chú mày ra đón tận nơi chứ gì, đứng đây nãy giờ cũng lâu rồi đi thôi, chú dẫn mày về nhà rồi chú mày phải đi gấp nữa
+player: Chú đi đâu
+NPC_John: Đi đâu còn lâu mới nói
+[signal arg="action1"]
+NPC_John: Chờ gì nữa?
+[signal arg="end_talk"]

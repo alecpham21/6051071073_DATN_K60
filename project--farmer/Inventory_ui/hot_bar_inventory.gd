@@ -16,6 +16,9 @@ var is_locked: bool = false
 
 func _ready() -> void:
 	add_to_group("hotbar_ui")
+	GameData.game_state_changed.connect(func(old, new):
+		visible = (new != GState.state_enum.COOK)
+	)
 	active_slot_changed.connect(func(_slot:SlotData):
 		tool_cache()
 		if _slot && _slot.item_data is ItemDataTool:
@@ -25,6 +28,9 @@ func _ready() -> void:
 				"sickle":
 					PlayerData.player.sickle.add_child(tool)
 					tool.scale *= 0.3
+				"watering can":
+					PlayerData.player.watering.add_child(tool)
+					#tool.scale *= 0.3
 			active_tool.append(tool)
 		)
 	PlayerData.player_inventory_data.inventory_updated.connect(populate_hot_bar)

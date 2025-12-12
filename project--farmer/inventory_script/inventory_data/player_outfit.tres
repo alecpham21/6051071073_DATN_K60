@@ -1,20 +1,23 @@
-[gd_resource type="Resource" script_class="InventoryDataOutfit" load_steps=7 format=3 uid="uid://0dhxrdaq6ebs"]
+[gd_resource type="Resource" script_class="InventoryDataOutfit" load_steps=8 format=3 uid="uid://0dhxrdaq6ebs"]
 
 [ext_resource type="Script" uid="uid://c72nday65rj1i" path="res://inventory_script/inventory_data/inventory_data_outfit.gd" id="1_w672a"]
 [ext_resource type="Script" uid="uid://bspkgwkxsy8mn" path="res://inventory_script/slot_data.gd" id="2_7ce1t"]
 [ext_resource type="Resource" uid="uid://wnqnqmyfw1cp" path="res://inventory_script/item/items/item_clothe/black_shirt.tres" id="3_7ce1t"]
+[ext_resource type="Script" uid="uid://bfas330ndllg" path="res://inventory_script/item/item_attribute/item_attribute.gd" id="3_eyhq8"]
 [ext_resource type="Resource" uid="uid://c3eso4kmjc5en" path="res://inventory_script/item/items/item_clothe/long_black_pants.tres" id="4_s0sk5"]
 
 [sub_resource type="Resource" id="Resource_eyhq8"]
 script = ExtResource("2_7ce1t")
 item_data = ExtResource("3_7ce1t")
 quantity = 1
+attributes = Array[ExtResource("3_eyhq8")]([])
 metadata/_custom_type_script = "uid://bspkgwkxsy8mn"
 
 [sub_resource type="Resource" id="Resource_dvas7"]
 script = ExtResource("2_7ce1t")
 item_data = ExtResource("4_s0sk5")
 quantity = 1
+attributes = Array[ExtResource("3_eyhq8")]([])
 metadata/_custom_type_script = "uid://bspkgwkxsy8mn"
 
 [resource]

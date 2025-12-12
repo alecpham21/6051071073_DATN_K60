@@ -2,26 +2,33 @@ extends Plant
 class_name Cabbage
 
 func update_visuals():
+	# Reset ẩn hết trước
 	if mesh_seeding: mesh_seeding.visible = false
 	if mesh_sapling: mesh_sapling.visible = false
 	if mesh_middle: mesh_middle.visible = false
 	if mesh_ready: mesh_ready.visible = false
+	
+	# Lấy trạng thái nước
+	var is_watered_real = false
+	var parent_gen = get_parent()
+	if parent_gen and "block_data" in parent_gen:
+		var block = parent_gen.block_data[current_grid_pos.x][current_grid_pos.y]
+		is_watered_real = block.is_watered
 
-	if current_growth <= 3:
-		if mesh_seeding: mesh_seeding.visible = true
-		_set_soil_wet(true)
-		
-	elif current_growth <= 7:
-		if mesh_seeding: mesh_seeding.visible = true 
-		if mesh_sapling: mesh_sapling.visible = true
-		_set_soil_wet(false)
-		
-	elif current_growth <= 14:
-		if mesh_seeding: mesh_seeding.visible = true
-		if mesh_middle: mesh_middle.visible = true
-		_set_soil_wet(false)
-		
-	else: #Ready
-		if mesh_seeding: mesh_seeding.visible = true
-		if mesh_ready: mesh_ready.visible = true
-		_set_soil_wet(false)
+	# Dùng hàm get_stage_id() từ class cha cho đồng bộ logic
+	var stage = get_stage_id()
+	
+	match stage:
+		0:
+			if mesh_seeding: mesh_seeding.visible = true
+		1:
+			if mesh_seeding: mesh_seeding.visible = true 
+			if mesh_sapling: mesh_sapling.visible = true
+		2:
+			if mesh_seeding: mesh_seeding.visible = true
+			if mesh_middle: mesh_middle.visible = true
+		3:
+			if mesh_seeding: mesh_seeding.visible = true
+			if mesh_ready: mesh_ready.visible = true
+	
+	_set_soil_wet(is_watered_real)

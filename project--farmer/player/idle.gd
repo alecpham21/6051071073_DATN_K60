@@ -19,8 +19,10 @@ func check_dispatch():
 	if limbo_hsm.can_till(): dispatch("till")
 	if limbo_hsm.can_plant(): dispatch("plant")
 	if limbo_hsm.can_harvest(): dispatch("harvest")
+	if limbo_hsm.can_care(): dispatch("care")
 	if local_holding != limbo_hsm.long_tool:
 		dispatch("self")
 	if Input.is_action_just_pressed("toggle_vehicle"): 
 		if not Watcher.indoor:
 			dispatch("bike")
+	if limbo_hsm.cook: dispatch("cook")

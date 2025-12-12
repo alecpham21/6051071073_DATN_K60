@@ -2,6 +2,7 @@ class_name CharacterState
 extends LimboState
 
 #@export var state_name_res:StateNames
+@export var state_name:StringName = ""
 @export var transition_to:Dictionary[StringName, CharacterState]
 @export var play_default_ani := true
 @export var self_dispatch := false

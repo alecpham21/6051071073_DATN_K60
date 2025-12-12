@@ -21,11 +21,17 @@ extends GardeningState
 @export var reverse_speed: float = 3.0
 @export var turn_speed: float = 4.0
 
+@export_group("Dirt Settings")
+@export var dirt_fast_per_tick: float = 0.2
+@export var dirt_normal_per_tick: float = 0.025
+
 var ik_left: SkeletonIK3D
 var ik_right: SkeletonIK3D
 
 func _enter() -> void:
 	super()
+	if not TimeManager.tick.is_connected(_on_bike_tick):
+		TimeManager.tick.connect(_on_bike_tick)
 	if bike_mesh: bike_mesh.visible = true
 	
 	if bike_ride_aniset:
@@ -51,6 +57,9 @@ func _enter() -> void:
 		get_tree().call_group("hotbar_ui", "set_locked", true)
 func _exit() -> void:
 	super()
+	
+	if TimeManager.tick.is_connected(_on_bike_tick):
+		TimeManager.tick.disconnect(_on_bike_tick)
 	
 	#Stop will invisible the bike
 	if bike_mesh: bike_mesh.visible = false
@@ -165,7 +174,22 @@ func _update(delta: float) -> void:
 			var spin_dir = -1.0 if is_moving_forward else 1.0
 			front_wheel_node.rotate_object_local(Vector3.UP, current_velocity_len * delta * wheel_spin_factor * spin_dir)
 
+func _on_bike_tick() -> void:
+	if character.velocity.length() < 0.1:
+		return
 
+	var is_fast = false
+	
+	if Input.is_action_pressed("running"): 
+		is_fast = true
+		
+	# 3. Cộng độ dơ
+	if is_fast:
+		# print("🚴 Đạp nhanh -> Dơ nhiều")
+		PlayerData.add_dirt_to_outfit(dirt_fast_per_tick)
+	else:
+		# print("🚲 Đạp chill -> Dơ ít")
+		PlayerData.add_dirt_to_outfit(dirt_normal_per_tick)
 
 func check_dispatch():
 	if Input.is_action_just_pressed("toggle_vehicle"):

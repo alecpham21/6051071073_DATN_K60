@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://cqc7ycl7txcvd"]
+
+[ext_resource type="PackedScene" uid="uid://1lxc4a4rqj6g" path="res://model/tool/WateringCan.glb" id="1_b4hg4"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3ppwe"]
+albedo_color = Color(0.499444, 0.637824, 0.89567, 1)
+
+[node name="WateringCan" instance=ExtResource("1_b4hg4")]
+
+[node name="Watering_can" parent="." index="0"]
+surface_material_override/0 = SubResource("StandardMaterial3D_3ppwe")
