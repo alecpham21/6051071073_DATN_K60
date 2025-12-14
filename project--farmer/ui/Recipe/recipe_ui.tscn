@@ -16,104 +16,91 @@ grow_vertical = 2
 script = ExtResource("1_d1g0w")
 recipes = Array[ExtResource("2_o5va4")]([ExtResource("3_kukbk"), ExtResource("4_j8qhq")])
 
-[node name="InteractiveBook2D" parent="." instance=ExtResource("5_kukbk")]
-position = Vector2(740, 300)
-scale = Vector2(12.875, 11.625)
+[node name="BookControl" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 173.96
+offset_top = -274.0
+offset_right = 563.96
+offset_bottom = 193.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="InteractiveBook2D" parent="BookControl" instance=ExtResource("5_kukbk")]
+position = Vector2(83.8744, 232.625)
+scale = Vector2(10.3711, 8.58203)
 frame = 0
 frame_progress = 0.0
 
-[node name="ItemTexture" type="TextureRect" parent="."]
+[node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 1
-anchors_preset = 6
-anchor_left = 1.0
+anchors_preset = 8
+anchor_left = 0.5
 anchor_top = 0.5
-anchor_right = 1.0
+anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -384.0
-offset_top = -196.0
-offset_right = -312.0
-offset_bottom = -124.0
-grow_horizontal = 0
+offset_left = 279.0
+offset_top = -179.0
+offset_right = 486.0
+offset_bottom = 120.0
+grow_horizontal = 2
 grow_vertical = 2
 
-[node name="ItemName" type="Label" parent="."]
-layout_mode = 1
-anchors_preset = 6
-anchor_left = 1.0
-anchor_top = 0.5
-anchor_right = 1.0
-anchor_bottom = 0.5
-offset_left = -296.0
-offset_top = -196.0
-offset_right = -88.0
-offset_bottom = -132.0
-grow_horizontal = 0
-grow_vertical = 2
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_stretch_ratio = 0.0
+
+[node name="ItemTexture" type="TextureRect" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="ItemName" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
 theme_override_font_sizes/font_size = 25
 text = "Item name"
 
-[node name="ItemDescription" type="RichTextLabel" parent="."]
-layout_mode = 1
-anchors_preset = 6
-anchor_left = 1.0
-anchor_top = 0.5
-anchor_right = 1.0
-anchor_bottom = 0.5
-offset_left = -384.0
-offset_top = -116.0
-offset_right = -64.0
-offset_bottom = 60.0
-grow_horizontal = 0
-grow_vertical = 2
+[node name="ItemDescription" type="RichTextLabel" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
 theme_override_font_sizes/normal_font_size = 20
 text = "Item description."
+fit_content = true
+
+[node name="NavButton" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+alignment = 2
+
+[node name="PrevBtn" type="Button" parent="MarginContainer/VBoxContainer/NavButton"]
+layout_mode = 2
+text = "Prev"
+
+[node name="NextBtn" type="Button" parent="MarginContainer/VBoxContainer/NavButton"]
+layout_mode = 2
+text = "Next"
 
 [node name="CookBtn" type="Button" parent="."]
 layout_mode = 1
-anchors_preset = 6
-anchor_left = 1.0
+anchors_preset = 8
+anchor_left = 0.5
 anchor_top = 0.5
-anchor_right = 1.0
+anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -288.0
-offset_top = 140.0
-offset_right = -184.0
-offset_bottom = 188.0
-grow_horizontal = 0
+offset_left = 81.0
+offset_top = 159.0
+offset_right = 185.0
+offset_bottom = 207.0
+grow_horizontal = 2
 grow_vertical = 2
 text = "Cook"
 
-[node name="PrevBtn" type="Button" parent="."]
-layout_mode = 1
-anchors_preset = 6
-anchor_left = 1.0
-anchor_top = 0.5
-anchor_right = 1.0
-anchor_bottom = 0.5
-offset_left = -384.0
-offset_top = 76.0
-offset_right = -280.0
-offset_bottom = 124.0
-grow_horizontal = 0
-grow_vertical = 2
-text = "Prev"
-
-[node name="NextBtn" type="Button" parent="."]
-layout_mode = 1
-anchors_preset = 6
-anchor_left = 1.0
-anchor_top = 0.5
-anchor_right = 1.0
-anchor_bottom = 0.5
-offset_left = -192.0
-offset_top = 76.0
-offset_right = -88.0
-offset_bottom = 124.0
-grow_horizontal = 0
-grow_vertical = 2
-text = "Next"
-
 [node name="Label" type="Label" parent="."]
+visible = false
 z_index = 1
 layout_mode = 1
 anchors_preset = 8
@@ -121,10 +108,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -20.0
-offset_top = -11.5
-offset_right = 20.0
-offset_bottom = 11.5
+offset_left = -485.0
+offset_top = -102.0
+offset_right = 486.0
+offset_bottom = 103.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_colors/font_color = Color(0.847059, 0, 0, 1)

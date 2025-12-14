@@ -1,15 +1,15 @@
 extends Control
 
-@onready var item_texture: TextureRect = $ItemTexture
-@onready var item_name: Label = $ItemName
-@onready var item_description: RichTextLabel = $ItemDescription
+@onready var item_texture: TextureRect = $MarginContainer/VBoxContainer/HBoxContainer/ItemTexture
+@onready var item_name: Label = $MarginContainer/VBoxContainer/HBoxContainer/ItemName
+@onready var item_description: RichTextLabel = $MarginContainer/VBoxContainer/ItemDescription
 
 @onready var cook_btn: Button = $CookBtn
-@onready var prev_btn: Button = $PrevBtn
-@onready var next_btn: Button = $NextBtn
+@onready var prev_btn: Button = $MarginContainer/VBoxContainer/NavButton/PrevBtn
+@onready var next_btn: Button = $MarginContainer/VBoxContainer/NavButton/NextBtn
 
 @onready var blood_label: Label = $Label
-@onready var interactive_book_2d: InteractiveBook2D = $InteractiveBook2D
+@onready var interactive_book_2d: InteractiveBook2D = $BookControl/InteractiveBook2D
 
 #signal page_turned
 
@@ -51,6 +51,8 @@ func _ready() -> void:
 	prev_btn.pressed.connect(page_turn.bind(false))
 	cook_btn.pressed.connect(cook)
 
+
+
 func _process(delta: float) -> void:
 	if visible && cur_recipe:
 		var item:ItemData = cur_recipe.goal_item.item_data.duplicate()
@@ -70,6 +72,7 @@ func set_kitchen_inventory(inv: InventoryData) -> void:
 # --------------------------------------------
 
 func open_book():
+	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 	visible = true
 	current_page = 0
 	update_cur_recipe()
@@ -81,6 +84,7 @@ func open_book():
 		, CONNECT_ONE_SHOT)
 
 func close_book():
+	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	toggle_page_ui(false)
 	interactive_book_2d.play("next_to_last")
 	interactive_book_2d.animation_finished.connect(func():
