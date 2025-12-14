@@ -38,6 +38,7 @@ metadata/_custom_type_script = "uid://bspkgwkxsy8mn"
 
 [resource]
 script = ExtResource("1_pss3j")
+station = 0
 goal_item = SubResource("Resource_xi4bc")
 extra_drop = Array[ExtResource("2_20arn")]([SubResource("Resource_im726")])
 other_conditions = Array[StringName]([])

@@ -1,10 +1,23 @@
-[gd_scene load_steps=6 format=3 uid="uid://b5bavm45lxiid"]
+[gd_scene load_steps=13 format=3 uid="uid://b5bavm45lxiid"]
 
 [ext_resource type="Script" uid="uid://bcto2lyoe8p4f" path="res://Scripts/recipe_ui.gd" id="1_d1g0w"]
+[ext_resource type="FontFile" uid="uid://t7l1yos7sj5x" path="res://font/PixelOperator-Bold.ttf" id="1_rl6hr"]
 [ext_resource type="Script" uid="uid://cxjkim56kcobh" path="res://ui/Recipe/recipe.gd" id="2_o5va4"]
 [ext_resource type="Resource" uid="uid://m2mhsgf3i6vt" path="res://ui/Recipe/apple_pie_recipe.tres" id="3_kukbk"]
 [ext_resource type="Resource" uid="uid://bw1w03y46ey7m" path="res://ui/Recipe/cheese_recipe.tres" id="4_j8qhq"]
 [ext_resource type="PackedScene" uid="uid://c5l4nl6lbxxxe" path="res://assets/Book/recipe_book.tscn" id="5_kukbk"]
+[ext_resource type="Texture2D" uid="uid://3vu8eu5hksbd" path="res://assets/Book/arrow_back.png" id="6_dquvk"]
+[ext_resource type="Texture2D" uid="uid://bf4mkvqdtelis" path="res://assets/Book/arrow_right.png" id="6_jj5jt"]
+[ext_resource type="Texture2D" uid="uid://br671c8a6oi1g" path="res://assets/Book/arrow_back_pressed.png" id="8_8vbr2"]
+[ext_resource type="Texture2D" uid="uid://dnqstac0tsib8" path="res://assets/Book/arrow_right_pressed.png" id="9_d4kph"]
+
+[sub_resource type="Theme" id="Theme_d4kph"]
+default_base_scale = 0.44
+default_font = ExtResource("1_rl6hr")
+
+[sub_resource type="LabelSettings" id="LabelSettings_8vbr2"]
+font_size = 30
+font_color = Color(0, 0, 0, 1)
 
 [node name="RecipeUI" type="Control"]
 layout_mode = 3
@@ -13,6 +26,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = SubResource("Theme_d4kph")
 script = ExtResource("1_d1g0w")
 recipes = Array[ExtResource("2_o5va4")]([ExtResource("3_kukbk"), ExtResource("4_j8qhq")])
 
@@ -64,11 +78,14 @@ layout_mode = 2
 layout_mode = 2
 theme_override_font_sizes/font_size = 25
 text = "Item name"
+label_settings = SubResource("LabelSettings_8vbr2")
 
 [node name="ItemDescription" type="RichTextLabel" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
-theme_override_font_sizes/normal_font_size = 20
+theme_override_colors/default_color = Color(1, 1, 1, 1)
+theme_override_colors/font_shadow_color = Color(0.20871, 0.20871, 0.20871, 1)
+theme_override_font_sizes/normal_font_size = 24
 text = "Item description."
 fit_content = true
 
@@ -76,28 +93,25 @@ fit_content = true
 layout_mode = 2
 alignment = 2
 
-[node name="PrevBtn" type="Button" parent="MarginContainer/VBoxContainer/NavButton"]
+[node name="CookBtn" type="Button" parent="MarginContainer/VBoxContainer/NavButton"]
 layout_mode = 2
-text = "Prev"
-
-[node name="NextBtn" type="Button" parent="MarginContainer/VBoxContainer/NavButton"]
-layout_mode = 2
-text = "Next"
-
-[node name="CookBtn" type="Button" parent="."]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = 81.0
-offset_top = 159.0
-offset_right = 185.0
-offset_bottom = 207.0
-grow_horizontal = 2
-grow_vertical = 2
 text = "Cook"
+
+[node name="BackButton" type="TextureButton" parent="MarginContainer/VBoxContainer/NavButton"]
+custom_minimum_size = Vector2(36, 36)
+layout_mode = 2
+texture_normal = ExtResource("6_dquvk")
+texture_pressed = ExtResource("8_8vbr2")
+ignore_texture_size = true
+stretch_mode = 5
+
+[node name="NextButton" type="TextureButton" parent="MarginContainer/VBoxContainer/NavButton"]
+custom_minimum_size = Vector2(36, 36)
+layout_mode = 2
+texture_normal = ExtResource("6_jj5jt")
+texture_pressed = ExtResource("9_d4kph")
+ignore_texture_size = true
+stretch_mode = 5
 
 [node name="Label" type="Label" parent="."]
 visible = false

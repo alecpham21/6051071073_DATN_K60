@@ -30,6 +30,7 @@ metadata/_custom_type_script = "uid://bspkgwkxsy8mn"
 
 [resource]
 script = ExtResource("1_ymtrq")
+station = 0
 goal_item = SubResource("Resource_ih4wl")
 extra_drop = Array[ExtResource("2_ljwmu")]([])
 other_conditions = Array[StringName]([&"stove"])

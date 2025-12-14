@@ -1,6 +1,9 @@
 extends InventoryData
 class_name Recipe
 
+enum STATION { STOVE, BOARD }
+
+@export var station: STATION = STATION.STOVE
 @export var goal_item:SlotData
 @export var extra_drop:Array[SlotData]
 @export var other_conditions:Array[StringName]

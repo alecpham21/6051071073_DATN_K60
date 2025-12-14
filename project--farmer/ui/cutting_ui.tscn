@@ -1,0 +1,54 @@
+[gd_scene load_steps=3 format=3 uid="uid://d1dukac0hi5w7"]
+
+[ext_resource type="PackedScene" uid="uid://cmaas2sclopj4" path="res://Inventory_ui/slot.tscn" id="1_d424v"]
+[ext_resource type="Script" uid="uid://bl20auactg5p5" path="res://ui/cutting_ui.gd" id="1_rr5ls"]
+
+[node name="CuttingUI" type="PanelContainer" node_paths=PackedStringArray("input_slot_node", "output_preview_node", "cut_btn")]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -32.0
+offset_top = -136.0
+offset_right = 32.0
+grow_horizontal = 2
+grow_vertical = 0
+script = ExtResource("1_rr5ls")
+input_slot_node = NodePath("MarginContainer/VBoxContainer/HBoxContainer/Slot")
+output_preview_node = NodePath("MarginContainer/VBoxContainer/HBoxContainer/RecipeTexture")
+cut_btn = NodePath("MarginContainer/VBoxContainer/CutBtn")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+size_flags_vertical = 8
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Cutting Table
+"
+horizontal_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Slot" parent="MarginContainer/VBoxContainer/HBoxContainer" instance=ExtResource("1_d424v")]
+layout_mode = 2
+size_flags_vertical = 0
+
+[node name="RecipeTexture" type="TextureRect" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+
+[node name="CutBtn" type="Button" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Cut"

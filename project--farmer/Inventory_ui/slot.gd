@@ -7,19 +7,25 @@ signal slot_clicked(index: int, button: int)
 
 
 func set_slot_data(slot_data: SlotData) -> void:
+	if slot_data == null:
+		texture_rect.texture = null
+		quantity_label.hide()
+		tooltip_text = ""
+		texture_rect.modulate = Color.WHITE 
+		return
 	var item_data = slot_data.item_data
 	
-	# 1. Reset màu về trắng trước (Fix lỗi ám màu)
+
 	texture_rect.modulate = Color.WHITE 
 	texture_rect.texture = item_data.texture
 	
 	var text = "%s\n%s" % [item_data.name, item_data.description]
 	
-	# --- KHAI BÁO BIẾN Ở ĐÂY ĐỂ DÙNG CHUNG CHO TOÀN HÀM ---
+
 	var water_max = slot_data.get_stat("water_capacity")
-	var water_cur = 0.0 # Khởi tạo mặc định
+	var water_cur = 0.0
 	
-	# Xử lý Outfit (Quần áo)
+
 	if item_data is ItemDataOutfit:
 		var d_level = int(slot_data.get_stat("dirt"))
 		var max_d = int(item_data.max_dirt_level)
@@ -33,9 +39,9 @@ func set_slot_data(slot_data: SlotData) -> void:
 		else: status = "Gớm 🤮"
 		text += "\nĐộ dơ: %s (%s/%s)" % [status, d_level, max_d]
 
-	# Xử lý Nước (Tooltip & Màu sắc)
+
 	if water_max > 0:
-		water_cur = slot_data.get_stat("water_current") # Gán giá trị vào biến đã khai báo ở trên
+		water_cur = slot_data.get_stat("water_current")
 		text += "\nNước: %s / %s" % [water_cur, water_max]
 		
 		if water_cur <= 0:

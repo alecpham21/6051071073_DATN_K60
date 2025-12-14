@@ -194,8 +194,11 @@ func _unhandled_input(event: InputEvent) -> void:
 	if Input.is_action_just_pressed("inventory"):
 		toggle_inventory.emit()
 	
-	if Input.is_action_just_pressed("interact") && can_interact:
-		interact()
+	if Input.is_action_just_pressed("interact"):
+		if GState.is_cook() or GState.is_recipe():
+			GState.play()
+		elif can_interact:
+			interact()
 
 	if event.is_action_pressed("use_item") and not is_busy:
 		if Watcher.indoor:

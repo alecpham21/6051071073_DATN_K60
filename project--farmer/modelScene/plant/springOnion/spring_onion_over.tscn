@@ -1,0 +1,13 @@
+[gd_scene load_steps=4 format=3 uid="uid://d31jyy5b2rave"]
+
+[ext_resource type="PackedScene" uid="uid://b2de3ur4dsujw" path="res://model/plant/springOnion/SpringOnion_Over.glb" id="1_b7uf5"]
+[ext_resource type="Texture2D" uid="uid://1gysjnj7jqbq" path="res://assets/ImphenziaPalette01-256-Gradient.png" id="2_k6e45"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_l01ql"]
+cull_mode = 2
+albedo_texture = ExtResource("2_k6e45")
+
+[node name="SpringOnion_Over" instance=ExtResource("1_b7uf5")]
+
+[node name="Icosphere_004" parent="." index="0"]
+material_override = SubResource("StandardMaterial3D_l01ql")

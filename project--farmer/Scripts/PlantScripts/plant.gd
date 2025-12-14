@@ -3,20 +3,23 @@ class_name Plant
 
 @export_group("Growth Stats")
 @export var max_growth: int = 15
+@export var over_growth_cap_offset: int = 0 
 @export var growth_chance: float = 0.1
 @export var day_time_multiply: float = 1.5
 @export var harvest_yield: int = 2
 
 @export_group("Resources")
 @export var crop_item_scene: PackedScene
-@export var material_default: StandardMaterial3D 
-@export var material_seeding: StandardMaterial3D 
+@export var crop_over_item_scene: PackedScene 
+@export var material_default: StandardMaterial3D
+@export var material_seeding: StandardMaterial3D
 
 @export_group("Visual Nodes")
 @export var mesh_seeding: Node3D
 @export var mesh_sapling: Node3D
 @export var mesh_middle: Node3D
 @export var mesh_ready: Node3D
+@export var mesh_over: Node3D 
 @export var ground_mesh: MeshInstance3D
 
 var block_data_reference = null
@@ -29,16 +32,15 @@ func _ready():
 	update_visuals()
 
 func _on_tick_process():
-	if is_harvestable: return
-	
-	# Kiểm tra nước trước, nếu không có nước thì nghỉ khỏe, khỏi tính toán
+	if current_growth >= max_growth + over_growth_cap_offset:
+		return
+
 	var parent_generator = get_parent()
 	if parent_generator and "block_data" in parent_generator:
 		var block = parent_generator.block_data[current_grid_pos.x][current_grid_pos.y]
 		if block.is_watered == false:
-			return # Đất khô thì không lớn
+			return
 	
-	# Logic tính tỉ lệ lớn (giữ nguyên của bạn)
 	var current_minutes = TimeManager.current_time
 	var hour = int(current_minutes / 60)
 	var is_daytime = hour >= 6 and hour < 18
@@ -52,6 +54,8 @@ func _on_tick_process():
 
 
 func get_stage_id() -> int:
+	if current_growth > max_growth: return 4
+	
 	var progress = float(current_growth) / float(max_growth)
 	if progress >= 1.0: return 3
 	if progress > 0.5: return 2
@@ -63,6 +67,10 @@ func grow():
 	
 	current_growth += 1
 	
+	var absolute_max_growth = max_growth + over_growth_cap_offset
+	if current_growth > absolute_max_growth:
+		current_growth = absolute_max_growth
+
 	var new_stage = get_stage_id()
 	
 	if new_stage > old_stage:
@@ -70,14 +78,13 @@ func grow():
 		if parent_generator and "block_data" in parent_generator:
 			var block = parent_generator.block_data[current_grid_pos.x][current_grid_pos.y]
 			block.is_watered = false
-			_set_soil_wet(false) 
-
-	if current_growth >= max_growth:
-		current_growth = max_growth
+			_set_soil_wet(false)
+	
+	if current_growth == max_growth and not is_harvestable:
 		is_harvestable = true
 		if get_parent().has_method("on_crop_ready"):
 			get_parent().on_crop_ready(self)
-			
+
 	update_visuals()
 
 func update_visuals():
@@ -100,9 +107,18 @@ func harvest():
 	queue_free()
 
 func spawn_items():
-	if not crop_item_scene: return
+	var stage = get_stage_id()
+	var scene_to_spawn: PackedScene = null
+	
+	if stage == 4 and crop_over_item_scene != null:
+		scene_to_spawn = crop_over_item_scene
+	elif crop_item_scene != null:
+		scene_to_spawn = crop_item_scene
+		
+	if scene_to_spawn == null: return
+
 	for i in range(harvest_yield):
-		var item = crop_item_scene.instantiate()
+		var item = scene_to_spawn.instantiate()
 		get_tree().root.add_child(item)
 		item.global_position = global_position
 		var target_pos = item.global_position + Vector3(randf()-0.5, 0.0, randf()-0.5) * 1.5

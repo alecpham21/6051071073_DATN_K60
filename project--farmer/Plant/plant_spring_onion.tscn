@@ -1,16 +1,18 @@
-[gd_scene load_steps=12 format=4 uid="uid://d1lnxkilap5vp"]
+[gd_scene load_steps=14 format=4 uid="uid://djxqbl5qxobja"]
 
-[ext_resource type="Script" uid="uid://cychfrm8ggmeu" path="res://Plant/plant_cabbage.gd" id="1_5kgsd"]
-[ext_resource type="PackedScene" uid="uid://bnibp3q4vsiyo" path="res://modelScene/plant/cabbage/cabbage_item.tscn" id="2_eiltb"]
-[ext_resource type="PackedScene" uid="uid://dgmhplehmp2p5" path="res://modelScene/plant/cabbage/cabbage_sprout.tscn" id="2_qj0ch"]
-[ext_resource type="PackedScene" uid="uid://rs7mf07awj2f" path="res://modelScene/plant/cabbage/cabbage_medium.tscn" id="3_4ivtu"]
-[ext_resource type="Material" uid="uid://bcj814ve7y6h" path="res://Scene/Environment/mat_soil_dry.tres" id="3_66pdv"]
-[ext_resource type="Material" uid="uid://bjpftqps8ru4s" path="res://Scene/Environment/mat_soil_wet.tres" id="4_c04lm"]
-[ext_resource type="PackedScene" uid="uid://cmjey3yb1rrf2" path="res://modelScene/plant/cabbage/cabbage_final.tscn" id="4_isex7"]
+[ext_resource type="Script" uid="uid://x2lvtaf4f7c8" path="res://Plant/plant_spring_onion.gd" id="1_2jc4r"]
+[ext_resource type="PackedScene" uid="uid://dguwx788ru7au" path="res://modelScene/plant/springOnion/spring_onion_sapling.tscn" id="1_gmra5"]
+[ext_resource type="Material" uid="uid://bcj814ve7y6h" path="res://Scene/Environment/mat_soil_dry.tres" id="2_elcmw"]
+[ext_resource type="PackedScene" uid="uid://yhmofir5a4r1" path="res://modelScene/plant/springOnion/spring_onion_middle.tscn" id="2_gmra5"]
+[ext_resource type="PackedScene" uid="uid://l2016251bldi" path="res://modelScene/plant/springOnion/spring_onion_item.tscn" id="2_xi6ny"]
+[ext_resource type="Material" uid="uid://bjpftqps8ru4s" path="res://Scene/Environment/mat_soil_wet.tres" id="3_0a73h"]
+[ext_resource type="PackedScene" uid="uid://cix3baxo5qp3" path="res://modelScene/plant/springOnion/spring_onion_final.tscn" id="3_gmra5"]
+[ext_resource type="PackedScene" uid="uid://btrj5wpv6oood" path="res://modelScene/plant/springOnion/spring_onion_over_item.tscn" id="3_wgwni"]
+[ext_resource type="PackedScene" uid="uid://d31jyy5b2rave" path="res://modelScene/plant/springOnion/spring_onion_over.tscn" id="7_0a73h"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1egsg"]
 
-[sub_resource type="ArrayMesh" id="ArrayMesh_66pdv"]
+[sub_resource type="ArrayMesh" id="ArrayMesh_0ggln"]
 _surfaces = [{
 "aabb": AABB(-1.06132, 0.00426085, -1.06132, 2.12264, 0.160717, 2.12264),
 "format": 34896613377,
@@ -24,7 +26,7 @@ _surfaces = [{
 }]
 blend_shape_mode = 0
 
-[sub_resource type="ArrayMesh" id="ArrayMesh_y22yk"]
+[sub_resource type="ArrayMesh" id="ArrayMesh_elcmw"]
 resource_name = "Tilled_Ground_Plane"
 _surfaces = [{
 "aabb": AABB(-1.06132, 0.00426085, -1.06132, 2.12264, 0.160717, 2.12264),
@@ -40,20 +42,23 @@ _surfaces = [{
 "vertex_data": PackedByteArray("///7NVVV6cWpqvs1AADix9D4AAAuB/PFAAD7NVVV8sVVVfs1AADixy4HAAAuB/zFAAD7Namqirr///s1qaqHulVV+zX//xu4LgcAAND4h7qpqvs1//8buND4AADQ+IW6/LH//wJO88Wpqvs1AAD8xamq+zX//4e6/LH///yxirr8sf///LFcwP//+zVVVW7A///7NamqGsD8sf//Ak7SwAAA+zWpqlPAAk7//wJOZMACTv///LEawAAA+zVVVdLAAk7///yx/7/8sf//Ak7/v/yx///8sf+/Ak7//wJO/78CTv///LGHulVV+zX//4W6/LH///yxG7gCTv///LEbuFVV+zUAAPLFAk7//wJO6cUCTv//Ak7ix/yx//8CTuLHFfIBff///38m8ol9h/3Yjf///38R/seNofPAj03wGnP///9/F/Owj////39d8I5yJvKJfTbyEX5N8BpzPfCicy3rYnUw61J2GeubcEHriXrb9NOUyvXPlJrw5JSI+ryU////f////3////9/////fxfzsI+N8qCP////f////3+H/diNAP3ojf///3////9/")
 }]
 blend_shape_mode = 0
-shadow_mesh = SubResource("ArrayMesh_66pdv")
+shadow_mesh = SubResource("ArrayMesh_0ggln")
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_h4b4r"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_0a73h"]
 size = Vector3(1, 1.27979, 1)
 
-[node name="PlantCabbage" type="Node3D" node_paths=PackedStringArray("mesh_seeding", "mesh_sapling", "mesh_middle", "mesh_ready", "ground_mesh")]
-script = ExtResource("1_5kgsd")
-crop_item_scene = ExtResource("2_eiltb")
-material_default = ExtResource("3_66pdv")
-material_seeding = ExtResource("4_c04lm")
+[node name="plant_spring_onion" type="Node3D" node_paths=PackedStringArray("mesh_seeding", "mesh_sapling", "mesh_middle", "mesh_ready", "mesh_over", "ground_mesh")]
+script = ExtResource("1_2jc4r")
+over_growth_cap_offset = 10
+crop_item_scene = ExtResource("2_xi6ny")
+crop_over_item_scene = ExtResource("3_wgwni")
+material_default = ExtResource("2_elcmw")
+material_seeding = ExtResource("3_0a73h")
 mesh_seeding = NodePath("ModelCabbage/Seeding")
 mesh_sapling = NodePath("ModelCabbage/Sapling")
 mesh_middle = NodePath("ModelCabbage/Middle")
 mesh_ready = NodePath("ModelCabbage/Ready")
+mesh_over = NodePath("ModelCabbage/OverStage")
 ground_mesh = NodePath("ModelCabbage/Seeding/Tilled_Ground/Plane")
 
 [node name="ModelCabbage" type="Node3D" parent="."]
@@ -64,30 +69,36 @@ ground_mesh = NodePath("ModelCabbage/Seeding/Tilled_Ground/Plane")
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
 
 [node name="Plane" type="MeshInstance3D" parent="ModelCabbage/Seeding/Tilled_Ground"]
-mesh = SubResource("ArrayMesh_y22yk")
+mesh = SubResource("ArrayMesh_elcmw")
 skeleton = NodePath("")
 
 [node name="Sapling" type="Node3D" parent="ModelCabbage"]
 visible = false
 
-[node name="Cabbage_Sprout2" parent="ModelCabbage/Sapling" instance=ExtResource("2_qj0ch")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0599291, 0)
+[node name="SpringOnion_Sapling" parent="ModelCabbage/Sapling" instance=ExtResource("1_gmra5")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0794829, 0)
 
 [node name="Middle" type="Node3D" parent="ModelCabbage"]
 visible = false
 
-[node name="Cabbage_Medium2" parent="ModelCabbage/Middle" instance=ExtResource("3_4ivtu")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.04935, 0)
+[node name="SpringOnion_Middle" parent="ModelCabbage/Middle" instance=ExtResource("2_gmra5")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0726841, 0)
 
 [node name="Ready" type="Node3D" parent="ModelCabbage"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.129327, 0)
 visible = false
 
-[node name="Cabbage_Final" parent="ModelCabbage/Ready" instance=ExtResource("4_isex7")]
-transform = Transform3D(1.09, 0, 0, 0, 1.09, 0, 0, 0, 1.09, 0, 0.192796, 0)
+[node name="SpringOnion_Final" parent="ModelCabbage/Ready" instance=ExtResource("3_gmra5")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.195266, 0)
+
+[node name="OverStage" type="Node3D" parent="ModelCabbage"]
+visible = false
+
+[node name="SpringOnion_Over" parent="ModelCabbage/OverStage" instance=ExtResource("7_0a73h")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0683076, 0)
 
 [node name="Hitbox" type="Area3D" parent="."]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Hitbox"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.139893, 0)
-shape = SubResource("BoxShape3D_h4b4r")
+shape = SubResource("BoxShape3D_0a73h")

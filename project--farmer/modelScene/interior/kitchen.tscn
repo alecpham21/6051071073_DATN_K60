@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://jlymgu5ic30x"]
+[gd_scene load_steps=13 format=3 uid="uid://jlymgu5ic30x"]
 
 [ext_resource type="PackedScene" uid="uid://cqqg0laxtni83" path="res://model/interior/Kitchen.glb" id="1_vw2n2"]
 [ext_resource type="Texture2D" uid="uid://1gysjnj7jqbq" path="res://assets/ImphenziaPalette01-256-Gradient.png" id="2_g81lu"]
@@ -20,7 +20,10 @@ albedo_texture = ExtResource("4_i6neg")
 size = Vector3(1.98181, 1, 0.635132)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_seelv"]
-size = Vector3(1.90222, 0.914551, 0.520142)
+size = Vector3(0.921737, 0.914551, 0.568665)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ssixl"]
+size = Vector3(0.589992, 0.914551, 0.568665)
 
 [node name="Kitchen" instance=ExtResource("1_vw2n2")]
 script = ExtResource("2_seelv")
@@ -40,12 +43,23 @@ material_override = SubResource("StandardMaterial3D_l3hfl")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.254211, 0.380725, 0.00213623)
 shape = SubResource("BoxShape3D_vw2n2")
 
-[node name="InteractArea" type="Area3D" parent="." index="4"]
+[node name="StoveArea" type="Area3D" parent="." index="4"]
 collision_layer = 16
 collision_mask = 0
 script = ExtResource("5_wgkjh")
 metadata/_custom_type_script = "uid://i4dr8fqs0tx7"
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="InteractArea" index="0"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.34137, 0.453169, -0.157872)
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StoveArea" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.148871, 0.453169, -0.182133)
 shape = SubResource("BoxShape3D_seelv")
+
+[node name="BoardArea" type="Area3D" parent="." index="5"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.965677, 0, 0)
+collision_layer = 16
+collision_mask = 0
+script = ExtResource("5_wgkjh")
+metadata/_custom_type_script = "uid://i4dr8fqs0tx7"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="BoardArea" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.157952, 0.453169, -0.182133)
+shape = SubResource("BoxShape3D_ssixl")

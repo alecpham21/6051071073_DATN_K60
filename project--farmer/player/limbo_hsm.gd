@@ -13,7 +13,8 @@ var prev:CharacterState
 var use_item:bool = false
 var long_tool:bool = false
 var cook = false
-
+enum COOK_MODE { STOVE = 0, BOARD = 1 }
+var cook_mode: int = COOK_MODE.STOVE
 
 func _ready() -> void:
 	initialize(character)
