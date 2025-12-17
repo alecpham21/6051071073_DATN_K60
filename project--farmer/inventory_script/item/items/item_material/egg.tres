@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="ItemDataMaterial" load_steps=4 format=3 uid="uid://208q0fgbf0k5"]
+
+[ext_resource type="Script" uid="uid://vmjc7agye6gg" path="res://inventory_script/item/item_data/item_data_material.gd" id="1_s572i"]
+[ext_resource type="Texture2D" uid="uid://omvd8ed3fie6" path="res://inventory_script/item/item_atlast/#2 - Transparent Icons & Drop Shadow.png" id="2_xg4sh"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8y058"]
+atlas = ExtResource("2_xg4sh")
+region = Rect2(192, 480, 32, 32)
+
+[resource]
+script = ExtResource("1_s572i")
+material_type = 1
+name = "Egg"
+description = "Does not come first"
+stackable = true
+texture = SubResource("AtlasTexture_8y058")
+metadata/_custom_type_script = "uid://oj6faifeyt6a"

@@ -10,6 +10,10 @@ const PickUp = preload("res://inventory_script/item/pick_up_item/pick_up.tscn")
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	Watcher.indoor = true
+	
+	if player.cam_ref and "lock_movement" in player.cam_ref:
+		player.cam_ref.lock_movement = true
+
 	player.toggle_inventory.connect(toggle_inventory_interface)
 	inventory_interface.set_player_inventory_data(player.inventory_data)
 	inventory_interface.set_equip_inventory_data(player.equip_inventory_data)
@@ -22,13 +26,14 @@ func _ready():
 	for node in get_tree().get_nodes_in_group("external_inventory"):
 		node.toggle_inventory.connect(toggle_inventory_interface)
 	SceneTransition.reveal_scene()
+
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
 	pass
 
 func toggle_inventory_interface(external_inventory_owner = null) -> void:
 	inventory_interface.visible = not inventory_interface.visible
-	 
+	
 	if inventory_interface.visible:
 		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 	else:

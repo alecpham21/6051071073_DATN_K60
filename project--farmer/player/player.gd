@@ -62,7 +62,7 @@ func _ready() -> void:
 	super()
 	GState.reset()
 	Dialogic.timeline_started.connect(func(): 
-		GState.ui()
+		GState.dialog()
 		_set_mouse_captured(false)
 	)
 	
@@ -79,9 +79,12 @@ func _ready() -> void:
 	
 	GameData.game_state_changed.connect(func(old, new):
 		_set_mouse_captured(true)
-		if new == GState.state_enum.RECIPE || new == GState.state_enum.COOK:
+		
+		if new == GState.state_enum.RECIPE \
+		or new == GState.state_enum.COOK \
+		or new == GState.state_enum.DIALOG:
 			_set_mouse_captured(false)
-		)
+	)
 	
 	PlayerData.player = self
 	Watcher.player = self
@@ -192,10 +195,14 @@ func _unhandled_input(event: InputEvent) -> void:
 		else: GState.play()
 	
 	if Input.is_action_just_pressed("inventory"):
-		toggle_inventory.emit()
+		if GState.is_cook() or GState.is_recipe():
+			GState.play()
+			return
+		else:
+			toggle_inventory.emit()
 	
 	if Input.is_action_just_pressed("interact"):
-		if GState.is_cook() or GState.is_recipe():
+		if GState.is_cook() or GState.is_recipe() or GState.is_ui():
 			GState.play()
 		elif can_interact:
 			interact()

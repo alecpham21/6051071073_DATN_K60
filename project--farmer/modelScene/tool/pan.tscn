@@ -1,0 +1,12 @@
+[gd_scene load_steps=4 format=3 uid="uid://co2exri1ch4au"]
+
+[ext_resource type="PackedScene" uid="uid://bopdxf44x06in" path="res://model/tool/Pan.glb" id="1_odsbn"]
+[ext_resource type="Texture2D" uid="uid://1gysjnj7jqbq" path="res://assets/ImphenziaPalette01-256-Gradient.png" id="2_oe3ey"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ggulm"]
+albedo_texture = ExtResource("2_oe3ey")
+
+[node name="Pan2" instance=ExtResource("1_odsbn")]
+
+[node name="Pan" parent="." index="0"]
+material_override = SubResource("StandardMaterial3D_ggulm")

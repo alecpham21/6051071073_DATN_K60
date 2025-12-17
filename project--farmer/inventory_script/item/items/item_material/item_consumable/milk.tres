@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="ItemDataConsumable" load_steps=4 format=3 uid="uid://dom2oqd20bncl"]
+
+[ext_resource type="Script" uid="uid://8qjn0t0dq2pu" path="res://inventory_script/item/item_data/item_data_consumable.gd" id="1_kmnu5"]
+[ext_resource type="Texture2D" uid="uid://omvd8ed3fie6" path="res://inventory_script/item/item_atlast/#2 - Transparent Icons & Drop Shadow.png" id="2_ecpyd"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lviqk"]
+atlas = ExtResource("2_ecpyd")
+region = Rect2(256, 480, 32, 32)
+
+[resource]
+script = ExtResource("1_kmnu5")
+heal_value = 10
+material_type = 3
+name = "Milk"
+description = "White subtain"
+stackable = true
+texture = SubResource("AtlasTexture_lviqk")
+metadata/_custom_type_script = "uid://oj6faifeyt6a"

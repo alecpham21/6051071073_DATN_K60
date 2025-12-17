@@ -2,13 +2,13 @@
 
 [ext_resource type="Script" uid="uid://bspkgwkxsy8mn" path="res://inventory_script/slot_data.gd" id="1_umsh4"]
 [ext_resource type="Script" uid="uid://cxjkim56kcobh" path="res://ui/Recipe/recipe.gd" id="2_0i3f6"]
+[ext_resource type="Resource" uid="uid://yxvsmb6b0dto" path="res://inventory_script/item/items/item_harvest/corn.tres" id="2_2kho6"]
 [ext_resource type="Script" uid="uid://bfas330ndllg" path="res://inventory_script/item/item_attribute/item_attribute.gd" id="2_igdwl"]
-[ext_resource type="Resource" uid="uid://208q0fgbf0k5" path="res://inventory_script/item/items/egg.tres" id="3_igdwl"]
 [ext_resource type="Resource" uid="uid://cqmw3b5kabv83" path="res://inventory_script/item/items/item_harvest/wheat.tres" id="5_ucd5f"]
 
-[sub_resource type="Resource" id="Resource_uxs5o"]
+[sub_resource type="Resource" id="Resource_ucd5f"]
 script = ExtResource("1_umsh4")
-item_data = ExtResource("3_igdwl")
+item_data = ExtResource("2_2kho6")
 quantity = 1
 attributes = Array[ExtResource("2_igdwl")]([])
 metadata/_custom_type_script = "uid://bspkgwkxsy8mn"
@@ -22,9 +22,8 @@ metadata/_custom_type_script = "uid://bspkgwkxsy8mn"
 
 [resource]
 script = ExtResource("2_0i3f6")
-station = 0
-goal_item = SubResource("Resource_uxs5o")
-extra_drop = Array[ExtResource("1_umsh4")]([])
-other_conditions = Array[StringName]([&"stove"])
+station = 1
+cook_result = SubResource("Resource_ucd5f")
+other_conditions = Array[StringName]([])
 slot_datas = Array[ExtResource("1_umsh4")]([SubResource("Resource_cuvcy")])
 metadata/_custom_type_script = "uid://cxjkim56kcobh"

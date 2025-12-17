@@ -20,10 +20,14 @@ func _ready() -> void:
 	initialize(character)
 	if PlayerData.player_inventory_data:
 		PlayerData.player_inventory_data.item_used_up.connect(_on_item_used_up)
+
+
 func _update(delta: float) -> void:
 	if HotBar.active_slot && HotBar.active_item is ItemDataTool:
 		long_tool = (HotBar.active_item as ItemDataTool).is_long_tool
 	else: long_tool = false
+	if cook:
+		dispatch("cook")
 
 func _binding_setup():
 	for i : StateSet in state_set.values():

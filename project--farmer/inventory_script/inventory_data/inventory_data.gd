@@ -145,11 +145,17 @@ func remove_slot(sd:SlotData):
 	slot_datas[slot_datas.find(sd)] = null
 	inventory_updated.emit(self)
 
-func reduce_quantity(_item:ItemData, ammount:int = 1):
+func reduce_quantity(_item: ItemData, ammount: int = 1):
 	if !has_item(_item): return
+	
 	var sd = get_slot_from_item(_item)
 	sd.quantity -= ammount
-	if ammount <= 0: sd = null
+	
+	if sd.quantity < 1:
+		var index = slot_datas.find(sd)
+		if index != -1:
+			slot_datas[index] = null
+			
 	inventory_updated.emit(self)
 
 func refresh():

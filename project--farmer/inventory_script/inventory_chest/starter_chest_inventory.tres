@@ -4,7 +4,7 @@
 [ext_resource type="Script" uid="uid://bspkgwkxsy8mn" path="res://inventory_script/slot_data.gd" id="2_22171"]
 [ext_resource type="Resource" uid="uid://b52qumcoelf4w" path="res://inventory_script/item/items/item_harvest/wheat_seed.tres" id="3_bursm"]
 [ext_resource type="Script" uid="uid://bfas330ndllg" path="res://inventory_script/item/item_attribute/item_attribute.gd" id="3_igh2m"]
-[ext_resource type="Resource" uid="uid://d3pjlk6ev6gkq" path="res://inventory_script/item/items/coffee_potion.tres" id="4_igh2m"]
+[ext_resource type="Resource" uid="uid://d3pjlk6ev6gkq" path="res://inventory_script/item/items/item_material/item_consumable/coffee_potion.tres" id="4_igh2m"]
 [ext_resource type="Resource" uid="uid://djph6j4pxvvie" path="res://inventory_script/item/items/item_harvest/carrot_seed.tres" id="5_22171"]
 [ext_resource type="Resource" uid="uid://cyo6avuts40ob" path="res://inventory_script/item/items/item_harvest/cabbage_seed.tres" id="6_l16nn"]
 

@@ -1,0 +1,12 @@
+[gd_scene load_steps=4 format=3 uid="uid://c22omkqfrnwi6"]
+
+[ext_resource type="PackedScene" uid="uid://bti8mtajknh6y" path="res://model/tool/Knife.glb" id="1_8kg8s"]
+[ext_resource type="Texture2D" uid="uid://1gysjnj7jqbq" path="res://assets/ImphenziaPalette01-256-Gradient.png" id="2_4speq"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vll6w"]
+albedo_texture = ExtResource("2_4speq")
+
+[node name="Knife2" instance=ExtResource("1_8kg8s")]
+
+[node name="Knife" parent="." index="0"]
+material_override = SubResource("StandardMaterial3D_vll6w")

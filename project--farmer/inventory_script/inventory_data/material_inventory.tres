@@ -2,12 +2,12 @@
 
 [ext_resource type="Script" uid="uid://dqto8ghpo5huw" path="res://inventory_script/inventory_data/inventory_data_material.gd" id="1_v5sjt"]
 [ext_resource type="Script" uid="uid://bspkgwkxsy8mn" path="res://inventory_script/slot_data.gd" id="2_cyse5"]
-[ext_resource type="Resource" uid="uid://b57y17b1yemhk" path="res://inventory_script/item/items/apple.tres" id="3_oqtdw"]
+[ext_resource type="Resource" uid="uid://b57y17b1yemhk" path="res://inventory_script/item/items/item_material/apple.tres" id="3_oqtdw"]
 [ext_resource type="Script" uid="uid://bfas330ndllg" path="res://inventory_script/item/item_attribute/item_attribute.gd" id="3_rqi6s"]
-[ext_resource type="Resource" uid="uid://bj30s8ecp20s0" path="res://inventory_script/item/items/cheese.tres" id="4_rqi6s"]
-[ext_resource type="Resource" uid="uid://dold6hivcfwqx" path="res://inventory_script/item/items/dough.tres" id="5_03a1b"]
-[ext_resource type="Resource" uid="uid://208q0fgbf0k5" path="res://inventory_script/item/items/egg.tres" id="6_g082c"]
-[ext_resource type="Resource" uid="uid://dom2oqd20bncl" path="res://inventory_script/item/items/milk.tres" id="7_e2glq"]
+[ext_resource type="Resource" uid="uid://bj30s8ecp20s0" path="res://inventory_script/item/items/item_material/cheese.tres" id="4_rqi6s"]
+[ext_resource type="Resource" uid="uid://dold6hivcfwqx" path="res://inventory_script/item/items/item_material/salt.tres" id="5_03a1b"]
+[ext_resource type="Resource" uid="uid://208q0fgbf0k5" path="res://inventory_script/item/items/item_material/egg.tres" id="6_g082c"]
+[ext_resource type="Resource" uid="uid://dom2oqd20bncl" path="res://inventory_script/item/items/item_material/item_consumable/milk.tres" id="7_e2glq"]
 [ext_resource type="Resource" uid="uid://cqmw3b5kabv83" path="res://inventory_script/item/items/item_harvest/wheat.tres" id="9_atnhn"]
 
 [sub_resource type="Resource" id="Resource_v5sjt"]

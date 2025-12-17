@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://csfrg4socg8bj" path="res://inventory_script/inventory_data/inventory_data.gd" id="1_fx70d"]
 [ext_resource type="Script" uid="uid://bspkgwkxsy8mn" path="res://inventory_script/slot_data.gd" id="2_a72s1"]
-[ext_resource type="Resource" uid="uid://d3pjlk6ev6gkq" path="res://inventory_script/item/items/coffee_potion.tres" id="3_2l4u7"]
+[ext_resource type="Resource" uid="uid://d3pjlk6ev6gkq" path="res://inventory_script/item/items/item_material/item_consumable/coffee_potion.tres" id="3_2l4u7"]
 [ext_resource type="Script" uid="uid://bfas330ndllg" path="res://inventory_script/item/item_attribute/item_attribute.gd" id="3_vdyg7"]
 [ext_resource type="Resource" uid="uid://wnqnqmyfw1cp" path="res://inventory_script/item/items/item_clothe/black_shirt.tres" id="4_q6td8"]
 [ext_resource type="Resource" uid="uid://yxvsmb6b0dto" path="res://inventory_script/item/items/item_harvest/corn.tres" id="5_vdyg7"]
@@ -11,8 +11,8 @@
 [ext_resource type="Resource" uid="uid://cqmw3b5kabv83" path="res://inventory_script/item/items/item_harvest/wheat.tres" id="7_vpmq8"]
 [ext_resource type="Resource" uid="uid://n3hnk3p8510v" path="res://inventory_script/item/items/item_tool/watering_can.tres" id="8_1ysir"]
 [ext_resource type="Resource" uid="uid://c5ju7kxb8sgep" path="res://inventory_script/item/items/item_tool/hoe.tres" id="8_rn8ob"]
-[ext_resource type="Resource" uid="uid://dom2oqd20bncl" path="res://inventory_script/item/items/milk.tres" id="11_p831m"]
-[ext_resource type="Resource" uid="uid://208q0fgbf0k5" path="res://inventory_script/item/items/egg.tres" id="12_vpmq8"]
+[ext_resource type="Resource" uid="uid://dom2oqd20bncl" path="res://inventory_script/item/items/item_material/item_consumable/milk.tres" id="11_p831m"]
+[ext_resource type="Resource" uid="uid://208q0fgbf0k5" path="res://inventory_script/item/items/item_material/egg.tres" id="12_vpmq8"]
 
 [sub_resource type="Resource" id="Resource_rn8ob"]
 script = ExtResource("2_a72s1")

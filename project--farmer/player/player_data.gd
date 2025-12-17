@@ -1,6 +1,6 @@
 extends Node
 
-var player:Player
+var player: Player
 var player_inventory_data: InventoryData
 var player_equip_data: InventoryData 
 var player_outfit_data: InventoryDataOutfit
@@ -11,8 +11,10 @@ var used_spawn_position: bool = true
 var is_transitioning_with_bike: bool = false
 var washing_machine_timers: Dictionary = {}
 
+var material_data: MaterialInventoryData 
+var craft_bin_data: Array[SlotData] = [null, null, null, null]
+var board_data: InventoryData
 
-var material_data:InventoryData
 
 func _ready():
 	if player_inventory_data == null:
@@ -24,21 +26,24 @@ func _ready():
 	if player_outfit_data == null:
 		player_outfit_data = load("res://inventory_script/inventory_data/player_outfit.tres")
 
-	material_data = load("res://inventory_script/inventory_data/material_inventory.tres")
+	# Lưu ý: File material_inventory.tres phải có script MaterialInventoryData được gắn vào nó nhé
+	material_data = load("res://inventory_script/inventory_data/material_inventory.tres") as MaterialInventoryData
+	if board_data == null:
+			board_data = InventoryData.new()
+			board_data.slot_datas.resize(1) # Thớt chỉ cần 1 ô
+			board_data.slot_datas[0] = null
+
 
 func get_global_posotion() -> Vector3:
 	return player.global_position
 
-# Call when in tilling or harvesting
 func add_dirt_to_outfit(amount: float):
 	if not player_outfit_data: return
 	
 	var is_dirty_updated = false
 	
 	for slot in player_outfit_data.slot_datas:
-		#Only Outfit 
 		if slot and slot.item_data is ItemDataOutfit:
-			# call add_dirt in SlotData
 			slot.add_dirt(amount)
 			is_dirty_updated = true
 			print("Đã làm dơ: ", slot.item_data.name)

@@ -1,46 +1,37 @@
-[gd_resource type="Resource" script_class="Recipe" load_steps=12 format=3 uid="uid://bw1w03y46ey7m"]
+[gd_resource type="Resource" script_class="Recipe" load_steps=10 format=3 uid="uid://bw1w03y46ey7m"]
 
 [ext_resource type="Script" uid="uid://cxjkim56kcobh" path="res://ui/Recipe/recipe.gd" id="1_pss3j"]
 [ext_resource type="Script" uid="uid://bspkgwkxsy8mn" path="res://inventory_script/slot_data.gd" id="2_20arn"]
 [ext_resource type="Script" uid="uid://bfas330ndllg" path="res://inventory_script/item/item_attribute/item_attribute.gd" id="2_b6qjq"]
-[ext_resource type="Resource" uid="uid://doih21krpfjvr" path="res://inventory_script/item/items/bowl.tres" id="2_xbc51"]
-[ext_resource type="Resource" uid="uid://bj30s8ecp20s0" path="res://inventory_script/item/items/cheese.tres" id="3_b6qjq"]
-[ext_resource type="Resource" uid="uid://208q0fgbf0k5" path="res://inventory_script/item/items/egg.tres" id="3_c1qbe"]
-[ext_resource type="Resource" uid="uid://dom2oqd20bncl" path="res://inventory_script/item/items/milk.tres" id="4_iesf0"]
+[ext_resource type="Resource" uid="uid://bj30s8ecp20s0" path="res://inventory_script/item/items/item_material/cheese.tres" id="2_pvd2d"]
+[ext_resource type="Resource" uid="uid://208q0fgbf0k5" path="res://inventory_script/item/items/item_material/egg.tres" id="5_kcdle"]
+[ext_resource type="Resource" uid="uid://dom2oqd20bncl" path="res://inventory_script/item/items/item_material/item_consumable/milk.tres" id="6_xpg67"]
 
-[sub_resource type="Resource" id="Resource_im726"]
+[sub_resource type="Resource" id="Resource_wlc42"]
 script = ExtResource("2_20arn")
-item_data = ExtResource("2_xbc51")
-quantity = 1
-attributes = Array[ExtResource("2_b6qjq")]([])
-metadata/_custom_type_script = "uid://bspkgwkxsy8mn"
-
-[sub_resource type="Resource" id="Resource_xi4bc"]
-script = ExtResource("2_20arn")
-item_data = ExtResource("3_b6qjq")
+item_data = ExtResource("2_pvd2d")
 quantity = 1
 attributes = Array[ExtResource("2_b6qjq")]([])
 metadata/_custom_type_script = "uid://bspkgwkxsy8mn"
 
 [sub_resource type="Resource" id="Resource_xbc51"]
 script = ExtResource("2_20arn")
-item_data = ExtResource("3_c1qbe")
-quantity = 3
+item_data = ExtResource("5_kcdle")
+quantity = 5
 attributes = Array[ExtResource("2_b6qjq")]([])
 metadata/_custom_type_script = "uid://bspkgwkxsy8mn"
 
 [sub_resource type="Resource" id="Resource_b6qjq"]
 script = ExtResource("2_20arn")
-item_data = ExtResource("4_iesf0")
-quantity = 2
+item_data = ExtResource("6_xpg67")
+quantity = 5
 attributes = Array[ExtResource("2_b6qjq")]([])
 metadata/_custom_type_script = "uid://bspkgwkxsy8mn"
 
 [resource]
 script = ExtResource("1_pss3j")
 station = 0
-goal_item = SubResource("Resource_xi4bc")
-extra_drop = Array[ExtResource("2_20arn")]([SubResource("Resource_im726")])
+cook_result = SubResource("Resource_wlc42")
 other_conditions = Array[StringName]([])
 slot_datas = Array[ExtResource("2_20arn")]([SubResource("Resource_xbc51"), SubResource("Resource_b6qjq")])
 metadata/_custom_type_script = "uid://cxjkim56kcobh"

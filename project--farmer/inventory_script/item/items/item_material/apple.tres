@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="ItemDataMaterial" load_steps=4 format=3 uid="uid://b57y17b1yemhk"]
+
+[ext_resource type="Script" uid="uid://vmjc7agye6gg" path="res://inventory_script/item/item_data/item_data_material.gd" id="1_ukwpw"]
+[ext_resource type="Texture2D" uid="uid://omvd8ed3fie6" path="res://inventory_script/item/item_atlast/#2 - Transparent Icons & Drop Shadow.png" id="2_vfhii"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_icf3q"]
+atlas = ExtResource("2_vfhii")
+region = Rect2(0, 448, 32, 32)
+
+[resource]
+script = ExtResource("1_ukwpw")
+material_type = 2
+name = "Apple"
+description = "Keeps the doctor away"
+stackable = true
+texture = SubResource("AtlasTexture_icf3q")
+metadata/_custom_type_script = "uid://oj6faifeyt6a"

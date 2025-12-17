@@ -93,10 +93,6 @@ fit_content = true
 layout_mode = 2
 alignment = 2
 
-[node name="CookBtn" type="Button" parent="MarginContainer/VBoxContainer/NavButton"]
-layout_mode = 2
-text = "Cook"
-
 [node name="BackButton" type="TextureButton" parent="MarginContainer/VBoxContainer/NavButton"]
 custom_minimum_size = Vector2(36, 36)
 layout_mode = 2

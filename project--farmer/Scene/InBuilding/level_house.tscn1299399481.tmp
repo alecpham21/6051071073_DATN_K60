@@ -24,9 +24,9 @@
 [ext_resource type="Script" uid="uid://djj2m2skea716" path="res://TimeCheck.gd" id="17_scj0i"]
 [ext_resource type="PackedScene" uid="uid://b60ga8o1kh6ch" path="res://modelScene/machine/washing_cmachine.tscn" id="17_yns1g"]
 [ext_resource type="Resource" uid="uid://bw1w03y46ey7m" path="res://ui/Recipe/cheese_recipe.tres" id="18_68aio"]
+[ext_resource type="Resource" uid="uid://cvddsv1hhuwb7" path="res://ui/Recipe/bamboo_shoot_scramble.tres" id="21_md1uq"]
 [ext_resource type="Script" uid="uid://cxjkim56kcobh" path="res://ui/Recipe/recipe.gd" id="24_rs3xq"]
 [ext_resource type="PackedScene" uid="uid://b817ly7ndragw" path="res://modelScene/interior/stove.tscn" id="27_vcdqq"]
-[ext_resource type="PackedScene" uid="uid://dv7qgbl8qngof" path="res://modelScene/interior/board.tscn" id="28_md1uq"]
 
 [sub_resource type="QuadMesh" id="QuadMesh_p1g3l"]
 flip_faces = true
@@ -126,8 +126,12 @@ trigger_john_leave = true
 unique_name_in_owner = true
 transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0, 0, 0)
 use_gravity = true
-camera_ref_path = NodePath("../SpringArm3D2")
+camera_ref_path = NodePath("../SpringArm3D2/Camera3D")
 inventory_data = ExtResource("8_ofysm")
+
+[node name="Camera3D" type="Camera3D" parent="SubViewportContainer/SubViewport"]
+transform = Transform3D(-0.645857, -0.167718, 0.744808, -0.0353928, 0.9811, 0.190236, -0.762638, 0.0965047, -0.639587, 1.64814, 2.50409, -3.25485)
+fov = 40.6
 
 [node name="WoodenCrate" parent="SubViewportContainer/SubViewport" instance=ExtResource("8_r6vy2")]
 transform = Transform3D(0.765, 0, 0, 0, 0.765, 0, 0, 0, 0.765, -3.04543, 0.616039, -3.17967)
@@ -135,7 +139,7 @@ chest_id = "starting_chest"
 
 [node name="UI" type="CanvasLayer" parent="."]
 
-[node name="InventoryInterface" type="Control" parent="UI" node_paths=PackedStringArray("hotbar_inventory", "material_inventory", "craft_bar", "cutting_ui")]
+[node name="InventoryInterface" type="Control" parent="UI" node_paths=PackedStringArray("craft_bar", "material_inventory", "cutting_ui")]
 visible = false
 layout_mode = 3
 anchors_preset = 15
@@ -144,9 +148,8 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("9_ejw82")
-hotbar_inventory = NodePath("../HotBarInventory")
-material_inventory = NodePath("../MaterialInventory")
 craft_bar = NodePath("../CraftBar")
+material_inventory = NodePath("../MaterialInventory")
 cutting_ui = NodePath("../CuttingUI")
 
 [node name="PlayerInventory" parent="UI/InventoryInterface" instance=ExtResource("10_8g7rj")]
@@ -251,6 +254,7 @@ visible = false
 
 [node name="CuttingUI" parent="UI" instance=ExtResource("17_rs3xq")]
 visible = false
+recipes = Array[ExtResource("24_rs3xq")]([ExtResource("21_md1uq")])
 
 [node name="Lighting" type="Node" parent="."]
 
@@ -306,24 +310,8 @@ script = ExtResource("17_scj0i")
 [node name="WashingCmachine" parent="." groups=["external_inventory"] instance=ExtResource("17_yns1g")]
 transform = Transform3D(-0.495, 0, -4.32743e-08, 0, 0.495, 0, 4.32743e-08, 0, -0.495, 3.3092, 0.692934, 3.00083)
 
-[node name="stove" parent="." node_paths=PackedStringArray("camera_marker", "player_marker") instance=ExtResource("27_vcdqq")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.22841, 0.0672303, 3.56259)
-camera_marker = NodePath("../CameraTween")
-player_marker = NodePath("SnapPlayerMarker")
-
-[node name="SnapPlayerMarker" type="Marker3D" parent="stove"]
-transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, -0.200033, 0, -0.525188)
-
-[node name="board" parent="." node_paths=PackedStringArray("camera_marker", "player_marker") instance=ExtResource("28_md1uq")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.242, 0.067, 3.563)
-camera_marker = NodePath("../CameraTween")
-player_marker = NodePath("SnapPlayerMarker2")
-
-[node name="SnapPlayerMarker2" type="Marker3D" parent="board"]
-transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, -0.105, 0, -0.525)
-
-[node name="CameraTween" type="Marker3D" parent="."]
-transform = Transform3D(-4.19685e-08, -0.279561, 0.960128, -1.222e-08, 0.960128, 0.279561, -1, 0, -4.37114e-08, 1.48581, 2.49136, 2.80428)
+[node name="stove" parent="." instance=ExtResource("27_vcdqq")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.16572, 0.13678, 3.56259)
 
 [connection signal="drop_slot_data" from="UI/InventoryInterface" to="UI/InventoryInterface" method="_on_drop_slot_data"]
 [connection signal="gui_input" from="UI/InventoryInterface" to="UI/InventoryInterface" method="_on_gui_input"]

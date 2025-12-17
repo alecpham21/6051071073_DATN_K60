@@ -4,12 +4,23 @@ const Slot = preload("res://Inventory_ui/slot.tscn")
 
 @onready var item_grid: GridContainer = $MarginContainer/ItemGrid
 @onready var recipe_texture: TextureRect = $RecipeTexture
+@onready var cook_button: Button = $RecipeTexture/CookButton
 
-var current_craft_data: InventoryData
+@export var all_recipes: Array[Recipe]
+
+
+var craft_slots_data: Array[SlotData]
+var valid_recipe_to_cook: Recipe = null
 
 
 func _ready() -> void:
-	visible = false # Mặc định ẩn
+	craft_slots_data = PlayerData.craft_bin_data
+	visible = false 
+	
+	# Kết nối nút Cook
+	if cook_button:
+		cook_button.pressed.connect(_on_cook_button_pressed)
+		cook_button.visible = false
 	
 	if not GameData.open_kitchen_interface.is_connected(on_open_kitchen):
 		GameData.open_kitchen_interface.connect(on_open_kitchen)
@@ -17,14 +28,6 @@ func _ready() -> void:
 	GameData.game_state_changed.connect(func(old, new):
 		if old == GState.state_enum.COOK and new != GState.state_enum.COOK:
 			visible = false
-			Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
-			if current_craft_data:
-				pass
-	)
-	
-	GameData.current_recipe_changed.connect(func(x:Recipe): 
-		if x and x.goal_item and x.goal_item.item_data:
-			recipe_texture.texture = x.goal_item.item_data.duplicate().texture
 	)
 
 func on_open_kitchen(kitchen_node, type = "stove"):
@@ -32,30 +35,176 @@ func on_open_kitchen(kitchen_node, type = "stove"):
 		visible = true
 		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 		
-		# Update luôn inventory data từ cái bếp lò đó
-		if kitchen_node and kitchen_node.inventory_data:
-			set_inventory_data(kitchen_node.inventory_data)
+		update_craft_bar_ui()
+		check_recipe()
 	else:
-		# Nếu là "board" (thớt) hay cái gì khác thì ẩn đi
 		visible = false
-func set_inventory_data(inventory_data: InventoryData) -> void:
-	inventory_data.inventory_updated.connect(populate_item_grid)
-	populate_item_grid(inventory_data)
-
-func clear_inventory_data(inventory_data: InventoryData) -> void:
-	inventory_data.inventory_updated.disconnect(populate_item_grid)
 
 
-func populate_item_grid(inventory_data: InventoryData) -> void:
+func add_ingredient(item_data: ItemData) -> bool:
+	for slot in craft_slots_data:
+		if slot and slot.item_data == item_data and slot.quantity < 99:
+			slot.quantity += 1
+			
+			update_craft_bar_ui()
+			check_recipe()
+			return true
+
+	for i in range(craft_slots_data.size()):
+		if craft_slots_data[i] == null:
+			# Tạo slot mới
+			var new_slot = SlotData.new()
+			new_slot.item_data = item_data
+			new_slot.quantity = 1
+			
+			craft_slots_data[i] = new_slot
+			
+			update_craft_bar_ui()
+			check_recipe()
+			return true # Báo thành công
+			
+	return false
+
+func remove_ingredient(index: int, btn: int):
+	if btn != MOUSE_BUTTON_RIGHT: 
+		return
+
+	var slot = craft_slots_data[index]
+	if slot != null and slot.item_data != null:
+		PlayerData.player_inventory_data.add_item(slot.item_data, slot.quantity)
+		PlayerData.material_data.refresh(PlayerData.player_inventory_data)
+		
+		# 3. XÓA KHỎI CRAFT BAR
+		craft_slots_data[index] = null
+		update_craft_bar_ui()
+		check_recipe()
+
+# Hàm vẽ lại các ô trong Craft Bar
+func update_craft_bar_ui():
+	# Xóa hết con cũ
 	for child in item_grid.get_children():
 		child.queue_free()
-		
-	for slot_data in inventory_data.slot_datas:
+	
+	# Vẽ lại dựa trên mảng craft_slots_data
+	for i in range(craft_slots_data.size()):
 		var slot = Slot.instantiate()
 		item_grid.add_child(slot)
 		
-		slot.slot_clicked.connect(inventory_data.on_slot_clicked)
+		var data = craft_slots_data[i]
+		if data:
+			slot.set_slot_data(data)
+			# Gắn sự kiện click để gỡ đồ ra (nếu cần)
+			slot.slot_clicked.connect(func(_idx, btn): remove_ingredient(i, btn))
+		else:
+			slot.set_slot_data(null) # Vẽ slot rỗng
+
+func check_recipe():
+	# Reset
+	recipe_texture.texture = null
+	recipe_texture.modulate = Color(1, 1, 1, 1)
+	valid_recipe_to_cook = null
+	if cook_button: cook_button.visible = false
+	
+	var is_empty = true
+	for s in craft_slots_data:
+		if s != null: 
+			is_empty = false
+			break
+	if is_empty: return
+
+
+	if all_recipes:
+		for recipe in all_recipes:
+			if check_if_matches_recipe(recipe):
+				if recipe.cook_result and recipe.cook_result.item_data:
+
+					recipe_texture.texture = recipe.cook_result.item_data.texture
+					recipe_texture.modulate = Color(0.8, 0.8, 0.8, 1)
+					
+					valid_recipe_to_cook = recipe
+					
+					if cook_button: cook_button.visible = true
+					
+				return
+
+func check_if_matches_recipe(recipe: Recipe) -> bool:
+	if recipe == null: return false
+	
+	var pot_totals = {} 
+	for slot in craft_slots_data:
+		if slot and slot.item_data:
+			var item_name = slot.item_data.name
+			if not pot_totals.has(item_name):
+				pot_totals[item_name] = 0
+			pot_totals[item_name] += slot.quantity
+			
+	for req_slot in recipe.slot_datas:
+		var req_item_name = req_slot.item_data.name
+		var req_amount = req_slot.quantity
 		
-		if slot_data:
-			if !PlayerData.player_inventory_data.has_item(slot_data.item_data): continue
-			slot.set_slot_data(slot_data)
+		if not pot_totals.has(req_item_name) or pot_totals[req_item_name] < req_amount:
+			return false
+
+
+	for item_name_in_pot in pot_totals.keys():
+		var is_valid_ingredient = false
+		
+		for req_slot in recipe.slot_datas:
+			if req_slot.item_data.name == item_name_in_pot:
+				is_valid_ingredient = true
+				break
+		
+		if not is_valid_ingredient:
+			return false
+
+	return true
+
+func consume_ingredients_in_pot():
+	if valid_recipe_to_cook:
+		var final_dish = valid_recipe_to_cook.cook_result.duplicate()
+		
+		# Xóa đồ
+		for i in range(craft_slots_data.size()):
+			craft_slots_data[i] = null
+		update_craft_bar_ui()
+		check_recipe()
+		
+		_pending_dish = final_dish
+
+func _on_cook_button_pressed():
+	if valid_recipe_to_cook == null: return
+	
+	# 1. Xóa nguyên liệu trong nồi
+	consume_ingredients_in_pot()
+	
+	# 2. Bắt đầu Animation
+	var hsm = PlayerData.player.limbo_hsm as LimboPrimeHSM
+	hsm.cook_mode = LimboPrimeHSM.COOK_MODE.STOVE 
+	
+	# Ẩn UI tạm thời nếu muốn (optional)
+	# visible = false 
+	
+	var _temp_func: Callable 
+	_temp_func = func(cur, prev):
+		if (prev as CharacterState).state_name.to_lower() == "cook":
+			# Nấu xong -> Nhận đồ
+			finish_cooking()
+			
+			# visible = true
+			if hsm.active_state_changed.is_connected(_temp_func):
+				hsm.active_state_changed.disconnect(_temp_func)
+
+	if not hsm.active_state_changed.is_connected(_temp_func):
+		hsm.active_state_changed.connect(_temp_func)
+	
+	hsm.cook = true
+
+var _pending_dish: SlotData
+
+func finish_cooking():
+	if _pending_dish:
+		PlayerData.player_inventory_data.pick_up_slot_data(_pending_dish.duplicate())
+		_pending_dish = null
+		
+		if PlayerData.material_data:
+			PlayerData.material_data.refresh(PlayerData.player_inventory_data)

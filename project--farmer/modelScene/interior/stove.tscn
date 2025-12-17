@@ -1,0 +1,45 @@
+[gd_scene load_steps=10 format=3 uid="uid://b817ly7ndragw"]
+
+[ext_resource type="PackedScene" uid="uid://bafxlt40e4fxn" path="res://model/interior/stove.glb" id="1_826ob"]
+[ext_resource type="Texture2D" uid="uid://c3bys0pyfswmd" path="res://Textures/Panel/ElectricCooker.png" id="2_fn8nr"]
+[ext_resource type="Script" uid="uid://dateqpo2f35nf" path="res://modelScene/interior/stove.gd" id="2_oqltf"]
+[ext_resource type="Texture2D" uid="uid://1gysjnj7jqbq" path="res://assets/ImphenziaPalette01-256-Gradient.png" id="3_oqltf"]
+[ext_resource type="Script" uid="uid://i4dr8fqs0tx7" path="res://Scripts/interactable.gd" id="4_fn8nr"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_522dd"]
+cull_mode = 2
+albedo_texture = ExtResource("2_fn8nr")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_d3y1w"]
+albedo_texture = ExtResource("3_oqltf")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_oqltf"]
+size = Vector3(0.962494, 1, 0.46965)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_522dd"]
+size = Vector3(0.762922, 0.914551, 0.516977)
+
+[node name="stove" instance=ExtResource("1_826ob")]
+script = ExtResource("2_oqltf")
+
+[node name="ElectricCooking" parent="." index="0"]
+material_override = SubResource("StandardMaterial3D_522dd")
+
+[node name="Cube" parent="." index="1"]
+material_override = SubResource("StandardMaterial3D_d3y1w")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="." index="2"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0058443, 0.380725, 0.0848771)
+shape = SubResource("BoxShape3D_oqltf")
+
+[node name="StoveArea" type="Area3D" parent="." index="3"]
+collision_layer = 16
+collision_mask = 0
+script = ExtResource("4_fn8nr")
+metadata/_custom_type_script = "uid://i4dr8fqs0tx7"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StoveArea" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00230768, 0.453169, -0.15629)
+shape = SubResource("BoxShape3D_522dd")

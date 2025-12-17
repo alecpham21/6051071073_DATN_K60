@@ -1,0 +1,44 @@
+[gd_scene load_steps=10 format=3 uid="uid://dv7qgbl8qngof"]
+
+[ext_resource type="PackedScene" uid="uid://by74ptw630msn" path="res://model/interior/board.glb" id="1_nr7cp"]
+[ext_resource type="Script" uid="uid://ct6c717f7kw37" path="res://modelScene/interior/board.gd" id="2_7fbgh"]
+[ext_resource type="Texture2D" uid="uid://cu83m1oicf1f7" path="res://Textures/Wood_texture/woodpaintlight.png" id="2_n2vpc"]
+[ext_resource type="Texture2D" uid="uid://1gysjnj7jqbq" path="res://assets/ImphenziaPalette01-256-Gradient.png" id="3_7fbgh"]
+[ext_resource type="Script" uid="uid://i4dr8fqs0tx7" path="res://Scripts/interactable.gd" id="5_7fbgh"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_u3job"]
+albedo_texture = ExtResource("2_n2vpc")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ss4pr"]
+albedo_texture = ExtResource("3_7fbgh")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_n2vpc"]
+size = Vector3(0.962494, 1, 0.540329)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_u3job"]
+size = Vector3(0.762922, 0.914551, 0.478798)
+
+[node name="board" instance=ExtResource("1_nr7cp")]
+script = ExtResource("2_7fbgh")
+
+[node name="CuttingBoard" parent="." index="0"]
+material_override = SubResource("StandardMaterial3D_u3job")
+
+[node name="Cube" parent="." index="1"]
+material_override = SubResource("StandardMaterial3D_ss4pr")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="." index="2"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0058443, 0.380725, 0.0495377)
+shape = SubResource("BoxShape3D_n2vpc")
+
+[node name="BoardArea" type="Area3D" parent="." index="3"]
+collision_layer = 16
+collision_mask = 0
+script = ExtResource("5_7fbgh")
+metadata/_custom_type_script = "uid://i4dr8fqs0tx7"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="BoardArea" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00230768, 0.453169, -0.1372)
+shape = SubResource("BoxShape3D_u3job")
