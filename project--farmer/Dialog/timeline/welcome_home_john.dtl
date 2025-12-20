@@ -1,15 +1,15 @@
-NPC_John: Chào mừng tới với nông trại thân thương của chúng ta
-- Tại sao cháu không thấy một cái cây nào vậy
-	NPC_John: Rôi sẽ thấy thôi
-	player: Là sao chú ? Cây chú trồng chưa lên à hay chết hết rồi
-	NPC_John: Mày bớt hỏi được không
-- Nông trại ?
-	NPC_John: Ừ đúng rồi nông trại
-NPC_John: Mà chuyện dài lắm, tóm lại là người dân ở đảo xây cho chú mày cái nhà này để chú tiện đi lại, thích thì có thể trồng trọt
-player: Tại sao họ lại xây cho chú cái nhà rồi còn cho chú đất trồng cây vậy ?
-NPC_John: Thì thế tao mới bảo là chuyện dài lắm, tóm lại là giờ tao giao cái nhà này lại cho mày trông, miễn sao tới lúc tao về nó thành cái nông trại đúng nghĩa là được
-- Chú đi đâu vậy ? Rồi chừng nào mới về
-	NPC_John: Khi nào về chú sẽ báo trước, tóm lại là đi hơi lâu đấy
-- Đã rõ
-NPC_John: Giờ trong nhà coi thiếu gì không, thiếu thì báo chú một tiếng, dụng cụ với hạt giống chú để trong cái hộp gỗ, giờ cứ xem như nhà nhóc đi
+NPC_John: Welcome to my future farm
+- Why i dont see any crop or even a plant
+	NPC_John: Will see
+	player: What do you mean "will see"
+	NPC_John: Mean that you should stop asking
+- Future Farm?
+	NPC_John: Yes, it is a future farm
+NPC_John: Lon story, short story is people in this island built me this house for me so that i can get around more easily. If i feel like it, i can do some farming
+player: Why did they build a house for you and give you a land to farm ?
+NPC_John: That is why it is a long story. In short, i am gonna let you stay at this house, as long as by the time i come back, it's a proper farm, that is your rent
+- Where your headed?
+	NPC_John: Just, when i come back, i will text you
+- So that is why you said it is a future farm
+NPC_John: Now let's check inside the house, see if it lack something, tool and seed i put in the wood crate , now go and see your new house
 [signal arg="end_talk"]

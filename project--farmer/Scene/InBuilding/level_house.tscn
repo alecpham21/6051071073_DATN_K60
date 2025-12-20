@@ -1,4 +1,4 @@
-[gd_scene load_steps=35 format=3 uid="uid://o1wmcaqylahd"]
+[gd_scene load_steps=38 format=3 uid="uid://o1wmcaqylahd"]
 
 [ext_resource type="Script" uid="uid://dg34046jf1xjo" path="res://Scene/InBuilding/level_house.gd" id="1_iipvn"]
 [ext_resource type="Script" uid="uid://bshrove7rvagv" path="res://spring_arm_camera.gd" id="3_hou3o"]
@@ -14,7 +14,7 @@
 [ext_resource type="PackedScene" uid="uid://dh4ns40qdxwam" path="res://Inventory_ui/hot_bar_inventory.tscn" id="12_gh1d0"]
 [ext_resource type="PackedScene" uid="uid://viw0xh7gair5" path="res://ui/other/washing_machine_control.tscn" id="12_r6vy2"]
 [ext_resource type="PackedScene" uid="uid://cnh3uiwulfbdd" path="res://modelScene/storage/wardrope.tscn" id="14_iipvn"]
-[ext_resource type="PackedScene" uid="uid://b5bavm45lxiid" path="res://ui/Recipe/recipe_ui.tscn" id="14_r2ay0"]
+[ext_resource type="PackedScene" uid="uid://b5bavm45lxiid" path="res://ui/Recipe/RecipeUI/recipe_ui.tscn" id="14_r2ay0"]
 [ext_resource type="PackedScene" uid="uid://dhvq674td0p8f" path="res://Scene/craft_bar.tscn" id="15_gh1d0"]
 [ext_resource type="Shader" uid="uid://c13esa4vg2n5k" path="res://level/posterization.gdshader" id="15_hou3o"]
 [ext_resource type="Material" uid="uid://fcrap08w717d" path="res://EnvironmentResources/emissive_mat.tres" id="16_02qar"]
@@ -24,7 +24,10 @@
 [ext_resource type="Script" uid="uid://djj2m2skea716" path="res://TimeCheck.gd" id="17_scj0i"]
 [ext_resource type="PackedScene" uid="uid://b60ga8o1kh6ch" path="res://modelScene/machine/washing_cmachine.tscn" id="17_yns1g"]
 [ext_resource type="Resource" uid="uid://bw1w03y46ey7m" path="res://ui/Recipe/cheese_recipe.tres" id="18_68aio"]
-[ext_resource type="Script" uid="uid://cxjkim56kcobh" path="res://ui/Recipe/recipe.gd" id="24_rs3xq"]
+[ext_resource type="Resource" uid="uid://cvddsv1hhuwb7" path="res://ui/Recipe/bamboo_shoot_scramble_recipe.tres" id="18_k3qow"]
+[ext_resource type="Resource" uid="uid://dk5hvrwtto4vl" path="res://ui/Recipe/chopped_bamboo_shoot_recipe.tres" id="21_md1uq"]
+[ext_resource type="Resource" uid="uid://b8osduwne4q22" path="res://ui/Recipe/chopped_spring_onion.tres" id="23_68aio"]
+[ext_resource type="Script" uid="uid://cxjkim56kcobh" path="res://ui/Recipe/RecipeScript/recipe.gd" id="24_rs3xq"]
 [ext_resource type="PackedScene" uid="uid://b817ly7ndragw" path="res://modelScene/interior/stove.tscn" id="27_vcdqq"]
 [ext_resource type="PackedScene" uid="uid://dv7qgbl8qngof" path="res://modelScene/interior/board.tscn" id="28_md1uq"]
 
@@ -149,47 +152,22 @@ material_inventory = NodePath("../MaterialInventory")
 craft_bar = NodePath("../CraftBar")
 cutting_ui = NodePath("../CuttingUI")
 
-[node name="PlayerInventory" parent="UI/InventoryInterface" instance=ExtResource("10_8g7rj")]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -326.0
-offset_top = -20.0
-offset_right = -286.0
-offset_bottom = 20.0
-grow_horizontal = 2
-grow_vertical = 2
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/InventoryInterface"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
 
-[node name="EquipInventory" parent="UI/InventoryInterface" instance=ExtResource("10_8g7rj")]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -496.0
-offset_top = -144.0
-offset_right = -456.0
-offset_bottom = -104.0
-grow_horizontal = 2
-grow_vertical = 2
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/InventoryInterface/VBoxContainer"]
+layout_mode = 2
 
-[node name="OutfitInventory" parent="UI/InventoryInterface" instance=ExtResource("10_8g7rj")]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -291.0
-offset_top = -144.0
-offset_right = -251.0
-offset_bottom = -104.0
-grow_horizontal = 2
-grow_vertical = 2
+[node name="EquipInventory" parent="UI/InventoryInterface/VBoxContainer/HBoxContainer" instance=ExtResource("10_8g7rj")]
+layout_mode = 2
+
+[node name="OutfitInventory" parent="UI/InventoryInterface/VBoxContainer/HBoxContainer" instance=ExtResource("10_8g7rj")]
+layout_mode = 2
+
+[node name="PlayerInventory" parent="UI/InventoryInterface/VBoxContainer" instance=ExtResource("10_8g7rj")]
+layout_mode = 2
 
 [node name="ExternalInventory" parent="UI/InventoryInterface" instance=ExtResource("10_8g7rj")]
 visible = false
@@ -241,16 +219,19 @@ grow_horizontal = 2
 grow_vertical = 0
 
 [node name="RecipeUI" parent="UI" instance=ExtResource("14_r2ay0")]
+visible = false
+recipes = Array[ExtResource("24_rs3xq")]([ExtResource("17_k3qow"), ExtResource("18_68aio"), ExtResource("18_k3qow")])
 
 [node name="CraftBar" parent="UI" instance=ExtResource("15_gh1d0")]
 visible = false
-all_recipes = Array[ExtResource("24_rs3xq")]([ExtResource("17_k3qow"), ExtResource("18_68aio")])
+all_recipes = Array[ExtResource("24_rs3xq")]([ExtResource("17_k3qow"), ExtResource("18_68aio"), ExtResource("18_k3qow")])
 
 [node name="MaterialInventory" parent="UI" instance=ExtResource("16_2v4fx")]
 visible = false
 
 [node name="CuttingUI" parent="UI" instance=ExtResource("17_rs3xq")]
 visible = false
+recipes = Array[ExtResource("24_rs3xq")]([ExtResource("21_md1uq"), ExtResource("23_68aio")])
 
 [node name="Lighting" type="Node" parent="."]
 

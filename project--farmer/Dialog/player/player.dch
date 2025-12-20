@@ -19,7 +19,7 @@
 &"portraits": {
 "Default": {
 "export_overrides": {
-"image": "\"res://Dialog/image/player/PlayerTest.png\""
+"image": "\"res://Dialog/image/player/dav.png\""
 },
 "mirror": false,
 "offset": Vector2(0, 0),

@@ -7,7 +7,6 @@ extends Control
 @onready var prev_btn: TextureButton = $MarginContainer/VBoxContainer/NavButton/BackButton
 @onready var next_btn: TextureButton = $MarginContainer/VBoxContainer/NavButton/NextButton
 
-@onready var blood_label: Label = $Label
 @onready var interactive_book_2d: InteractiveBook2D = $BookControl/InteractiveBook2D
 
 @export var recipes: Array[Recipe]
@@ -25,7 +24,6 @@ var can_view: bool = false
 
 func _ready() -> void:
 	visible = false
-	if blood_label: blood_label.visible = false
 	page_count = recipes.size()
 	if !recipes.is_empty(): cur_recipe = recipes[0]
 	
@@ -33,12 +31,13 @@ func _ready() -> void:
 		if new == GState.state_enum.COOK || new == GState.state_enum.RECIPE:
 			open_book()
 		elif old == GState.state_enum.COOK || old == GState.state_enum.RECIPE:
-			close_book()
+			# FIX: Kiểm tra nếu chuyển sang UI (Inventory) thì đóng ngay (true)
+			var instant_close = (new == GState.state_enum.UI)
+			close_book(instant_close)
 	)
 	
 	next_btn.pressed.connect(page_turn.bind(true))
 	prev_btn.pressed.connect(page_turn.bind(false))
-	# Xóa kết nối cook_btn
 
 func _process(delta: float) -> void:
 	if visible:
@@ -75,11 +74,15 @@ func open_book():
 		interactive_book_2d.animation_finished.connect(func(): toggle_page_ui(true), CONNECT_ONE_SHOT)
 	, CONNECT_ONE_SHOT)
 
-func close_book():
+func close_book(instant: bool = false):
 	toggle_page_ui(false)
-	
-	var conns = interactive_book_2d.animation_finished.get_connections()
-	for c in conns: interactive_book_2d.animation_finished.disconnect(c.callable)
+	clear_animation_signals()
+
+	if instant:
+		visible = false
+		interactive_book_2d.play("close_from_last") 
+		interactive_book_2d.stop()
+		return
 
 	interactive_book_2d.play("next_to_last")
 	interactive_book_2d.animation_finished.connect(func():
@@ -97,6 +100,12 @@ func page_turn(_next: bool = true):
 	update_cur_recipe()
 	toggle_page_ui(false)
 	add_child(TimerKit.generate_timer(0.5, func(): toggle_page_ui(true)))
+
+func clear_animation_signals():
+	var conns = interactive_book_2d.animation_finished.get_connections()
+	for c in conns: 
+		interactive_book_2d.animation_finished.disconnect(c.callable)
+
 
 func toggle_page_ui(_bool: bool = false):
 	item_texture.visible = _bool

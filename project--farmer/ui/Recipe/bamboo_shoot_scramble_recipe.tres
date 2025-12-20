@@ -1,0 +1,38 @@
+[gd_resource type="Resource" script_class="Recipe" load_steps=10 format=3 uid="uid://cvddsv1hhuwb7"]
+
+[ext_resource type="Script" uid="uid://bfas330ndllg" path="res://inventory_script/item/item_attribute/item_attribute.gd" id="1_u0nk1"]
+[ext_resource type="Resource" uid="uid://d0cf5npy2x20s" path="res://inventory_script/item/items/item_material/item_consumable/bamboo_shoot_scramble.tres" id="2_a5770"]
+[ext_resource type="Resource" uid="uid://dqq5otow8o7hl" path="res://inventory_script/item/items/item_material/chopped_bamboo_shoot_.tres" id="2_ftqny"]
+[ext_resource type="Script" uid="uid://bspkgwkxsy8mn" path="res://inventory_script/slot_data.gd" id="3_a5770"]
+[ext_resource type="Script" uid="uid://cxjkim56kcobh" path="res://ui/Recipe/RecipeScript/recipe.gd" id="4_xq84y"]
+[ext_resource type="Resource" uid="uid://208q0fgbf0k5" path="res://inventory_script/item/items/item_material/egg.tres" id="6_a5770"]
+
+[sub_resource type="Resource" id="Resource_ucd5f"]
+script = ExtResource("3_a5770")
+item_data = ExtResource("2_a5770")
+quantity = 1
+attributes = Array[ExtResource("1_u0nk1")]([])
+metadata/_custom_type_script = "uid://bspkgwkxsy8mn"
+
+[sub_resource type="Resource" id="Resource_cuvcy"]
+script = ExtResource("3_a5770")
+item_data = ExtResource("2_ftqny")
+quantity = 8
+attributes = Array[ExtResource("1_u0nk1")]([])
+metadata/_custom_type_script = "uid://bspkgwkxsy8mn"
+
+[sub_resource type="Resource" id="Resource_xq84y"]
+script = ExtResource("3_a5770")
+item_data = ExtResource("6_a5770")
+quantity = 1
+attributes = Array[ExtResource("1_u0nk1")]([])
+metadata/_custom_type_script = "uid://bspkgwkxsy8mn"
+
+[resource]
+script = ExtResource("4_xq84y")
+station = 0
+cook_result = SubResource("Resource_ucd5f")
+other_conditions = Array[StringName]([])
+craft_time = 1.5
+slot_datas = Array[ExtResource("3_a5770")]([SubResource("Resource_cuvcy"), SubResource("Resource_xq84y")])
+metadata/_custom_type_script = "uid://cxjkim56kcobh"

@@ -1,0 +1,51 @@
+[gd_scene load_steps=12 format=3 uid="uid://cf6crsusekl3q"]
+
+[ext_resource type="PackedScene" uid="uid://bsmujd1wvstm2" path="res://model/building/Town/ShopVerMerge2.glb" id="1_5k1g7"]
+[ext_resource type="Texture2D" uid="uid://bwa8xtxlf1ptx" path="res://Textures/woodtexture.png" id="2_5kstc"]
+[ext_resource type="Script" uid="uid://cmippitg3r2g3" path="res://modelScene/building/shop_vegetable.gd" id="2_6rt5k"]
+[ext_resource type="Texture2D" uid="uid://c4vsmkxn4wbue" path="res://Textures/BlueandWhite.png" id="3_6rt5k"]
+[ext_resource type="Texture2D" uid="uid://1gysjnj7jqbq" path="res://assets/ImphenziaPalette01-256-Gradient.png" id="4_euhd5"]
+[ext_resource type="Script" uid="uid://i4dr8fqs0tx7" path="res://Scripts/interactable.gd" id="5_5kstc"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hmrel"]
+albedo_texture = ExtResource("2_5kstc")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_51cfg"]
+albedo_texture = ExtResource("3_6rt5k")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_gs45p"]
+albedo_texture = ExtResource("4_euhd5")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_6rt5k"]
+size = Vector3(4.18585, 3.74561, 5.37242)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_euhd5"]
+size = Vector3(5.15009, 3.8927, 4.40894)
+
+[node name="ShopVerMerge2" instance=ExtResource("1_5k1g7")]
+script = ExtResource("2_6rt5k")
+
+[node name="WoodPart" parent="." index="0"]
+material_override = SubResource("StandardMaterial3D_hmrel")
+
+[node name="BlankRoof" parent="." index="1"]
+material_override = SubResource("StandardMaterial3D_51cfg")
+
+[node name="Chair" parent="." index="2"]
+material_override = SubResource("StandardMaterial3D_gs45p")
+
+[node name="InteractArea" type="Area3D" parent="." index="3"]
+collision_layer = 16
+collision_mask = 0
+script = ExtResource("5_5kstc")
+metadata/_custom_type_script = "uid://i4dr8fqs0tx7"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="InteractArea" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.37766, 1.3728, 0.208092)
+shape = SubResource("BoxShape3D_6rt5k")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="." index="4"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.164581, 1.44635, 0.12854)
+shape = SubResource("BoxShape3D_euhd5")

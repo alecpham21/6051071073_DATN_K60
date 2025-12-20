@@ -11,22 +11,28 @@ var washing_machine_ui: Control
 # Node3D để nhận cả Stove và Board
 var active_kitchen: Node3D 
 var active_mode: String = ""
+var prevent_close: bool = false
 
-@onready var player_inventory: PanelContainer = $PlayerInventory
+@onready var player_inventory: PanelContainer = $VBoxContainer/PlayerInventory
 @onready var grabbed_slot: PanelContainer = $GrabbedSlot
 @onready var external_inventory: PanelContainer = $ExternalInventory
-@onready var equip_inventory: PanelContainer = $EquipInventory
-@onready var outfit_inventory: PanelContainer = $OutfitInventory
+@onready var equip_inventory: PanelContainer = $VBoxContainer/HBoxContainer/EquipInventory
+@onready var outfit_inventory: PanelContainer = $VBoxContainer/HBoxContainer/OutfitInventory
+@onready var money_label: Label = $VBoxContainer/PanelContainer/MoneyLabel
 
-# Kéo node vào Inspector
 @export var hotbar_inventory: PanelContainer 
 @export var material_inventory: PanelContainer
 
-@export var craft_bar: PanelContainer      # UI Stove
-@export var cutting_ui : PanelContainer    # UI Board
+@export var craft_bar: PanelContainer
+@export var cutting_ui : PanelContainer
 @onready var recipe_book_ui = $"../RecipeUI"
+@export var shop_ui: PanelContainer
+@export var sell_ui: Control
+
 
 func _ready():
+	print(">>> [INIT] InventoryInterface START")
+	add_to_group("inventory_interface")
 	washing_machine_ui = get_node_or_null("WashingMachineUI")
 	
 	if not GameData.open_kitchen_interface.is_connected(set_kitchen_inventory):
@@ -36,21 +42,144 @@ func _ready():
 		click_slot_data.connect(on_slot_clicked_handler)
 	
 	GameData.game_state_changed.connect(func(old, new):
+		print(">>> [STATE CHANGE] Từ: ", old, " -> Sang: ", new)
+		print("    |-- Prevent_Close: ", prevent_close)
+		print("    |-- Active_Kitchen: ", active_kitchen)
+		print("    |-- Shop Visible: ", shop_ui.visible if shop_ui else "null")
+		
 		match new:
 			GState.state_enum.PLAYING:
-				close_kitchen()
+				# 1. Xử lý khóa
+				if prevent_close:
+					print("    !!! [LOCKED] Đang bị khóa. Ép về Shop/UI.")
+					if shop_ui and shop_ui.visible:
+						GState.shop()
+					else:
+						GState.ui()
+					
+					Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+					
+					print("    ... Đợi 0.5s ...")
+					await get_tree().create_timer(0.5).timeout
+					prevent_close = false
+					print("    !!! [UNLOCK] Đã mở khóa prevent_close")
+					return 
+				
+				# 2. Xử lý đóng
+				if visible and (shop_ui.visible or sell_ui.visible):
+					print("    --> [AUTO] Phát hiện Shop đang mở -> Gọi close_shop_interface()")
+					close_shop_interface()
+					
+				elif active_kitchen: 
+					print("    --> [AUTO] Phát hiện Bếp đang mở -> Gọi close_kitchen()")
+					close_kitchen()
+				else:
+					print("    --> [AUTO] Không có gì để đóng cả.")
+			
 			GState.state_enum.RECIPE:
 				open_standalone_book()
+				
+			GState.state_enum.DIALOG:
+				print(">>> [STATE] Vào Dialog.")
 	)
+	
+	if PlayerData.has_signal("money_changed"):
+		PlayerData.money_changed.connect(update_money_text)
+	
+	update_money_text(PlayerData.money)
 
-# ------------------------------------------------------------------
-# LOGIC CLICK SLOT
-# ------------------------------------------------------------------
+func open_shop_sell_interface(shop_node, shop_inventory_data: InventoryData):
+	print(">>> [ACTION] Mở Shop BÁN (open_shop_sell_interface)")
+	self.visible = true
+	GState.shop()
+	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+	
+	if player_inventory: player_inventory.show()
+	
+	if craft_bar: craft_bar.hide()
+	if cutting_ui: cutting_ui.hide()
+	if shop_ui: shop_ui.hide()
+	if external_inventory: external_inventory.hide()
+	
+	if not shop_inventory_data.inventory_interact.is_connected(on_inventory_interact):
+		shop_inventory_data.inventory_interact.connect(on_inventory_interact)
+	
+	external_inventory_owner = shop_node 
+
+	if sell_ui:
+		sell_ui.setup(shop_node, shop_inventory_data)
+	
+	prevent_close = true
+	print("    [SET] prevent_close = TRUE")
+	get_tree().create_timer(0.5).timeout.connect(func(): prevent_close = false)
+
+
+func _unhandled_input(event: InputEvent) -> void:
+	if event.is_action_pressed("ui_cancel"):
+		print(">>> [INPUT] Người chơi bấm Cancel/ESC")
+		
+		var is_shop_open = (shop_ui and shop_ui.visible)
+		var is_sell_open = (sell_ui and sell_ui.visible)
+		
+		if is_shop_open or is_sell_open:
+			print("    --> Gọi close_shop_interface() từ INPUT")
+			close_shop_interface()
+			get_viewport().set_input_as_handled()
+			return
+
+func update_money_text(amount: int):
+	if money_label:
+		money_label.text = "Tiền: " + str(amount) + " G"
+
+func open_shop_interface(items_list: Array[ItemData]):
+	print(">>> [ACTION] Mở Shop MUA (open_shop_interface)")
+	self.visible = true
+	GState.shop()
+	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+	
+	if player_inventory: player_inventory.show()
+	
+	if outfit_inventory: outfit_inventory.hide()
+	if equip_inventory: equip_inventory.hide()
+	
+	if craft_bar: craft_bar.hide()
+	if cutting_ui: cutting_ui.hide()
+	if material_inventory: material_inventory.hide()
+	if external_inventory: external_inventory.hide()
+	if recipe_book_ui: recipe_book_ui.hide()
+	
+	if shop_ui:
+		shop_ui.show()
+		if shop_ui.has_method("setup_shop_data"):
+			shop_ui.setup_shop_data(items_list)
+	
+	prevent_close = true
+	print("    [SET] prevent_close = TRUE")
+	get_tree().create_timer(0.5).timeout.connect(func(): prevent_close = false)
+
+
+func close_shop_interface():
+	prevent_close = false
+	
+	if shop_ui: shop_ui.hide()
+	if sell_ui: sell_ui.hide() 
+	
+	if player_inventory: player_inventory.hide()
+	if outfit_inventory: outfit_inventory.hide()
+	if equip_inventory: equip_inventory.hide()
+	self.visible = false
+	
+	external_inventory_owner = null
+
+	await get_tree().process_frame
+	
+	GState.play()
+	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+
 func on_slot_clicked_handler(sd: SlotData, inv: InventoryData, btn: int):
 	if btn == MOUSE_BUTTON_LEFT:
 		if sd == null or sd.item_data == null or sd.quantity <= 0: return
 
-		# --- LOGIC STOVE (BẾP) ---
 		if active_mode == "stove":
 			if craft_bar and craft_bar.has_method("add_ingredient"):
 				if craft_bar.add_ingredient(sd.item_data):
@@ -58,15 +187,10 @@ func on_slot_clicked_handler(sd: SlotData, inv: InventoryData, btn: int):
 					refresh_material_data()
 			return
 
-		# --- LOGIC BOARD (THỚT) ---
 		elif active_mode == "board" and active_kitchen:
 			var board_inv = active_kitchen.inventory_data
 			
-			# Nếu thớt trống
 			if board_inv.slot_datas[0] == null:
-				
-				# [CÁCH MỚI - GIỐNG STOVE]
-				# Tạo slot mới tinh, không copy thuộc tính để tránh crash
 				var item_to_place = SlotData.new()
 				item_to_place.item_data = sd.item_data
 				item_to_place.quantity = 1
@@ -74,14 +198,12 @@ func on_slot_clicked_handler(sd: SlotData, inv: InventoryData, btn: int):
 				board_inv.slot_datas[0] = item_to_place
 				board_inv.inventory_updated.emit(board_inv)
 				
-				# Trừ đồ trong túi
 				PlayerData.player_inventory_data.reduce_quantity(sd.item_data, 1)
-				
 				refresh_material_data()
-					
 			return
 
 func set_kitchen_inventory(kitchen_node: Node3D, type: String = "stove") -> void:
+	print(">>> [ACTION] Mở Bếp (set_kitchen_inventory). Type: ", type)
 	GState.ui()
 	active_kitchen = kitchen_node
 	active_mode = type
@@ -89,7 +211,6 @@ func set_kitchen_inventory(kitchen_node: Node3D, type: String = "stove") -> void
 	self.visible = true
 	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 	
-	# Ẩn UI mặc định và HOTBAR
 	player_inventory.visible = false
 	outfit_inventory.visible = false
 	equip_inventory.visible = false
@@ -106,6 +227,7 @@ func set_kitchen_inventory(kitchen_node: Node3D, type: String = "stove") -> void
 		"board":
 			setup_board_mode(kitchen_node)
 
+# ... (Giữ nguyên setup_stove_mode, setup_board_mode, refresh_material_data) ...
 func setup_stove_mode(node):
 	if material_inventory:
 		if material_inventory.has_method("reset_to_default_mode"):
@@ -126,7 +248,6 @@ func setup_stove_mode(node):
 func setup_board_mode(node):
 	if recipe_book_ui: recipe_book_ui.close_book()
 	
-	# Lọc chỉ hiện Nguyên liệu cho Thớt
 	if material_inventory:
 		var filter_raw = func(item_data):
 			if item_data is ItemDataMaterial:
@@ -150,6 +271,10 @@ func refresh_material_data():
 # ĐÓNG UI
 # ------------------------------------------------------------------
 func close_kitchen() -> void:
+	if prevent_close:
+		print(">>> [BLOCK] close_kitchen bị chặn do prevent_close = true")
+		return
+	print(">>> [ACTION] close_kitchen() CHẠY!")
 	if active_kitchen and active_mode == "stove":
 		if active_kitchen.get("inventory_data") and active_kitchen.inventory_data.inventory_interact.is_connected(on_inventory_click):
 			active_kitchen.inventory_data.inventory_interact.disconnect(on_inventory_click)
@@ -159,7 +284,7 @@ func close_kitchen() -> void:
 	if material_inventory: material_inventory.hide()
 	if recipe_book_ui: recipe_book_ui.hide()
 	
-	if player_inventory: player_inventory.show()
+	# Đã xóa dòng player_inventory.show()
 	if hotbar_inventory: hotbar_inventory.show()
 	
 	if PlayerData.player and PlayerData.player.cam_ref:
@@ -176,8 +301,10 @@ func close_kitchen() -> void:
 			PlayerData.player._set_mouse_captured(true)
 
 	if not GState.is_playing():
+		print("    --> Chuyển GState về PLAY")
 		GState.play()
 
+# ... (Giữ nguyên các hàm còn lại: open_standalone_book, finalize_cut, physics_process, setters...) ...
 func open_standalone_book():
 	outfit_inventory.visible = false
 	player_inventory.visible = false
@@ -211,13 +338,11 @@ func start_cooking_process(mode: int, on_complete_callback: Callable):
 		hsm.active_state_changed.connect(_temp_func)
 	hsm.cook = true
 
-# [SỬA QUAN TRỌNG] Đổi tên biến board_input_inv -> inventory_data
 func finalize_cut(recipe: Recipe):
 	active_kitchen.inventory_data.slot_datas[0] = null
 	active_kitchen.inventory_data.inventory_updated.emit(active_kitchen.inventory_data)
 	PlayerData.player_inventory_data.pick_up_slot_data(recipe.goal_item.duplicate())
 
-# ... (Phần code cũ bên dưới giữ nguyên) ...
 func _physics_process(delta: float) -> void:
 	if grabbed_slot.visible:
 		grabbed_slot.global_position = get_global_mouse_position() + Vector2(5, 5)
@@ -316,3 +441,23 @@ func _on_visibility_changed() -> void:
 		drop_slot_data.emit(grabbed_slot_data)
 		grabbed_slot_data = null
 		update_grabbed_slot()
+
+func open_player_inventory():
+	self.visible = true
+	GState.ui()
+	
+	player_inventory.visible = true
+	outfit_inventory.visible = true
+	equip_inventory.visible = true
+	if hotbar_inventory: hotbar_inventory.show()
+	
+	if craft_bar: craft_bar.hide()
+	if cutting_ui: cutting_ui.hide()
+	if material_inventory: material_inventory.hide()
+	if external_inventory: external_inventory.hide()
+	if recipe_book_ui: recipe_book_ui.hide()
+	
+	if shop_ui: shop_ui.hide() 
+	if sell_ui: sell_ui.hide()
+	
+	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE

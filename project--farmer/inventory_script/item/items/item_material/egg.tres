@@ -10,8 +10,11 @@ region = Rect2(192, 480, 32, 32)
 [resource]
 script = ExtResource("1_s572i")
 material_type = 1
+selling_type = 0
+sell_price = 40
 name = "Egg"
 description = "Does not come first"
 stackable = true
 texture = SubResource("AtlasTexture_8y058")
+price = 1000
 metadata/_custom_type_script = "uid://oj6faifeyt6a"

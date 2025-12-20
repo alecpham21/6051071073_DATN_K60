@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://bcto2lyoe8p4f" path="res://Scripts/recipe_ui.gd" id="1_d1g0w"]
 [ext_resource type="FontFile" uid="uid://t7l1yos7sj5x" path="res://font/PixelOperator-Bold.ttf" id="1_rl6hr"]
-[ext_resource type="Script" uid="uid://cxjkim56kcobh" path="res://ui/Recipe/recipe.gd" id="2_o5va4"]
+[ext_resource type="Script" uid="uid://cxjkim56kcobh" path="res://ui/Recipe/RecipeScript/recipe.gd" id="2_o5va4"]
 [ext_resource type="Resource" uid="uid://m2mhsgf3i6vt" path="res://ui/Recipe/apple_pie_recipe.tres" id="3_kukbk"]
 [ext_resource type="Resource" uid="uid://bw1w03y46ey7m" path="res://ui/Recipe/cheese_recipe.tres" id="4_j8qhq"]
 [ext_resource type="PackedScene" uid="uid://c5l4nl6lbxxxe" path="res://assets/Book/recipe_book.tscn" id="5_kukbk"]
@@ -16,7 +16,8 @@ default_base_scale = 0.44
 default_font = ExtResource("1_rl6hr")
 
 [sub_resource type="LabelSettings" id="LabelSettings_8vbr2"]
-font_size = 30
+line_spacing = 2.0
+font_size = 24
 font_color = Color(0, 0, 0, 1)
 
 [node name="RecipeUI" type="Control"]
@@ -59,7 +60,7 @@ anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = 279.0
 offset_top = -179.0
-offset_right = 486.0
+offset_right = 499.0
 offset_bottom = 120.0
 grow_horizontal = 2
 grow_vertical = 2
@@ -73,21 +74,24 @@ size_flags_stretch_ratio = 0.0
 
 [node name="ItemTexture" type="TextureRect" parent="MarginContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
+expand_mode = 2
+stretch_mode = 4
 
 [node name="ItemName" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 25
 text = "Item name"
 label_settings = SubResource("LabelSettings_8vbr2")
+autowrap_mode = 2
 
 [node name="ItemDescription" type="RichTextLabel" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_colors/default_color = Color(1, 1, 1, 1)
-theme_override_colors/font_shadow_color = Color(0.20871, 0.20871, 0.20871, 1)
 theme_override_font_sizes/normal_font_size = 24
 text = "Item description."
 fit_content = true
+autowrap_mode = 2
 
 [node name="NavButton" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
@@ -108,25 +112,3 @@ texture_normal = ExtResource("6_jj5jt")
 texture_pressed = ExtResource("9_d4kph")
 ignore_texture_size = true
 stretch_mode = 5
-
-[node name="Label" type="Label" parent="."]
-visible = false
-z_index = 1
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -485.0
-offset_top = -102.0
-offset_right = 486.0
-offset_bottom = 103.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_colors/font_color = Color(0.847059, 0, 0, 1)
-theme_override_colors/font_shadow_color = Color(1, 0.335514, 0.269596, 1)
-theme_override_font_sizes/font_size = 150
-text = "Inventory full"
-horizontal_alignment = 1
-vertical_alignment = 1

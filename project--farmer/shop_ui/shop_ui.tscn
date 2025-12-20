@@ -1,0 +1,43 @@
+[gd_scene load_steps=4 format=3 uid="uid://cxhu2k076jcr8"]
+
+[ext_resource type="Texture2D" uid="uid://clj54iki6vqj" path="res://assets/Book/scroll.png" id="1_nvobv"]
+[ext_resource type="Script" uid="uid://c6pmwc540pc6a" path="res://shop_ui/shop_ui.gd" id="1_sw31s"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_sw31s"]
+texture = ExtResource("1_nvobv")
+
+[node name="shop_ui" type="PanelContainer"]
+offset_right = 40.0
+offset_bottom = 40.0
+theme_override_styles/panel = SubResource("StyleBoxTexture_sw31s")
+script = ExtResource("1_sw31s")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_left = 7
+theme_override_constants/margin_top = 6
+theme_override_constants/margin_right = 7
+theme_override_constants/margin_bottom = 4
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Price"
+horizontal_alignment = 1
+
+[node name="ScrollContainer" type="ScrollContainer" parent="MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(300, 300)
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="GridContainer" type="GridContainer" parent="MarginContainer/VBoxContainer/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Button" type="Button" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Close
+"

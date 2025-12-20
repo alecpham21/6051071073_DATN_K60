@@ -1,0 +1,7 @@
+NPC_Frujt: Welcome ! You have any frujt in your mind already ?
+- I want to buy some
+	[signal arg="open_buy_shop"]
+- I want to sell some
+	[signal arg="sell_wholesale"]
+- No, i am good
+	[signal arg="end_talk"]

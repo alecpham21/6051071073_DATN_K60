@@ -2,22 +2,25 @@ extends PanelContainer
 
 const Slot = preload("res://Inventory_ui/slot.tscn")
 
-@onready var item_grid: GridContainer = $MarginContainer/ItemGrid
-@onready var recipe_texture: TextureRect = $RecipeTexture
-@onready var cook_button: Button = $RecipeTexture/CookButton
-
+@onready var item_grid: GridContainer = $VBoxContainer/MarginContainer/ItemGrid
+@onready var recipe_texture: TextureRect = $VBoxContainer/Slot/RecipeTexture
+@onready var cook_button: Button = $VBoxContainer/Slot/RecipeTexture/CookButton
+@export var progress_bar: ProgressBar
 @export var all_recipes: Array[Recipe]
 
 
 var craft_slots_data: Array[SlotData]
 var valid_recipe_to_cook: Recipe = null
-
+var is_crafting: bool = false
 
 func _ready() -> void:
 	craft_slots_data = PlayerData.craft_bin_data
 	visible = false 
 	
-	# Kết nối nút Cook
+	if progress_bar:
+		progress_bar.visible = false
+		progress_bar.value = 0
+	
 	if cook_button:
 		cook_button.pressed.connect(_on_cook_button_pressed)
 		cook_button.visible = false
@@ -28,6 +31,8 @@ func _ready() -> void:
 	GameData.game_state_changed.connect(func(old, new):
 		if old == GState.state_enum.COOK and new != GState.state_enum.COOK:
 			visible = false
+			is_crafting = false
+			if progress_bar: progress_bar.visible = false
 	)
 
 func on_open_kitchen(kitchen_node, type = "stove"):
@@ -117,15 +122,22 @@ func check_recipe():
 		for recipe in all_recipes:
 			if check_if_matches_recipe(recipe):
 				if recipe.cook_result and recipe.cook_result.item_data:
-
 					recipe_texture.texture = recipe.cook_result.item_data.texture
 					recipe_texture.modulate = Color(0.8, 0.8, 0.8, 1)
-					
 					valid_recipe_to_cook = recipe
 					
-					if cook_button: cook_button.visible = true
-					
+					if cook_button: 
+						cook_button.visible = true
+						
+						if PlayerData.player_inventory_data.is_full():
+							cook_button.disabled = true
+							cook_button.modulate = Color(1, 0.5, 0.5)
+						else:
+							cook_button.disabled = false
+							cook_button.modulate = Color(1, 1, 1)
 				return
+	valid_recipe_to_cook = null
+	if cook_button: cook_button.visible = false
 
 func check_if_matches_recipe(recipe: Recipe) -> bool:
 	if recipe == null: return false
@@ -172,32 +184,37 @@ func consume_ingredients_in_pot():
 		_pending_dish = final_dish
 
 func _on_cook_button_pressed():
-	if valid_recipe_to_cook == null: return
+	if valid_recipe_to_cook == null or is_crafting: return
 	
-	# 1. Xóa nguyên liệu trong nồi
+	is_crafting = true 
+	if cook_button: cook_button.disabled = true 
+	
+	
+	var time_to_cook = 2.0
+	if "craft_time" in valid_recipe_to_cook:
+		time_to_cook = valid_recipe_to_cook.craft_time
+	
 	consume_ingredients_in_pot()
 	
-	# 2. Bắt đầu Animation
 	var hsm = PlayerData.player.limbo_hsm as LimboPrimeHSM
 	hsm.cook_mode = LimboPrimeHSM.COOK_MODE.STOVE 
-	
-	# Ẩn UI tạm thời nếu muốn (optional)
-	# visible = false 
-	
-	var _temp_func: Callable 
-	_temp_func = func(cur, prev):
-		if (prev as CharacterState).state_name.to_lower() == "cook":
-			# Nấu xong -> Nhận đồ
-			finish_cooking()
-			
-			# visible = true
-			if hsm.active_state_changed.is_connected(_temp_func):
-				hsm.active_state_changed.disconnect(_temp_func)
-
-	if not hsm.active_state_changed.is_connected(_temp_func):
-		hsm.active_state_changed.connect(_temp_func)
-	
 	hsm.cook = true
+	
+	if progress_bar:
+		progress_bar.visible = true
+		progress_bar.value = 0
+		progress_bar.max_value = 100
+		
+		var tween = create_tween()
+		tween.tween_property(progress_bar, "value", 100, time_to_cook)
+		
+		await tween.finished
+		
+		progress_bar.visible = false
+	else:
+		await get_tree().create_timer(time_to_cook).timeout
+
+	finish_cooking()
 
 var _pending_dish: SlotData
 
@@ -208,3 +225,8 @@ func finish_cooking():
 		
 		if PlayerData.material_data:
 			PlayerData.material_data.refresh(PlayerData.player_inventory_data)
+	
+	is_crafting = false
+	if cook_button: cook_button.disabled = false
+	
+	check_recipe()

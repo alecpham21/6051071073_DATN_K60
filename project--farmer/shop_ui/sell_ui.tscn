@@ -1,0 +1,36 @@
+[gd_scene load_steps=3 format=3 uid="uid://brt6cwkiqetjg"]
+
+[ext_resource type="PackedScene" uid="uid://470pnke8j1j2" path="res://Inventory_ui/inventory.tscn" id="1_n7c3e"]
+[ext_resource type="Script" uid="uid://lrobl2gxc46" path="res://shop_ui/sell_ui.gd" id="1_p6t6e"]
+
+[node name="Sell_UI" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_p6t6e")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Label" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+text = "Selling"
+
+[node name="Inventory" parent="VBoxContainer" instance=ExtResource("1_n7c3e")]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="SellButton" type="Button" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "Sell"
+
+[node name="SellAllButton" type="Button" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "Sell All"

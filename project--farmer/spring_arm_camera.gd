@@ -30,6 +30,8 @@ func _ready() -> void:
 	
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	collision_mask = 0
+	
+	stored_spring_length = spring_length
 
 func _physics_process(delta: float) -> void:
 	
@@ -104,6 +106,9 @@ func focus_on_target(target_marker: Node3D):
 
 
 func return_to_player():
+	if not is_focusing: 
+		return
+
 	if tween_focus: tween_focus.kill()
 	tween_focus = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_CUBIC).set_parallel(true)
 	

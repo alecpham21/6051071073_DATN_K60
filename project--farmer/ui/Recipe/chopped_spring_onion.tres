@@ -1,0 +1,30 @@
+[gd_resource type="Resource" script_class="Recipe" load_steps=8 format=3 uid="uid://b8osduwne4q22"]
+
+[ext_resource type="Script" uid="uid://bfas330ndllg" path="res://inventory_script/item/item_attribute/item_attribute.gd" id="1_j1kqf"]
+[ext_resource type="Script" uid="uid://cxjkim56kcobh" path="res://ui/Recipe/RecipeScript/recipe.gd" id="1_kxcu5"]
+[ext_resource type="Script" uid="uid://bspkgwkxsy8mn" path="res://inventory_script/slot_data.gd" id="2_i3qso"]
+[ext_resource type="Resource" uid="uid://disi0vs58xyef" path="res://inventory_script/item/items/item_material/chopped_spring_onion.tres" id="2_w6a6q"]
+[ext_resource type="Resource" uid="uid://baim5tdwy5clf" path="res://inventory_script/item/items/item_harvest/spring_onion.tres" id="5_hw13x"]
+
+[sub_resource type="Resource" id="Resource_oh4vg"]
+script = ExtResource("2_i3qso")
+item_data = ExtResource("2_w6a6q")
+quantity = 4
+attributes = Array[ExtResource("1_j1kqf")]([])
+metadata/_custom_type_script = "uid://bspkgwkxsy8mn"
+
+[sub_resource type="Resource" id="Resource_7ke0h"]
+script = ExtResource("2_i3qso")
+item_data = ExtResource("5_hw13x")
+quantity = 1
+attributes = Array[ExtResource("1_j1kqf")]([])
+metadata/_custom_type_script = "uid://bspkgwkxsy8mn"
+
+[resource]
+script = ExtResource("1_kxcu5")
+station = 1
+cook_result = SubResource("Resource_oh4vg")
+other_conditions = Array[StringName]([])
+craft_time = 1.5
+slot_datas = Array[ExtResource("2_i3qso")]([SubResource("Resource_7ke0h")])
+metadata/_custom_type_script = "uid://cxjkim56kcobh"

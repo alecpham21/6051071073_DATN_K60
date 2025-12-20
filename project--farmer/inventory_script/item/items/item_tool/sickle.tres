@@ -17,4 +17,5 @@ name = "Sickle"
 description = "Where is the hammer ?"
 stackable = false
 texture = SubResource("AtlasTexture_m624g")
+price = 1000
 metadata/_custom_type_script = "uid://cbuqv3ga5xd3c"

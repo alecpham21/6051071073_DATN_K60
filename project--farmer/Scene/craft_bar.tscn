@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://bf3pqy7ic2hl7" path="res://Scripts/craft_bar.gd" id="1_f43ol"]
 [ext_resource type="PackedScene" uid="uid://cmaas2sclopj4" path="res://Inventory_ui/slot.tscn" id="2_f43ol"]
 
-[node name="CraftBar" type="PanelContainer"]
+[node name="CraftBar" type="PanelContainer" node_paths=PackedStringArray("progress_bar")]
 anchors_preset = 7
 anchor_left = 0.5
 anchor_top = 1.0
@@ -15,8 +15,33 @@ offset_right = 32.0
 grow_horizontal = 2
 grow_vertical = 0
 script = ExtResource("1_f43ol")
+progress_bar = NodePath("VBoxContainer/ProgressBar")
 
-[node name="MarginContainer" type="MarginContainer" parent="."]
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="ProgressBar" type="ProgressBar" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="Slot" parent="VBoxContainer" instance=ExtResource("2_f43ol")]
+layout_mode = 2
+size_flags_vertical = 0
+
+[node name="RecipeTexture" type="TextureRect" parent="VBoxContainer/Slot"]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+mouse_filter = 2
+
+[node name="CookButton" type="Button" parent="VBoxContainer/Slot/RecipeTexture"]
+layout_mode = 2
+offset_right = 64.0
+offset_bottom = 65.0
+text = "Cook
+"
+
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 8
 theme_override_constants/margin_left = 5
@@ -24,24 +49,6 @@ theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 5
 theme_override_constants/margin_bottom = 5
 
-[node name="ItemGrid" type="GridContainer" parent="MarginContainer"]
+[node name="ItemGrid" type="GridContainer" parent="VBoxContainer/MarginContainer"]
 layout_mode = 2
 columns = 5
-
-[node name="Slot" parent="." instance=ExtResource("2_f43ol")]
-layout_mode = 2
-size_flags_vertical = 0
-
-[node name="RecipeTexture" type="TextureRect" parent="."]
-custom_minimum_size = Vector2(64, 64)
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 0
-mouse_filter = 2
-
-[node name="CookButton" type="Button" parent="RecipeTexture"]
-layout_mode = 2
-offset_right = 64.0
-offset_bottom = 65.0
-text = "Cook
-"

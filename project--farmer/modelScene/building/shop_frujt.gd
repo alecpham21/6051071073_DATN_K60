@@ -1,0 +1,120 @@
+extends Node3D
+
+@export var items_to_sell: Array[ItemData] 
+@export var dialog_timeline: String = "SellingFrujt"
+@export var accepted_selling_type: ItemDataMaterial.SellingType = ItemDataMaterial.SellingType.FRUJT
+
+@onready var interact_area = $InteractArea
+
+var sell_box_inventory: ShopInventoryData
+var inventory_data: InventoryData:
+	get:
+		return sell_box_inventory
+
+
+func _ready():
+	Dialogic.signal_event.connect(_on_dialogic_signal)
+	
+	if interact_area:
+		interact_area.interacted.connect(start_dialogue)
+	
+	sell_box_inventory = ShopInventoryData.new()
+	sell_box_inventory.slot_datas.resize(5)
+	sell_box_inventory.accepted_type = accepted_selling_type
+
+func start_dialogue():
+	Dialogic.start(dialog_timeline)
+
+func _on_dialogic_signal(argument: String):
+	match argument:
+		"open_buy_shop":
+			handle_shop_opening("buy")
+			
+		"sell_wholesale":
+			handle_shop_opening("sell")
+
+
+func handle_shop_opening(mode: String):
+	GState.shop()
+	
+	var ui = get_tree().get_first_node_in_group("inventory_interface")
+	
+	if ui:
+		# --- XÓA DÒNG NÀY ---
+		# ui.prevent_close = true  <-- Xóa đi vì InventoryInterface tự lo rồi
+		# --------------------
+		
+		if mode == "buy":
+			if ui.has_method("open_shop_interface"):
+				ui.open_shop_interface(items_to_sell)
+		else:
+			if ui.has_method("open_shop_sell_interface"):
+				ui.open_shop_sell_interface(self, sell_box_inventory)
+		
+		Dialogic.end_timeline()
+		
+		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+
+func on_sell_button_pressed():
+	var total_money = 0
+	var datas = sell_box_inventory.slot_datas
+	
+	for i in range(datas.size()):
+		var slot = datas[i]
+		
+		if slot and slot.item_data:
+			var price = 0
+			if slot.item_data is ItemDataMaterial:
+				price = slot.item_data.sell_price
+			else:
+				price = int(slot.item_data.price * 0.5)
+			
+			total_money += price * slot.quantity
+			
+			sell_box_inventory.slot_datas[i] = null 
+	
+	if total_money > 0:
+		finalize_transaction(total_money, sell_box_inventory)
+		print("Bán lẻ thành công! Thu về: ", total_money)
+	else:
+		print("Khay trống rỗng!")
+
+func on_sell_wholesale_pressed():
+	var player = get_tree().get_first_node_in_group("player")
+	if not player: return
+	
+	var player_inv = player.inventory_data
+	var total_earned = 0
+	var items_sold_count = 0
+	
+	for slot in player_inv.slot_datas:
+		if slot and slot.item_data:
+			if slot.item_data is ItemDataMaterial:
+				var is_right_type = (slot.item_data.selling_type == accepted_selling_type)
+				var is_wholesale_qty = (slot.quantity >= 20)
+				
+				if is_right_type and is_wholesale_qty:
+					var profit = slot.item_data.sell_price * slot.quantity
+					
+					total_earned += profit
+					items_sold_count += slot.quantity
+					slot.quantity = 0 
+	
+	if items_sold_count > 0:
+		finalize_transaction(total_earned, player_inv)
+		print("Bán sỉ ", items_sold_count, " món. Thu về: ", total_earned)
+	else:
+		print("Không tìm thấy lô hàng nào đủ điều kiện (Đúng loại & SL >= 20)!")
+
+func finalize_transaction(amount: int, inventory_to_update: InventoryData):
+	if PlayerData:
+		PlayerData.money += amount
+		if PlayerData.has_signal("money_changed"):
+			PlayerData.money_changed.emit(PlayerData.money)
+	
+	inventory_to_update.inventory_updated.emit(inventory_to_update)
+
+func close_chest():
+	var ui = get_tree().get_first_node_in_group("inventory_interface")
+	if ui:
+		ui.close_shop_interface()

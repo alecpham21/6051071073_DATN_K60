@@ -29,11 +29,13 @@ Dialogic="*res://addons/dialogic/Core/DialogicGameHandler.gd"
 [dialogic]
 
 directories/dch_directory={
+"NPC_Frujt": "res://Dialog/NPC_Frujt.dch",
 "NPC_John": "res://Dialog/NPC_John.dch",
 "player": "res://Dialog/player/player.dch",
 "unit_test_character": "res://Tests/Resources/unit_test_character.dch"
 }
 directories/dtl_directory={
+"SellingFrujt": "res://Dialog/timeline/SellingFrujt.dtl",
 "timeline_npc_john": "res://Dialog/timeline_npc_john.dtl",
 "welcome_home_john": "res://Dialog/timeline/welcome_home_john.dtl"
 }
@@ -58,6 +60,7 @@ import/blender/enabled=false
 
 external_inventory=""
 smooth=""
+inventory_interface=""
 
 [input]
 
@@ -188,6 +191,10 @@ quick_use_item={
 [physics]
 
 3d/physics_engine="Jolt Physics (Extension)"
+
+[rendering]
+
+textures/canvas_textures/default_texture_filter=0
 
 [shader_globals]
 

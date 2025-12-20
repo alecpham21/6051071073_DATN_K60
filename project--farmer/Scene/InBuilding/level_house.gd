@@ -32,17 +32,21 @@ func _process(_delta: float) -> void:
 	pass
 
 func toggle_inventory_interface(external_inventory_owner = null) -> void:
-	inventory_interface.visible = not inventory_interface.visible
-	
 	if inventory_interface.visible:
-		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
-	else:
+		inventory_interface.close_kitchen()
+		
+		inventory_interface.clear_external_inventory()
+		
 		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 		
-	if external_inventory_owner and inventory_interface.visible:
-		inventory_interface.set_external_inventory(external_inventory_owner)
 	else:
-		inventory_interface.clear_external_inventory()
+		if external_inventory_owner:
+			inventory_interface.set_external_inventory(external_inventory_owner)
+			inventory_interface.open_player_inventory()
+		else:
+			inventory_interface.open_player_inventory()
+			
+		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 
 
 func _on_inventory_interface_drop_slot_data(slot_data) -> void:

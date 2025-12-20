@@ -18,4 +18,5 @@ name = "Long Green Pants"
 description = "It is a pants"
 stackable = false
 texture = SubResource("AtlasTexture_rj4ml")
+price = 1000
 metadata/_custom_type_script = "uid://bjgwngm01lr5n"

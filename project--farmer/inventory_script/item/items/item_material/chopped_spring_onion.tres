@@ -1,0 +1,20 @@
+[gd_resource type="Resource" script_class="ItemDataMaterial" load_steps=4 format=3 uid="uid://disi0vs58xyef"]
+
+[ext_resource type="Script" uid="uid://vmjc7agye6gg" path="res://inventory_script/item/item_data/item_data_material.gd" id="1_wkm1m"]
+[ext_resource type="Texture2D" uid="uid://omvd8ed3fie6" path="res://inventory_script/item/item_atlast/#2 - Transparent Icons & Drop Shadow.png" id="2_o2xc8"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nj1cw"]
+atlas = ExtResource("2_o2xc8")
+region = Rect2(256, 576, 32, 32)
+
+[resource]
+script = ExtResource("1_wkm1m")
+material_type = 2
+selling_type = 0
+sell_price = 40
+name = "Chopped Spring Onion"
+description = ""
+stackable = false
+texture = SubResource("AtlasTexture_nj1cw")
+price = 1000
+metadata/_custom_type_script = "uid://vmjc7agye6gg"

@@ -27,7 +27,7 @@ func get_variant_from_seed(seed_name: String) -> PLANT_VARIANT:
 			return PLANT_VARIANT.CORN
 		"cabbage_seed":
 			return PLANT_VARIANT.CABBAGE
-		"sonion_seed":
+		"spring_onion_seed":
 			return PLANT_VARIANT.SONION
 		_:
 			return PLANT_VARIANT.NONE

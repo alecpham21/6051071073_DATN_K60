@@ -3,15 +3,20 @@
 [ext_resource type="Script" uid="uid://vmjc7agye6gg" path="res://inventory_script/item/item_data/item_data_material.gd" id="1_n1jt3"]
 [ext_resource type="Texture2D" uid="uid://omvd8ed3fie6" path="res://inventory_script/item/item_atlast/#2 - Transparent Icons & Drop Shadow.png" id="2_axbfj"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_qk6ii"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_axbfj"]
 atlas = ExtResource("2_axbfj")
 region = Rect2(224, 480, 32, 32)
 
 [resource]
 script = ExtResource("1_n1jt3")
 material_type = 3
+selling_type = 0
+sell_price = 40
 name = "Cheese"
-description = "Always expired"
+description = "1 Milks
+2 Eggs
+"
 stackable = true
-texture = SubResource("AtlasTexture_qk6ii")
+texture = SubResource("AtlasTexture_axbfj")
+price = 1000
 metadata/_custom_type_script = "uid://oj6faifeyt6a"

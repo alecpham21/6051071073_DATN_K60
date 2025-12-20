@@ -2,14 +2,9 @@ extends Level
 
 const PickUp = preload("res://inventory_script/item/pick_up_item/pick_up.tscn")
 
-# --- [MỚI] KHAI BÁO QUẢN LÝ ---
-# 1. Đặt tên ID cho Level này (Trong Inspector nhớ đổi tên khác nhau cho mỗi Scene, vd: "Home", "Forest")
 @export var level_id: String = "Home_Farm"
 
-# 2. Tham chiếu đến GroundGenerator (Thợ vẽ)
-# Lưu ý: Đường dẫn này dựa trên hình ông gửi. Nếu lỗi node not found thì chuột phải vào node GroundGenerator chọn "Access as Unique Name" rồi sửa thành %GroundGenerator
 @onready var ground_generator = $SubViewportContainer/SubViewport/GroundGenerator
-# ------------------------------
 
 @onready var player: CharacterBody3D = %MainFarmer
 @onready var inventory_interface: Control = $UI/InventoryInterface
@@ -21,22 +16,17 @@ func _ready():
 	if Watcher.has_data(level_id):
 		print("📂 World: Load data...")
 		var data = Watcher.get_level_data(level_id)
-		# wait for ground generator
 		await ground_generator.load_from_data(data) 
 	else:
 		print("✨ World: New map...")
-		# wait for ground generator setup then generate
 		await ground_generator.generate_new_map()
 		
-	# Ask the Watcher if have the data
 	if Watcher.has_data(level_id):
 		print("📂 World: Tìm thấy dữ liệu cũ của ", level_id, " -> Đang Load...")
 		var data = Watcher.get_level_data(level_id)
-		# Throw data for professional do the job
 		ground_generator.load_from_data(data)
 	else:
 		print("✨ World: Không có dữ liệu của ", level_id, " -> Tạo Mới...")
-		# Tell the professional to draw
 		ground_generator.generate_new_map()
 		
 	player.toggle_inventory.connect(toggle_inventory_interface)
@@ -51,6 +41,8 @@ func _ready():
 	
 	for node in get_tree().get_nodes_in_group("external_inventory"):
 		node.toggle_inventory.connect(toggle_inventory_interface)
+
+	
 	SceneTransition.reveal_scene()
 
 func save_level_state():
@@ -65,17 +57,21 @@ func _process(_delta: float) -> void:
 	pass
 
 func toggle_inventory_interface(external_inventory_owner = null) -> void:
-	inventory_interface.visible = not inventory_interface.visible
-	
 	if inventory_interface.visible:
-		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
-	else:
+		inventory_interface.close_kitchen()
+		
+		inventory_interface.clear_external_inventory()
+		
 		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 		
-	if external_inventory_owner and inventory_interface.visible:
-		inventory_interface.set_external_inventory(external_inventory_owner)
 	else:
-		inventory_interface.clear_external_inventory()
+		if external_inventory_owner:
+			inventory_interface.set_external_inventory(external_inventory_owner)
+			inventory_interface.open_player_inventory()
+		else:
+			inventory_interface.open_player_inventory()
+			
+		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 
 func _on_inventory_interface_drop_slot_data(slot_data) -> void:
 	var pick_up = PickUp.instantiate()

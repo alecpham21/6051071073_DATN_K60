@@ -8,7 +8,7 @@ extends Character
 @onready var body_legs: MeshInstance3D = $Farmer/rig/Skeleton3D/Legs
 @onready var body_lower: MeshInstance3D = $Farmer/rig/Skeleton3D/LowerBody
 @onready var body_upper: MeshInstance3D = $Farmer/rig/Skeleton3D/UpperBody
-
+@onready var body_shoulder: MeshInstance3D = $Farmer/rig/Skeleton3D/Shoulder
 
 @onready var ao_mesh_node: MeshInstance3D = $Farmer/rig/Skeleton3D/Base_002
 @onready var quan_mesh_node: MeshInstance3D = $Farmer/rig/Skeleton3D/LongPants
@@ -61,6 +61,7 @@ signal action_finished
 func _ready() -> void:
 	super()
 	GState.reset()
+	
 	Dialogic.timeline_started.connect(func(): 
 		GState.dialog()
 		_set_mouse_captured(false)
@@ -68,13 +69,15 @@ func _ready() -> void:
 	
 	Dialogic.signal_event.connect(func(arg):
 		if arg == "end_talk":
-			GState.play()
-			_set_mouse_captured(true)
+			if GState.is_dialog():
+				GState.play()
+				_set_mouse_captured(true)
 	)
 	
 	Dialogic.timeline_ended.connect(func(): 
-		if not GState.is_playing(): GState.play()
-		_set_mouse_captured(true)
+		if GState.is_dialog():
+			GState.play()
+			_set_mouse_captured(true)
 	)
 	
 	GameData.game_state_changed.connect(func(old, new):
@@ -82,7 +85,9 @@ func _ready() -> void:
 		
 		if new == GState.state_enum.RECIPE \
 		or new == GState.state_enum.COOK \
-		or new == GState.state_enum.DIALOG:
+		or new == GState.state_enum.DIALOG \
+		or new == GState.state_enum.UI \
+		or new == GState.state_enum.SHOP:
 			_set_mouse_captured(false)
 	)
 	
@@ -94,7 +99,8 @@ func _ready() -> void:
 		ItemDataOutfit.BodyPart.FEETS:      body_feets,
 		ItemDataOutfit.BodyPart.LEGS:       body_legs,
 		ItemDataOutfit.BodyPart.LOWER_BODY: body_lower,
-		ItemDataOutfit.BodyPart.UPPER_BODY: body_upper
+		ItemDataOutfit.BodyPart.UPPER_BODY: body_upper,
+		ItemDataOutfit.BodyPart.SHOULDER: body_shoulder
 	}
 	interact_area.area_entered.connect(func(a): can_interact = true)
 	interact_area.area_exited.connect(func(a): can_interact = false)
@@ -195,13 +201,18 @@ func _unhandled_input(event: InputEvent) -> void:
 		else: GState.play()
 	
 	if Input.is_action_just_pressed("inventory"):
-		if GState.is_cook() or GState.is_recipe():
-			GState.play()
-			return
-		else:
-			toggle_inventory.emit()
+		if GState.is_shop() or GState.is_dialog() or GState.is_cook() or GState.is_recipe():
+			return 
+		
+		toggle_inventory.emit()
 	
 	if Input.is_action_just_pressed("interact"):
+		if GState.is_shop():
+			var ui = get_tree().get_first_node_in_group("inventory_interface")
+			if ui:
+				ui.close_shop_interface() 
+			return
+
 		if GState.is_cook() or GState.is_recipe() or GState.is_ui():
 			GState.play()
 		elif can_interact:

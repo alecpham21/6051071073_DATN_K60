@@ -1,6 +1,7 @@
-[gd_scene load_steps=24 format=3 uid="uid://r4vbsuv0yw71"]
+[gd_scene load_steps=38 format=3 uid="uid://r4vbsuv0yw71"]
 
 [ext_resource type="Shader" uid="uid://c6qhkhar3xobg" path="res://Shader/edge_detection.gdshader" id="1_bjjjs"]
+[ext_resource type="Script" uid="uid://qq68ax8n2xq5" path="res://level/level_town.gd" id="1_vk6vg"]
 [ext_resource type="Shader" uid="uid://viqy3uwh6ns7" path="res://PixelShader.gdshader" id="2_gwcwr"]
 [ext_resource type="Script" uid="uid://bshrove7rvagv" path="res://spring_arm_camera.gd" id="3_ngi1u"]
 [ext_resource type="PackedScene" uid="uid://bnxu42mjbjp8x" path="res://player/main_farmer.tscn" id="4_ngi1u"]
@@ -15,9 +16,22 @@
 [ext_resource type="PackedScene" uid="uid://03bjah3n70ep" path="res://Scene/WindGrass/WindGrassScene.tscn" id="16_gwcwr"]
 [ext_resource type="PackedScene" uid="uid://ba2xtjdegyqnt" path="res://modelScene/plant/grass/grassPixel.tscn" id="17_v8ox3"]
 [ext_resource type="PackedScene" uid="uid://c3gcddyset4iw" path="res://Scene/Tree/tree_sway.tscn" id="18_ngi1u"]
+[ext_resource type="PackedScene" uid="uid://b5bavm45lxiid" path="res://ui/Recipe/RecipeUI/recipe_ui.tscn" id="19_iu1fk"]
 [ext_resource type="PackedScene" uid="uid://bjxrobwweubb3" path="res://model/tree/TreeVer1.tscn" id="19_kcivo"]
+[ext_resource type="PackedScene" uid="uid://cxhu2k076jcr8" path="res://shop_ui/shop_ui.tscn" id="19_u0gjg"]
 [ext_resource type="PackedScene" uid="uid://dd48ywngxd2oc" path="res://Scene/Environment/day_night_cycle.tscn" id="19_vk6vg"]
+[ext_resource type="PackedScene" uid="uid://brt6cwkiqetjg" path="res://shop_ui/sell_ui.tscn" id="20_nghhb"]
 [ext_resource type="LightmapGIData" uid="uid://de8s4oe3qu5k4" path="res://level/level script/level_town.lmbake" id="20_vk6vg"]
+[ext_resource type="PackedScene" uid="uid://d30ad43rkaju4" path="res://modelScene/building/shop_ver_merge_1.tscn" id="21_iu1fk"]
+[ext_resource type="Script" uid="uid://oj6faifeyt6a" path="res://inventory_script/item/item_data/item_data.gd" id="22_tphcj"]
+[ext_resource type="Resource" uid="uid://b57y17b1yemhk" path="res://inventory_script/item/items/item_material/apple.tres" id="23_u0gjg"]
+[ext_resource type="Resource" uid="uid://dom2oqd20bncl" path="res://inventory_script/item/items/item_material/item_consumable/milk.tres" id="24_omicy"]
+[ext_resource type="Resource" uid="uid://208q0fgbf0k5" path="res://inventory_script/item/items/item_material/egg.tres" id="26_omicy"]
+[ext_resource type="PackedScene" uid="uid://qrk3cux2q3fh" path="res://modelScene/NPC/frujt_npc.tscn" id="27_75k2r"]
+[ext_resource type="PackedScene" uid="uid://cf6crsusekl3q" path="res://modelScene/building/shop_ver_merge_2.tscn" id="27_83m1q"]
+[ext_resource type="Resource" uid="uid://c7om45kke1quw" path="res://inventory_script/item/items/item_harvest/carrot.tres" id="28_7py64"]
+[ext_resource type="Resource" uid="uid://bh4g6q5c147wp" path="res://inventory_script/item/items/item_harvest/cabbage.tres" id="29_75k2r"]
+[ext_resource type="Resource" uid="uid://baim5tdwy5clf" path="res://inventory_script/item/items/item_harvest/spring_onion.tres" id="30_nghhb"]
 
 [sub_resource type="QuadMesh" id="QuadMesh_7py64"]
 flip_faces = true
@@ -59,6 +73,7 @@ shader_parameter/level_c = 5.0
 shader_parameter/level_h = 0.05
 
 [node name="level_town" type="Node3D"]
+script = ExtResource("1_vk6vg")
 
 [node name="SubViewportContainer" type="SubViewportContainer" parent="."]
 texture_filter = 1
@@ -124,94 +139,6 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
-
-[node name="UI" type="CanvasLayer" parent="."]
-
-[node name="InventoryInterface" type="Control" parent="UI"]
-visible = false
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-script = ExtResource("7_iu1fk")
-
-[node name="PlayerInventory" parent="UI/InventoryInterface" instance=ExtResource("8_ohymk")]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -326.0
-offset_top = -20.0
-offset_right = -286.0
-offset_bottom = 20.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="EquipInventory" parent="UI/InventoryInterface" instance=ExtResource("8_ohymk")]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -496.0
-offset_top = -144.0
-offset_right = -456.0
-offset_bottom = -104.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="OutfitInventory" parent="UI/InventoryInterface" instance=ExtResource("8_ohymk")]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -291.0
-offset_top = -144.0
-offset_right = -251.0
-offset_bottom = -104.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="ExternalInventory" parent="UI/InventoryInterface" instance=ExtResource("8_ohymk")]
-visible = false
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = 224.0
-offset_top = -20.0
-offset_right = 264.0
-offset_bottom = 20.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="GrabbedSlot" parent="UI/InventoryInterface" instance=ExtResource("9_rw7wq")]
-visible = false
-modulate = Color(1, 1, 1, 0.52549)
-self_modulate = Color(1, 1, 1, 0)
-layout_mode = 0
-
-[node name="HotBarInventory" parent="UI" instance=ExtResource("10_tphcj")]
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -241.0
-offset_top = -74.0
-offset_right = 241.0
-offset_bottom = 0.0
-grow_horizontal = 2
-grow_vertical = 0
 
 [node name="TraditionalTownFull1" parent="." instance=ExtResource("15_auj8g")]
 transform = Transform3D(2.12, 0, 0, 0, 2.12, 0, 0, 0, 2.12, -9.74293, 0.977251, 0)
@@ -364,6 +291,127 @@ visible = false
 light_data = ExtResource("20_vk6vg")
 
 [node name="DayNightCycle" parent="." instance=ExtResource("19_vk6vg")]
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="InventoryInterface" type="Control" parent="UI" node_paths=PackedStringArray("hotbar_inventory", "shop_ui", "sell_ui") groups=["inventory_interface"]]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("7_iu1fk")
+hotbar_inventory = NodePath("../HotBarInventory")
+shop_ui = NodePath("shop_ui")
+sell_ui = NodePath("Sell_UI")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/InventoryInterface"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -376.0
+offset_top = -25.5
+offset_right = -336.0
+offset_bottom = 25.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/InventoryInterface/VBoxContainer"]
+layout_mode = 2
+
+[node name="EquipInventory" parent="UI/InventoryInterface/VBoxContainer/HBoxContainer" instance=ExtResource("8_ohymk")]
+layout_mode = 2
+
+[node name="OutfitInventory" parent="UI/InventoryInterface/VBoxContainer/HBoxContainer" instance=ExtResource("8_ohymk")]
+layout_mode = 2
+
+[node name="PlayerInventory" parent="UI/InventoryInterface/VBoxContainer" instance=ExtResource("8_ohymk")]
+layout_mode = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="UI/InventoryInterface/VBoxContainer"]
+layout_mode = 2
+
+[node name="MoneyLabel" type="Label" parent="UI/InventoryInterface/VBoxContainer/PanelContainer" groups=["inventory_interface"]]
+layout_mode = 2
+horizontal_alignment = 2
+
+[node name="ExternalInventory" parent="UI/InventoryInterface" instance=ExtResource("8_ohymk")]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 224.0
+offset_top = -20.0
+offset_right = 264.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="GrabbedSlot" parent="UI/InventoryInterface" instance=ExtResource("9_rw7wq")]
+visible = false
+modulate = Color(1, 1, 1, 0.52549)
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 0
+
+[node name="shop_ui" parent="UI/InventoryInterface" instance=ExtResource("19_u0gjg")]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 224.0
+offset_top = -181.0
+offset_right = 524.0
+offset_bottom = 181.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Sell_UI" parent="UI/InventoryInterface" instance=ExtResource("20_nghhb")]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 24.0
+offset_right = 24.0
+
+[node name="HotBarInventory" parent="UI" instance=ExtResource("10_tphcj")]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -5.0
+offset_top = -10.0
+offset_right = 5.0
+offset_bottom = 0.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="RecipeUI" parent="UI" instance=ExtResource("19_iu1fk")]
+
+[node name="ShopFrujt" parent="." instance=ExtResource("21_iu1fk")]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -4.365, -0.150596, 2.12139)
+items_to_sell = Array[ExtResource("22_tphcj")]([ExtResource("23_u0gjg"), ExtResource("24_omicy"), ExtResource("26_omicy")])
+
+[node name="ShopVegetable" parent="." instance=ExtResource("27_83m1q")]
+transform = Transform3D(-0.5, 0, -7.54979e-08, 0, 0.5, 0, 7.54979e-08, 0, -0.5, 1.84026, -0.058, 4.96619)
+items_to_sell = Array[ExtResource("22_tphcj")]([ExtResource("28_7py64"), ExtResource("29_75k2r"), ExtResource("30_nghhb")])
+
+[node name="FrujtNPC" parent="." instance=ExtResource("27_75k2r")]
+transform = Transform3D(-4.19629e-08, 0, 0.96, 0, 0.96, 0, -0.96, 0, -4.19629e-08, -4.32851, -0.0909594, 1.7668)
 
 [connection signal="drop_slot_data" from="UI/InventoryInterface" to="UI/InventoryInterface" method="_on_drop_slot_data"]
 [connection signal="gui_input" from="UI/InventoryInterface" to="UI/InventoryInterface" method="_on_gui_input"]

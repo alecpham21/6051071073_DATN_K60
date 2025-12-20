@@ -10,8 +10,11 @@ region = Rect2(0, 704, 32, 32)
 [resource]
 script = ExtResource("1_e13ap")
 material_type = 1
+selling_type = 0
+sell_price = 40
 name = "Wheat"
 description = "It is a wheat"
 stackable = true
 texture = SubResource("AtlasTexture_y1akl")
+price = 1000
 metadata/_custom_type_script = "uid://oj6faifeyt6a"

@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://d3v1u6td3fyb6" path="res://inventory_script/item/pick_up_item/pick_up.tscn" id="1_tuvrg"]
 [ext_resource type="Script" uid="uid://bfas330ndllg" path="res://inventory_script/item/item_attribute/item_attribute.gd" id="2_p4eih"]
-[ext_resource type="Resource" uid="uid://cwh8mrm6ii2ns" path="res://inventory_script/item/items/item_harvest/sonion_seed.tres" id="3_tuvrg"]
+[ext_resource type="Resource" uid="uid://cwh8mrm6ii2ns" path="res://inventory_script/item/items/item_harvest/spring_onion_seed.tres" id="3_tuvrg"]
 [ext_resource type="Script" uid="uid://bspkgwkxsy8mn" path="res://inventory_script/slot_data.gd" id="4_5umb6"]
 [ext_resource type="Resource" uid="uid://baim5tdwy5clf" path="res://inventory_script/item/items/item_harvest/spring_onion.tres" id="5_p4eih"]
 

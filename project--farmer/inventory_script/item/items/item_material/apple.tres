@@ -10,8 +10,11 @@ region = Rect2(0, 448, 32, 32)
 [resource]
 script = ExtResource("1_ukwpw")
 material_type = 2
+selling_type = 1
+sell_price = 40
 name = "Apple"
 description = "Keeps the doctor away"
 stackable = true
 texture = SubResource("AtlasTexture_icf3q")
+price = 1000
 metadata/_custom_type_script = "uid://oj6faifeyt6a"

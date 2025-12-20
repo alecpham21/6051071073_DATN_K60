@@ -13,4 +13,5 @@ name = "Carrot"
 description = ""
 stackable = true
 texture = SubResource("AtlasTexture_s51ai")
+price = 1000
 metadata/_custom_type_script = "uid://oj6faifeyt6a"

@@ -1,5 +1,7 @@
 extends Node
 
+signal money_changed(new_value: int)
+
 var player: Player
 var player_inventory_data: InventoryData
 var player_equip_data: InventoryData 
@@ -14,7 +16,10 @@ var washing_machine_timers: Dictionary = {}
 var material_data: MaterialInventoryData 
 var craft_bin_data: Array[SlotData] = [null, null, null, null]
 var board_data: InventoryData
-
+var money: int = 3000:
+	set(value):
+		money = value
+		money_changed.emit(money)
 
 func _ready():
 	if player_inventory_data == null:

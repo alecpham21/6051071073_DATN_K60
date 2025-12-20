@@ -19,7 +19,7 @@
 &"portraits": {
 "Default": {
 "export_overrides": {
-"image": "\"res://Dialog/image/sus.png\""
+"image": "\"res://Dialog/image/uncleV.png\""
 },
 "mirror": false,
 "offset": Vector2(0, 0),

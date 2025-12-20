@@ -11,8 +11,12 @@ region = Rect2(416, 480, 32, 32)
 script = ExtResource("1_nnje6")
 heal_value = 10
 material_type = 3
+selling_type = 0
+sell_price = 40
 name = "Apple Pie"
-description = "Lecker"
+description = "3 Apples
+2 Salts"
 stackable = true
 texture = SubResource("AtlasTexture_eydx3")
+price = 1000
 metadata/_custom_type_script = "uid://oj6faifeyt6a"

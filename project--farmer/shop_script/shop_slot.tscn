@@ -1,0 +1,43 @@
+[gd_scene load_steps=3 format=3 uid="uid://7bh4co0c7mud"]
+
+[ext_resource type="Script" uid="uid://g7pu3nvxuqls" path="res://shop_script/shop_slot.gd" id="1_b416r"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_b416r"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+border_width_bottom = 2
+border_color = Color(0.963954, 0.753389, 0.638953, 1)
+
+[node name="ShopSlot" type="PanelContainer"]
+custom_minimum_size = Vector2(50, 50)
+offset_right = 55.0
+offset_bottom = 62.0
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_b416r")
+script = ExtResource("1_b416r")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="HBoxContainer"]
+layout_mode = 2
+expand_mode = 2
+
+[node name="NameLabel" type="Label" parent="HBoxContainer"]
+layout_mode = 2
+
+[node name="Control" type="Control" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 2.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 4
+alignment = 1
+
+[node name="PriceLabel" type="Label" parent="HBoxContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="Button" type="Button" parent="HBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "Buy"

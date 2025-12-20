@@ -1,13 +1,13 @@
-NPC_John: Long phải không?
+NPC_John: David?
 player: Yes?
-player: Uncle John ?
-NPC_John: Chú của mày không nói tiếng anh thì thôi mắc gì mày nói vậy ?
-player: Yes
-NPC_John: Mẹ mày
-player: Ơ mắc gì chú chửi cháu
-NPC_John: Mẹ mày nhờ chú mày ra đón tận nơi chứ gì, đứng đây nãy giờ cũng lâu rồi đi thôi, chú dẫn mày về nhà rồi chú mày phải đi gấp nữa
-player: Chú đi đâu
-NPC_John: Đi đâu còn lâu mới nói
+player: Uncle Ben?
+NPC_John: Yeah, That's me?
+player: Oh! You surprise me, how did you know that i arrived ?
+NPC_John: I don't,I just stayed here all night
+player: Wait, really ?
+NPC_John: No, I just kidding. Your mother texted me before you took the ocean bus
+player: Oh alright, so where is your farm ?
+NPC_John: Hop in, i drive you to my wonderful farm
 [signal arg="action1"]
-NPC_John: Chờ gì nữa?
+NPC_John: Let's go
 [signal arg="end_talk"]

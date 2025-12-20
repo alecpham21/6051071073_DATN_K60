@@ -2,7 +2,7 @@ class_name ItemDataOutfit
 extends ItemData
 
 enum OutfitType { HEAD, BODY, LEGS }
-enum BodyPart { BASE, FEETS, LEGS, LOWER_BODY, UPPER_BODY }
+enum BodyPart { BASE, FEETS, LEGS, LOWER_BODY, UPPER_BODY, SHOULDER }
 
 @export var outfit_type: OutfitType = OutfitType.BODY
 @export var equip_mesh: Mesh

@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="Recipe" load_steps=10 format=3 uid="uid://m2mhsgf3i6vt"]
 
-[ext_resource type="Script" uid="uid://cxjkim56kcobh" path="res://ui/Recipe/recipe.gd" id="1_ymtrq"]
+[ext_resource type="Script" uid="uid://cxjkim56kcobh" path="res://ui/Recipe/RecipeScript/recipe.gd" id="1_ymtrq"]
 [ext_resource type="Resource" uid="uid://vrxcpybaq3v6" path="res://inventory_script/item/items/item_material/item_consumable/apple_pie.tres" id="2_2tx8f"]
 [ext_resource type="Script" uid="uid://bspkgwkxsy8mn" path="res://inventory_script/slot_data.gd" id="2_ljwmu"]
 [ext_resource type="Script" uid="uid://bfas330ndllg" path="res://inventory_script/item/item_attribute/item_attribute.gd" id="2_nq1hb"]
@@ -33,5 +33,6 @@ script = ExtResource("1_ymtrq")
 station = 0
 cook_result = SubResource("Resource_q6w1q")
 other_conditions = Array[StringName]([&"stove"])
+craft_time = 1.5
 slot_datas = Array[ExtResource("2_ljwmu")]([SubResource("Resource_nq1hb"), SubResource("Resource_n5cqc")])
 metadata/_custom_type_script = "uid://cxjkim56kcobh"

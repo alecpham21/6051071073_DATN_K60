@@ -16,9 +16,26 @@ var is_locked: bool = false
 
 func _ready() -> void:
 	add_to_group("hotbar_ui")
+	
 	GameData.game_state_changed.connect(func(old, new):
-		visible = (new != GState.state_enum.COOK)
+		match new:
+			GState.state_enum.SHOP:
+				visible = false
+				set_locked(true)
+			
+			GState.state_enum.DIALOG:
+				visible = false
+				set_locked(true)
+			
+			GState.state_enum.UI, GState.state_enum.COOK, GState.state_enum.RECIPE:
+				visible = true
+				set_locked(true)
+				
+			GState.state_enum.PLAYING:
+				visible = true
+				set_locked(false)
 	)
+	
 	active_slot_changed.connect(func(_slot:SlotData):
 		tool_cache()
 		if _slot && _slot.item_data is ItemDataTool:
@@ -30,10 +47,11 @@ func _ready() -> void:
 					tool.scale *= 0.3
 				"watering can":
 					PlayerData.player.watering.add_child(tool)
-					#tool.scale *= 0.3
 			active_tool.append(tool)
-		)
-	PlayerData.player_inventory_data.inventory_updated.connect(populate_hot_bar)
+	)
+	
+	if PlayerData.player_inventory_data:
+		PlayerData.player_inventory_data.inventory_updated.connect(populate_hot_bar)
 
 func _unhandled_key_input(event: InputEvent) -> void:
 	if not is_inside_tree(): 

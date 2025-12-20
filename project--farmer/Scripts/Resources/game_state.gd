@@ -7,7 +7,8 @@ enum state_enum {
 	PAUSED,
 	COOK,
 	RECIPE,
-	DIALOG
+	DIALOG,
+	SHOP
 }
 
 static var game_state:int = 0
@@ -20,6 +21,8 @@ static func reset(): game_state = state_enum.PLAYING
 static func is_cook() -> bool: return game_state == state_enum.COOK
 static func is_recipe() -> bool: return game_state == state_enum.RECIPE
 static func is_dialog() -> bool: return game_state == state_enum.DIALOG
+static func is_shop() -> bool: return game_state == state_enum.SHOP
+
 
 static func play(): game_state = state_enum.PLAYING
 static func ui(): game_state = state_enum.UI
@@ -27,3 +30,4 @@ static func pause(): game_state = state_enum.PAUSED
 static func cook(): if !lock_state: game_state = state_enum.COOK
 static func recipe(): if !lock_state: game_state = state_enum.RECIPE
 static func dialog(): game_state = state_enum.DIALOG
+static func shop(): game_state = state_enum.SHOP

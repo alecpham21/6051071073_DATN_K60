@@ -17,4 +17,5 @@ name = "Watering Can"
 description = ""
 stackable = false
 texture = SubResource("AtlasTexture_t4huh")
+price = 1000
 metadata/_custom_type_script = "uid://cbuqv3ga5xd3c"

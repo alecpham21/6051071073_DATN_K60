@@ -14,4 +14,5 @@ name = "Long Black Pants"
 description = ""
 stackable = false
 texture = ExtResource("3_f13dc")
+price = 1000
 metadata/_custom_type_script = "uid://bjgwngm01lr5n"

@@ -1,0 +1,47 @@
+[gd_scene load_steps=7 format=3 uid="uid://fbg4206s8gju"]
+
+[ext_resource type="PackedScene" uid="uid://bnu0byeyfcdu3" path="res://model/block/LowPoly_Road.glb" id="1_sievg"]
+[ext_resource type="Texture2D" uid="uid://blvkt6o3ysdsy" path="res://Textures/Normal/Road_Normal.png" id="2_0vt6n"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5ouwx"]
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_580nm"]
+_surfaces = [{
+"aabb": AABB(-1, 0, -1, 2, 1e-05, 2),
+"format": 34896613377,
+"index_count": 6,
+"index_data": PackedByteArray(0, 0, 1, 0, 2, 0, 0, 0, 3, 0, 1, 0),
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 4,
+"vertex_data": PackedByteArray(0, 0, 0, 0, 255, 255, 0, 0, 255, 255, 0, 0, 0, 0, 0, 0, 255, 255, 0, 0, 255, 255, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+}]
+blend_shape_mode = 0
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_np2ns"]
+resource_name = "LowPoly_Road_Plane_001"
+_surfaces = [{
+"aabb": AABB(-1, 0, -1, 2, 1e-05, 2),
+"attribute_data": PackedByteArray(248, 255, 6, 0, 6, 0, 248, 255, 6, 0, 6, 0, 248, 255, 248, 255),
+"format": 34896613399,
+"index_count": 6,
+"index_data": PackedByteArray(0, 0, 1, 0, 2, 0, 0, 0, 3, 0, 1, 0),
+"material": SubResource("StandardMaterial3D_5ouwx"),
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 4,
+"vertex_data": PackedByteArray(0, 0, 0, 0, 255, 255, 255, 255, 255, 255, 0, 0, 0, 0, 255, 255, 255, 255, 0, 0, 255, 255, 255, 255, 0, 0, 0, 0, 0, 0, 255, 255, 255, 127, 255, 191, 255, 127, 255, 191, 255, 127, 255, 191, 255, 127, 255, 191)
+}]
+blend_shape_mode = 0
+shadow_mesh = SubResource("ArrayMesh_580nm")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4y52u"]
+albedo_color = Color(0.544019, 0.467879, 0.381788, 1)
+normal_enabled = true
+normal_texture = ExtResource("2_0vt6n")
+
+[node name="LowPoly_Road2" instance=ExtResource("1_sievg")]
+
+[node name="LowPoly_Road" parent="." index="0"]
+mesh = SubResource("ArrayMesh_np2ns")
+surface_material_override/0 = SubResource("StandardMaterial3D_4y52u")

@@ -6,7 +6,7 @@ enum STATION { STOVE, BOARD }
 @export var station: STATION = STATION.STOVE
 @export var cook_result: SlotData
 @export var other_conditions: Array[StringName]
-
+@export var craft_time: float = 1.5
 
 func can_cook(kitchen_inv: InventoryData) -> bool:
 	if not GState.is_cook(): return false
