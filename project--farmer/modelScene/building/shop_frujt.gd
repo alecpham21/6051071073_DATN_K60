@@ -40,9 +40,6 @@ func handle_shop_opening(mode: String):
 	var ui = get_tree().get_first_node_in_group("inventory_interface")
 	
 	if ui:
-		# --- XÓA DÒNG NÀY ---
-		# ui.prevent_close = true  <-- Xóa đi vì InventoryInterface tự lo rồi
-		# --------------------
 		
 		if mode == "buy":
 			if ui.has_method("open_shop_interface"):
@@ -80,31 +77,47 @@ func on_sell_button_pressed():
 		print("Khay trống rỗng!")
 
 func on_sell_wholesale_pressed():
-	var player = get_tree().get_first_node_in_group("player")
-	if not player: return
+	print("--- CHECK BÁN SỈ ---")
+	var player = get_tree().get_first_node_in_group("Player")
+	if not player: 
+		print("Lỗi: Không tìm thấy Player")
+		return
 	
 	var player_inv = player.inventory_data
 	var total_earned = 0
 	var items_sold_count = 0
 	
-	for slot in player_inv.slot_datas:
+	for i in range(player_inv.slot_datas.size()):
+		var slot = player_inv.slot_datas[i]
+		
 		if slot and slot.item_data:
+			
 			if slot.item_data is ItemDataMaterial:
+				
+				print("Check Slot ", i, ": ", slot.item_data.name, " | SL: ", slot.quantity, " | Type: ", slot.item_data.selling_type)
+				
 				var is_right_type = (slot.item_data.selling_type == accepted_selling_type)
-				var is_wholesale_qty = (slot.quantity >= 20)
+				var is_wholesale_qty = (slot.quantity >= 20) 
 				
 				if is_right_type and is_wholesale_qty:
 					var profit = slot.item_data.sell_price * slot.quantity
 					
 					total_earned += profit
 					items_sold_count += slot.quantity
-					slot.quantity = 0 
+					
+					player_inv.slot_datas[i] = null 
+					print(" -> Đã bán!")
+				else:
+					print(" -> Không bán: Sai loại hoặc Số lượng dưới 20")
+					
+			else:
+				print("Check Slot ", i, ": ", slot.item_data.name, " -> Bỏ qua (Không phải Material)")
 	
 	if items_sold_count > 0:
 		finalize_transaction(total_earned, player_inv)
-		print("Bán sỉ ", items_sold_count, " món. Thu về: ", total_earned)
+		print(">>> BÁN THÀNH CÔNG: ", items_sold_count, " món. Tiền: ", total_earned)
 	else:
-		print("Không tìm thấy lô hàng nào đủ điều kiện (Đúng loại & SL >= 20)!")
+		print(">>> KHÔNG BÁN ĐƯỢC GÌ")
 
 func finalize_transaction(amount: int, inventory_to_update: InventoryData):
 	if PlayerData:

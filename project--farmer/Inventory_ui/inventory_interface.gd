@@ -49,29 +49,30 @@ func _ready():
 		
 		match new:
 			GState.state_enum.PLAYING:
-				# 1. Xử lý khóa
+				# 1. Xử lý khóa (Giữ nguyên)
 				if prevent_close:
-					print("    !!! [LOCKED] Đang bị khóa. Ép về Shop/UI.")
+					# [SỬA] Thêm check "shop_ui and" để không crash nếu shop_ui = null
 					if shop_ui and shop_ui.visible:
 						GState.shop()
 					else:
 						GState.ui()
 					
 					Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
-					
-					print("    ... Đợi 0.5s ...")
 					await get_tree().create_timer(0.5).timeout
 					prevent_close = false
-					print("    !!! [UNLOCK] Đã mở khóa prevent_close")
 					return 
 				
 				# 2. Xử lý đóng
-				if visible and (shop_ui.visible or sell_ui.visible):
-					print("    --> [AUTO] Phát hiện Shop đang mở -> Gọi close_shop_interface()")
+				# [SỬA QUAN TRỌNG] Kiểm tra sự tồn tại trước khi kiểm tra visible
+				var is_shop_open = (shop_ui != null and shop_ui.visible)
+				var is_sell_open = (sell_ui != null and sell_ui.visible)
+				
+				if visible and (is_shop_open or is_sell_open):
+					# Có Shop và Shop đang mở thì mới đóng Shop
 					close_shop_interface()
 					
 				elif active_kitchen: 
-					print("    --> [AUTO] Phát hiện Bếp đang mở -> Gọi close_kitchen()")
+					# Không có Shop hoặc Shop đang tắt thì mới đóng Bếp
 					close_kitchen()
 				else:
 					print("    --> [AUTO] Không có gì để đóng cả.")
@@ -204,7 +205,10 @@ func on_slot_clicked_handler(sd: SlotData, inv: InventoryData, btn: int):
 
 func set_kitchen_inventory(kitchen_node: Node3D, type: String = "stove") -> void:
 	print(">>> [ACTION] Mở Bếp (set_kitchen_inventory). Type: ", type)
+	
+	# Lệnh này khiến Hotbar bên script khác tự bật lên
 	GState.ui()
+	
 	active_kitchen = kitchen_node
 	active_mode = type
 	
@@ -214,6 +218,8 @@ func set_kitchen_inventory(kitchen_node: Node3D, type: String = "stove") -> void
 	player_inventory.visible = false
 	outfit_inventory.visible = false
 	equip_inventory.visible = false
+	
+	# Ẩn tạm thời (nhưng sẽ bị GState bật lại ngay sau đó)
 	if hotbar_inventory: hotbar_inventory.hide()
 	
 	if craft_bar: craft_bar.hide()
@@ -227,7 +233,12 @@ func set_kitchen_inventory(kitchen_node: Node3D, type: String = "stove") -> void
 		"board":
 			setup_board_mode(kitchen_node)
 
-# ... (Giữ nguyên setup_stove_mode, setup_board_mode, refresh_material_data) ...
+	await get_tree().create_timer(0.05).timeout
+	
+	if hotbar_inventory: 
+		hotbar_inventory.hide()
+
+
 func setup_stove_mode(node):
 	if material_inventory:
 		if material_inventory.has_method("reset_to_default_mode"):

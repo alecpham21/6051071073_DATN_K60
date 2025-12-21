@@ -116,7 +116,7 @@ max_zoom = 10.0
 [node name="Camera3D" type="Camera3D" parent="SubViewportContainer/SubViewport/SpringArm3D"]
 fov = 69.0
 
-[node name="MainFarmer" parent="SubViewportContainer/SubViewport" instance=ExtResource("4_ngi1u")]
+[node name="MainFarmer" parent="SubViewportContainer/SubViewport" groups=["Player"] instance=ExtResource("4_ngi1u")]
 unique_name_in_owner = true
 transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0, 0, 0)
 use_gravity = true
@@ -407,7 +407,7 @@ transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -4.365, -0.150596, 2.12
 items_to_sell = Array[ExtResource("22_tphcj")]([ExtResource("23_u0gjg"), ExtResource("24_omicy"), ExtResource("26_omicy")])
 
 [node name="ShopVegetable" parent="." instance=ExtResource("27_83m1q")]
-transform = Transform3D(-0.5, 0, -7.54979e-08, 0, 0.5, 0, 7.54979e-08, 0, -0.5, 1.84026, -0.058, 4.96619)
+transform = Transform3D(-0.5, 0, -7.54979e-08, 0, 0.5, 0, 7.54979e-08, 0, -0.5, 1.84, -0.151, 4.966)
 items_to_sell = Array[ExtResource("22_tphcj")]([ExtResource("28_7py64"), ExtResource("29_75k2r"), ExtResource("30_nghhb")])
 
 [node name="FrujtNPC" parent="." instance=ExtResource("27_75k2r")]

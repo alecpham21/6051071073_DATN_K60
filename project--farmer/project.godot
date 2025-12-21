@@ -25,6 +25,7 @@ PlayerData="*res://player/player_data.gd"
 TimeManager="*res://time_manager.gd"
 SceneTransition="*res://ui/scene_transition.tscn"
 Dialogic="*res://addons/dialogic/Core/DialogicGameHandler.gd"
+QuestManager="*res://quest_system/quest_manager.gd"
 
 [dialogic]
 
@@ -61,6 +62,7 @@ import/blender/enabled=false
 external_inventory=""
 smooth=""
 inventory_interface=""
+Player=""
 
 [input]
 
