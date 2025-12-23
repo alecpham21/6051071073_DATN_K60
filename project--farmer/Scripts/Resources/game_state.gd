@@ -8,7 +8,8 @@ enum state_enum {
 	COOK,
 	RECIPE,
 	DIALOG,
-	SHOP
+	SHOP,
+	JOURNAL
 }
 
 static var game_state:int = 0
@@ -22,12 +23,37 @@ static func is_cook() -> bool: return game_state == state_enum.COOK
 static func is_recipe() -> bool: return game_state == state_enum.RECIPE
 static func is_dialog() -> bool: return game_state == state_enum.DIALOG
 static func is_shop() -> bool: return game_state == state_enum.SHOP
+static func is_journal() -> bool: return game_state == state_enum.JOURNAL
 
+static func play(): 
+	_change_state(state_enum.PLAYING)
 
-static func play(): game_state = state_enum.PLAYING
-static func ui(): game_state = state_enum.UI
-static func pause(): game_state = state_enum.PAUSED
-static func cook(): if !lock_state: game_state = state_enum.COOK
-static func recipe(): if !lock_state: game_state = state_enum.RECIPE
-static func dialog(): game_state = state_enum.DIALOG
-static func shop(): game_state = state_enum.SHOP
+static func ui(): 
+	_change_state(state_enum.UI)
+
+static func pause(): 
+	_change_state(state_enum.PAUSED)
+
+static func cook(): 
+	if !lock_state: _change_state(state_enum.COOK)
+
+static func recipe(): 
+	if !lock_state: _change_state(state_enum.RECIPE)
+
+static func dialog(): 
+	_change_state(state_enum.DIALOG)
+
+static func shop(): 
+	_change_state(state_enum.SHOP)
+
+static func journal():
+	_change_state(state_enum.JOURNAL)
+
+static func _change_state(new_state: int):
+	if game_state == new_state: return
+	
+	var old_state = game_state
+	game_state = new_state
+	
+	if GameData:
+		GameData.game_state_changed.emit(old_state, new_state)

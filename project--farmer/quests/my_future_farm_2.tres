@@ -1,0 +1,27 @@
+[gd_resource type="Resource" script_class="QuestResource" load_steps=5 format=3 uid="uid://dheiyxxlmlb5o"]
+
+[ext_resource type="Script" uid="uid://ly4smbwy8tcy" path="res://quest_system/quest_objective.gd" id="1_gv6of"]
+[ext_resource type="Script" uid="uid://dd572wfdlifn1" path="res://quest_system/quest_data.gd" id="2_35vw2"]
+
+[sub_resource type="Resource" id="Resource_7uh5w"]
+script = ExtResource("1_gv6of")
+description = "Find the Sickle"
+required_item_id = "sickle"
+target_amount = 1
+metadata/_custom_type_script = "uid://ly4smbwy8tcy"
+
+[sub_resource type="Resource" id="Resource_q2jdp"]
+script = ExtResource("1_gv6of")
+description = "Cut the grass"
+required_item_id = "wind_grass"
+target_amount = 2
+metadata/_custom_type_script = "uid://ly4smbwy8tcy"
+
+[resource]
+script = ExtResource("2_35vw2")
+id = "my_future_farm_2"
+title = "My Future Farm (2)"
+description = "Time to get some tools and deal with the grass"
+objectives = Array[ExtResource("1_gv6of")]([SubResource("Resource_7uh5w"), SubResource("Resource_q2jdp")])
+next_quest_id = "me_first_plant"
+metadata/_custom_type_script = "uid://dd572wfdlifn1"

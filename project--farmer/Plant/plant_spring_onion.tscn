@@ -49,6 +49,9 @@ size = Vector3(1, 1.27979, 1)
 
 [node name="plant_spring_onion" type="Node3D" node_paths=PackedStringArray("mesh_seeding", "mesh_sapling", "mesh_middle", "mesh_ready", "mesh_over", "ground_mesh")]
 script = ExtResource("1_2jc4r")
+crop_id = "sonion"
+harvest_stance = 1
+can_use_tool = false
 over_growth_cap_offset = 10
 crop_item_scene = ExtResource("2_xi6ny")
 crop_over_item_scene = ExtResource("3_wgwni")

@@ -1,5 +1,5 @@
 class_name BikingState
-extends GardeningState
+extends MainState
 
 @export_group("Bike Settings")
 @export var bike_mesh: Node3D
@@ -84,8 +84,6 @@ func _update(delta: float) -> void:
 	check_dispatch()
 	
 	var accel = character.accel
-	
-	# Tính trước cái này
 	var current_velocity_len = character.velocity.length()
 	
 	if character.use_gravity and not character.is_on_floor():
@@ -93,86 +91,72 @@ func _update(delta: float) -> void:
 	else:
 		character.velocity.y = 0.0
 	
-	# Input
-	var throttle = Input.get_axis("back", "forward")
-	var steer_input = Input.get_axis("right", "left")
-	var is_sprinting = Input.is_action_pressed("running")
+	# Lấy input từ Blackboard
+	var input_vec3 = blackboard.get_var(BBNames.direction_var, Vector3.ZERO)
+	var is_sprinting = blackboard.get_var(BBNames.run_var, false)
+	
+	# Mapping ngược lại logic cũ của bạn:
+	# Tiến/Lùi: nhấn Forward (Z âm) -> throttle dương | nhấn Back (Z dương) -> throttle âm
+	var throttle = -input_vec3.z 
+	# Trái/Phải: nhấn Left (X âm) -> steer dương | nhấn Right (X dương) -> steer âm
+	var steer_input = -input_vec3.x 
 	
 	var target_vel = Vector3.ZERO
 	var current_accel = accel
-	
-	# Choosing Speed
 	var current_speed_limit = bike_sprint_speed if is_sprinting else bike_speed
-	
-	# Moving Logic
 	var bike_forward_dir = -character.transform.basis.z
 	
+	# Logic di chuyển (Giữ nguyên gốc của bạn)
 	if throttle > 0: 
-		# Press Front
 		target_vel = bike_forward_dir * current_speed_limit
-		
 	elif throttle < 0:
-		# Press Back
+		# Check nếu đang lao về trước thì là phanh, nếu đứng yên/đang lùi thì là lùi
 		var is_moving_forward = character.velocity.dot(bike_forward_dir) > 0.1
-		
 		if is_moving_forward:
-			# Brake
 			target_vel = Vector3.ZERO
 			current_accel = brake_power
 		else:
-			# Reverse Speed
 			target_vel = -bike_forward_dir * reverse_speed
 
-	# apply Velocity
+	# Áp dụng Velocity
 	character.velocity.x = lerpf(character.velocity.x, target_vel.x, current_accel * delta)
 	character.velocity.z = lerpf(character.velocity.z, target_vel.z, current_accel * delta)
 	
-	# --- [ĐOẠN ĐÃ SỬA Ở ĐÂY] ---
-	# Logic xoay thân xe (Có xử lý lùi)
+	# Logic xoay thân xe khi có tốc độ (Có xử lý lùi dir_mult)
 	if current_velocity_len > 0.1:
 		var is_moving_forward = character.velocity.dot(-character.transform.basis.z) > 0
 		var dir_mult = 1.0 if is_moving_forward else -1.0
-		
 		if steer_input != 0:
 			character.rotate_y(steer_input * turn_speed * delta * dir_mult)
-	# --------------------------
 	
 	character.move_and_slide()
 	
-	# Cập nhật lại length sau khi move
-	current_velocity_len = character.velocity.length()
+	# Cập nhật Animation & Visuals
+	_sync_bike_visuals(character.velocity.length(), current_speed_limit, is_sprinting, steer_input, delta)
 
-	if current_velocity_len < 0.1:
-		if character.ani.is_playing(): character.ani.pause()
+func _sync_bike_visuals(speed: float, limit: float, sprinting: bool, steer: float, delta: float):
+	if speed < 0.1:
+		if character.anim.is_playing(): character.anim.pause()
+		if bike_ani_player: bike_ani_player.pause()
 	else:
-		if is_sprinting and bike_fast_ride_aniset:
+		if sprinting and bike_fast_ride_aniset: 
 			bike_fast_ride_aniset.play(character.ani)
-		else:
-			if bike_ride_aniset:
-				bike_ride_aniset.play(character.ani)
+		elif bike_ride_aniset: 
+			bike_ride_aniset.play(character.ani)
 		
-		# Sync Animation
-		character.ani.speed_scale = current_velocity_len / current_speed_limit
-		
-	# Bike Animation
-	if bike_ani_player:
-		if current_velocity_len < 0.1:
-			bike_ani_player.pause()
-		else:
+		character.ani.speed_scale = speed / limit
+		if bike_ani_player:
 			if !bike_ani_player.is_playing(): bike_ani_player.play("Cycling")
-			bike_ani_player.speed_scale = current_velocity_len / bike_speed
+			bike_ani_player.speed_scale = speed / bike_speed
 
-	# Turn Steering (Ghi đông)
 	if steering_node:
-		var target_rot_y = steer_input * deg_to_rad(max_steer_angle)
+		var target_rot_y = steer * deg_to_rad(max_steer_angle)
 		steering_node.rotation.y = lerp_angle(steering_node.rotation.y, target_rot_y, 5.0 * delta)
 
-	# Front wheel spin
-	if front_wheel_node:
-		if current_velocity_len > 0.1:
-			var is_moving_forward = character.velocity.dot(-character.transform.basis.z) > 0
-			var spin_dir = -1.0 if is_moving_forward else 1.0
-			front_wheel_node.rotate_object_local(Vector3.UP, current_velocity_len * delta * wheel_spin_factor * spin_dir)
+	if front_wheel_node and speed > 0.1:
+		var is_fwd = character.velocity.dot(-character.transform.basis.z) > 0
+		var spin_dir = -1.0 if is_fwd else 1.0
+		front_wheel_node.rotate_object_local(Vector3.UP, speed * delta * wheel_spin_factor * spin_dir)
 
 func _on_bike_tick() -> void:
 	if character.velocity.length() < 0.1:

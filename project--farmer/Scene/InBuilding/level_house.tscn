@@ -1,4 +1,4 @@
-[gd_scene load_steps=38 format=3 uid="uid://o1wmcaqylahd"]
+[gd_scene load_steps=39 format=3 uid="uid://o1wmcaqylahd"]
 
 [ext_resource type="Script" uid="uid://dg34046jf1xjo" path="res://Scene/InBuilding/level_house.gd" id="1_iipvn"]
 [ext_resource type="Script" uid="uid://bshrove7rvagv" path="res://spring_arm_camera.gd" id="3_hou3o"]
@@ -30,6 +30,7 @@
 [ext_resource type="Script" uid="uid://cxjkim56kcobh" path="res://ui/Recipe/RecipeScript/recipe.gd" id="24_rs3xq"]
 [ext_resource type="PackedScene" uid="uid://b817ly7ndragw" path="res://modelScene/interior/stove.tscn" id="27_vcdqq"]
 [ext_resource type="PackedScene" uid="uid://dv7qgbl8qngof" path="res://modelScene/interior/board.tscn" id="28_md1uq"]
+[ext_resource type="PackedScene" uid="uid://6msbaufmnf3f" path="res://quest_system/quest_ui/quest_journal_ui.tscn" id="31_iauac"]
 
 [sub_resource type="QuadMesh" id="QuadMesh_p1g3l"]
 flip_faces = true
@@ -169,8 +170,14 @@ layout_mode = 2
 [node name="PlayerInventory" parent="UI/InventoryInterface/VBoxContainer" instance=ExtResource("10_8g7rj")]
 layout_mode = 2
 
+[node name="PanelContainer" type="PanelContainer" parent="UI/InventoryInterface/VBoxContainer"]
+layout_mode = 2
+
+[node name="MoneyLabel" type="Label" parent="UI/InventoryInterface/VBoxContainer/PanelContainer" groups=["inventory_interface"]]
+layout_mode = 2
+horizontal_alignment = 2
+
 [node name="ExternalInventory" parent="UI/InventoryInterface" instance=ExtResource("10_8g7rj")]
-visible = false
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -211,9 +218,9 @@ anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -241.0
-offset_top = -74.0
-offset_right = 241.0
+offset_left = -5.0
+offset_top = -10.0
+offset_right = 5.0
 offset_bottom = 0.0
 grow_horizontal = 2
 grow_vertical = 0
@@ -305,6 +312,8 @@ transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, -0.105
 
 [node name="CameraTween" type="Marker3D" parent="."]
 transform = Transform3D(-4.19685e-08, -0.279561, 0.960128, -1.222e-08, 0.960128, 0.279561, -1, 0, -4.37114e-08, 1.48581, 2.49136, 2.80428)
+
+[node name="QuestJournal" parent="." instance=ExtResource("31_iauac")]
 
 [connection signal="drop_slot_data" from="UI/InventoryInterface" to="UI/InventoryInterface" method="_on_drop_slot_data"]
 [connection signal="gui_input" from="UI/InventoryInterface" to="UI/InventoryInterface" method="_on_gui_input"]

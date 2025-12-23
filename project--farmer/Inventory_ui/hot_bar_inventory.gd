@@ -75,9 +75,14 @@ func _unhandled_key_input(event: InputEvent) -> void:
 		set_active_slot(index_pressed)
 
 func set_inventory_data(inventory_data: InventoryData) -> void:
-	inventory_data.inventory_updated.connect(populate_hot_bar)
+	if not inventory_data.inventory_updated.is_connected(populate_hot_bar):
+		inventory_data.inventory_updated.connect(populate_hot_bar)
+		
 	populate_hot_bar(inventory_data)
-	hot_bar_use.connect(inventory_data.use_slot_data)
+	
+	if not hot_bar_use.is_connected(inventory_data.use_slot_data):
+		hot_bar_use.connect(inventory_data.use_slot_data)
+		
 	set_active_slot(0)
 	
 

@@ -7,7 +7,6 @@ const PickUp = preload("res://inventory_script/item/pick_up_item/pick_up.tscn")
 @onready var inventory_interface: Control = $UI/InventoryInterface
 @onready var hot_bar_inventory: PanelContainer = $UI/HotBarInventory
 
-# Called when the node enters the scene tree for the first time.
 func _ready():
 	Watcher.indoor = true
 	

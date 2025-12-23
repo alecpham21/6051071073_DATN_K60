@@ -47,6 +47,9 @@ size = Vector3(1, 1.27979, 1)
 
 [node name="PlantCarrot" type="Node3D" node_paths=PackedStringArray("mesh_seeding", "mesh_sapling", "mesh_middle", "mesh_ready", "ground_mesh")]
 script = ExtResource("1_atruf")
+crop_id = "carrot"
+harvest_stance = 1
+can_use_tool = false
 crop_item_scene = ExtResource("2_hh7u0")
 material_default = ExtResource("3_7bk25")
 material_seeding = ExtResource("4_sedmd")

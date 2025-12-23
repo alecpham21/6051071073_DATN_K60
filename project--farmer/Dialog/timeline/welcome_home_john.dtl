@@ -12,4 +12,4 @@ NPC_John: That is why it is a long story. In short, i am gonna let you stay at t
 	NPC_John: Just, when i come back, i will text you
 - So that is why you said it is a future farm
 NPC_John: Now let's check inside the house, see if it lack something, tool and seed i put in the wood crate , now go and see your new house
-[signal arg="end_talk"]
+[signal arg="end_talk_farm"]

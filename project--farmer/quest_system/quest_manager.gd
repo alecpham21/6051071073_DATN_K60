@@ -1,9 +1,41 @@
 extends Node
 
+signal quest_updated
+
 var quests: Dictionary = {}
 
 func _ready():
 	_load_all_quests("res://quests/")
+	
+	if SignalBus.has_signal("object_harvested"):
+		SignalBus.object_harvested.connect(_on_object_harvested)
+	
+	if SignalBus.has_signal("item_added_to_inventory"):
+		SignalBus.item_added_to_inventory.connect(_on_item_added_to_inventory)
+
+func _on_object_harvested(obj_name: String, amount: int):
+	for q_id in quests:
+		var q = quests[q_id]
+		
+		if q.is_started and not q.is_completed:
+			var any_update = false
+			
+			for obj in q.objectives:
+				if not obj.is_completed and obj.required_item_id == obj_name:
+					obj.current_amount += amount
+					
+					print("   -> Cập nhật '", obj.description, "': ", obj.current_amount, "/", obj.target_amount)
+					
+					if obj.current_amount >= obj.target_amount:
+						obj.current_amount = obj.target_amount
+						obj.is_completed = true
+						print("   ✅ Đã xong mục tiêu: ", obj.description)
+					
+					any_update = true
+			
+			if any_update:
+				if q.check_completion():
+					complete_quest(q_id)
 
 func _load_all_quests(path: String):
 	var dir = DirAccess.open(path)
@@ -12,13 +44,24 @@ func _load_all_quests(path: String):
 		var file_name = dir.get_next()
 		while file_name != "":
 			if file_name.ends_with(".tres") or file_name.ends_with(".res"):
-				var quest_resource = load(path + "/" + file_name)
-				if quest_resource is QuestResource:
-					register_quest(quest_resource)
-					print("Đã load nhiệm vụ: " + quest_resource.id)
+				var quest_res = load(path + "/" + file_name)
+				if quest_res is QuestResource:
+					var new_quest = quest_res.duplicate(true)
+					
+					_reset_quest_state(new_quest)
+					
+					register_quest(new_quest)
+					print("Đã load nhiệm vụ: " + new_quest.id)
 			file_name = dir.get_next()
 	else:
 		print("Không tìm thấy thư mục quests!")
+
+func _reset_quest_state(q: QuestResource):
+	q.is_started = false
+	q.is_completed = false
+	for obj in q.objectives:
+		obj.current_amount = 0
+		obj.is_completed = false
 
 func register_quest(quest: QuestResource):
 	if not quests.has(quest.id):
@@ -26,23 +69,33 @@ func register_quest(quest: QuestResource):
 
 func start_quest(quest_id: String):
 	if quests.has(quest_id):
-		quests[quest_id].is_started = true
-		print("Đã nhận nhiệm vụ: " + quests[quest_id].title)
-
-func update_progress(quest_id: String, amount: int = 1):
-	if quests.has(quest_id) and quests[quest_id].is_started:
 		var q = quests[quest_id]
-		q.current_amount += amount
-		if q.current_amount >= q.target_amount:
-			complete_quest(quest_id)
+		if not q.is_started:
+			q.is_started = true
+			print("📜 Đã nhận nhiệm vụ: " + q.title)
+			
+			quest_updated.emit() 
+			
+			if q.check_completion():
+				complete_quest(quest_id)
 
 func complete_quest(quest_id: String):
 	if quests.has(quest_id):
-		quests[quest_id].is_completed = true
-		print("Hoàn thành nhiệm vụ: " + quests[quest_id].title)
+		var q = quests[quest_id]
+		if not q.is_completed:
+			q.is_completed = true
+			print("🎉🎉🎉 CHÚC MỪNG! HOÀN THÀNH NHIỆM VỤ: " + q.title)
+			quest_updated.emit()
+			
+			if q.next_quest_id != "":
+				print("🔗 Kích hoạt nhiệm vụ chuỗi: ", q.next_quest_id)
+				start_quest(q.next_quest_id)
 
 func check_status(quest_id: String) -> String:
 	if not quests.has(quest_id): return "unknown"
 	if quests[quest_id].is_completed: return "completed"
 	if quests[quest_id].is_started: return "started"
 	return "available"
+
+func _on_item_added_to_inventory(item_name: String, amount: int):
+	_on_object_harvested(item_name, amount)

@@ -1,0 +1,40 @@
+[gd_scene load_steps=3 format=3 uid="uid://n1cce0bi5bf4"]
+
+[ext_resource type="Script" uid="uid://dyq4lycdp70j7" path="res://quest_system/quest_ui/quest_tracker.gd" id="1_2igha"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2igha"]
+bg_color = Color(0.0980392, 0.0980392, 0.0980392, 0.611765)
+
+[node name="QuestTracker" type="Control"]
+layout_mode = 3
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -12.0
+offset_top = 20.0
+offset_right = -12.0
+offset_bottom = 20.0
+grow_horizontal = 0
+script = ExtResource("1_2igha")
+
+[node name="Background" type="PanelContainer" parent="."]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -40.0
+offset_bottom = 40.0
+grow_horizontal = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_2igha")
+
+[node name="Container" type="HBoxContainer" parent="Background"]
+layout_mode = 2
+alignment = 2
+
+[node name="ToggleBtn" type="Button" parent="Background/Container"]
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 2
+text = "<"
+
+[node name="QuestList" type="VBoxContainer" parent="Background/Container"]
+layout_mode = 2

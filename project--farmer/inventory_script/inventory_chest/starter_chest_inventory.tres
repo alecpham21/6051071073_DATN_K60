@@ -4,8 +4,8 @@
 [ext_resource type="Script" uid="uid://bspkgwkxsy8mn" path="res://inventory_script/slot_data.gd" id="2_22171"]
 [ext_resource type="Resource" uid="uid://b52qumcoelf4w" path="res://inventory_script/item/items/item_harvest/wheat_seed.tres" id="3_bursm"]
 [ext_resource type="Script" uid="uid://bfas330ndllg" path="res://inventory_script/item/item_attribute/item_attribute.gd" id="3_igh2m"]
-[ext_resource type="Resource" uid="uid://d3pjlk6ev6gkq" path="res://inventory_script/item/items/item_material/item_consumable/coffee_potion.tres" id="4_igh2m"]
 [ext_resource type="Resource" uid="uid://djph6j4pxvvie" path="res://inventory_script/item/items/item_harvest/carrot_seed.tres" id="5_22171"]
+[ext_resource type="Resource" uid="uid://dq3p2yhpqqe3" path="res://inventory_script/item/items/item_tool/sickle.tres" id="5_igh2m"]
 [ext_resource type="Resource" uid="uid://cyo6avuts40ob" path="res://inventory_script/item/items/item_harvest/cabbage_seed.tres" id="6_l16nn"]
 
 [sub_resource type="Resource" id="Resource_22171"]
@@ -15,10 +15,10 @@ quantity = 3
 attributes = Array[ExtResource("3_igh2m")]([])
 metadata/_custom_type_script = "uid://bspkgwkxsy8mn"
 
-[sub_resource type="Resource" id="Resource_reoft"]
+[sub_resource type="Resource" id="Resource_m54qp"]
 script = ExtResource("2_22171")
-item_data = ExtResource("4_igh2m")
-quantity = 4
+item_data = ExtResource("5_igh2m")
+quantity = 1
 attributes = Array[ExtResource("3_igh2m")]([])
 metadata/_custom_type_script = "uid://bspkgwkxsy8mn"
 
@@ -38,5 +38,5 @@ metadata/_custom_type_script = "uid://bspkgwkxsy8mn"
 
 [resource]
 script = ExtResource("1_bursm")
-slot_datas = Array[ExtResource("2_22171")]([SubResource("Resource_22171"), SubResource("Resource_reoft"), SubResource("Resource_l16nn"), SubResource("Resource_igh2m"), null])
+slot_datas = Array[ExtResource("2_22171")]([SubResource("Resource_22171"), SubResource("Resource_m54qp"), SubResource("Resource_l16nn"), SubResource("Resource_igh2m"), null])
 metadata/_custom_type_script = "uid://csfrg4socg8bj"

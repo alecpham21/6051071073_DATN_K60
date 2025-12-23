@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://do6sbed68x140"]
+[gd_scene load_steps=25 format=3 uid="uid://do6sbed68x140"]
 
 [ext_resource type="Shader" uid="uid://c6qhkhar3xobg" path="res://Shader/edge_detection.gdshader" id="1_fkl30"]
 [ext_resource type="Script" uid="uid://bilxeqvesu7y3" path="res://level/level_wheat_field.gd" id="1_w3ip3"]
@@ -16,6 +16,8 @@
 [ext_resource type="PackedScene" uid="uid://ur2pge51fxfv" path="res://Scene/path/wheat_path.tscn" id="14_xgc3j"]
 [ext_resource type="PackedScene" uid="uid://dxe4dtsmib4py" path="res://level/level script/out_door.tscn" id="15_w3ip3"]
 [ext_resource type="Script" uid="uid://r5xbtfwav8ci" path="res://level/wheat_water_hazard.gd" id="16_cjq8t"]
+[ext_resource type="PackedScene" uid="uid://b5bavm45lxiid" path="res://ui/Recipe/RecipeUI/recipe_ui.tscn" id="17_l81cg"]
+[ext_resource type="PackedScene" uid="uid://6msbaufmnf3f" path="res://quest_system/quest_ui/quest_journal_ui.tscn" id="18_6x1ed"]
 
 [sub_resource type="QuadMesh" id="QuadMesh_n1vqm"]
 flip_faces = true
@@ -137,9 +139,21 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -114.045, 0.801798, 0)
 target_scene_path = "uid://bidc27ad8yi6o"
 target_spawn_position = Vector3(48, 2.033, 0)
 
+[node name="WaterArea" type="Area3D" parent="."]
+collision_mask = 2
+script = ExtResource("16_cjq8t")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="WaterArea"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.886, -2.885, 10.725)
+shape = SubResource("BoxShape3D_w3ip3")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="WaterArea"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.736526, -2.88465, -9.88706)
+shape = SubResource("BoxShape3D_w3ip3")
+
 [node name="UI" type="CanvasLayer" parent="."]
 
-[node name="InventoryInterface" type="Control" parent="UI"]
+[node name="InventoryInterface" type="Control" parent="UI" node_paths=PackedStringArray("hotbar_inventory")]
 visible = false
 layout_mode = 3
 anchors_preset = 15
@@ -148,48 +162,31 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("7_id4et")
+hotbar_inventory = NodePath("../HotBarInventory")
 
-[node name="PlayerInventory" parent="UI/InventoryInterface" instance=ExtResource("8_7wy0e")]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -326.0
-offset_top = -20.0
-offset_right = -286.0
-offset_bottom = 20.0
-grow_horizontal = 2
-grow_vertical = 2
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/InventoryInterface"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
 
-[node name="EquipInventory" parent="UI/InventoryInterface" instance=ExtResource("8_7wy0e")]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -496.0
-offset_top = -144.0
-offset_right = -456.0
-offset_bottom = -104.0
-grow_horizontal = 2
-grow_vertical = 2
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/InventoryInterface/VBoxContainer"]
+layout_mode = 2
 
-[node name="OutfitInventory" parent="UI/InventoryInterface" instance=ExtResource("8_7wy0e")]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -291.0
-offset_top = -144.0
-offset_right = -251.0
-offset_bottom = -104.0
-grow_horizontal = 2
-grow_vertical = 2
+[node name="EquipInventory" parent="UI/InventoryInterface/VBoxContainer/HBoxContainer" instance=ExtResource("8_7wy0e")]
+layout_mode = 2
+
+[node name="OutfitInventory" parent="UI/InventoryInterface/VBoxContainer/HBoxContainer" instance=ExtResource("8_7wy0e")]
+layout_mode = 2
+
+[node name="PlayerInventory" parent="UI/InventoryInterface/VBoxContainer" instance=ExtResource("8_7wy0e")]
+layout_mode = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="UI/InventoryInterface/VBoxContainer"]
+layout_mode = 2
+
+[node name="MoneyLabel" type="Label" parent="UI/InventoryInterface/VBoxContainer/PanelContainer" groups=["inventory_interface"]]
+layout_mode = 2
+horizontal_alignment = 2
 
 [node name="ExternalInventory" parent="UI/InventoryInterface" instance=ExtResource("8_7wy0e")]
 visible = false
@@ -218,24 +215,16 @@ anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -241.0
-offset_top = -74.0
-offset_right = 241.0
+offset_left = -5.0
+offset_top = -10.0
+offset_right = 5.0
 offset_bottom = 0.0
 grow_horizontal = 2
 grow_vertical = 0
 
-[node name="WaterArea" type="Area3D" parent="."]
-collision_mask = 2
-script = ExtResource("16_cjq8t")
+[node name="RecipeUI" parent="UI" instance=ExtResource("17_l81cg")]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="WaterArea"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.886, -2.885, 10.725)
-shape = SubResource("BoxShape3D_w3ip3")
-
-[node name="CollisionShape3D2" type="CollisionShape3D" parent="WaterArea"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.736526, -2.88465, -9.88706)
-shape = SubResource("BoxShape3D_w3ip3")
+[node name="QuestJournal" parent="." instance=ExtResource("18_6x1ed")]
 
 [connection signal="drop_slot_data" from="UI/InventoryInterface" to="UI/InventoryInterface" method="_on_drop_slot_data"]
 [connection signal="gui_input" from="UI/InventoryInterface" to="UI/InventoryInterface" method="_on_gui_input"]

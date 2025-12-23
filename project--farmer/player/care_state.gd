@@ -1,4 +1,4 @@
-extends GardeningState
+extends MainState
 class_name CareState
 
 @export_group("Animations")
@@ -29,7 +29,6 @@ func _enter() -> void:
 				if character.is_busy: 
 					apply_care_effect(item_name)
 			)
-			# ---------------------------------------------
 			
 		else:
 			has_water = false
@@ -73,7 +72,6 @@ func apply_care_effect(tool_name: String) -> void:
 	
 	
 	if "watering" in tool_name:
-		# Double check nước lần nữa cho chắc
 		var current_water = slot_data.get_stat("water_current")
 		
 		if current_water > 0:
@@ -93,13 +91,10 @@ func apply_care_effect(tool_name: String) -> void:
 			# --- TRỪ NƯỚC ---
 			slot_data.set_stat("water_current", current_water - 1)
 			
-			# Update UI Hotbar ngay lập tức
 			PlayerData.player_inventory_data.inventory_updated.emit(PlayerData.player_inventory_data)
 	
-	# --- LOGIC BÓN PHÂN ---
 	elif "fertilizer" in tool_name:
 		if block.plant_type != PlantDatabase.PLANT_VARIANT.NONE:
-			# Gọi hàm tăng trưởng cho cây (bạn phải tự viết hàm này trong script của cây)
 			# var plant_node = ground_gen.get_plant_node(grid_pos)
 			# if plant_node: plant_node.boost_growth()
 			

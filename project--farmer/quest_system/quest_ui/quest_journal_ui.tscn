@@ -1,0 +1,65 @@
+[gd_scene load_steps=3 format=3 uid="uid://6msbaufmnf3f"]
+
+[ext_resource type="Script" uid="uid://uxh8cypyoukd" path="res://quest_system/quest_ui/quest_journal_ui.gd" id="1_78ulr"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wm71s"]
+bg_color = Color(0.14902, 0.14902, 0.14902, 0.533333)
+
+[node name="QuestJournal" type="CanvasLayer"]
+script = ExtResource("1_78ulr")
+
+[node name="JournalPanel" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="Panel" parent="JournalPanel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -300.0
+offset_top = -250.0
+offset_right = 300.0
+offset_bottom = 250.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_wm71s")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="JournalPanel/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 20
+
+[node name="ScrollContainer" type="ScrollContainer" parent="JournalPanel/Panel/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="QuestList" type="VBoxContainer" parent="JournalPanel/Panel/HBoxContainer/ScrollContainer"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="JournalPanel/Panel/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 2.0
+
+[node name="TitleLabel" type="Label" parent="JournalPanel/Panel/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="HSeparator" type="HSeparator" parent="JournalPanel/Panel/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="DescLabel" type="RichTextLabel" parent="JournalPanel/Panel/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="ProgressLabel" type="Label" parent="JournalPanel/Panel/HBoxContainer/VBoxContainer"]
+layout_mode = 2

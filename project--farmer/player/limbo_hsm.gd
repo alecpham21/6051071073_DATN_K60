@@ -23,18 +23,21 @@ func _ready() -> void:
 
 
 func _update(delta: float) -> void:
+	if blackboard:
+		use_item = blackboard.get_var(BBNames.use_item_var, false)
+	
 	if HotBar.active_slot && HotBar.active_item is ItemDataTool:
 		long_tool = (HotBar.active_item as ItemDataTool).is_long_tool
-	else: long_tool = false
+	else: 
+		long_tool = false
+		
 	if cook:
 		dispatch("cook")
 
 func _binding_setup():
 	for i : StateSet in state_set.values():
 		var key : StringName = state_set.find_key(i)
-		# Take node from path
 		var state : CharacterState = get_node(i.state_path) as CharacterState
-		# Error if not state
 		if not state:
 			push_error("LimboPrimeHSM: state_path wrong in StateSet '%s'" % key)
 			continue
@@ -48,9 +51,10 @@ func _on_item_used_up():
 	if HotBar.active_item and HotBar.active_item.name.to_lower().ends_with("seed"):
 		HotBar.active_item = null
 		HotBar.active_slot = null
-		print("AAAAAAAAAAAAAAAA")
 
 func can_plant() -> bool:
+	var is_using = blackboard.get_var(BBNames.use_item_var, false)
+	
 	if not HotBar.active_slot or not HotBar.active_item:
 		return false
 	if HotBar.active_slot.quantity <= 0:
@@ -59,6 +63,8 @@ func can_plant() -> bool:
 	&& get_block().mode == BlockGround.Mode.TILLED 
 
 func can_till() -> bool:
+	var is_using = blackboard.get_var(BBNames.use_item_var, false)
+	
 	var basic_check = HotBar.active_item \
 		&& HotBar.active_item.name.to_lower() == "hoe" \
 		&& use_item
@@ -66,50 +72,52 @@ func can_till() -> bool:
 	if not basic_check:
 		return false
 		
-	#Check Block
 	var block = get_block()
 	if block == null:
 		return false
-	if block.mode != BlockGround.Mode.GRASS:
-		return false
 		
-	return true
+	if block.mode == BlockGroundData.Mode.CUT or block.mode == BlockGroundData.Mode.GRASS:
+		return true
+		
+	return false
 
 
 func can_harvest() -> bool:
 	if not use_item: return false
 
+	# 1. Check tương tác vật lý (Cây tre, măng...)
 	if character.current_interactable != null:
 		var target = character.current_interactable
-		# Check xem cây này có hái được không (biến has_bamboo_shoot)
 		if target.get("is_harvestable") == true:
 			return true
 			
-
-	#In Farm Harvest
+	# 2. Check Block đất
 	var block = get_block()
-	var crop_check = false
-	if block and block.crop_ready:
+	if not block: return false
+	
+	if block.crop_ready:
 		if HotBar.active_item == null or HotBar.active_item.name.to_lower() == "sickle":
-			crop_check = true
-	#Last result
-	return crop_check
+			return true
 
-# Thêm vào LimboPrimeHSM.gd
+	if HotBar.active_item and HotBar.active_item.name.to_lower() == "sickle":
+		if block.mode == BlockGroundData.Mode.GRASS:
+			return true
+			
+	return false
+
 
 func can_care() -> bool:
+	var is_using = blackboard.get_var(BBNames.use_item_var, false)
+	
 	if not HotBar.active_slot or not HotBar.active_item:
 		return false
 	
-	# Lấy tên item viết thường cho dễ so sánh
 	var item_name = HotBar.active_item.name.to_lower()
 	
-	# Danh sách các món đồ "Chăm sóc"
 	var is_care_tool = item_name.contains("watering") or \
 					   item_name.contains("fertilizer") or \
 					   item_name.contains("debugging")
 					
-	# Check if right tool and block has data on it
 	if is_care_tool and use_item and !Watcher.indoor:
 		var block = get_block()
 		if block:

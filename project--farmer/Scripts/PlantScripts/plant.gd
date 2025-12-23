@@ -1,6 +1,18 @@
 extends Node3D
 class_name Plant
 
+enum HarvestStance {
+	STANDING,
+	CROUCHING
+}
+
+@export_group("ID")
+@export var crop_id: String = "wheat"
+
+@export_group("Harvest Logic")
+@export var harvest_stance: HarvestStance = HarvestStance.STANDING
+@export var can_use_tool: bool = true
+
 @export_group("Growth Stats")
 @export var max_growth: int = 15
 @export var over_growth_cap_offset: int = 0 
@@ -117,11 +129,17 @@ func spawn_items():
 		
 	if scene_to_spawn == null: return
 
+	var total_amount = harvest_yield 
+
 	for i in range(harvest_yield):
 		var item = scene_to_spawn.instantiate()
 		get_tree().root.add_child(item)
 		item.global_position = global_position
+		
 		var target_pos = item.global_position + Vector3(randf()-0.5, 0.0, randf()-0.5) * 1.5
 		var tween = create_tween()
 		tween.tween_property(item, "global_position", item.global_position + Vector3(0, 1.5, 0), 0.3).set_ease(Tween.EASE_OUT)
 		tween.tween_property(item, "global_position", target_pos, 0.4).set_ease(Tween.EASE_IN)
+		
+		if SignalBus.has_signal("object_harvested"):
+			SignalBus.object_harvested.emit(crop_id, 1)

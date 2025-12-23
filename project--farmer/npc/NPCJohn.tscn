@@ -12,6 +12,7 @@ size = Vector3(1.01379, 1.69379, 0.960632)
 
 [node name="NPCJohn" type="CharacterBody3D"]
 script = ExtResource("1_wcuve")
+quest_to_start_id = "my_future_farm_1"
 
 [node name="UncleJohn" parent="." instance=ExtResource("2_15u0w")]
 

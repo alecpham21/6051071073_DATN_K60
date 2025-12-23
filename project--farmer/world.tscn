@@ -1,4 +1,4 @@
-[gd_scene load_steps=55 format=4 uid="uid://bbvhog32snru6"]
+[gd_scene load_steps=57 format=4 uid="uid://bbvhog32snru6"]
 
 [ext_resource type="Script" uid="uid://hctai00r4njf" path="res://world.gd" id="1_dwbse"]
 [ext_resource type="Shader" uid="uid://bkw4b21akjsc2" path="res://subViewportPixel.gdshader" id="2_gggvi"]
@@ -6,6 +6,7 @@
 [ext_resource type="Script" uid="uid://bshrove7rvagv" path="res://spring_arm_camera.gd" id="4_qktwf"]
 [ext_resource type="PackedScene" uid="uid://bnxu42mjbjp8x" path="res://player/main_farmer.tscn" id="5_26xuy"]
 [ext_resource type="Script" uid="uid://6577es050bku" path="res://ground_generator.gd" id="5_036b0"]
+[ext_resource type="PackedScene" uid="uid://03bjah3n70ep" path="res://Scene/WindGrass/WindGrassScene.tscn" id="6_g1i3r"]
 [ext_resource type="PackedScene" uid="uid://te52jubb0t6m" path="res://Scene/Ground/ground_renderer.tscn" id="7_hiqwa"]
 [ext_resource type="Shader" uid="uid://bpre3j5j2h6bt" path="res://LeafShader.gdshader" id="8_cbp6q"]
 [ext_resource type="ArrayMesh" uid="uid://baypagydj3poq" path="res://modelScene/plant/grass/Grass_ver2.tres" id="9_cbp6q"]
@@ -33,6 +34,8 @@
 [ext_resource type="Shader" uid="uid://c13esa4vg2n5k" path="res://level/posterization.gdshader" id="30_qktwf"]
 [ext_resource type="PackedScene" uid="uid://b5bavm45lxiid" path="res://ui/Recipe/RecipeUI/recipe_ui.tscn" id="32_gggvi"]
 [ext_resource type="PackedScene" uid="uid://cbksswef0oxs8" path="res://Scene/structureScene/well.tscn" id="32_jjr1n"]
+[ext_resource type="PackedScene" uid="uid://n1cce0bi5bf4" path="res://quest_system/quest_ui/quest_tracker.tscn" id="34_6ah6f"]
+[ext_resource type="PackedScene" uid="uid://6msbaufmnf3f" path="res://quest_system/quest_ui/quest_journal_ui.tscn" id="34_w44yn"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_jjr1n"]
 shader = ExtResource("2_gggvi")
@@ -62,9 +65,6 @@ size = Vector3(1, 0.183594, 1)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_udxuc"]
 albedo_color = Color(0.419237, 0.709034, 0.292859, 1)
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ikiii"]
-albedo_color = Color(0.360283, 0.528223, 0.290949, 1)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_cbp6q"]
 albedo_color = Color(0.386611, 0.237709, 0.121798, 1)
@@ -181,7 +181,7 @@ shader_parameter/rotation_matrix = Transform2D(1.6, -1.2, 1.2, 1.6, 0, 0)
 material = SubResource("ShaderMaterial_2o6r5")
 size = Vector2(80.725, 70.965)
 
-[node name="World" type="Node3D"]
+[node name="level_farm" type="Node3D"]
 script = ExtResource("1_dwbse")
 
 [node name="SubViewportContainer" type="SubViewportContainer" parent="."]
@@ -190,7 +190,6 @@ material = SubResource("ShaderMaterial_jjr1n")
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_right = -6.52002
 grow_horizontal = 2
 grow_vertical = 2
 stretch = true
@@ -198,7 +197,7 @@ stretch_shrink = 2
 
 [node name="SubViewport" type="SubViewport" parent="SubViewportContainer"]
 handle_input_locally = false
-size = Vector2i(572, 324)
+size = Vector2i(576, 324)
 render_target_update_mode = 4
 
 [node name="ShaderOutline" type="MeshInstance3D" parent="SubViewportContainer/SubViewport"]
@@ -237,11 +236,13 @@ shape = SubResource("BoxShape3D_udxuc")
 [node name="GroundGenerator" type="Node3D" parent="SubViewportContainer/SubViewport" groups=["ground_generator"]]
 script = ExtResource("5_036b0")
 ground_extents = Vector2i(60, 60)
+wind_grass_scene = ExtResource("6_g1i3r")
+wind_grass_amount = 10
 
 [node name="GroundRenderer" parent="SubViewportContainer/SubViewport/GroundGenerator" instance=ExtResource("7_hiqwa")]
 mesh = SubResource("BoxMesh_udxuc")
 mat_grass = SubResource("StandardMaterial3D_udxuc")
-mat_cut = SubResource("StandardMaterial3D_ikiii")
+mat_cut = SubResource("StandardMaterial3D_udxuc")
 mat_tilled = SubResource("StandardMaterial3D_cbp6q")
 dark_grass_mesh = SubResource("ArrayMesh_26xuy")
 light_grass_mesh = SubResource("ArrayMesh_ikiii")
@@ -250,11 +251,6 @@ grass_scale_min = 0.3
 grass_scale_max = 0.5
 grass_spawn_chance = 0.05
 decorative_grass_chance = 0.05
-
-[node name="NPCJohn" parent="SubViewportContainer/SubViewport" node_paths=PackedStringArray("door_to_unlock") instance=ExtResource("14_gggvi")]
-transform = Transform3D(-0.0761621, 0, -0.997095, 0, 1, 0, 0.997095, 0, -0.0761621, 15.8538, 0, -2.74886)
-timeline_name = "welcome_home_john"
-door_to_unlock = NodePath("../Door")
 
 [node name="Door" parent="SubViewportContainer/SubViewport" instance=ExtResource("21_k83mh")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.28598, 1.60264, 0)
@@ -275,6 +271,13 @@ inventory_data = ExtResource("11_k83mh")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22.7284, 0.419144, 0.422467)
 target_scene_path = "uid://bidc27ad8yi6o"
 target_spawn_position = Vector3(-14, 0, 0)
+
+[node name="NPCJohn" parent="SubViewportContainer/SubViewport" node_paths=PackedStringArray("door_to_unlock") instance=ExtResource("14_gggvi")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 16.3129, 0, -2.33321)
+timeline_name = "welcome_home_john"
+quest_to_complete_id = "my_future_farm_1"
+quest_to_start_id = "my_future_farm_2"
+door_to_unlock = NodePath("../Door")
 
 [node name="MixColorShader" type="CanvasLayer" parent="."]
 
@@ -412,6 +415,13 @@ layout_mode = 2
 [node name="PlayerInventory" parent="UI/InventoryInterface/VBoxContainer" instance=ExtResource("17_cbp6q")]
 layout_mode = 2
 
+[node name="PanelContainer" type="PanelContainer" parent="UI/InventoryInterface/VBoxContainer"]
+layout_mode = 2
+
+[node name="MoneyLabel" type="Label" parent="UI/InventoryInterface/VBoxContainer/PanelContainer" groups=["inventory_interface"]]
+layout_mode = 2
+horizontal_alignment = 2
+
 [node name="ExternalInventory" parent="UI/InventoryInterface" instance=ExtResource("17_cbp6q")]
 visible = false
 layout_mode = 1
@@ -439,14 +449,18 @@ anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -241.0
-offset_top = -74.0
-offset_right = 241.0
+offset_left = -5.0
+offset_top = -10.0
+offset_right = 5.0
 offset_bottom = 0.0
 grow_horizontal = 2
 grow_vertical = 0
 
 [node name="RecipeUI" parent="UI" instance=ExtResource("32_gggvi")]
+
+[node name="QuestTracker" parent="UI" instance=ExtResource("34_6ah6f")]
+
+[node name="QuestJournal" parent="." instance=ExtResource("34_w44yn")]
 
 [connection signal="drop_slot_data" from="UI/InventoryInterface" to="UI/InventoryInterface" method="_on_drop_slot_data"]
 [connection signal="gui_input" from="UI/InventoryInterface" to="UI/InventoryInterface" method="_on_gui_input"]

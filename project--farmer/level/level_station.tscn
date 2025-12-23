@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=3 uid="uid://bdq8ist3s8m2s"]
+[gd_scene load_steps=31 format=3 uid="uid://bdq8ist3s8m2s"]
 
 [ext_resource type="Shader" uid="uid://bkw4b21akjsc2" path="res://subViewportPixel.gdshader" id="1_yfkc0"]
 [ext_resource type="Shader" uid="uid://viqy3uwh6ns7" path="res://PixelShader.gdshader" id="2_2bq7i"]
@@ -19,6 +19,8 @@
 [ext_resource type="PackedScene" uid="uid://yxffan0vylfv" path="res://modelScene/rock/a_rock_1.tscn" id="17_7upow"]
 [ext_resource type="PackedScene" uid="uid://bjxrobwweubb3" path="res://model/tree/TreeVer1.tscn" id="17_r82og"]
 [ext_resource type="Script" uid="uid://b61j7me8km5bx" path="res://level/cut_scene_trigger.gd" id="19_7upow"]
+[ext_resource type="PackedScene" uid="uid://6msbaufmnf3f" path="res://quest_system/quest_ui/quest_journal_ui.tscn" id="20_3o1kb"]
+[ext_resource type="PackedScene" uid="uid://n1cce0bi5bf4" path="res://quest_system/quest_ui/quest_tracker.tscn" id="21_qvmep"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_hv47h"]
 shader = ExtResource("1_yfkc0")
@@ -75,7 +77,6 @@ material = SubResource("ShaderMaterial_hv47h")
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_right = -6.52002
 grow_horizontal = 2
 grow_vertical = 2
 stretch = true
@@ -83,7 +84,7 @@ stretch_shrink = 2
 
 [node name="SubViewport" type="SubViewport" parent="SubViewportContainer"]
 handle_input_locally = false
-size = Vector2i(572, 324)
+size = Vector2i(576, 324)
 render_target_update_mode = 4
 
 [node name="ShaderOutline" type="MeshInstance3D" parent="SubViewportContainer/SubViewport"]
@@ -242,3 +243,7 @@ npc_john = NodePath("../SubViewportContainer/SubViewport/NPCJohn")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.55983, 0.660645, 0)
 shape = SubResource("BoxShape3D_r82og")
+
+[node name="QuestJournal" parent="." instance=ExtResource("20_3o1kb")]
+
+[node name="QuestTracker" parent="." instance=ExtResource("21_qvmep")]

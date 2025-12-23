@@ -5,7 +5,6 @@ const PickUp = preload("res://inventory_script/item/pick_up_item/pick_up.tscn")
 @export var level_id: String = "Home_Farm"
 
 @onready var ground_generator = $SubViewportContainer/SubViewport/GroundGenerator
-
 @onready var player: CharacterBody3D = %MainFarmer
 @onready var inventory_interface: Control = $UI/InventoryInterface
 @onready var hot_bar_inventory: PanelContainer = $UI/HotBarInventory
@@ -16,7 +15,7 @@ func _ready():
 	if Watcher.has_data(level_id):
 		print("📂 World: Load data...")
 		var data = Watcher.get_level_data(level_id)
-		await ground_generator.load_from_data(data) 
+		await ground_generator.load_from_data(data)
 	else:
 		print("✨ World: New map...")
 		await ground_generator.generate_new_map()
@@ -41,37 +40,26 @@ func _ready():
 	
 	for node in get_tree().get_nodes_in_group("external_inventory"):
 		node.toggle_inventory.connect(toggle_inventory_interface)
-
-	
 	SceneTransition.reveal_scene()
 
 func save_level_state():
 	if ground_generator:
 		var current_data = ground_generator.get_current_state()
-		
 		Watcher.save_level_data(level_id, current_data)
 		print("✅ World: Đã lưu trạng thái map ", level_id)
 
-
-func _process(_delta: float) -> void:
-	pass
-
 func toggle_inventory_interface(external_inventory_owner = null) -> void:
+	inventory_interface.visible = not inventory_interface.visible
+	
 	if inventory_interface.visible:
-		inventory_interface.close_kitchen()
-		
-		inventory_interface.clear_external_inventory()
-		
+		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+	else:
 		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 		
+	if external_inventory_owner and inventory_interface.visible:
+		inventory_interface.set_external_inventory(external_inventory_owner)
 	else:
-		if external_inventory_owner:
-			inventory_interface.set_external_inventory(external_inventory_owner)
-			inventory_interface.open_player_inventory()
-		else:
-			inventory_interface.open_player_inventory()
-			
-		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+		inventory_interface.clear_external_inventory()
 
 func _on_inventory_interface_drop_slot_data(slot_data) -> void:
 	var pick_up = PickUp.instantiate()

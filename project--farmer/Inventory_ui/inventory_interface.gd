@@ -42,16 +42,9 @@ func _ready():
 		click_slot_data.connect(on_slot_clicked_handler)
 	
 	GameData.game_state_changed.connect(func(old, new):
-		print(">>> [STATE CHANGE] Từ: ", old, " -> Sang: ", new)
-		print("    |-- Prevent_Close: ", prevent_close)
-		print("    |-- Active_Kitchen: ", active_kitchen)
-		print("    |-- Shop Visible: ", shop_ui.visible if shop_ui else "null")
-		
 		match new:
 			GState.state_enum.PLAYING:
-				# 1. Xử lý khóa (Giữ nguyên)
 				if prevent_close:
-					# [SỬA] Thêm check "shop_ui and" để không crash nếu shop_ui = null
 					if shop_ui and shop_ui.visible:
 						GState.shop()
 					else:
@@ -62,8 +55,6 @@ func _ready():
 					prevent_close = false
 					return 
 				
-				# 2. Xử lý đóng
-				# [SỬA QUAN TRỌNG] Kiểm tra sự tồn tại trước khi kiểm tra visible
 				var is_shop_open = (shop_ui != null and shop_ui.visible)
 				var is_sell_open = (sell_ui != null and sell_ui.visible)
 				
@@ -74,6 +65,10 @@ func _ready():
 				elif active_kitchen: 
 					# Không có Shop hoặc Shop đang tắt thì mới đóng Bếp
 					close_kitchen()
+				elif external_inventory_owner:
+					print(">>> [AUTO] Đóng External Inventory (Rương/Máy giặt)")
+					clear_external_inventory()
+					self.visible = false
 				else:
 					print("    --> [AUTO] Không có gì để đóng cả.")
 			
@@ -361,16 +356,22 @@ func _physics_process(delta: float) -> void:
 		force_close.emit()
 	
 func set_player_inventory_data(inventory_data: InventoryData) -> void:
+	if inventory_data == null: 
+		return
 	if not inventory_data.inventory_interact.is_connected(on_inventory_interact):
 		inventory_data.inventory_interact.connect(on_inventory_interact)
 	player_inventory.set_inventory_data(inventory_data)
 
 func set_equip_inventory_data(inventory_data: InventoryData) -> void:
+	if inventory_data == null: 
+		return
 	if not inventory_data.inventory_interact.is_connected(on_inventory_interact):
 		inventory_data.inventory_interact.connect(on_inventory_interact)
 	equip_inventory.set_inventory_data(inventory_data)
 
 func set_outfit_inventory_data(inventory_data: InventoryData) -> void:
+	if inventory_data == null: 
+		return
 	if not inventory_data.inventory_interact.is_connected(on_inventory_interact):
 		inventory_data.inventory_interact.connect(on_inventory_interact)
 	outfit_inventory.set_inventory_data(inventory_data)
@@ -410,6 +411,8 @@ func clear_external_inventory() -> void:
 			inventory_data.inventory_interact.disconnect(on_inventory_interact)
 		if force_close.is_connected(external_inventory_owner.close_chest):
 			force_close.disconnect(external_inventory_owner.close_chest)
+		if external_inventory_owner.has_method("close_chest"):
+			external_inventory_owner.close_chest()
 		external_inventory.clear_inventory_data(inventory_data)
 		external_inventory.hide()
 		if washing_machine_ui: washing_machine_ui.hide()
@@ -417,10 +420,33 @@ func clear_external_inventory() -> void:
 	
 func on_inventory_interact(inventory_data: InventoryData, index: int, button: int) -> void:
 	match [grabbed_slot_data, button]:
-		[null, MOUSE_BUTTON_LEFT]: grabbed_slot_data = inventory_data.grab_slot_data(index)
-		[_, MOUSE_BUTTON_LEFT]: grabbed_slot_data = inventory_data.drop_slot_data(grabbed_slot_data, index)
-		[null, MOUSE_BUTTON_RIGHT]: inventory_data.use_slot_data(index)
-		[_, MOUSE_BUTTON_RIGHT]: grabbed_slot_data = inventory_data.drop_single_slot_data(grabbed_slot_data, index)
+		[null, MOUSE_BUTTON_LEFT]: 
+			grabbed_slot_data = inventory_data.grab_slot_data(index)
+			
+		[_, MOUSE_BUTTON_LEFT]:
+			var item_name_check = grabbed_slot_data.item_data.name
+			var item_qty_check = grabbed_slot_data.quantity
+			
+			var is_dropping_into_player = (inventory_data == PlayerData.player_inventory_data)
+			
+			grabbed_slot_data = inventory_data.drop_slot_data(grabbed_slot_data, index)
+			
+			if is_dropping_into_player:
+				print("🎒 UI: Vừa thả ", item_name_check, " vào túi người chơi -> Báo Quest!")
+				SignalBus.item_added_to_inventory.emit(item_name_check.to_lower(), item_qty_check)
+
+		[null, MOUSE_BUTTON_RIGHT]: 
+			inventory_data.use_slot_data(index)
+			
+		[_, MOUSE_BUTTON_RIGHT]: 
+			var item_name_check = grabbed_slot_data.item_data.name
+			var is_dropping_into_player = (inventory_data == PlayerData.player_inventory_data)
+			
+			grabbed_slot_data = inventory_data.drop_single_slot_data(grabbed_slot_data, index)
+			
+			if is_dropping_into_player:
+				SignalBus.item_added_to_inventory.emit(item_name_check, 1) # Thả từng cái thì số lượng là 1
+
 	update_grabbed_slot()
 
 func on_inventory_click(inventory_data: InventoryData, index: int, button: int) -> void:
@@ -465,7 +491,7 @@ func open_player_inventory():
 	if craft_bar: craft_bar.hide()
 	if cutting_ui: cutting_ui.hide()
 	if material_inventory: material_inventory.hide()
-	if external_inventory: external_inventory.hide()
+	#if external_inventory: external_inventory.hide()
 	if recipe_book_ui: recipe_book_ui.hide()
 	
 	if shop_ui: shop_ui.hide() 

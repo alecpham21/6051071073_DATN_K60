@@ -3,7 +3,7 @@ extends Resource
 
 @export_enum(
 	"Care_debugging","Care_fertilize","Care_watering","Chatting_hi","Chatting_inLove","Chatting_shy","Cooking_Cutting", "Cooking_Pan", "Cooking_Stirring", 
-	"Cutting_Plant","Cycling", "DJ", "DefaultPose", "Fishing_Catch", 
+	"Crouching_Harvest","Cutting_Plant","Cycling", "DJ", "DefaultPose", "Fishing_Catch", 
 	"Fishing_Drag", "Fishing_Fail", "Fishing_Idle", 
 	"Fishing_Start", "Fishing_Sucess", "Harvesting_Hand", 
 	"Harvesting_Knife", "Holding", "Holding_Idle", "Holding_Walking","Human_Cycling", 

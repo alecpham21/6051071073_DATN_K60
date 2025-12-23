@@ -1,0 +1,69 @@
+class_name MainState
+extends CharacterState
+
+@export var can_move := true
+@export var can_run := true
+@export var rotation_speed: float = 10.0
+
+func _update(delta: float) -> void:
+	if character.use_gravity and not character.is_on_floor():
+		character.velocity += character.get_gravity() * delta
+	else:
+		character.velocity.y = 0.0
+
+	var input_vec3 = blackboard.get_var(BBNames.direction_var, Vector3.ZERO)
+	
+	if not character.mouse_captured:
+		input_vec3 = Vector3.ZERO
+
+	var move_dir: Vector3 = Vector3.ZERO
+
+	if can_move and input_vec3.length() > 0.01:
+		var cam_basis = character.cam_ref.global_transform.basis
+		var cam_forward = -cam_basis.z 
+		var cam_right = cam_basis.x
+		
+		cam_forward.y = 0
+		cam_right.y = 0
+		move_dir = (cam_right * input_vec3.x) + (cam_forward * -input_vec3.z)
+		move_dir = move_dir.normalized()
+
+	var current_speed = get_current_speed()
+	
+	if move_dir.length() > 0.01:
+		var target_vel = move_dir * current_speed
+		character.velocity.x = lerpf(character.velocity.x, target_vel.x, character.accel * delta)
+		character.velocity.z = lerpf(character.velocity.z, target_vel.z, character.accel * delta)
+		
+		var target_rotation = atan2(-move_dir.x, -move_dir.z)
+		character.rotation.y = lerp_angle(character.rotation.y, target_rotation, rotation_speed * delta)
+	else:
+		character.velocity.x = lerpf(character.velocity.x, 0.0, character.accel * delta)
+		character.velocity.z = lerpf(character.velocity.z, 0.0, character.accel * delta)
+		
+		if character.velocity.length() < 0.1:
+			character.velocity.x = 0
+			character.velocity.z = 0
+
+	character.move_and_slide()
+
+func get_current_speed() -> float:
+	# Ưu tiên dùng Blackboard cho đồng bộ với PlayerInput
+	if can_run and blackboard.get_var(BBNames.run_var, false):
+		return character.stats.run_speed 
+	return character.stats.walk_speed
+
+func check_tool_transitions() -> void:
+	# Thứ tự ưu tiên các hành động công cụ
+	if limbo_hsm.can_till(): 
+		dispatch("till")
+	elif limbo_hsm.can_plant(): 
+		dispatch("plant")
+	elif limbo_hsm.can_harvest(): 
+		dispatch("harvest")
+	elif limbo_hsm.can_care(): 
+		dispatch("care")
+	
+	if blackboard.get_var(BBNames.toggle_vehicle_var, false):
+		if not Watcher.indoor:
+			dispatch("bike")

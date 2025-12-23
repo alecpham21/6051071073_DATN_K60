@@ -21,10 +21,12 @@ signal overtimed
 func _setup() -> void:
 	limbo_hsm = get_parent()
 	character = agent as Character
-	input = (character as Player).input
+	input = agent.get("input") 
+	
 	for i:StringName in transition_to.keys():
 		limbo_hsm.add_transition(self, transition_to[i], i)
-	if self_dispatch: limbo_hsm.add_transition(self, self, "self")
+	if self_dispatch: 
+		limbo_hsm.add_transition(self, self, "self")
 
 func _enter() -> void:
 	print("Entered ", self.name, " state.")

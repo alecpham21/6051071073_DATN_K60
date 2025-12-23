@@ -1,4 +1,6 @@
-extends GardeningState
+extends MainState
+class_name SeedingState
+
 
 @onready var inventory_data: InventoryData
 @onready var cast: RayCast3D = $"../../SeedCast3D"

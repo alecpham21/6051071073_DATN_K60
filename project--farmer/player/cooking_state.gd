@@ -1,4 +1,4 @@
-extends GardeningState
+extends MainState
 class_name CookingState
 
 @export_group("Animation Sets")

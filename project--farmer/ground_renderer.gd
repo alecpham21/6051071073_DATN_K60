@@ -46,12 +46,9 @@ var dark_grass_index_per_block: Array
 var light_grass_index_per_block: Array
 var grass_index_per_block: Array
 
-# --- [FIX QUAN TRỌNG] Transform để giấu vật thể (Scale = 0) ---
-# Thay vì dùng Transform3D() (nó sẽ hiện ở 0,0,0), ta dùng cái này để nó biến mất hẳn.
 var hidden_transform = Transform3D(Basis().scaled(Vector3.ZERO), Vector3.ZERO)
 
 func setup(x_count: int, z_count: int) -> void:
-	# --- [FIX THÊM] Dọn dẹp node cũ để tránh lỗi khi load đi load lại ---
 	for child in get_children():
 		child.queue_free()
 		
@@ -87,7 +84,6 @@ func _create_multimeshes():
 		spacing = box.size.x
 		mesh_height = box.size.y
 	else:
-		# [FIX AN TOÀN] Dùng get_aabb() để lấy chiều cao, tránh lỗi nếu mesh không phải là BoxMesh
 		mesh_height = mesh.get_aabb().size.y
 
 	mm_grass = MultiMesh.new()
@@ -114,7 +110,6 @@ func _create_multimeshes():
 		inst_dark_grass = MultiMeshInstance3D.new()
 		inst_dark_grass.multimesh = mm_dark_grass
 		add_child(inst_dark_grass)
-		# Giấu hết ban đầu
 		for i in range(mm_dark_grass.instance_count): mm_dark_grass.set_instance_transform(i, hidden_transform)
 
 	# Light Grass
@@ -126,7 +121,6 @@ func _create_multimeshes():
 		inst_light_grass = MultiMeshInstance3D.new()
 		inst_light_grass.multimesh = mm_light_grass
 		add_child(inst_light_grass)
-		# Giấu hết ban đầu
 		for i in range(mm_light_grass.instance_count): mm_light_grass.set_instance_transform(i, hidden_transform)
 
 	# Decorative Grass
@@ -138,7 +132,6 @@ func _create_multimeshes():
 		inst_grass_decor = MultiMeshInstance3D.new()
 		inst_grass_decor.multimesh = mm_grass_decor
 		add_child(inst_grass_decor)
-		# Giấu hết ban đầu
 		for i in range(mm_grass_decor.instance_count): mm_grass_decor.set_instance_transform(i, hidden_transform)
 
 
@@ -225,7 +218,6 @@ func spawn_decorative_grass():
 					light_grass_index_per_block[block_idx].append(idx_light)
 					idx_light += 1
 					
-			# Spawn random grass (độc lập)
 			if grass_mesh and mm_grass_decor and randf() <= grass_spawn_chance:
 				var num_in_block = randi_range(1, grass_count_per_block)
 				for i in range(num_in_block):
@@ -263,9 +255,9 @@ func set_mode(x: int, z: int, mode: int, _variant: int = 0):
 	var y_offset := 0.0
 	match mode:
 		BlockGroundData.Mode.GRASS:
-			y_offset = 0.1
+			y_offset = 0.0
 		BlockGroundData.Mode.CUT:
-			y_offset = -0.02
+			y_offset = 0.0
 		BlockGroundData.Mode.TILLED:
 			y_offset = -0.04
 
