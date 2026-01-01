@@ -1,43 +1,20 @@
-[gd_scene load_steps=28 format=4 uid="uid://dnbhv81qwnaeh"]
+[gd_scene load_steps=25 format=4 uid="uid://dnbhv81qwnaeh"]
 
 [ext_resource type="PackedScene" uid="uid://c4eb2vpe44j52" path="res://model/level/BusStationDesign.glb" id="1_bpiaw"]
 [ext_resource type="Texture2D" uid="uid://1gysjnj7jqbq" path="res://assets/ImphenziaPalette01-256-Gradient.png" id="2_5il33"]
-[ext_resource type="Texture2D" uid="uid://dtfw6m1yjj074" path="res://Textures/FloorStation.png" id="2_10b0m"]
+[ext_resource type="Texture2D" uid="uid://243w4slmx78x" path="res://Textures/stoneFloorTexture.png" id="2_bfjin"]
 [ext_resource type="Texture2D" uid="uid://c0r8b40nymoj6" path="res://Textures/RedandWhiteTrip.png" id="3_5il33"]
 [ext_resource type="Texture2D" uid="uid://ccoye8s6g2y3v" path="res://Textures/ConMachineTexture.png" id="3_n1wgs"]
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_bfjin"]
-cull_mode = 2
-albedo_texture = ExtResource("2_10b0m")
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mw3ll"]
-albedo_texture = ExtResource("2_5il33")
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2xmh7"]
-albedo_texture = ExtResource("2_5il33")
+[ext_resource type="Texture2D" uid="uid://0mtjpi5mg3ci" path="res://Textures/Wood_texture/WoodPlankTexture.png" id="6_rj6lx"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_h3kvm"]
-albedo_texture = ExtResource("2_5il33")
+cull_mode = 2
+albedo_texture = ExtResource("2_bfjin")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_r1wqc"]
 albedo_texture = ExtResource("3_n1wgs")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_cstqy"]
-albedo_texture = ExtResource("2_5il33")
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_i6mif"]
-albedo_texture = ExtResource("2_5il33")
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8566v"]
-albedo_texture = ExtResource("2_5il33")
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_l2vd2"]
-albedo_texture = ExtResource("2_5il33")
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_f31qb"]
-albedo_texture = ExtResource("2_5il33")
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_m2wet"]
 albedo_texture = ExtResource("2_5il33")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_bpmeu"]
@@ -50,17 +27,23 @@ albedo_texture = ExtResource("3_n1wgs")
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_bpiaw"]
 albedo_texture = ExtResource("2_5il33")
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_c7u15"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lknhh"]
 cull_mode = 2
 albedo_texture = ExtResource("2_5il33")
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_bh26b"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6uu1i"]
 cull_mode = 2
 albedo_texture = ExtResource("2_5il33")
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_oqeaj"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_yqhmq"]
 cull_mode = 2
 albedo_texture = ExtResource("2_5il33")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_semgh"]
+albedo_texture = ExtResource("6_rj6lx")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wvkl4"]
+albedo_texture = ExtResource("6_rj6lx")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_10b0m"]
 albedo_texture = ExtResource("2_5il33")
@@ -97,115 +80,103 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_hek4c")
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_iv6a4"]
+albedo_texture = ExtResource("2_5il33")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_how5v"]
+albedo_texture = ExtResource("2_5il33")
+
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rj6lx"]
 albedo_texture = ExtResource("2_5il33")
 
 [node name="BusStationDesign" instance=ExtResource("1_bpiaw")]
 
 [node name="Plane" parent="." index="0"]
-material_override = SubResource("StandardMaterial3D_bfjin")
-
-[node name="Cube" parent="." index="1"]
-material_override = SubResource("StandardMaterial3D_mw3ll")
-
-[node name="Cube_001" parent="." index="2"]
-material_override = SubResource("StandardMaterial3D_2xmh7")
-
-[node name="Cube_002 " parent="." index="3"]
 material_override = SubResource("StandardMaterial3D_h3kvm")
 
-[node name="Cube_003" parent="." index="4"]
+[node name="Cube_003" parent="." index="1"]
 material_override = SubResource("StandardMaterial3D_r1wqc")
 
-[node name="Cube_005" parent="." index="5"]
+[node name="Cube_005" parent="." index="2"]
 material_override = SubResource("StandardMaterial3D_cstqy")
 
-[node name="Plane_001" parent="." index="6"]
-material_override = SubResource("StandardMaterial3D_i6mif")
-
-[node name="WelcomeSign" parent="." index="7"]
-material_override = SubResource("StandardMaterial3D_8566v")
-
-[node name="OnlySign" parent="." index="8"]
-material_override = SubResource("StandardMaterial3D_l2vd2")
-
-[node name="Railing " parent="." index="9"]
-material_override = SubResource("StandardMaterial3D_f31qb")
-
-[node name="SmalGarRailing" parent="." index="10"]
-material_override = SubResource("StandardMaterial3D_m2wet")
-
-[node name="Cube_004" parent="." index="11"]
+[node name="Cube_004" parent="." index="3"]
 material_override = SubResource("StandardMaterial3D_bpmeu")
 
-[node name="Cube_006" parent="." index="12"]
+[node name="Cube_006" parent="." index="4"]
 material_override = SubResource("StandardMaterial3D_knp4r")
 
-[node name="Thehell" parent="." index="13"]
+[node name="Thehell" parent="." index="5"]
 material_override = SubResource("StandardMaterial3D_bpiaw")
 
-[node name="Plane_007" parent="." index="14"]
-material_override = SubResource("StandardMaterial3D_c7u15")
+[node name="Plane_007" parent="." index="6"]
+material_override = SubResource("StandardMaterial3D_lknhh")
 
-[node name="Plane_003" parent="." index="15"]
-material_override = SubResource("StandardMaterial3D_bh26b")
+[node name="Plane_003" parent="." index="7"]
+material_override = SubResource("StandardMaterial3D_6uu1i")
 
-[node name="Plane_004" parent="." index="16"]
-material_override = SubResource("StandardMaterial3D_oqeaj")
+[node name="Plane_004" parent="." index="8"]
+material_override = SubResource("StandardMaterial3D_yqhmq")
 
-[node name="Cube2" type="MeshInstance3D" parent="." index="17"]
+[node name="Port" parent="." index="9"]
+material_override = SubResource("StandardMaterial3D_semgh")
+
+[node name="Cube_007" parent="." index="10"]
+material_override = SubResource("StandardMaterial3D_wvkl4")
+
+[node name="Cube2" type="MeshInstance3D" parent="." index="11"]
 transform = Transform3D(-24.3398, 0, -1.4084, 0, 9.20574, 0, 0.404456, 0, -84.7563, 295.15, -0.89526, -71.41)
 material_override = SubResource("StandardMaterial3D_10b0m")
 mesh = SubResource("ArrayMesh_bfjin")
 skeleton = NodePath("")
 
-[node name="Cube3" type="MeshInstance3D" parent="." index="18"]
+[node name="Cube3" type="MeshInstance3D" parent="." index="12"]
 transform = Transform3D(-24.3398, 0, -1.4084, 0, 9.20574, 0, 0.404456, 0, -84.7563, 311.226, 10.5459, -151.381)
 material_override = SubResource("StandardMaterial3D_10b0m")
 mesh = SubResource("ArrayMesh_bfjin")
 skeleton = NodePath("")
 
-[node name="Cube8" type="MeshInstance3D" parent="." index="19"]
+[node name="Cube8" type="MeshInstance3D" parent="." index="13"]
 transform = Transform3D(-24.3398, 0, -1.4084, 0, 9.20574, 0, 0.404456, 0, -84.7563, 341.586, 20.8231, -73.0195)
 material_override = SubResource("StandardMaterial3D_10b0m")
 mesh = SubResource("ArrayMesh_bfjin")
 skeleton = NodePath("")
 
-[node name="Cube7" type="MeshInstance3D" parent="." index="20"]
+[node name="Cube7" type="MeshInstance3D" parent="." index="14"]
 transform = Transform3D(-24.3398, 0, -1.4084, 0, 9.20574, 0, 0.404456, 0, -84.7563, 284.528, 13.9039, -313.364)
 material_override = SubResource("StandardMaterial3D_10b0m")
 mesh = SubResource("ArrayMesh_bfjin")
 skeleton = NodePath("")
 
-[node name="Cube4" type="MeshInstance3D" parent="." index="21"]
-transform = Transform3D(24.3363, 0, 2.01486, 0, 9.20574, 0, -0.578615, 0, 84.7441, -137.261, 19.4273, -160.769)
-material_override = SubResource("StandardMaterial3D_10b0m")
-mesh = SubResource("ArrayMesh_bfjin")
-skeleton = NodePath("")
-
-[node name="Cube9" type="MeshInstance3D" parent="." index="22"]
+[node name="Cube9" type="MeshInstance3D" parent="." index="15"]
 transform = Transform3D(1.45387, 0, -128.982, 0, 9.206, 0, 24.2995, 0, 7.71718, -545.07, 2.88996, -169.139)
 material_override = SubResource("StandardMaterial3D_10b0m")
 mesh = SubResource("ArrayMesh_bfjin")
 skeleton = NodePath("")
 
-[node name="Cube10" type="MeshInstance3D" parent="." index="23"]
+[node name="Cube10" type="MeshInstance3D" parent="." index="16"]
 transform = Transform3D(1.45387, 0, -128.982, 0, 9.206, 0, 24.2995, 0, 7.71718, -747.017, 2.88996, -180.243)
 material_override = SubResource("StandardMaterial3D_10b0m")
 mesh = SubResource("ArrayMesh_bfjin")
 skeleton = NodePath("")
 
-[node name="Cube5" type="MeshInstance3D" parent="." index="24"]
-transform = Transform3D(24.3363, 0, 2.01486, 0, 9.20574, 0, -0.578615, 0, 84.7441, -106.023, 10.5459, -143.646)
+[node name="Cube5" type="MeshInstance3D" parent="." index="17"]
+transform = Transform3D(-1.06407e-06, 0, -84.7681, 0, 9.20574, 0, 24.3432, 0, -3.70533e-06, -33.8928, 15.0345, -413.818)
 material_override = SubResource("StandardMaterial3D_10b0m")
 mesh = SubResource("ArrayMesh_bfjin")
 skeleton = NodePath("")
 
-[node name="Cube6" type="MeshInstance3D" parent="." index="25"]
-transform = Transform3D(24.3363, 0, 2.01486, 0, 9.20574, 0, -0.578615, 0, 84.7441, -106.023, 10.5459, -379.2)
+[node name="Cube6" type="MeshInstance3D" parent="." index="18"]
+transform = Transform3D(-24.3432, 0, -7.41066e-06, 0, 9.20574, 0, 2.12815e-06, 0, -84.7681, -106.023, 3.44469, -546.078)
 material_override = SubResource("StandardMaterial3D_10b0m")
 mesh = SubResource("ArrayMesh_bfjin")
 skeleton = NodePath("")
 
-[node name="Plane_022" parent="." index="26"]
+[node name="SmalGarRailing_002" parent="." index="19"]
+material_override = SubResource("StandardMaterial3D_iv6a4")
+
+[node name="Cube_002" parent="." index="20"]
+material_override = SubResource("StandardMaterial3D_how5v")
+
+[node name="Railing " parent="." index="21"]
 material_override = SubResource("StandardMaterial3D_rj6lx")

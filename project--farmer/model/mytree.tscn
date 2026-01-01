@@ -87,6 +87,9 @@ mesh = SubResource("SphereMesh_xi76q")
 [node name="MultiMeshInstance3D" type="MultiMeshInstance3D" parent="TreeBush"]
 multimesh = SubResource("MultiMesh_exq1o")
 
+[node name="MultiMeshInstance3D" type="MultiMeshInstance3D" parent="TreeBush/MultiMeshInstance3D"]
+multimesh = SubResource("MultiMesh_exq1o")
+
 [node name="TreeBush2" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.23211, 0)
 mesh = SubResource("SphereMesh_t1v7h")

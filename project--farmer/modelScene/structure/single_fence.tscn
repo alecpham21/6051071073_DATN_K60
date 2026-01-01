@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://3yabkhdef6js"]
+
+[ext_resource type="PackedScene" uid="uid://dnxah2pnjygq3" path="res://model/structure/singleRailing.glb" id="1_bcl7x"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jv2ac"]
+albedo_color = Color(0.703302, 0.481113, 0.300423, 1)
+
+[node name="singleFence" instance=ExtResource("1_bcl7x")]
+
+[node name="Fence" parent="." index="0"]
+surface_material_override/0 = SubResource("StandardMaterial3D_jv2ac")

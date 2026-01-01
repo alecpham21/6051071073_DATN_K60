@@ -1,0 +1,103 @@
+[gd_scene load_steps=14 format=3 uid="uid://bixkklrjbu7hw"]
+
+[ext_resource type="Shader" uid="uid://bkw4b21akjsc2" path="res://subViewportPixel.gdshader" id="2_hry72"]
+[ext_resource type="Shader" uid="uid://viqy3uwh6ns7" path="res://PixelShader.gdshader" id="3_f3la6"]
+[ext_resource type="PackedScene" uid="uid://bnxu42mjbjp8x" path="res://player/main_farmer.tscn" id="4_ynggv"]
+[ext_resource type="Resource" uid="uid://c05tf37csx4tp" path="res://inventory_script/test_inv.tres" id="5_tpv8i"]
+[ext_resource type="PackedScene" uid="uid://cc8dfiuqa6biu" path="res://modelScene/terrain/forest_ground.tscn" id="6_hkjfm"]
+[ext_resource type="Script" uid="uid://bshrove7rvagv" path="res://spring_arm_camera.gd" id="6_ym4f0"]
+[ext_resource type="Shader" uid="uid://c13esa4vg2n5k" path="res://level/posterization.gdshader" id="7_yaejn"]
+[ext_resource type="Script" uid="uid://djj2m2skea716" path="res://TimeCheck.gd" id="8_dupkf"]
+[ext_resource type="PackedScene" uid="uid://dd48ywngxd2oc" path="res://Scene/Environment/day_night_cycle.tscn" id="9_hry72"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_tpu7y"]
+shader = ExtResource("2_hry72")
+
+[sub_resource type="QuadMesh" id="QuadMesh_blgoe"]
+flip_faces = true
+size = Vector2(4, 4)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_1yo6i"]
+render_priority = 0
+shader = ExtResource("3_f3la6")
+shader_parameter/depth_threshold = 0.315
+shader_parameter/reverse_depth_threshold = 0.076
+shader_parameter/normal_threshold = 0.634
+shader_parameter/darken_amount = 0.23
+shader_parameter/lighten_amount = 2.39
+shader_parameter/normal_edge_bias = Vector3(1, 1, 1)
+shader_parameter/light_direction = Vector3(-0.96, -0.18, 0.2)
+shader_parameter/outline_thickness = 1.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_fgu3o"]
+shader = ExtResource("7_yaejn")
+shader_parameter/mix_amount = 0.14
+shader_parameter/use_l = false
+shader_parameter/use_c = true
+shader_parameter/use_h = false
+shader_parameter/steps_l = 15.0
+shader_parameter/level_c = 10.676
+shader_parameter/level_h = 0.05
+
+[node name="level_forest" type="Node3D"]
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="."]
+texture_filter = 1
+material = SubResource("ShaderMaterial_tpu7y")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+stretch = true
+stretch_shrink = 2
+
+[node name="SubViewport" type="SubViewport" parent="SubViewportContainer"]
+handle_input_locally = false
+size = Vector2i(576, 324)
+render_target_update_mode = 4
+
+[node name="ShaderOutline" type="MeshInstance3D" parent="SubViewportContainer/SubViewport"]
+transform = Transform3D(1, 0, 0, 0, 0.00750488, 0.999972, 0, -0.999972, 0.00750488, 0.180526, -208.089, 0)
+extra_cull_margin = 16384.0
+mesh = SubResource("QuadMesh_blgoe")
+surface_material_override/0 = SubResource("ShaderMaterial_1yo6i")
+
+[node name="MainFarmer" parent="SubViewportContainer/SubViewport" instance=ExtResource("4_ynggv")]
+unique_name_in_owner = true
+use_gravity = true
+camera_ref_path = NodePath("../SpringArm3D/Camera3D")
+inventory_data = ExtResource("5_tpv8i")
+
+[node name="SpringArm3D" type="SpringArm3D" parent="SubViewportContainer/SubViewport"]
+transform = Transform3D(1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, 0, 0.659112, 0)
+spring_length = 20.0
+script = ExtResource("6_ym4f0")
+player_path = NodePath("../MainFarmer")
+dead_zone_radius = 3.0
+look_ahead_ratio = 0.5
+
+[node name="Camera3D" type="Camera3D" parent="SubViewportContainer/SubViewport/SpringArm3D"]
+fov = 30.0
+
+[node name="ForestGround" parent="SubViewportContainer/SubViewport" instance=ExtResource("6_hkjfm")]
+
+[node name="MixColorShader" type="CanvasLayer" parent="."]
+
+[node name="ColorRect" type="ColorRect" parent="MixColorShader"]
+material = SubResource("ShaderMaterial_fgu3o")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="TimeCheckUI" type="CanvasLayer" parent="."]
+
+[node name="TimeCheckLabel" type="Label" parent="TimeCheckUI"]
+offset_right = 340.0
+offset_bottom = 79.0
+script = ExtResource("8_dupkf")
+
+[node name="DayNightCycle" parent="." instance=ExtResource("9_hry72")]

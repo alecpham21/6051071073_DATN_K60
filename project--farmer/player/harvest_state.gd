@@ -29,7 +29,7 @@ func _enter() -> void:
 	var has_tool = HotBar.active_item != null
 	
 	if has_tool and not allow_tool:
-		print("🚫 Cây này phải nhổ bằng tay! Vui lòng cất công cụ.")
+		print("🚫 Only Hand")
 		character.is_busy = false
 		dispatch("idle")
 		return
@@ -83,7 +83,6 @@ func _get_target_info(cast: RayCast3D, ground_gen) -> Dictionary:
 		if ground_gen.is_valid_grid_pos(grid_pos):
 			var block = ground_gen.block_data[grid_pos.x][grid_pos.y]
 			
-			# Nếu là cỏ -> Ép ngồi (CROUCHING)
 			if block.mode == BlockGroundData.Mode.GRASS:
 				result.stance = HarvestStance.CROUCHING
 				result.can_tool = true
@@ -95,7 +94,7 @@ func harvest(cast: RayCast3D, ground_gen) -> void:
 	if target != null and target.has_method("harvest"):
 		if target.get("is_harvestable"):
 			target.harvest()
-			print("✅ Đã hái từ Area3D")
+			print("✅ Harvest from area")
 			PlayerData.add_dirt_to_outfit(2.0)
 			return
 	

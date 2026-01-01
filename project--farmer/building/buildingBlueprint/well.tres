@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="BuildingData" load_steps=3 format=3 uid="uid://vmow8ex1ldhd"]
+
+[ext_resource type="Script" uid="uid://fekbxueaingk" path="res://building/building_data.gd" id="1_c6wrv"]
+[ext_resource type="PackedScene" uid="uid://cbksswef0oxs8" path="res://Scene/structureScene/well.tscn" id="1_ysgdi"]
+
+[resource]
+script = ExtResource("1_c6wrv")
+id = "well"
+name = "Well"
+scene = ExtResource("1_ysgdi")
+size = Vector2i(2, 2)
+offset = Vector3(0, 0, 0)
+scale = Vector3(1, 1, 1)
+metadata/_custom_type_script = "uid://fekbxueaingk"

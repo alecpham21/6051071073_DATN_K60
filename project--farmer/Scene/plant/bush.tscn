@@ -41,7 +41,6 @@ shader = ExtResource("1_uxldq")
 shader_parameter/alphaTexture = ExtResource("2_tvigl")
 shader_parameter/leavesColor = Color(0.128684, 0.250462, 0.115776, 1)
 shader_parameter/alphaThreshold = 0.075
-shader_parameter/deactivateBillboard = false
 shader_parameter/offsetScale = 1.0
 shader_parameter/fresnelStrength = 0.5
 shader_parameter/fresnelBlend = 1.0

@@ -22,6 +22,7 @@ extends Character
 @onready var anim: AnimationPlayer = $Farmer/AnimationPlayer
 @onready var hl_select: MeshInstance3D = $HighlightSelector
 @onready var ground_gen = get_node_or_null("../GroundGenerator")
+@onready var building_manager: BuildingManager = get_node_or_null("../BuildingManager")
 
 # EXPORTS
 @export var accel: float = 20.0
@@ -106,16 +107,45 @@ func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("interact_mode"): _set_mouse_captured(false)
 	elif event.is_action_released("interact_mode"): _set_mouse_captured(true)
 	
+	if event.is_action_pressed("click"):
+		if GState.is_build():
+			print("🖱️ Player: Bắt được action 'click'!")
+			
+			if building_manager:
+				building_manager.place_building()
+				get_viewport().set_input_as_handled()
+			else:
+				printerr("❌ Player: Không tìm thấy BuildingManager!")
+			return
+	
+
+	
+	if event.is_action_pressed("ui_cancel"):
+		if GState.is_build():
+			GState.play()
+			if building_manager: building_manager.cancel_build()
+			return
+			
+		if !GState.is_playing(): GState.play()
+	
+	if event.is_action_pressed("build"):
+		if GState.is_playing():
+			GState.build()
+			print("🔨 Vào chế độ xây dựng")
+		elif GState.is_build():
+			GState.play()
+			if building_manager: building_manager.cancel_build()
+			print("❌ Thoát chế độ xây dựng")
+	
+	if GState.is_build():
+		return
+	
 	if event.is_action_pressed("recipe"):
 		if !GState.is_cook() && !GState.is_recipe(): GState.recipe()
 		else: GState.play()
 	
-	if event.is_action_pressed("ui_cancel"):
-		if event.is_action_pressed("ui_cancel"):
-			if !GState.is_playing(): GState.play()
-	
 	if event.is_action_pressed("toggle_journal"):
-		if GState.is_shop() or GState.is_dialog() or GState.is_cook():
+		if GState.is_shop() or GState.is_dialog() or GState.is_cook() or GState.is_build():
 			return
 			
 		var journal = get_tree().get_first_node_in_group("quest_journal")
@@ -123,7 +153,7 @@ func _unhandled_input(event: InputEvent) -> void:
 	
 	
 	if Input.is_action_just_pressed("inventory"):
-		if not (GState.is_shop() or GState.is_dialog() or GState.is_cook()):
+		if not (GState.is_shop() or GState.is_dialog() or GState.is_cook() or GState.is_build()):
 			toggle_inventory.emit()
 
 	if Input.is_action_just_pressed("interact"):
@@ -177,6 +207,10 @@ func try_harvest_crop(crop):
 	crop.harvest()
 
 func _update_highlight_selector():
+	if not HotBar.active_item or not (HotBar.active_item is ItemDataTool):
+		hl_select.visible = false
+		return
+	
 	if not ground_gen or not grid_check_ray.is_colliding():
 		hl_select.visible = false
 		return
@@ -224,7 +258,8 @@ func _setup_game_state_connections():
 			GState.state_enum.DIALOG, 
 			GState.state_enum.UI, 
 			GState.state_enum.SHOP, 
-			GState.state_enum.JOURNAL
+			GState.state_enum.JOURNAL,
+			GState.state_enum.BUILD
 		]
 		_set_mouse_captured(new not in ui_states)
 	)

@@ -130,7 +130,7 @@ trigger_john_leave = true
 unique_name_in_owner = true
 transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0, 0, 0)
 use_gravity = true
-camera_ref_path = NodePath("../SpringArm3D2")
+camera_ref_path = NodePath("../SpringArm3D2/Camera3D")
 inventory_data = ExtResource("8_ofysm")
 
 [node name="WoodenCrate" parent="SubViewportContainer/SubViewport" instance=ExtResource("8_r6vy2")]

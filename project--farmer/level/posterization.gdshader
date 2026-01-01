@@ -2,7 +2,7 @@
 Shader from Godot Shaders - the free shader library.
 godotshaders.com/shader/oklch-posterization-color-palette-shader
 
-MIT License. Made by Yūgen. Feel free to use, improve and change this shader according to your needs 
+MIT License. Made by Yūgen. Feel free to use, improve and change this shader according to your needs
 and consider sharing the modified result on godotshaders.com.
 
 Inspired by https://gist.github.com/ronniebasak/e5331e54cf9414ab0fec23b4f6a27e2a

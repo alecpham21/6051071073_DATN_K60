@@ -5,9 +5,7 @@ uniform sampler2D alphaTexture;
 uniform vec4 leavesColor : source_color;
 uniform float alphaThreshold = 0.1;
 
-// --- THÊM MỚI ---
-uniform bool deactivateBillboard = false; 
-// ----------------
+// --- ĐÃ XÓA uniform bool deactivateBillboard ---
 
 uniform float offsetScale : hint_range(0.0001, 1.0, 0.001);
 
@@ -44,16 +42,15 @@ void fragment() {
 }
 
 void vertex(){
-	// --- LOGIC BILLBOARD ĐÃ SỬA ---
-	vec3 billboard_offset = vec3(0.0);
+	// --- LOGIC LÀM PHỒNG CÂY (LUÔN LUÔN CHẠY) ---
+	// Tính toán vector để đẩy vertex ra dựa trên UV và hướng camera
+	vec2 uvOffset = vec2(UV.x * 2.0 - 1.0, -(UV.y * 2.0 - 1.0));
+	uvOffset /= 2.0;
+	vec4 off = inverse(MODELVIEW_MATRIX) * vec4(uvOffset,1.0,0.0);
 	
-	if (!deactivateBillboard) {
-		vec2 uvOffset = vec2(UV.x * 2.0 - 1.0, -(UV.y * 2.0 - 1.0));
-		uvOffset /= 2.0;
-		vec4 off = inverse(MODELVIEW_MATRIX) * vec4(uvOffset,1.0,0.0);
-		billboard_offset = vec4(normalize(off.xyz),0.0).xyz * offsetScale;
-	}
-	// ------------------------------
+	// Tính toán offset cuối cùng dựa trên độ mạnh (offsetScale)
+	vec3 billboard_offset = vec4(normalize(off.xyz),0.0).xyz * offsetScale;
+	// -------------------------------------------
 
 	//Wind
 	vec3 world_pos = (MODEL_MATRIX*vec4(VERTEX,1.0)).xyz;
@@ -72,6 +69,6 @@ void vertex(){
 
 	vec3 wind_offset = vec3(VERTEX.x * si * mask, VERTEX.y * si * mask, VERTEX.z * csi * mask);
 
-	// Cộng cả billboard_offset (nếu có) và wind_offset
+	// Áp dụng cả hiệu ứng phồng và hiệu ứng gió
 	VERTEX += billboard_offset + wind_offset;
 }

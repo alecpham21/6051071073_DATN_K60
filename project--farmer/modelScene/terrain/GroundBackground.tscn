@@ -1,0 +1,34 @@
+[gd_scene load_steps=5 format=3 uid="uid://dsm6vvhxl3bpd"]
+
+[ext_resource type="PackedScene" uid="uid://ije8su8wvidf" path="res://model/terrain/GroundBackground.glb" id="1_pshq7"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_pshq7"]
+cull_mode = 2
+albedo_color = Color(0.997388, 0.741308, 0.416116, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_52typ"]
+cull_mode = 2
+albedo_color = Color(0.997263, 0.750559, 0.483243, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_37j8d"]
+cull_mode = 2
+albedo_color = Color(0.419237, 0.709034, 0.292859, 1)
+
+[node name="GroundBackground" instance=ExtResource("1_pshq7")]
+
+[node name="DirtZone" parent="." index="0"]
+surface_material_override/0 = SubResource("StandardMaterial3D_pshq7")
+
+[node name="DirtZone1" parent="." index="1"]
+transform = Transform3D(0.598082, 0, 0, 0, 0.521185, 0, 0, 0, 2.24663, -6.07736, 0.901424, 1.75528)
+surface_material_override/0 = SubResource("StandardMaterial3D_52typ")
+
+[node name="GrassZone" parent="." index="2"]
+surface_material_override/0 = SubResource("StandardMaterial3D_37j8d")
+
+[node name="GrassZone2" parent="." index="3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0829208, 0)
+surface_material_override/0 = SubResource("StandardMaterial3D_37j8d")
+
+[node name="GrassZone_001" parent="." index="4"]
+surface_material_override/0 = SubResource("StandardMaterial3D_37j8d")

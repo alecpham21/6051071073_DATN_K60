@@ -15,8 +15,8 @@ var interact_cargo:Array = []
 signal game_state_changed(old:int, new:int)
 signal current_recipe_changed(_recipe:Recipe)
 signal open_kitchen_interface(kitchen_node)
-
-
+signal request_unlock_door(door_id: String)
+@export var door_id_to_unlock: String = ""
 func set_current_stage(stage: Node):
 	current_stage = stage
 

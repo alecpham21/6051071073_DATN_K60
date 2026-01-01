@@ -1,4 +1,4 @@
-[gd_scene load_steps=57 format=4 uid="uid://bbvhog32snru6"]
+[gd_scene load_steps=61 format=4 uid="uid://bbvhog32snru6"]
 
 [ext_resource type="Script" uid="uid://hctai00r4njf" path="res://world.gd" id="1_dwbse"]
 [ext_resource type="Shader" uid="uid://bkw4b21akjsc2" path="res://subViewportPixel.gdshader" id="2_gggvi"]
@@ -10,32 +10,38 @@
 [ext_resource type="PackedScene" uid="uid://te52jubb0t6m" path="res://Scene/Ground/ground_renderer.tscn" id="7_hiqwa"]
 [ext_resource type="Shader" uid="uid://bpre3j5j2h6bt" path="res://LeafShader.gdshader" id="8_cbp6q"]
 [ext_resource type="ArrayMesh" uid="uid://baypagydj3poq" path="res://modelScene/plant/grass/Grass_ver2.tres" id="9_cbp6q"]
+[ext_resource type="PackedScene" uid="uid://cyg1l530dnfxw" path="res://model/mytree.tscn" id="9_g1i3r"]
+[ext_resource type="Script" uid="uid://d0vm21lyukwnv" path="res://tree_renderer.gd" id="11_g1i3r"]
 [ext_resource type="Resource" uid="uid://c05tf37csx4tp" path="res://inventory_script/test_inv.tres" id="11_k83mh"]
 [ext_resource type="Shader" uid="uid://d1pnwkrkiec0c" path="res://Shader/cloud_tét.gdshader" id="12_k3n1d"]
 [ext_resource type="Script" uid="uid://bspkgwkxsy8mn" path="res://inventory_script/slot_data.gd" id="12_mc2jv"]
+[ext_resource type="PackedScene" uid="uid://dhnl3k4evko3" path="res://modelScene/tree/tree_background.tscn" id="12_my276"]
+[ext_resource type="Script" uid="uid://i6iaxi5ij06i" path="res://building_manager.gd" id="12_yx0jh"]
 [ext_resource type="PackedScene" uid="uid://dxe4dtsmib4py" path="res://level/level script/out_door.tscn" id="13_qktwf"]
+[ext_resource type="Script" uid="uid://fekbxueaingk" path="res://building/building_data.gd" id="13_ryup7"]
 [ext_resource type="PackedScene" uid="uid://csnejiwkcvvuj" path="res://terrain/big_terrain_moutain.tscn" id="14_70uel"]
 [ext_resource type="PackedScene" uid="uid://ccq4apmdu8hcc" path="res://npc/NPCJohn.tscn" id="14_gggvi"]
-[ext_resource type="PackedScene" uid="uid://ct3dfh117wqmh" path="res://model/terrain/ground_frame.tscn" id="16_2u3nc"]
+[ext_resource type="Resource" uid="uid://vmow8ex1ldhd" path="res://building/buildingBlueprint/well.tres" id="15_jas3d"]
+[ext_resource type="Script" uid="uid://0vjwneq60ym5" path="res://fence_generator.gd" id="15_ytpkv"]
 [ext_resource type="Script" uid="uid://bfas330ndllg" path="res://inventory_script/item/item_attribute/item_attribute.gd" id="16_bh8nc"]
-[ext_resource type="PackedScene" uid="uid://c2mndlfrs1dsl" path="res://modelScene/building/house/simple_house_ver_2.tscn" id="16_udxuc"]
+[ext_resource type="PackedScene" uid="uid://3yabkhdef6js" path="res://modelScene/structure/single_fence.tscn" id="16_jas3d"]
+[ext_resource type="PackedScene" uid="uid://dtfxb80en17fb" path="res://modelScene/structure/single_gate.tscn" id="17_7htu6"]
 [ext_resource type="Script" uid="uid://y0d42bllc0fd" path="res://Inventory_ui/inventory_interface.gd" id="17_26xuy"]
 [ext_resource type="PackedScene" uid="uid://470pnke8j1j2" path="res://Inventory_ui/inventory.tscn" id="17_cbp6q"]
 [ext_resource type="PackedScene" uid="uid://cmaas2sclopj4" path="res://Inventory_ui/slot.tscn" id="19_bc84e"]
-[ext_resource type="PackedScene" uid="uid://km0edqcbty58" path="res://level/level script/door.tscn" id="21_k83mh"]
 [ext_resource type="PackedScene" uid="uid://dh4ns40qdxwam" path="res://Inventory_ui/hot_bar_inventory.tscn" id="23_bo7i5"]
-[ext_resource type="PackedScene" uid="uid://cb3w8fvw4gt62" path="res://modelScene/structure/stone_stair.tscn" id="24_bh8nc"]
-[ext_resource type="PackedScene" uid="uid://battkqubkudj8" path="res://modelScene/structure/wooden_railing_ver_2.tscn" id="24_jjr1n"]
 [ext_resource type="PackedScene" uid="uid://d3v1u6td3fyb6" path="res://inventory_script/item/pick_up_item/pick_up.tscn" id="25_mc2jv"]
 [ext_resource type="Resource" uid="uid://b52qumcoelf4w" path="res://inventory_script/item/items/item_harvest/wheat_seed.tres" id="28_qktwf"]
 [ext_resource type="PackedScene" uid="uid://dd48ywngxd2oc" path="res://Scene/Environment/day_night_cycle.tscn" id="29_k83mh"]
 [ext_resource type="Script" uid="uid://djj2m2skea716" path="res://TimeCheck.gd" id="29_qktwf"]
-[ext_resource type="PackedScene" uid="uid://bjxrobwweubb3" path="res://model/tree/TreeVer1.tscn" id="30_bh8nc"]
 [ext_resource type="Shader" uid="uid://c13esa4vg2n5k" path="res://level/posterization.gdshader" id="30_qktwf"]
 [ext_resource type="PackedScene" uid="uid://b5bavm45lxiid" path="res://ui/Recipe/RecipeUI/recipe_ui.tscn" id="32_gggvi"]
-[ext_resource type="PackedScene" uid="uid://cbksswef0oxs8" path="res://Scene/structureScene/well.tscn" id="32_jjr1n"]
 [ext_resource type="PackedScene" uid="uid://n1cce0bi5bf4" path="res://quest_system/quest_ui/quest_tracker.tscn" id="34_6ah6f"]
+[ext_resource type="PackedScene" uid="uid://dsm6vvhxl3bpd" path="res://modelScene/terrain/GroundBackground.tscn" id="34_g1i3r"]
 [ext_resource type="PackedScene" uid="uid://6msbaufmnf3f" path="res://quest_system/quest_ui/quest_journal_ui.tscn" id="34_w44yn"]
+[ext_resource type="PackedScene" uid="uid://dwe03uitdfmcs" path="res://building/build_ui.tscn" id="39_1ew0l"]
+[ext_resource type="Resource" uid="uid://chvdm7x5c0tpn" path="res://building/buildingBlueprint/Uncle_House.tres" id="40_ryup7"]
+[ext_resource type="PackedScene" uid="uid://yxffan0vylfv" path="res://modelScene/rock/a_rock_1.tscn" id="41_jas3d"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_jjr1n"]
 shader = ExtResource("2_gggvi")
@@ -47,11 +53,11 @@ size = Vector2(4, 4)
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_udxuc"]
 render_priority = 0
 shader = ExtResource("3_hiqwa")
-shader_parameter/depth_threshold = 0.315
-shader_parameter/reverse_depth_threshold = 0.076
-shader_parameter/normal_threshold = 0.802
-shader_parameter/darken_amount = 0.23
-shader_parameter/lighten_amount = 2.39
+shader_parameter/depth_threshold = 0.322
+shader_parameter/reverse_depth_threshold = 0.811
+shader_parameter/normal_threshold = 0.789
+shader_parameter/darken_amount = 0.28
+shader_parameter/lighten_amount = 2.75
 shader_parameter/normal_edge_bias = Vector3(1, 1, 1)
 shader_parameter/light_direction = Vector3(-0.96, -0.18, 0.2)
 shader_parameter/outline_thickness = 1.0
@@ -68,6 +74,9 @@ albedo_color = Color(0.419237, 0.709034, 0.292859, 1)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_cbp6q"]
 albedo_color = Color(0.386611, 0.237709, 0.121798, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_my276"]
+albedo_color = Color(0.391297, 0.663177, 0.272854, 1)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_cbp6q"]
 render_priority = 0
@@ -150,15 +159,6 @@ quantity = 3
 attributes = Array[ExtResource("16_bh8nc")]([])
 metadata/_custom_type_script = "uid://bspkgwkxsy8mn"
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_k83mh"]
-albedo_color = Color(0.425525, 0.674131, 0.327688, 1)
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qktwf"]
-albedo_color = Color(0.425525, 0.674131, 0.327688, 1)
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_bh8nc"]
-albedo_color = Color(0.425525, 0.674131, 0.327688, 1)
-
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_2o6r5"]
 render_priority = 0
 shader = ExtResource("12_k3n1d")
@@ -194,6 +194,7 @@ grow_horizontal = 2
 grow_vertical = 2
 stretch = true
 stretch_shrink = 2
+metadata/_edit_use_anchors_ = true
 
 [node name="SubViewport" type="SubViewport" parent="SubViewportContainer"]
 handle_input_locally = false
@@ -201,25 +202,21 @@ size = Vector2i(576, 324)
 render_target_update_mode = 4
 
 [node name="ShaderOutline" type="MeshInstance3D" parent="SubViewportContainer/SubViewport"]
-transform = Transform3D(1, 0, 0, 0, 0.00750488, 0.999972, 0, -0.999972, 0.00750488, 0.180526, -35.304, 0)
+transform = Transform3D(1, 0, 0, 0, 0.00750488, 0.999972, 0, -0.999972, 0.00750488, 0.180526, -104.894, -0.522281)
 extra_cull_margin = 16384.0
 mesh = SubResource("QuadMesh_2u3nc")
 surface_material_override/0 = SubResource("ShaderMaterial_udxuc")
 
 [node name="SpringArm3D" type="SpringArm3D" parent="SubViewportContainer/SubViewport"]
 transform = Transform3D(1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, 0, 0.659112, 0)
-spring_length = 7.0
+spring_length = 20.0
 script = ExtResource("4_qktwf")
 player_path = NodePath("../MainFarmer")
-max_zoom = 10.0
+dead_zone_radius = 3.0
+look_ahead_ratio = 0.5
 
 [node name="Camera3D" type="Camera3D" parent="SubViewportContainer/SubViewport/SpringArm3D"]
-fov = 69.0
-
-[node name="CameraOrthgonal" type="Camera3D" parent="SubViewportContainer/SubViewport/SpringArm3D"]
-visible = false
-projection = 1
-size = 4.817
+fov = 30.0
 
 [node name="StaticBody3D" type="StaticBody3D" parent="SubViewportContainer/SubViewport"]
 
@@ -233,33 +230,52 @@ skeleton = NodePath("../..")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.224822, 0)
 shape = SubResource("BoxShape3D_udxuc")
 
-[node name="GroundGenerator" type="Node3D" parent="SubViewportContainer/SubViewport" groups=["ground_generator"]]
+[node name="GroundGenerator" type="Node3D" parent="SubViewportContainer/SubViewport" node_paths=PackedStringArray("building_manager") groups=["ground_generator"]]
 script = ExtResource("5_036b0")
-ground_extents = Vector2i(60, 60)
+ground_extents = Vector2i(35, 35)
 wind_grass_scene = ExtResource("6_g1i3r")
-wind_grass_amount = 10
+wind_grass_amount = 3
+building_manager = NodePath("BuildingManager")
+show_border = false
+border_color = Color(0.239365, 0.388244, 0.222809, 1)
 
 [node name="GroundRenderer" parent="SubViewportContainer/SubViewport/GroundGenerator" instance=ExtResource("7_hiqwa")]
 mesh = SubResource("BoxMesh_udxuc")
 mat_grass = SubResource("StandardMaterial3D_udxuc")
 mat_cut = SubResource("StandardMaterial3D_udxuc")
 mat_tilled = SubResource("StandardMaterial3D_cbp6q")
+mat_padding = SubResource("StandardMaterial3D_my276")
 dark_grass_mesh = SubResource("ArrayMesh_26xuy")
 light_grass_mesh = SubResource("ArrayMesh_ikiii")
 grass_mesh = ExtResource("9_cbp6q")
 grass_scale_min = 0.3
 grass_scale_max = 0.5
+grass_count_per_block = 1
 grass_spawn_chance = 0.05
+max_grass_per_block = 1
 decorative_grass_chance = 0.05
 
-[node name="Door" parent="SubViewportContainer/SubViewport" instance=ExtResource("21_k83mh")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.28598, 1.60264, 0)
-collision_layer = 16
-collision_mask = 0
-door_id = "home"
-target_scene_path = "res://Scene/InBuilding/level_house.tscn"
-target_spawn_position = Vector3(0, 0, -2)
-is_locked = true
+[node name="TreeRenderer" type="Node3D" parent="SubViewportContainer/SubViewport/GroundGenerator"]
+script = ExtResource("11_g1i3r")
+tree_scene = ExtResource("12_my276")
+scale_min = 0.4
+scale_max = 0.6
+tree_count = 1000
+spawn_radius_min = 70.0
+y_offset = -1.0
+
+[node name="BuildingManager" type="Node3D" parent="SubViewportContainer/SubViewport/GroundGenerator" node_paths=PackedStringArray("ground_gen")]
+script = ExtResource("12_yx0jh")
+ground_gen = NodePath("..")
+all_building_resources = Array[ExtResource("13_ryup7")]([ExtResource("40_ryup7"), ExtResource("15_jas3d")])
+
+[node name="FenceGenerator" type="Node3D" parent="SubViewportContainer/SubViewport/GroundGenerator"]
+script = ExtResource("15_ytpkv")
+fence_scene = ExtResource("16_jas3d")
+gate_scene = ExtResource("17_7htu6")
+fence_offset = Vector3(0, 0.5, 0)
+gate_side = 3
+padding_expansion = 5
 
 [node name="MainFarmer" parent="SubViewportContainer/SubViewport" instance=ExtResource("5_26xuy")]
 unique_name_in_owner = true
@@ -272,12 +288,12 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22.7284, 0.419144, 0.422467)
 target_scene_path = "uid://bidc27ad8yi6o"
 target_spawn_position = Vector3(-14, 0, 0)
 
-[node name="NPCJohn" parent="SubViewportContainer/SubViewport" node_paths=PackedStringArray("door_to_unlock") instance=ExtResource("14_gggvi")]
+[node name="NPCJohn" parent="SubViewportContainer/SubViewport" instance=ExtResource("14_gggvi")]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 16.3129, 0, -2.33321)
-timeline_name = "welcome_home_john"
+timeline_name = "welcome_home_jack"
 quest_to_complete_id = "my_future_farm_1"
 quest_to_start_id = "my_future_farm_2"
-door_to_unlock = NodePath("../Door")
+door_id_to_unlock = "home"
 
 [node name="MixColorShader" type="CanvasLayer" parent="."]
 
@@ -305,44 +321,11 @@ shadow_blur = 0.0
 
 [node name="LevelEnvironment" type="Node3D" parent="."]
 
-[node name="GroundFrame" parent="LevelEnvironment" instance=ExtResource("16_2u3nc")]
-transform = Transform3D(7.735, 0, 0, 0, 7.735, 0, 0, 0, 7.735, -2.33437, 1.06844, -1.05087)
-
-[node name="Plane_001" parent="LevelEnvironment/GroundFrame" index="1"]
-surface_material_override/0 = SubResource("StandardMaterial3D_k83mh")
-
-[node name="GroundFrame2" parent="LevelEnvironment" instance=ExtResource("16_2u3nc")]
-transform = Transform3D(10.995, 0, 0, 0, 10.995, 0, 0, 0, 10.995, -1.96572, 2.9388, -0.404768)
-
-[node name="Plane_001" parent="LevelEnvironment/GroundFrame2" index="1"]
-surface_material_override/0 = SubResource("StandardMaterial3D_qktwf")
-
-[node name="GroundFrame3" parent="LevelEnvironment" instance=ExtResource("16_2u3nc")]
-transform = Transform3D(14.705, 0, 0, 0, 14.705, 0, 0, 0, 14.705, -1.96572, 4.07363, -0.404768)
-
-[node name="Plane_001" parent="LevelEnvironment/GroundFrame3" index="1"]
-surface_material_override/0 = SubResource("StandardMaterial3D_bh8nc")
-
-[node name="SimpleHouseVer2" parent="LevelEnvironment" instance=ExtResource("16_udxuc")]
-transform = Transform3D(-6.513e-08, 0, 1.49, 0, 1.49, 0, -1.49, 0, -6.513e-08, -7.13712, 1.10801, 3.11973e-07)
-
 [node name="CloudShadow" type="MeshInstance3D" parent="LevelEnvironment"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.50035, 11.1946, 0)
 visible = false
 mesh = SubResource("PlaneMesh_ic0uy")
 skeleton = NodePath("../..")
-
-[node name="StoneStair" parent="LevelEnvironment" instance=ExtResource("24_bh8nc")]
-transform = Transform3D(-1.63603, 0.506496, -2.47034e-07, 0.249851, 3.31655, 3.77265e-08, 2.49898e-07, 2.97148e-15, -1.655, 24.8899, -1.61193, 0)
-
-[node name="StoneStair2" parent="LevelEnvironment" instance=ExtResource("24_bh8nc")]
-transform = Transform3D(-1.81225, 0.236587, -2.75114e-07, 0.188237, 2.27775, 2.84127e-08, 2.76578e-07, -2.03926e-10, -1.822, 38.3439, 2.1647, 0)
-
-[node name="StoneStair3" parent="LevelEnvironment" instance=ExtResource("24_bh8nc")]
-transform = Transform3D(-1.65489, -0.0194393, -2.49881e-07, -0.0194393, 1.65489, -2.93525e-09, 2.49898e-07, 2.92527e-15, -1.655, 54.0913, 3.92101, 0)
-
-[node name="WoodenRailingVer2" parent="LevelEnvironment" instance=ExtResource("24_jjr1n")]
-transform = Transform3D(1.4, 0, 0, 0, 1.4, 0, 0, 0, 1.4, 3.26653, 0, 0.755113)
 
 [node name="DayNightCycle" parent="." instance=ExtResource("29_k83mh")]
 
@@ -350,7 +333,7 @@ transform = Transform3D(1.4, 0, 0, 0, 1.4, 0, 0, 0, 1.4, 3.26653, 0, 0.755113)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 56.6367, 12.7882, 0)
 
 [node name="BigTerrainMoutain" parent="background" instance=ExtResource("14_70uel")]
-transform = Transform3D(74.945, 0, 0, 0, 74.945, 0, 0, 0, 74.945, -0.373759, -22.7722, -0.241655)
+transform = Transform3D(104.165, 0, 0, 0, 104.165, 0, 0, 0, 104.165, -0.373759, -50.4721, -0.241655)
 
 [node name="TimeCheckUI" type="CanvasLayer" parent="."]
 
@@ -358,32 +341,6 @@ transform = Transform3D(74.945, 0, 0, 0, 74.945, 0, 0, 0, 74.945, -0.373759, -22
 offset_right = 340.0
 offset_bottom = 79.0
 script = ExtResource("29_qktwf")
-
-[node name="Tree" type="Node3D" parent="."]
-
-[node name="TreeVer1" parent="Tree" instance=ExtResource("30_bh8nc")]
-transform = Transform3D(3.49, 0, 0, 0, 3.49, 0, 0, 0, 3.49, 0, 4.76023, -54.9966)
-
-[node name="TreeVer3" parent="Tree" instance=ExtResource("30_bh8nc")]
-transform = Transform3D(2.72, 0, 0, 0, 2.72, 0, 0, 0, 2.72, -18.5308, 5.91848, -73.1075)
-
-[node name="TreeVer4" parent="Tree" instance=ExtResource("30_bh8nc")]
-transform = Transform3D(-0.952812, 0, 3.15945, 0, 3.3, 0, -3.15945, 0, -0.952812, -76.2018, 6.70465, 3.25392)
-
-[node name="TreeVer5" parent="Tree" instance=ExtResource("30_bh8nc")]
-transform = Transform3D(-1.03077, 0, 3.41795, 0, 3.57, 0, -3.41795, 0, -1.03077, -18.5308, 4.36371, 50.7134)
-
-[node name="TreeVer6" parent="Tree" instance=ExtResource("30_bh8nc")]
-transform = Transform3D(-1.48985, 0, 4.94024, 0, 5.16, 0, -4.94024, 0, -1.48985, 65.0908, 6.24729, 38.3059)
-
-[node name="TreeVer7" parent="Tree" instance=ExtResource("30_bh8nc")]
-transform = Transform3D(-1.19821, -0.0249886, 3.97318, -0.00721498, 4.14992, 0.0239243, -3.97325, 4.83124e-10, -1.19823, 18.3027, 5.77086, 66.3791)
-
-[node name="TreeVer2" parent="Tree" instance=ExtResource("30_bh8nc")]
-transform = Transform3D(-2.48528, 0, 2.28342, 0, 3.375, 0, -2.28342, 0, -2.48528, 15.654, 4.6632, -49.398)
-
-[node name="well" parent="." instance=ExtResource("32_jjr1n")]
-transform = Transform3D(-2.99423e-08, 0, 0.685, 0, 0.685, 0, -0.685, 0, -2.99423e-08, -6.74132, 0, -6.55389)
 
 [node name="UI" type="CanvasLayer" parent="."]
 
@@ -462,10 +419,86 @@ grow_vertical = 0
 
 [node name="QuestJournal" parent="." instance=ExtResource("34_w44yn")]
 
+[node name="GroundBackground" parent="." instance=ExtResource("34_g1i3r")]
+transform = Transform3D(7.29, 0, 0, 0, 6.492, 0, 0, 0, 6.877, 0, -6.51473, 0)
+
+[node name="Mytree" parent="GroundBackground" instance=ExtResource("9_g1i3r")]
+transform = Transform3D(0.4, 0, 0, 0, 0.515, 0, 0, 0, 0.4, -0.691813, 1.32545, 9.18284)
+
+[node name="Mytree2" parent="GroundBackground" instance=ExtResource("9_g1i3r")]
+transform = Transform3D(0.4, 0, 0, 0, 0.515, 0, 0, 0, 0.4, -3.23163, 1.32545, 7.72049)
+
+[node name="Mytree17" parent="GroundBackground" instance=ExtResource("9_g1i3r")]
+transform = Transform3D(0.4, 0, 0, 0, 0.515, 0, 0, 0, 0.4, -7.05429, 1.32545, 7.3994)
+
+[node name="Mytree18" parent="GroundBackground" instance=ExtResource("9_g1i3r")]
+transform = Transform3D(0.4, 0, 0, 0, 0.515, 0, 0, 0, 0.4, -8.16528, 1.32545, 2.9415)
+
+[node name="Mytree19" parent="GroundBackground" instance=ExtResource("9_g1i3r")]
+transform = Transform3D(0.4, 0, 0, 0, 0.515, 0, 0, 0, 0.4, -5.91887, 1.32545, 0.364293)
+
+[node name="Mytree3" parent="GroundBackground" instance=ExtResource("9_g1i3r")]
+transform = Transform3D(0.4, 0, 0, 0, 0.515, 0, 0, 0, 0.4, 2.27582, 1.32545, 6.2616)
+
+[node name="Mytree4" parent="GroundBackground" instance=ExtResource("9_g1i3r")]
+transform = Transform3D(0.4, 0, 0, 0, 0.515, 0, 0, 0, 0.4, 4.02909, 1.32545, 5.62661)
+
+[node name="Mytree13" parent="GroundBackground" instance=ExtResource("9_g1i3r")]
+transform = Transform3D(0.373809, 0, -0.142363, 0, 0.515, 0, 0.142363, 0, 0.373809, 3.9777, 1.32545, -5.3219)
+
+[node name="Mytree14" parent="GroundBackground" instance=ExtResource("9_g1i3r")]
+transform = Transform3D(0.373809, 0, -0.142363, 0, 0.515, 0, 0.142363, 0, 0.373809, 1.43789, 1.32545, -6.78425)
+
+[node name="Mytree15" parent="GroundBackground" instance=ExtResource("9_g1i3r")]
+transform = Transform3D(0.373809, 0, -0.142363, 0, 0.515, 0, 0.142363, 0, 0.373809, 6.94533, 1.32545, -8.24314)
+
+[node name="Mytree16" parent="GroundBackground" instance=ExtResource("9_g1i3r")]
+transform = Transform3D(0.373809, 0, -0.142363, 0, 0.515, 0, 0.142363, 0, 0.373809, 7.04916, 1.32545, -4.54711)
+
+[node name="Mytree5" parent="GroundBackground" instance=ExtResource("9_g1i3r")]
+transform = Transform3D(0.4, 0, 0, 0, 0.515, 0, 0, 0, 0.4, 2.53214, 1.32545, 7.78171)
+
+[node name="Mytree6" parent="GroundBackground" instance=ExtResource("9_g1i3r")]
+transform = Transform3D(0.4, 0, 0, 0, 0.515, 0, 0, 0, 0.4, -0.00767756, 1.32545, 6.31936)
+
+[node name="Mytree7" parent="GroundBackground" instance=ExtResource("9_g1i3r")]
+transform = Transform3D(0.4, 0, 0, 0, 0.515, 0, 0, 0, 0.4, 5.49976, 1.32545, 4.86047)
+
+[node name="Mytree8" parent="GroundBackground" instance=ExtResource("9_g1i3r")]
+transform = Transform3D(0.4, 0, 0, 0, 0.515, 0, 0, 0, 0.4, 7.25303, 1.32545, 4.22549)
+
+[node name="Mytree9" parent="GroundBackground" instance=ExtResource("9_g1i3r")]
+transform = Transform3D(0.4, 0, 0, 0, 0.515, 0, 0, 0, 0.4, -0.778484, 1.53926, -6.89156)
+
+[node name="Mytree22" parent="GroundBackground" instance=ExtResource("9_g1i3r")]
+transform = Transform3D(0.4, 0, 0, 0, 0.515, 0, 0, 0, 0.4, -5.51218, 1.53926, -7.6026)
+
+[node name="Mytree10" parent="GroundBackground" instance=ExtResource("9_g1i3r")]
+transform = Transform3D(0.4, 0, 0, 0, 0.515, 0, 0, 0, 0.4, -3.3183, 1.6238, -8.38389)
+
+[node name="Mytree20" parent="GroundBackground" instance=ExtResource("9_g1i3r")]
+transform = Transform3D(0.4, 0, 0, 0, 0.515, 0, 0, 0, 0.4, -4.438, 1.6238, -6.07975)
+
+[node name="Mytree21" parent="GroundBackground" instance=ExtResource("9_g1i3r")]
+transform = Transform3D(0.4, 0, 0, 0, 0.515, 0, 0, 0, 0.4, -6.55901, 1.6238, -4.00752)
+
+[node name="Mytree11" parent="GroundBackground" instance=ExtResource("9_g1i3r")]
+transform = Transform3D(0.4, 0, 0, 0, 0.515, 0, 0, 0, 0.4, 2.18914, 1.32545, -8.61231)
+
+[node name="Mytree12" parent="GroundBackground" instance=ExtResource("9_g1i3r")]
+transform = Transform3D(0.4, 0, 0, 0, 0.515, 0, 0, 0, 0.4, 3.94241, 1.32545, -9.24729)
+
+[node name="aRock1" parent="GroundBackground" instance=ExtResource("41_jas3d")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.66067, 0.801549, 5.34916)
+
+[node name="aRock2" parent="GroundBackground" instance=ExtResource("41_jas3d")]
+transform = Transform3D(0.35514, 0, 0.934813, 0, 1, 0, -0.934813, 0, 0.35514, 0.414275, 0.801549, 7.76148)
+
+[node name="BuildUI" parent="." node_paths=PackedStringArray("building_manager") instance=ExtResource("39_1ew0l")]
+mouse_filter = 2
+building_manager = NodePath("../SubViewportContainer/SubViewport/GroundGenerator/BuildingManager")
+build_list = Array[ExtResource("13_ryup7")]([ExtResource("40_ryup7"), ExtResource("15_jas3d")])
+
 [connection signal="drop_slot_data" from="UI/InventoryInterface" to="UI/InventoryInterface" method="_on_drop_slot_data"]
 [connection signal="gui_input" from="UI/InventoryInterface" to="UI/InventoryInterface" method="_on_gui_input"]
 [connection signal="visibility_changed" from="UI/InventoryInterface" to="UI/InventoryInterface" method="_on_visibility_changed"]
-
-[editable path="LevelEnvironment/GroundFrame"]
-[editable path="LevelEnvironment/GroundFrame2"]
-[editable path="LevelEnvironment/GroundFrame3"]

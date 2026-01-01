@@ -48,6 +48,7 @@ shader = ExtResource("2_nfbsp")
 shader_parameter/alphaTexture = ExtResource("3_424cv")
 shader_parameter/leavesColor = Color(0.412038, 0.705611, 0.380565, 1)
 shader_parameter/alphaThreshold = 0.065
+shader_parameter/deactivateBillboard = false
 shader_parameter/offsetScale = 1.0
 shader_parameter/fresnelStrength = 0.962
 shader_parameter/fresnelBlend = 1.0

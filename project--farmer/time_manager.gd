@@ -10,10 +10,12 @@ var time_from_last_tick: float = 0.0
 
 @export_group("Time Settings")
 @export var current_time: float = 480.0 
-@export var speed_multiplier: float = 30
+@export var speed_multiplier: float = 5
 @export var day_length_hours: int = 24
 
-
+var current_hour: int:
+	get:
+		return int(current_time / 60.0)
 
 var total_game_minutes: float
 

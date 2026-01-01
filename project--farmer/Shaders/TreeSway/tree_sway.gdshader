@@ -1,9 +1,10 @@
 shader_type spatial;
 
-render_mode depth_draw_always, alpha_to_coverage, unshaded;
+// Thêm 'cull_disabled' để vẽ cả 2 mặt của lá (nhìn cây dày hơn)
+render_mode depth_draw_always, alpha_to_coverage, unshaded, cull_disabled;
 
 // Texture and visual control
-uniform sampler2D foliage_texture;
+uniform sampler2D foliage_texture : filter_linear_mipmap; // Đảm bảo có mipmap
 uniform vec2 texture_scale = vec2(1.0, 1.0);
 uniform float alpha_threshold : hint_range(0.0, 1.0) = 0.1;
 
@@ -35,12 +36,14 @@ void vertex()
 
     // Billboard positioning
     vec2 viewspace_offset = (UV - vec2(0.5)) * vertex_offset_scale;
+    // Chuyển đổi cẩn thận hơn cho billboard
     vec4 modelspace_offset = inverse(MODELVIEW_MATRIX) * vec4(viewspace_offset, 0.0, 0.0);
     VERTEX += modelspace_offset.xyz * billboard_strength;
 
-    // Wind sway (optional)
+    // Wind sway
     if (use_wind) {
-        float sway = sin(TIME * wind_speed + UV.x * 5.0) * wind_strength;
+        // Dùng VERTEX.x + VERTEX.z để tạo độ lệch pha tự nhiên hơn cho từng vertex
+        float sway = sin(TIME * wind_speed + (VERTEX.x + VERTEX.z) + UV.x * 5.0) * wind_strength;
         VERTEX.xyz += wind_direction * sway;
     }
 }
@@ -48,15 +51,23 @@ void vertex()
 void fragment()
 {
     vec2 scaled_uv = UV * texture_scale;
-    float alpha = texture(foliage_texture, scaled_uv).g;
+    
+    // --- KHẮC PHỤC CHÍNH Ở ĐÂY ---
+    // Tham số thứ 3 (-2.0) là "Texture Bias". 
+    // Số âm ép GPU dùng texture nét hơn (độ phân giải cao hơn) ngay cả khi ở xa.
+    // Điều này giữ cho giá trị Alpha không bị mờ đi và biến mất.
+    float alpha = texture(foliage_texture, scaled_uv, -2.0).g; 
 
     if (alpha < alpha_threshold) {
         discard;
     }
 
-    // Fake Fresnel effect: based on view direction and normal
-    vec3 view_dir = normalize(-FRAGCOORD.xyz);
-    float fresnel = pow(1.0 - dot(NORMAL, view_dir), fresnel_power);
+    // Fake Fresnel effect
+    vec3 view_dir = normalize(-FRAGCOORD.xyz); // View dir trong view space
+    // Cần lấy Normal trong view space để dot product chính xác với view_dir
+    vec3 view_normal = normalize((VIEW_MATRIX * vec4(NORMAL, 0.0)).xyz);
+    
+    float fresnel = pow(1.0 - max(0.0, dot(view_normal, -view_dir)), fresnel_power); // clamp max(0.0) để tránh lỗi số âm
     vec3 final_color = mix(foliage_colour, fresnel_colour, fresnel * fresnel_strength);
 
     ALBEDO = final_color * color_strength;

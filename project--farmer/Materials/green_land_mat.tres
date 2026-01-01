@@ -1,0 +1,22 @@
+[gd_resource type="ShaderMaterial" load_steps=3 format=3 uid="uid://dcf34anaxf0xf"]
+
+[ext_resource type="Shader" uid="uid://dg4fvqrp7lvax" path="res://modelScene/terrain/green_land_shader.gdshader" id="1_qexgu"]
+[ext_resource type="Texture2D" uid="uid://bm3mfbqoiqeo" path="res://Textures/TerrainNoise/terrain_noise.tres" id="2_eant4"]
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_qexgu")
+shader_parameter/noise_texture = ExtResource("2_eant4")
+shader_parameter/color_light = Color(0.710648, 0.90484, 0.214269, 1)
+shader_parameter/color_dark = Color(0.348675, 0.497773, 0.316631, 1)
+shader_parameter/noise_scale = 0.1
+shader_parameter/cuts = 3
+shader_parameter/wrap = 0.0
+shader_parameter/steepness = 1.0
+shader_parameter/use_specular = false
+shader_parameter/specular_strength = 1.0
+shader_parameter/specular_shininess = 16.0
+shader_parameter/use_rim = false
+shader_parameter/rim_width = 4.0
+shader_parameter/rim_color = Color(1, 1, 1, 1)
+shader_parameter/rim_sharpness = 0.5

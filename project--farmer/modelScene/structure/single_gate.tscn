@@ -1,0 +1,13 @@
+[gd_scene load_steps=4 format=3 uid="uid://dtfxb80en17fb"]
+
+[ext_resource type="PackedScene" uid="uid://dolxsa2al7q8o" path="res://model/structure/SingleGate.glb" id="1_ydlns"]
+[ext_resource type="Texture2D" uid="uid://1gysjnj7jqbq" path="res://assets/ImphenziaPalette01-256-Gradient.png" id="2_pnmqu"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3bbty"]
+cull_mode = 2
+albedo_texture = ExtResource("2_pnmqu")
+
+[node name="SingleGate" instance=ExtResource("1_ydlns")]
+
+[node name="Gate" parent="." index="0"]
+material_override = SubResource("StandardMaterial3D_3bbty")

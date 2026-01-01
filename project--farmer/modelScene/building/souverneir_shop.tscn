@@ -1,0 +1,64 @@
+[gd_scene load_steps=16 format=3 uid="uid://c3nmkuo50dbtx"]
+
+[ext_resource type="PackedScene" uid="uid://kshkua5dcdti" path="res://model/building/SouverneirShop.glb" id="1_khq28"]
+[ext_resource type="Texture2D" uid="uid://1gysjnj7jqbq" path="res://assets/ImphenziaPalette01-256-Gradient.png" id="2_wkfsp"]
+[ext_resource type="Texture2D" uid="uid://243w4slmx78x" path="res://Textures/stoneFloorTexture.png" id="3_50ccw"]
+[ext_resource type="Texture2D" uid="uid://c4udjrh3xrdyf" path="res://Textures/Wood_texture/wood_texture_darker_brown.png" id="4_8gpwq"]
+[ext_resource type="Texture2D" uid="uid://0mtjpi5mg3ci" path="res://Textures/Wood_texture/WoodPlankTexture.png" id="5_twktl"]
+[ext_resource type="Texture2D" uid="uid://c3uiw2ne42iq3" path="res://Textures/FakeStuff/SoverneirMenu.png" id="6_4b35w"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_veg44"]
+albedo_texture = ExtResource("2_wkfsp")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_yqjfy"]
+albedo_texture = ExtResource("3_50ccw")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_uk6od"]
+albedo_texture = ExtResource("4_8gpwq")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_w7a4r"]
+albedo_texture = ExtResource("5_twktl")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ldcai"]
+albedo_texture = ExtResource("5_twktl")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_iymns"]
+albedo_texture = ExtResource("6_4b35w")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hycyl"]
+albedo_texture = ExtResource("2_wkfsp")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_31gqs"]
+albedo_texture = ExtResource("2_wkfsp")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_phslw"]
+albedo_texture = ExtResource("4_8gpwq")
+
+[node name="SouverneirShop" instance=ExtResource("1_khq28")]
+
+[node name="planter" parent="." index="0"]
+material_override = SubResource("StandardMaterial3D_veg44")
+
+[node name="House" parent="." index="1"]
+material_override = SubResource("StandardMaterial3D_yqjfy")
+
+[node name="MainWoodPart" parent="." index="2"]
+material_override = SubResource("StandardMaterial3D_uk6od")
+
+[node name="Pillar" parent="." index="3"]
+material_override = SubResource("StandardMaterial3D_w7a4r")
+
+[node name="Plane_001" parent="." index="4"]
+material_override = SubResource("StandardMaterial3D_ldcai")
+
+[node name="Plane" parent="." index="5"]
+material_override = SubResource("StandardMaterial3D_iymns")
+
+[node name="LeanrainCover" parent="." index="6"]
+material_override = SubResource("StandardMaterial3D_hycyl")
+
+[node name="Sign" parent="." index="7"]
+material_override = SubResource("StandardMaterial3D_31gqs")
+
+[node name="Table" parent="." index="8"]
+material_override = SubResource("StandardMaterial3D_phslw")

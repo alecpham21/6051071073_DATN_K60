@@ -1,15 +1,15 @@
-NPC_John: Welcome to my future farm
+NPC_Jack: Welcome to my future farm
 - Why i dont see any crop or even a plant
-	NPC_John: Will see
+	NPC_Jack: Will see
 	player: What do you mean "will see"
-	NPC_John: Mean that you should stop asking
+	NPC_Jack: Mean that you should stop asking
 - Future Farm?
-	NPC_John: Yes, it is a future farm
-NPC_John: Lon story, short story is people in this island built me this house for me so that i can get around more easily. If i feel like it, i can do some farming
+	NPC_Jack: Yes, it is a future farm
+NPC_Jack: Lon story, short story is people in this island built me this house for me so that i can get around more easily. If i feel like it, i can do some farming
 player: Why did they build a house for you and give you a land to farm ?
-NPC_John: That is why it is a long story. In short, i am gonna let you stay at this house, as long as by the time i come back, it's a proper farm, that is your rent
+NPC_Jack: That is why it is a long story. In short, i am gonna let you stay at this house, as long as by the time i come back, it's a proper farm, that is your rent
 - Where your headed?
-	NPC_John: Just, when i come back, i will text you
+	NPC_Jack: Just, when i come back, i will text you
 - So that is why you said it is a future farm
-NPC_John: Now let's check inside the house, see if it lack something, tool and seed i put in the wood crate , now go and see your new house
+NPC_Jack: Now let's check inside the house, see if it lack something, tool and seed i put in the wood crate , now go and see your new house
 [signal arg="end_talk_farm"]

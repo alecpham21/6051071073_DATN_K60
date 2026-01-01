@@ -95,23 +95,23 @@ mesh = SubResource("QuadMesh_eu4sv")
 skeleton = NodePath("")
 surface_material_override/0 = SubResource("ShaderMaterial_wbp06")
 
-[node name="SpringArm3D" type="SpringArm3D" parent="SubViewportContainer/SubViewport"]
-transform = Transform3D(1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, 0, 0.659112, 0)
-spring_length = 7.0
-script = ExtResource("3_cjq8t")
-player_path = NodePath("../MainFarmer")
-max_zoom = 10.0
-
-[node name="Camera3D" type="Camera3D" parent="SubViewportContainer/SubViewport/SpringArm3D"]
-fov = 69.0
-far = 1000.0
-
 [node name="MainFarmer" parent="SubViewportContainer/SubViewport" instance=ExtResource("4_l81cg")]
 unique_name_in_owner = true
 transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0, 0, 0)
 use_gravity = true
 camera_ref_path = NodePath("../SpringArm3D/Camera3D")
 inventory_data = ExtResource("5_6x1ed")
+
+[node name="SpringArm3D" type="SpringArm3D" parent="SubViewportContainer/SubViewport"]
+transform = Transform3D(1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, 0, 0.659112, 0)
+spring_length = 20.0
+script = ExtResource("3_cjq8t")
+player_path = NodePath("../MainFarmer")
+dead_zone_radius = 3.0
+look_ahead_ratio = 0.5
+
+[node name="Camera3D" type="Camera3D" parent="SubViewportContainer/SubViewport/SpringArm3D"]
+fov = 30.0
 
 [node name="background" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 56.6367, 12.7882, 0)

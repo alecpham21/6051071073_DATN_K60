@@ -2,16 +2,19 @@ extends SpringArm3D
 
 @export_group("Config")
 @export_node_path("Node3D") var player_path: NodePath
-@export var follow_speed: float = 12.0
+@export var follow_speed: float = 12.0 # Giảm cái này xuống thấp (5.0 - 8.0) thì độ trễ (delay) sẽ rõ hơn
 @export var mouse_sensibility: float = 0.005
-@export_range(-90.0, 0.0, 0.1, "radians_as_degrees") var min_vertical_angle: float = deg_to_rad(-60)
-@export_range(0.0, -90.0, 0.1, "radians_as_degrees")  var max_vertical_angle: float = deg_to_rad(-20)
+@export_range(-90.0, 0.0, 0.1, "radians_as_degrees") var min_vertical_angle: float = deg_to_rad(-40)
+@export_range(0.0, -90.0, 0.1, "radians_as_degrees")  var max_vertical_angle: float = deg_to_rad(-10)
 @export var zoom_step: float = 0.8
-@export var min_zoom: float = 4.0
-@export var max_zoom: float = 14.0
+@export var min_zoom: float = 10.0
+@export var max_zoom: float = 50.0
 @export var use_zoom_tween: bool = true
 
-# lock the camera angle
+@export_group("Advanced Follow")
+@export var dead_zone_radius: float = 0.0
+@export var look_ahead_ratio: float = 0.0
+
 const INDOOR_PITCH_ANGLE: float = deg_to_rad(-50.0)
 
 var player: Node3D
@@ -37,7 +40,6 @@ func _physics_process(delta: float) -> void:
 	
 	if is_focusing: return
 	
-	# indoor logic
 	if Watcher.indoor:
 		if not is_initialized_pos:
 			indoor_fixed_pos = global_position
@@ -49,13 +51,25 @@ func _physics_process(delta: float) -> void:
 		
 		return 
 	
-	# outdoor logic
 	is_initialized_pos = false
 	
 	if player:
 		var target := player.global_transform.origin
+		
+		if look_ahead_ratio > 0.0 and "velocity" in player:
+			var p_vel = player.velocity as Vector3
+			target += p_vel * look_ahead_ratio
+		
+		if dead_zone_radius > 0.0:
+			var dist = global_position.distance_to(target)
+			if dist < dead_zone_radius:
+				target = global_position 
+			else:
+				var dir = global_position.direction_to(target)
+				target = target - (dir * dead_zone_radius)
+		
+		# Di chuyển Camera
 		global_position = global_position.lerp(target, clamp(follow_speed * delta, 0.0, 1.0))
-
 
 
 func _unhandled_input(event: InputEvent) -> void:

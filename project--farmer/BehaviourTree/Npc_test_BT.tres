@@ -1,0 +1,116 @@
+[gd_resource type="BehaviorTree" load_steps=25 format=3 uid="uid://bfadd3mb6tox8"]
+
+[ext_resource type="Script" uid="uid://cg5qw6dcrxywn" path="res://ai/tasks/move_to_pos.gd" id="1_61f1e"]
+
+[sub_resource type="BlackboardPlan" id="BlackboardPlan_byrvi"]
+var/target_pos/name = &"target_pos"
+var/target_pos/type = 9
+var/target_pos/value = Vector3(0, 0, 0)
+var/target_pos/hint = 0
+var/target_pos/hint_string = ""
+var/home_pos/name = &"home_pos"
+var/home_pos/type = 9
+var/home_pos/value = Vector3(0, 0, 0)
+var/home_pos/hint = 0
+var/home_pos/hint_string = ""
+var/stay_time/name = &"stay_time"
+var/stay_time/type = 3
+var/stay_time/value = 0.0
+var/stay_time/hint = 0
+var/stay_time/hint_string = ""
+var/target_rot/name = &"target_rot"
+var/target_rot/type = 3
+var/target_rot/value = 0.0
+var/target_rot/hint = 0
+var/target_rot/hint_string = ""
+
+[sub_resource type="BBNode" id="BBNode_cwauv"]
+saved_value = NodePath(".")
+resource_name = "."
+
+[sub_resource type="BTCallMethod" id="BTCallMethod_n8yo2"]
+node = SubResource("BBNode_cwauv")
+method = &"do_walk_anim"
+
+[sub_resource type="BTAction" id="BTAction_cwauv"]
+script = ExtResource("1_61f1e")
+target_pos_var = &"target_pos"
+target_rot_var = &"target_rot"
+align_on_arrival = true
+speed = 3.0
+tolerance = 1.0
+
+[sub_resource type="BTSequence" id="BTSequence_278rh"]
+children = [SubResource("BTCallMethod_n8yo2"), SubResource("BTAction_cwauv")]
+
+[sub_resource type="BBNode" id="BBNode_q7b2e"]
+saved_value = NodePath("AnimationPlayer")
+resource_name = "AnimationPlayer"
+
+[sub_resource type="BTPlayAnimation" id="BTPlayAnimation_61f1e"]
+animation_player = SubResource("BBNode_q7b2e")
+animation_name = &"Idle"
+
+[sub_resource type="BTWait" id="BTWait_cwauv"]
+duration = 10.0
+
+[sub_resource type="BTSequence" id="BTSequence_n8yo2"]
+children = [SubResource("BTPlayAnimation_61f1e"), SubResource("BTWait_cwauv")]
+
+[sub_resource type="BBNode" id="BBNode_61f1e"]
+saved_value = NodePath(".")
+resource_name = "."
+
+[sub_resource type="BTCallMethod" id="BTCallMethod_cwauv"]
+node = SubResource("BBNode_61f1e")
+method = &"play_interact_anim"
+
+[sub_resource type="BTWait" id="BTWait_q7b2e"]
+duration = 10.0
+
+[sub_resource type="BTSequence" id="BTSequence_1l4pe"]
+children = [SubResource("BTCallMethod_cwauv"), SubResource("BTWait_q7b2e")]
+
+[sub_resource type="BTSelector" id="BTSelector_1l4pe"]
+children = [SubResource("BTSequence_n8yo2"), SubResource("BTSequence_1l4pe")]
+
+[sub_resource type="BTTimeLimit" id="BTTimeLimit_wg0qk"]
+time_limit = 20.0
+children = [SubResource("BTSelector_1l4pe")]
+
+[sub_resource type="BTSequence" id="BTSequence_wg0qk"]
+children = [SubResource("BTTimeLimit_wg0qk")]
+
+[sub_resource type="BBNode" id="BBNode_n8yo2"]
+saved_value = NodePath(".")
+resource_name = "."
+
+[sub_resource type="BTCallMethod" id="BTCallMethod_1l4pe"]
+node = SubResource("BBNode_n8yo2")
+method = &"do_walk_anim"
+
+[sub_resource type="BTAction" id="BTAction_vw0ng"]
+script = ExtResource("1_61f1e")
+target_pos_var = &"home_pos"
+target_rot_var = &"target_rot"
+align_on_arrival = true
+speed = 3.0
+tolerance = 1.0
+
+[sub_resource type="BTSequence" id="BTSequence_5ksnw"]
+children = [SubResource("BTCallMethod_1l4pe"), SubResource("BTAction_vw0ng")]
+
+[sub_resource type="BBNode" id="BBNode_278rh"]
+saved_value = NodePath(".")
+resource_name = "."
+
+[sub_resource type="BTCallMethod" id="BTCallMethod_5ksnw"]
+node = SubResource("BBNode_278rh")
+method = &"queue_free"
+
+[sub_resource type="BTSequence" id="BTSequence_vw0ng"]
+children = [SubResource("BTSequence_278rh"), SubResource("BTSequence_wg0qk"), SubResource("BTSequence_5ksnw"), SubResource("BTCallMethod_5ksnw")]
+
+[resource]
+blackboard_plan = SubResource("BlackboardPlan_byrvi")
+root_task = SubResource("BTSequence_vw0ng")

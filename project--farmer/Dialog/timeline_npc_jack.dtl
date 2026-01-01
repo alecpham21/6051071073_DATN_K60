@@ -1,0 +1,13 @@
+NPC_Jack: David?
+player: Yes?
+player: Uncle Jack?
+NPC_Jack: Yeah, That's me?
+player: Oh! You surprise me, how did you know that i arrived ?
+NPC_Jack: I don't,I just stayed here all night
+player: Wait, really ?
+NPC_Jack: No, I just kidding. Your mother texted me before you took the ocean bus
+player: Oh alright, so where is your farm ?
+NPC_Jack: Hop in, i drive you to my wonderful farm
+[signal arg="action1"]
+NPC_Jack: Let's go
+[signal arg="end_talk"]
