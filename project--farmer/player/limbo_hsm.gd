@@ -25,6 +25,14 @@ func _ready() -> void:
 func _update(delta: float) -> void:
 	if blackboard:
 		use_item = blackboard.get_var(BBNames.use_item_var, false)
+		
+		if blackboard.get_var(BBNames.toggle_vehicle_var, false):
+			var active = get_active_state()
+			if active:
+				if active.name == "BikingState":
+					dispatch("idle")
+				elif active.name == "IdleState" or active.name == "WalkState":
+					dispatch("bike")
 	
 	if HotBar.active_slot && HotBar.active_item is ItemDataTool:
 		long_tool = (HotBar.active_item as ItemDataTool).is_long_tool

@@ -1,16 +1,37 @@
-[gd_scene load_steps=8 format=4 uid="uid://ddj81mdc3wk5h"]
+[gd_scene load_steps=12 format=4 uid="uid://ds73rxoucvxnm"]
 
-[ext_resource type="Texture2D" uid="uid://dm3bx5cd78ba8" path="res://model/TestTree_UVGrid.png" id="1_4vp20"]
-[ext_resource type="Shader" uid="uid://bnjrpi2m352qw" path="res://Shader/tree_leaves.gdshader" id="2_nfbsp"]
-[ext_resource type="Texture2D" uid="uid://bewl35f8st4mw" path="res://Textures/Leaves/leaves-03.jpg" id="3_424cv"]
+[ext_resource type="PackedScene" uid="uid://carf2fqf4nuf3" path="res://model/tree/OnlyBodyPart/TreeBodyCol4.glb" id="1_2ubff"]
+[ext_resource type="Shader" uid="uid://sy0jqm2sqqwl" path="res://addons/flexible_toon_shader/flexible_toon.gdshader" id="2_kdyq1"]
+[ext_resource type="Texture2D" uid="uid://dm3bx5cd78ba8" path="res://model/TestTree_UVGrid.png" id="3_qugbc"]
+[ext_resource type="Shader" uid="uid://bnjrpi2m352qw" path="res://Shader/tree_leaves.gdshader" id="4_rtkso"]
+[ext_resource type="Texture2D" uid="uid://dkyt68e1exbnc" path="res://model/tree/tree_Opacity-01.png" id="5_h1e3m"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_d0knu"]
+render_priority = 0
+shader = ExtResource("2_kdyq1")
+shader_parameter/albedo = Color(0.638706, 0.46421, 0.221058, 1)
+shader_parameter/clamp_diffuse_to_max = false
+shader_parameter/cuts = 3
+shader_parameter/wrap = 0.0
+shader_parameter/steepness = 1.0
+shader_parameter/use_attenuation = true
+shader_parameter/use_specular = false
+shader_parameter/specular_strength = 1.0
+shader_parameter/specular_shininess = 16.0
+shader_parameter/use_rim = false
+shader_parameter/rim_width = 8.0
+shader_parameter/rim_color = Color(1, 1, 1, 1)
+shader_parameter/use_ramp = false
+shader_parameter/use_borders = false
+shader_parameter/border_width = 0.01
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rnshd"]
 resource_name = "TreeLeaves"
 cull_mode = 2
-albedo_texture = ExtResource("1_4vp20")
+albedo_texture = ExtResource("3_qugbc")
 roughness = 0.5
 
-[sub_resource type="ArrayMesh" id="ArrayMesh_iu51b"]
+[sub_resource type="ArrayMesh" id="ArrayMesh_1v2c3"]
 _surfaces = [{
 "aabb": AABB(-1.1131, -0.470843, -1.05424, 2.19931, 1.62659, 2.18256),
 "format": 34896613377,
@@ -24,7 +45,7 @@ _surfaces = [{
 }]
 blend_shape_mode = 0
 
-[sub_resource type="ArrayMesh" id="ArrayMesh_lx7sq"]
+[sub_resource type="ArrayMesh" id="ArrayMesh_wqyxb"]
 resource_name = "TestTree_Cube_001"
 _surfaces = [{
 "aabb": AABB(-1.1131, -0.470843, -1.05424, 2.19931, 1.62659, 2.18256),
@@ -40,26 +61,58 @@ _surfaces = [{
 "vertex_data": PackedByteArray("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")
 }]
 blend_shape_mode = 0
-shadow_mesh = SubResource("ArrayMesh_iu51b")
+shadow_mesh = SubResource("ArrayMesh_1v2c3")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_vy5h4"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_3y0er"]
 render_priority = 0
-shader = ExtResource("2_nfbsp")
-shader_parameter/alphaTexture = ExtResource("3_424cv")
-shader_parameter/leavesColor = Color(0.412038, 0.705611, 0.380565, 1)
-shader_parameter/alphaThreshold = 0.065
+shader = ExtResource("4_rtkso")
+shader_parameter/alphaTexture = ExtResource("5_h1e3m")
+shader_parameter/leavesColor = Color(0.195745, 0.361345, 0.178177, 1)
+shader_parameter/alphaThreshold = 0.075
 shader_parameter/offsetScale = 1.0
-shader_parameter/fresnelStrength = 0.962
+shader_parameter/fresnelStrength = 0.287
 shader_parameter/fresnelBlend = 1.0
-shader_parameter/fresnelColor = Color(0.20921, 0.46553, 0.158267, 1)
+shader_parameter/fresnelColor = Color(0.17913, 0.404528, 0.134399, 1)
 shader_parameter/deactiveGlobalVariation = false
 shader_parameter/clampTop = 1.0
 shader_parameter/clampBottom = 0.0
 
-[node name="Bush" type="Node3D"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_qugbc"]
+size = Vector3(1.61694, 7.60297, 2.55667)
 
-[node name="Cube3" type="MeshInstance3D" parent="."]
-transform = Transform3D(0.346, 0, 0, 0, 0.302, 0, 0, 0, 0.32, 0, 0.0183587, 0)
-mesh = SubResource("ArrayMesh_lx7sq")
+[node name="TreeBodyCol42" instance=ExtResource("1_2ubff")]
+
+[node name="TreeBodyCol4" parent="." index="0"]
+visibility_range_end = 150.0
+visibility_range_end_margin = 10.0
+surface_material_override/0 = SubResource("ShaderMaterial_d0knu")
+
+[node name="Cube" type="MeshInstance3D" parent="." index="1"]
+transform = Transform3D(1.89, 0, 0, 0, 1.89, 0, 0, 0, 1.89, 0, 10.6091, -0.714738)
+visibility_range_end = 120.0
+visibility_range_end_margin = 10.0
+mesh = SubResource("ArrayMesh_wqyxb")
 skeleton = NodePath("")
-surface_material_override/0 = SubResource("ShaderMaterial_vy5h4")
+surface_material_override/0 = SubResource("ShaderMaterial_3y0er")
+
+[node name="Cube3" type="MeshInstance3D" parent="." index="2"]
+transform = Transform3D(1.575, 0, 0, 0, 1.575, 0, 0, 0, 1.575, 0, 8.32067, 1.60307)
+visibility_range_end = 120.0
+visibility_range_end_margin = 10.0
+mesh = SubResource("ArrayMesh_wqyxb")
+skeleton = NodePath("")
+surface_material_override/0 = SubResource("ShaderMaterial_3y0er")
+
+[node name="Cube2" type="MeshInstance3D" parent="." index="3"]
+transform = Transform3D(2.25, 0, 0, 0, 2.25, 0, 0, 0, 2.25, 0, 11.2766, -4.48503)
+visibility_range_end = 120.0
+visibility_range_end_margin = 10.0
+mesh = SubResource("ArrayMesh_wqyxb")
+skeleton = NodePath("")
+surface_material_override/0 = SubResource("ShaderMaterial_3y0er")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="." index="4"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0289307, 3.76773, -0.55751)
+shape = SubResource("BoxShape3D_qugbc")

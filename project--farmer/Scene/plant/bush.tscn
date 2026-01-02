@@ -53,6 +53,8 @@ shader_parameter/clampBottom = 0.0
 
 [node name="Cube_001" type="MeshInstance3D" parent="."]
 transform = Transform3D(0.571456, 0.00667236, 0.228884, -0.00619396, 0.615589, -0.00248082, -0.228897, 2.70917e-10, 0.57149, -0.0246361, -0.0773816, 0)
+visibility_range_end = 80.0
+visibility_range_end_margin = 10.0
 mesh = SubResource("ArrayMesh_yh2ym")
 skeleton = NodePath("")
 surface_material_override/0 = SubResource("ShaderMaterial_uxldq")

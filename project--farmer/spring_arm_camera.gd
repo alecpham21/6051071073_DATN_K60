@@ -8,7 +8,7 @@ extends SpringArm3D
 @export_range(0.0, -90.0, 0.1, "radians_as_degrees")  var max_vertical_angle: float = deg_to_rad(-10)
 @export var zoom_step: float = 0.8
 @export var min_zoom: float = 10.0
-@export var max_zoom: float = 50.0
+@export var max_zoom: float = 20.0
 @export var use_zoom_tween: bool = true
 
 @export_group("Advanced Follow")
@@ -24,17 +24,23 @@ var is_focusing: bool = false
 var tween_focus: Tween
 var stored_spring_length: float = 0.0
 
+var is_aiming: bool = false
+var default_pitch: float
+
 
 func _ready() -> void:
 	if player_path != NodePath():
 		player = get_node(player_path) as Node3D
 	
 	set_as_top_level(true)
-	
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	collision_mask = 0
-	
 	stored_spring_length = spring_length
+	
+	default_pitch = min_vertical_angle 
+	
+	rotation.x = default_pitch
+	spring_length = max_zoom
 
 func _physics_process(delta: float) -> void:
 	
@@ -68,17 +74,26 @@ func _physics_process(delta: float) -> void:
 				var dir = global_position.direction_to(target)
 				target = target - (dir * dead_zone_radius)
 		
-		# Di chuyển Camera
 		global_position = global_position.lerp(target, clamp(follow_speed * delta, 0.0, 1.0))
+
+	if not is_aiming and not Watcher.indoor:
+		rotation.x = lerp_angle(rotation.x, default_pitch, 5.0 * delta)
 
 
 func _unhandled_input(event: InputEvent) -> void:
+	if event.is_action_pressed("aim"):
+		is_aiming = true
+	elif event.is_action_released("aim"):
+		is_aiming = false
+	
+	
 	if event is InputEventMouseMotion and Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED:
 		rotation.y -= event.relative.x * mouse_sensibility
 		rotation.y = wrapf(rotation.y, 0.0, TAU)
 
 
-		if not Watcher.indoor:
+
+		if is_aiming and not Watcher.indoor:
 			rotation.x -= event.relative.y * mouse_sensibility
 			rotation.x = clamp(rotation.x, min_vertical_angle, max_vertical_angle)
 

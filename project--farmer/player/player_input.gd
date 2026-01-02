@@ -15,6 +15,14 @@ func _ready() -> void:
 func _process(_delta: float) -> void:
 	if not blackboard or not player_actions: return
 	
+	if Input.is_action_pressed("aim"): 
+		blackboard.set_var(BBNames.direction_var, Vector3.ZERO)
+		blackboard.set_var(BBNames.run_var, false)
+		blackboard.set_var(BBNames.use_item_var, false)
+		blackboard.set_var(BBNames.interact_var, false)
+		blackboard.set_var(BBNames.toggle_vehicle_var, false)
+		return
+	
 	if GState.is_journal() or GState.is_shop() or GState.is_dialog() or GState.is_ui():
 		blackboard.set_var(BBNames.direction_var, Vector3.ZERO)
 		blackboard.set_var(BBNames.run_var, false)
@@ -22,7 +30,7 @@ func _process(_delta: float) -> void:
 		return
 	
 	
-	# 1. DI CHUYỂN (Vector3)
+	# Movment(Vector3)
 	var input_vec2 = Input.get_vector(
 		player_actions.move_left, 
 		player_actions.move_right, 

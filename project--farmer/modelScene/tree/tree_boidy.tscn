@@ -25,7 +25,11 @@ shader_parameter/border_width = 0.01
 [node name="TreeBoidy" instance=ExtResource("1_covxf")]
 
 [node name="Cylinder" parent="." index="0"]
+visibility_range_end = 80.0
+visibility_range_end_margin = 10.0
 surface_material_override/0 = SubResource("ShaderMaterial_g8cuc")
 
 [node name="Cylinder_001" parent="." index="1"]
+visibility_range_end = 80.0
+visibility_range_end_margin = 10.0
 surface_material_override/0 = SubResource("ShaderMaterial_g8cuc")

@@ -109,13 +109,13 @@ func _unhandled_input(event: InputEvent) -> void:
 	
 	if event.is_action_pressed("click"):
 		if GState.is_build():
-			print("🖱️ Player: Bắt được action 'click'!")
+			print("🖱️ Player:action click")
 			
 			if building_manager:
 				building_manager.place_building()
 				get_viewport().set_input_as_handled()
 			else:
-				printerr("❌ Player: Không tìm thấy BuildingManager!")
+				printerr("❌ Player: Cant find building manager")
 			return
 	
 
@@ -131,11 +131,11 @@ func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("build"):
 		if GState.is_playing():
 			GState.build()
-			print("🔨 Vào chế độ xây dựng")
+			print("🔨 Building In")
 		elif GState.is_build():
 			GState.play()
 			if building_manager: building_manager.cancel_build()
-			print("❌ Thoát chế độ xây dựng")
+			print("❌ Building Out")
 	
 	if GState.is_build():
 		return

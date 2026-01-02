@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://bixkklrjbu7hw"]
+[gd_scene load_steps=16 format=3 uid="uid://bixkklrjbu7hw"]
 
 [ext_resource type="Shader" uid="uid://bkw4b21akjsc2" path="res://subViewportPixel.gdshader" id="2_hry72"]
 [ext_resource type="Shader" uid="uid://viqy3uwh6ns7" path="res://PixelShader.gdshader" id="3_f3la6"]
@@ -6,9 +6,11 @@
 [ext_resource type="Resource" uid="uid://c05tf37csx4tp" path="res://inventory_script/test_inv.tres" id="5_tpv8i"]
 [ext_resource type="PackedScene" uid="uid://cc8dfiuqa6biu" path="res://modelScene/terrain/forest_ground.tscn" id="6_hkjfm"]
 [ext_resource type="Script" uid="uid://bshrove7rvagv" path="res://spring_arm_camera.gd" id="6_ym4f0"]
+[ext_resource type="PackedScene" uid="uid://ynrwm1s6wfvb" path="res://modelScene/terrain/forest_3_colored.tscn" id="7_f3la6"]
 [ext_resource type="Shader" uid="uid://c13esa4vg2n5k" path="res://level/posterization.gdshader" id="7_yaejn"]
 [ext_resource type="Script" uid="uid://djj2m2skea716" path="res://TimeCheck.gd" id="8_dupkf"]
 [ext_resource type="PackedScene" uid="uid://dd48ywngxd2oc" path="res://Scene/Environment/day_night_cycle.tscn" id="9_hry72"]
+[ext_resource type="PackedScene" uid="uid://csnejiwkcvvuj" path="res://terrain/big_terrain_moutain.tscn" id="11_ynggv"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_tpu7y"]
 shader = ExtResource("2_hry72")
@@ -82,6 +84,8 @@ fov = 30.0
 
 [node name="ForestGround" parent="SubViewportContainer/SubViewport" instance=ExtResource("6_hkjfm")]
 
+[node name="Forest3Colored" parent="SubViewportContainer/SubViewport" instance=ExtResource("7_f3la6")]
+
 [node name="MixColorShader" type="CanvasLayer" parent="."]
 
 [node name="ColorRect" type="ColorRect" parent="MixColorShader"]
@@ -101,3 +105,6 @@ offset_bottom = 79.0
 script = ExtResource("8_dupkf")
 
 [node name="DayNightCycle" parent="." instance=ExtResource("9_hry72")]
+
+[node name="BigTerrainMoutain" parent="." instance=ExtResource("11_ynggv")]
+transform = Transform3D(100, 0, 0, 0, 100, 0, 0, 0, 100, 0, -65.3585, 0)

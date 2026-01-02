@@ -1,5 +1,5 @@
 shader_type spatial;
-render_mode depth_prepass_alpha, cull_disabled, diffuse_toon, specular_disabled, shadows_disabled;
+render_mode depth_prepass_alpha, cull_disabled, diffuse_toon, specular_disabled;
 
 // --- UNIFORMS ---
 uniform sampler2D terrain_noise_texture : filter_linear_mipmap; 

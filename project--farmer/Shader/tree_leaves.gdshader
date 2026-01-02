@@ -71,4 +71,5 @@ void vertex(){
 
 	// Áp dụng cả hiệu ứng phồng và hiệu ứng gió
 	VERTEX += billboard_offset + wind_offset;
+	NORMAL = vec3(0.0, 1.0, 0.0);
 }

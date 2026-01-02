@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://d2jrmtfmh1541"]
+
+[ext_resource type="PackedScene" uid="uid://cc6adlg54jcsc" path="res://model/rock/aRock2.glb" id="1_d841g"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_d841g"]
+albedo_color = Color(0.473976, 0.473976, 0.473976, 1)
+
+[node name="aRock22" instance=ExtResource("1_d841g")]
+
+[node name="aRock2" parent="." index="0"]
+material_override = SubResource("StandardMaterial3D_d841g")
+visibility_range_end = 80.0
+visibility_range_end_margin = 10.0

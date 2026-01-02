@@ -8,8 +8,8 @@
 render_priority = 0
 shader = ExtResource("1_aor6t")
 shader_parameter/terrain_noise_texture = ExtResource("3_yelxk")
-shader_parameter/color_light = Color(0.710648, 0.90484, 0.214269, 1)
-shader_parameter/color_dark = Color(0.348675, 0.497773, 0.316631, 1)
+shader_parameter/color_light = Color(0.508172, 0.740153, 0.219626, 1)
+shader_parameter/color_dark = Color(0.357201, 0.499562, 0.262025, 1)
 shader_parameter/terrain_scale = 0.1
 shader_parameter/grass_texture = ExtResource("2_nr4kr")
 shader_parameter/wind_speed = 0.5

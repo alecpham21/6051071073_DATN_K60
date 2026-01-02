@@ -9,3 +9,5 @@ albedo_color = Color(0.473976, 0.473976, 0.473976, 1)
 
 [node name="Rock" parent="." index="0"]
 material_override = SubResource("StandardMaterial3D_3thfd")
+visibility_range_end = 80.0
+visibility_range_end_margin = 10.0

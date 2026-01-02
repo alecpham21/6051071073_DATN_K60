@@ -1,0 +1,490 @@
+[gd_scene load_steps=12 format=3 uid="uid://ynrwm1s6wfvb"]
+
+[ext_resource type="PackedScene" uid="uid://dksalr0ggckv3" path="res://model/terrain/Forest3Colored.glb" id="1_uq0qv"]
+[ext_resource type="Texture2D" uid="uid://dqs3ycsnlxdte" path="res://Textures/Terrain_texture/PixelDirtWall.png" id="2_q8xtv"]
+[ext_resource type="Material" uid="uid://dcf34anaxf0xf" path="res://Materials/green_land_mat.tres" id="3_q8xtv"]
+[ext_resource type="PackedScene" uid="uid://bjxrobwweubb3" path="res://model/tree/TreeVer1.tscn" id="4_0im02"]
+[ext_resource type="PackedScene" uid="uid://dm2qucqgp6hj" path="res://modelScene/tree/Tree_Ver_1.tscn" id="5_550vi"]
+[ext_resource type="PackedScene" uid="uid://bu00tt3gnjoq1" path="res://modelScene/tree/Tree_Ver_2.tscn" id="6_5i0be"]
+[ext_resource type="PackedScene" uid="uid://uh2jiohhy6oy" path="res://Scene/plant/bush.tscn" id="7_j6vii"]
+[ext_resource type="PackedScene" uid="uid://yxffan0vylfv" path="res://modelScene/rock/a_rock_1.tscn" id="8_dkvtl"]
+[ext_resource type="PackedScene" uid="uid://fe0l0cmw77i1" path="res://modelScene/rock/a_rock_3.tscn" id="9_36auw"]
+[ext_resource type="PackedScene" uid="uid://dhnl3k4evko3" path="res://modelScene/tree/tree_background.tscn" id="10_j7blj"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0im02"]
+cull_mode = 2
+albedo_texture = ExtResource("2_q8xtv")
+
+[node name="Forest3Colored" instance=ExtResource("1_uq0qv")]
+
+[node name="Wall" parent="." index="0"]
+material_override = SubResource("StandardMaterial3D_0im02")
+
+[node name="GroundTree_001" parent="." index="1"]
+surface_material_override/0 = ExtResource("3_q8xtv")
+
+[node name="GroundTree" parent="." index="2"]
+surface_material_override/0 = ExtResource("3_q8xtv")
+
+[node name="GroundTree_002" parent="." index="3"]
+surface_material_override/0 = ExtResource("3_q8xtv")
+
+[node name="GroundTree_003" parent="." index="4"]
+surface_material_override/0 = ExtResource("3_q8xtv")
+
+[node name="GroundTree_005" parent="." index="5"]
+surface_material_override/0 = ExtResource("3_q8xtv")
+
+[node name="GroundTree_004" parent="." index="6"]
+surface_material_override/0 = ExtResource("3_q8xtv")
+
+[node name="WallGround" parent="." index="7"]
+surface_material_override/0 = ExtResource("3_q8xtv")
+
+[node name="Groundtree" parent="." index="8"]
+surface_material_override/0 = ExtResource("3_q8xtv")
+
+[node name="GroundTree1" type="Node3D" parent="." index="9"]
+
+[node name="TreeVer1" parent="GroundTree1" index="0" instance=ExtResource("4_0im02")]
+transform = Transform3D(1.55, 0, 0, 0, 1.55, 0, 0, 0, 1.55, 25.5402, -0.535183, -25.6133)
+
+[node name="TreeVer3" parent="GroundTree1" index="1" instance=ExtResource("4_0im02")]
+transform = Transform3D(1.56, 0, 0, 0, 1.56, 0, 0, 0, 1.56, 23.1947, -0.412562, -19.4297)
+
+[node name="TreeVer4" parent="GroundTree1" index="2" instance=ExtResource("4_0im02")]
+transform = Transform3D(1.93, 0, 0, 0, 1.93, 0, 0, 0, 1.93, 38.5052, -1.26881, -27.3966)
+
+[node name="TreeVer5" parent="GroundTree1" index="3" instance=ExtResource("4_0im02")]
+transform = Transform3D(1.35938, 0, 0.755066, 0, 1.555, 0, -0.755066, 0, 1.35938, 29.7446, -0.544297, -17.6106)
+
+[node name="TreeVer6" parent="GroundTree1" index="4" instance=ExtResource("4_0im02")]
+transform = Transform3D(1.7379, 0, 0.205478, 0, 1.75, 0, -0.205478, 0, 1.7379, 41.1078, -1.53296, -16.8697)
+
+[node name="TreeVer2" parent="GroundTree1" index="5" instance=ExtResource("4_0im02")]
+transform = Transform3D(1.55098, 0, 0.167559, 0, 1.56, 0, -0.167559, 0, 1.55098, 27.6968, -0.535183, -30.0438)
+
+[node name="TreeVer13" parent="GroundTree1" index="6" instance=ExtResource("4_0im02")]
+transform = Transform3D(1.51121, 0, 0.163262, 0, 1.52, 0, -0.163262, 0, 1.51121, 21.3281, -0.412562, -24.8752)
+
+[node name="TreeVer14" parent="GroundTree1" index="7" instance=ExtResource("4_0im02")]
+transform = Transform3D(1.91883, 0, 0.2073, 0, 1.93, 0, -0.2073, 0, 1.91883, 40.4335, -0.648601, -25.2002)
+
+[node name="TreeVer15" parent="GroundTree1" index="8" instance=ExtResource("4_0im02")]
+transform = Transform3D(1.69116, 0, 1.19369, 0, 2.07, 0, -1.19369, 0, 1.69116, 33.2871, -0.938242, -20.3424)
+
+[node name="TreeVer17" parent="GroundTree1" index="9" instance=ExtResource("4_0im02")]
+transform = Transform3D(1.69116, 0, 1.19369, 0, 2.07, 0, -1.19369, 0, 1.69116, 27.3797, -0.788326, -14.345)
+
+[node name="TreeVer16" parent="GroundTree1" index="10" instance=ExtResource("4_0im02")]
+transform = Transform3D(1.57678, 0, 1.11295, 0, 1.93, 0, -1.11295, 0, 1.57678, 46.4377, -1.53296, -23.274)
+
+[node name="TreeVer9" parent="GroundTree1" index="11" instance=ExtResource("4_0im02")]
+transform = Transform3D(1.51203, 0, 0.383867, 0, 1.56, 0, -0.383867, 0, 1.51203, 25.8737, -0.412562, -16.3964)
+
+[node name="TreeVer10" parent="GroundTree1" index="12" instance=ExtResource("4_0im02")]
+transform = Transform3D(1.90943, 0, 0.484755, 0, 1.97, 0, -0.484755, 0, 1.90943, 38.6184, -0.648601, -20.1638)
+
+[node name="TreeVer11" parent="GroundTree1" index="13" instance=ExtResource("4_0im02")]
+transform = Transform3D(1.24095, 0, 1.16921, 0, 1.705, 0, -1.16921, 0, 1.24095, 34.3705, -0.938242, -15.724)
+
+[node name="TreeVer12" parent="GroundTree1" index="14" instance=ExtResource("4_0im02")]
+transform = Transform3D(1.40472, 0, 1.32351, 0, 1.93, 0, -1.32351, 0, 1.40472, 46.9287, -1.53296, -19.1006)
+
+[node name="TreeVer18" parent="GroundTree1" index="15" instance=ExtResource("4_0im02")]
+transform = Transform3D(1.40472, 0, 1.32351, 0, 1.93, 0, -1.32351, 0, 1.40472, 40.4009, -0.627859, -14.7422)
+
+[node name="TreeVer19" parent="GroundTree1" index="16" instance=ExtResource("4_0im02")]
+transform = Transform3D(1.40472, 0, 1.32351, 0, 1.93, 0, -1.32351, 0, 1.40472, 42.5567, -0.713746, -14.7422)
+
+[node name="TreeVer20" parent="GroundTree1" index="17" instance=ExtResource("4_0im02")]
+transform = Transform3D(1.40472, 0, 1.32351, 0, 1.93, 0, -1.32351, 0, 1.40472, 45.479, -0.224236, -14.7422)
+
+[node name="TreeVer7" parent="GroundTree1" index="18" instance=ExtResource("4_0im02")]
+transform = Transform3D(1.6872, 0, 0.937155, 0, 1.93, 0, -0.937155, 0, 1.6872, 44.2678, -1.53296, -28.0662)
+
+[node name="TreeVer8" parent="GroundTree1" index="19" instance=ExtResource("4_0im02")]
+transform = Transform3D(1.6872, 0, 0.937155, 0, 1.93, 0, -0.937155, 0, 1.6872, 36.7924, -1.53296, -32.5005)
+
+[node name="TreeBody1" parent="GroundTree1" index="20" instance=ExtResource("5_550vi")]
+transform = Transform3D(0.120733, 0, -0.684433, 0, 0.695, 0, 0.684433, 0, 0.120733, 28.0862, -0.793846, -20.39)
+
+[node name="TreeBody2" parent="GroundTree1" index="21" instance=ExtResource("5_550vi")]
+transform = Transform3D(0.120733, 0, -0.684433, 0, 0.695, 0, 0.684433, 0, 0.120733, 36.8824, -0.793846, -14.9683)
+
+[node name="TreeBody22" parent="GroundTree1" index="22" instance=ExtResource("6_5i0be")]
+transform = Transform3D(0.0395389, 0, -0.999218, 0, 1, 0, 0.999218, 0, 0.0395389, 32.6576, -1.79845, -28.7984)
+
+[node name="Bush" parent="GroundTree1" index="23" instance=ExtResource("7_j6vii")]
+transform = Transform3D(1.215, 0, 0, 0, 1.215, 0, 0, 0, 1.215, 20.1038, 0, -13.15)
+
+[node name="Bush3" parent="GroundTree1" index="24" instance=ExtResource("7_j6vii")]
+transform = Transform3D(1.215, 0, 0, 0, 1.215, 0, 0, 0, 1.215, 29.5781, 0, -13.6487)
+
+[node name="Bush4" parent="GroundTree1" index="25" instance=ExtResource("7_j6vii")]
+transform = Transform3D(1.215, 0, 0, 0, 1.215, 0, 0, 0, 1.215, 34.1279, 0, -13.6487)
+
+[node name="Bush2" parent="GroundTree1" index="26" instance=ExtResource("7_j6vii")]
+transform = Transform3D(1.215, 0, 0, 0, 1.215, 0, 0, 0, 1.215, 26.2166, 0, -13.9704)
+
+[node name="Bush5" parent="GroundTree1" index="27" instance=ExtResource("7_j6vii")]
+transform = Transform3D(1.215, 0, 0, 0, 1.215, 0, 0, 0, 1.215, 43.8286, 0, -14.1662)
+
+[node name="aRock1" parent="GroundTree1" index="28" instance=ExtResource("8_dkvtl")]
+transform = Transform3D(0.137134, 0, -1.13172, 0, 1.14, 0, 1.13172, 0, 0.137134, 21.388, -0.12884, -13.4025)
+
+[node name="aRock2" parent="GroundTree1" index="29" instance=ExtResource("8_dkvtl")]
+transform = Transform3D(0.137134, 0, -0.948065, 0, 1.14, 0, 1.13172, 0, 0.11488, 35.1567, -0.12884, -14.1789)
+
+[node name="aRock4" parent="GroundTree1" index="30" instance=ExtResource("8_dkvtl")]
+transform = Transform3D(0.137134, 0, -0.948065, 0, 1.14, 0, 1.13172, 0, 0.11488, 49.3677, -0.12884, -14.1789)
+
+[node name="aRock3" parent="GroundTree1" index="31" instance=ExtResource("8_dkvtl")]
+transform = Transform3D(0.137134, 0, -0.948065, 0, 1.685, 0, 1.13172, 0, 0.11488, 46.8764, -0.12884, -14.1789)
+
+[node name="aRock32" parent="GroundTree1" index="32" instance=ExtResource("9_36auw")]
+transform = Transform3D(-0.059376, 0, 0.998236, 0, 1, 0, -0.998236, 0, -0.059376, 24.4664, 0, -13.5584)
+
+[node name="aRock34" parent="GroundTree1" index="33" instance=ExtResource("9_36auw")]
+transform = Transform3D(-0.532536, 0, 0.846407, 0, 1, 0, -0.846407, 0, -0.532536, 38.7739, 0, -14.331)
+
+[node name="aRock33" parent="GroundTree1" index="34" instance=ExtResource("9_36auw")]
+transform = Transform3D(-0.059376, 0, 0.998236, 0, 1, 0, -0.998236, 0, -0.059376, 32.3222, 0, -14.0272)
+
+[node name="Camera3D" type="Camera3D" parent="GroundTree1" index="35"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 33.7842, 0, 0)
+
+[node name="GroundTree2" type="Node3D" parent="." index="10"]
+
+[node name="TreeBody1" parent="GroundTree2" index="0" instance=ExtResource("5_550vi")]
+transform = Transform3D(0.905, 0, 0, 0, 0.905, 0, 0, 0, 0.905, 17.7799, 0, 23.1236)
+
+[node name="TreeBody22" parent="GroundTree2" index="1" instance=ExtResource("6_5i0be")]
+transform = Transform3D(-0.163786, 0, 0.818779, 0, 0.835, 0, -0.818779, 0, -0.163786, 20.0649, 0, 28.503)
+
+[node name="TreeBody23" parent="GroundTree2" index="2" instance=ExtResource("6_5i0be")]
+transform = Transform3D(-0.0560512, 0, 0.833117, 0, 0.835, 0, -0.833117, 0, -0.0560512, 20.6709, 0, 34.6047)
+
+[node name="TreeVer1" parent="GroundTree2" index="3" instance=ExtResource("4_0im02")]
+transform = Transform3D(1.49, 0, 0, 0, 1.49, 0, 0, 0, 1.49, 20.6968, 0, 31.5578)
+
+[node name="TreeVer2" parent="GroundTree2" index="4" instance=ExtResource("4_0im02")]
+transform = Transform3D(1.725, 0, 0, 0, 1.725, 0, 0, 0, 1.725, 18.4055, 0, 35.7216)
+
+[node name="Bush6" parent="GroundTree2" index="5" instance=ExtResource("7_j6vii")]
+transform = Transform3D(1.215, 0, 0, 0, 1.215, 0, 0, 0, 1.215, 18.0179, 0, 32.2619)
+
+[node name="Bush7" parent="GroundTree2" index="6" instance=ExtResource("7_j6vii")]
+transform = Transform3D(1.215, 0, 0, 0, 1.215, 0, 0, 0, 1.215, 18.0179, 0, 27.2471)
+
+[node name="aRock33" parent="GroundTree2" index="7" instance=ExtResource("9_36auw")]
+transform = Transform3D(-0.985879, 0, -0.167457, 0, 1, 0, 0.167457, 0, -0.985879, 19.2103, 0, 25.6854)
+
+[node name="aRock34" parent="GroundTree2" index="8" instance=ExtResource("9_36auw")]
+transform = Transform3D(0.986019, 0, 0.166631, 0, 1, 0, -0.166631, 0, 0.986019, 21.6932, 0, 32.9963)
+
+[node name="aRock1" parent="GroundTree2" index="9" instance=ExtResource("8_dkvtl")]
+transform = Transform3D(0.137134, 0, -1.13172, 0, 1.14, 0, 1.13172, 0, 0.137134, 20.119, -0.12884, 29.9891)
+
+[node name="WallGroundTree" type="Node3D" parent="." index="11"]
+transform = Transform3D(0.979053, 0, 0.203608, 0, 1, 0, -0.203608, 0, 0.979053, 5.09353, 0, -17.1113)
+
+[node name="TreeBody1" parent="WallGroundTree" index="0" instance=ExtResource("5_550vi")]
+transform = Transform3D(-0.237102, 0, -0.75882, 0, 0.795, 0, 0.75882, 0, -0.237102, -5.07717, 0.645082, -2.92176)
+
+[node name="TreeVer1" parent="WallGroundTree" index="1" instance=ExtResource("4_0im02")]
+transform = Transform3D(1.345, 0, 0, 0, 1.345, 0, 0, 0, 1.345, -0.908935, 1.49977, 1.06126)
+
+[node name="TreeVer2" parent="WallGroundTree" index="2" instance=ExtResource("4_0im02")]
+transform = Transform3D(1.03928, 0, 0.853767, 0, 1.345, 0, -0.853767, 0, 1.03928, 3.06024, 1.49977, -0.890856)
+
+[node name="TreeVer5" parent="WallGroundTree" index="3" instance=ExtResource("4_0im02")]
+transform = Transform3D(1.03928, 0, 0.853767, 0, 1.345, 0, -0.853767, 0, 1.03928, -5.88497, 1.49977, 1.45322)
+
+[node name="TreeBody2" parent="WallGroundTree" index="4" instance=ExtResource("5_550vi")]
+transform = Transform3D(0.0413438, 0, -0.793924, 0, 0.795, 0, 0.793924, 0, 0.0413438, 0.375253, 0.645082, -1.37155)
+
+[node name="TreeVer3" parent="WallGroundTree" index="5" instance=ExtResource("4_0im02")]
+transform = Transform3D(1.26119, 0, 0.467355, 0, 1.345, 0, -0.467355, 0, 1.26119, 5.66776, 1.49977, 0.914931)
+
+[node name="TreeVer4" parent="WallGroundTree" index="6" instance=ExtResource("4_0im02")]
+transform = Transform3D(0.67786, 0, 1.16169, 0, 1.345, 0, -1.16169, 0, 0.67786, 8.7113, 1.49977, -2.29474)
+
+[node name="WallGroundTree4" type="Node3D" parent="." index="12"]
+transform = Transform3D(0.0208552, 0, -0.999783, 0, 1, 0, 0.999783, 0, 0.0208552, 60.2882, 2.47818, -8.98921)
+
+[node name="TreeBody1" parent="WallGroundTree4" index="0" instance=ExtResource("5_550vi")]
+transform = Transform3D(-0.237102, 0, -0.75882, 0, 0.795, 0, 0.75882, 0, -0.237102, -5.07717, 0.645082, -2.92176)
+
+[node name="TreeVer1" parent="WallGroundTree4" index="1" instance=ExtResource("4_0im02")]
+transform = Transform3D(1.345, 0, 0, 0, 1.345, 0, 0, 0, 1.345, -0.908935, 1.49977, 1.06126)
+
+[node name="TreeVer2" parent="WallGroundTree4" index="2" instance=ExtResource("4_0im02")]
+transform = Transform3D(1.03928, 0, 0.853767, 0, 1.345, 0, -0.853767, 0, 1.03928, 3.06024, 1.49977, -0.890856)
+
+[node name="TreeVer5" parent="WallGroundTree4" index="3" instance=ExtResource("4_0im02")]
+transform = Transform3D(1.03928, 0, 0.853767, 0, 1.345, 0, -0.853767, 0, 1.03928, -5.88497, 1.49977, 1.45322)
+
+[node name="TreeBody2" parent="WallGroundTree4" index="4" instance=ExtResource("5_550vi")]
+transform = Transform3D(0.0413438, 0, -0.793924, 0, 0.795, 0, 0.793924, 0, 0.0413438, 0.375253, 0.645082, -1.37155)
+
+[node name="TreeVer3" parent="WallGroundTree4" index="5" instance=ExtResource("4_0im02")]
+transform = Transform3D(1.26119, 0, 0.467355, 0, 1.345, 0, -0.467355, 0, 1.26119, 5.66776, 1.49977, 0.914931)
+
+[node name="TreeBody3" parent="WallGroundTree4" index="6" instance=ExtResource("5_550vi")]
+transform = Transform3D(-0.237102, 0, -0.75882, 0, 0.795, 0, 0.75882, 0, -0.237102, 14.8782, 0.645082, -5.00349)
+
+[node name="TreeVer6" parent="WallGroundTree4" index="7" instance=ExtResource("4_0im02")]
+transform = Transform3D(1.345, 0, 0, 0, 1.345, 0, 0, 0, 1.345, 19.0464, 1.49977, -1.02048)
+
+[node name="TreeVer7" parent="WallGroundTree4" index="8" instance=ExtResource("4_0im02")]
+transform = Transform3D(1.03928, 0, 0.853767, 0, 1.345, 0, -0.853767, 0, 1.03928, 23.0156, 1.49977, -2.97259)
+
+[node name="TreeVer8" parent="WallGroundTree4" index="9" instance=ExtResource("4_0im02")]
+transform = Transform3D(1.03928, 0, 0.853767, 0, 1.345, 0, -0.853767, 0, 1.03928, 14.0704, 1.49977, -0.62851)
+
+[node name="TreeBody4" parent="WallGroundTree4" index="10" instance=ExtResource("5_550vi")]
+transform = Transform3D(0.0413438, 0, -0.793924, 0, 0.795, 0, 0.793924, 0, 0.0413438, 20.3306, 0.645082, -3.45329)
+
+[node name="TreeVer9" parent="WallGroundTree4" index="11" instance=ExtResource("4_0im02")]
+transform = Transform3D(1.26119, 0, 0.467355, 0, 1.345, 0, -0.467355, 0, 1.26119, 25.6231, 1.49977, -1.16681)
+
+[node name="TreeBody5" parent="WallGroundTree4" index="12" instance=ExtResource("5_550vi")]
+transform = Transform3D(0.220918, 0, -0.763688, 0, 0.795, 0, 0.763688, 0, 0.220918, -27.014, -0.932686, -0.0549316)
+
+[node name="TreeVer10" parent="WallGroundTree4" index="13" instance=ExtResource("4_0im02")]
+transform = Transform3D(1.12176, 0, 0.742081, 0, 1.345, 0, -0.742081, 0, 1.12176, -21.34, -0.0779982, 0.967243)
+
+[node name="TreeVer11" parent="WallGroundTree4" index="14" instance=ExtResource("4_0im02")]
+transform = Transform3D(0.395731, 0, 1.28547, 0, 1.345, 0, -1.28547, 0, 0.395731, -19.1067, -0.0779982, -2.85078)
+
+[node name="TreeVer12" parent="WallGroundTree4" index="15" instance=ExtResource("4_0im02")]
+transform = Transform3D(0.395731, 0, 1.28547, 0, 1.345, 0, -1.28547, 0, 0.395731, -25.2739, -0.0779982, 4.03959)
+
+[node name="TreeBody6" parent="WallGroundTree4" index="16" instance=ExtResource("5_550vi")]
+transform = Transform3D(0.472516, 0, -0.639338, 0, 0.795, 0, 0.639338, 0, 0.472516, -21.6113, -0.932686, -1.7703)
+
+[node name="TreeVer13" parent="WallGroundTree4" index="17" instance=ExtResource("4_0im02")]
+transform = Transform3D(0.794004, 0, 1.08562, 0, 1.345, 0, -1.08562, 0, 0.794004, -15.9357, -0.0779982, -2.78339)
+
+[node name="TreeVer4" parent="WallGroundTree4" index="18" instance=ExtResource("4_0im02")]
+transform = Transform3D(0.67786, 0, 1.16169, 0, 1.345, 0, -1.16169, 0, 0.67786, 8.7113, 1.49977, -2.29474)
+
+[node name="WallGroundTree2" type="Node3D" parent="." index="13"]
+transform = Transform3D(0.569423, 0, 0.822045, 0, 1, 0, -0.822045, 0, 0.569423, -13.7089, 1.16657, -17.294)
+
+[node name="TreeBody1" parent="WallGroundTree2" index="0" instance=ExtResource("5_550vi")]
+transform = Transform3D(-0.237102, 0, -0.75882, 0, 0.795, 0, 0.75882, 0, -0.237102, -5.07717, 0.645082, -2.92176)
+
+[node name="TreeVer1" parent="WallGroundTree2" index="1" instance=ExtResource("4_0im02")]
+transform = Transform3D(1.345, 0, 0, 0, 1.345, 0, 0, 0, 1.345, -0.908935, 1.49977, 1.06126)
+
+[node name="TreeVer2" parent="WallGroundTree2" index="2" instance=ExtResource("4_0im02")]
+transform = Transform3D(1.03928, 0, 0.853767, 0, 1.345, 0, -0.853767, 0, 1.03928, 3.06024, 1.49977, -0.890856)
+
+[node name="TreeVer5" parent="WallGroundTree2" index="3" instance=ExtResource("4_0im02")]
+transform = Transform3D(1.03928, 0, 0.853767, 0, 1.345, 0, -0.853767, 0, 1.03928, -5.88497, 1.49977, 1.45322)
+
+[node name="TreeBody2" parent="WallGroundTree2" index="4" instance=ExtResource("5_550vi")]
+transform = Transform3D(0.0413438, 0, -0.793924, 0, 0.795, 0, 0.793924, 0, 0.0413438, 0.375253, 0.645082, -1.37155)
+
+[node name="TreeVer3" parent="WallGroundTree2" index="5" instance=ExtResource("4_0im02")]
+transform = Transform3D(1.26119, 0, 0.467355, 0, 1.345, 0, -0.467355, 0, 1.26119, 5.66776, 1.49977, 0.914931)
+
+[node name="TreeVer4" parent="WallGroundTree2" index="6" instance=ExtResource("4_0im02")]
+transform = Transform3D(0.67786, 0, 1.16169, 0, 1.345, 0, -1.16169, 0, 0.67786, 8.7113, 1.49977, -2.29474)
+
+[node name="TreeVer6" parent="WallGroundTree2" index="7" instance=ExtResource("4_0im02")]
+transform = Transform3D(1.34155, 0, 0.0962809, 0, 1.345, 0, -0.0962809, 0, 1.34155, 12.9964, 1.49977, -2.67654)
+
+[node name="TreeBody3" parent="WallGroundTree2" index="8" instance=ExtResource("5_550vi")]
+transform = Transform3D(-0.42501, 0, -0.671857, 0, 0.795, 0, 0.671857, 0, -0.42501, 19.738, 0.645082, -1.36467)
+
+[node name="TreeVer7" parent="WallGroundTree2" index="9" instance=ExtResource("4_0im02")]
+transform = Transform3D(1.29938, 0, -0.347318, 0, 1.345, 0, 0.347318, 0, 1.29938, 22.7363, 1.49977, 3.55963)
+
+[node name="TreeVer8" parent="WallGroundTree2" index="10" instance=ExtResource("4_0im02")]
+transform = Transform3D(1.2245, 0, 0.556438, 0, 1.345, 0, -0.556438, 0, 1.2245, 27.0749, 1.49977, 2.69867)
+
+[node name="treeBackground" parent="WallGroundTree2" index="11" instance=ExtResource("10_j7blj")]
+transform = Transform3D(0.405, 0, 5.74759e-08, 0, 0.405, 0, -5.74759e-08, 0, 0.405, 7.45284, 1.37654, -8.35)
+
+[node name="treeBackground2" parent="WallGroundTree2" index="12" instance=ExtResource("10_j7blj")]
+transform = Transform3D(0.405, 0, 4.47035e-08, 0, 0.405, 0, -4.47035e-08, 0, 0.405, 12.4202, 1.37654, -6.72495)
+
+[node name="treeBackground3" parent="WallGroundTree2" index="13" instance=ExtResource("10_j7blj")]
+transform = Transform3D(0.405, 0, 4.47035e-08, 0, 0.405, 0, -4.47035e-08, 0, 0.405, -6.49359, 1.45699, -14.3368)
+
+[node name="treeBackground4" parent="WallGroundTree2" index="14" instance=ExtResource("10_j7blj")]
+transform = Transform3D(0.405, 0, 4.47035e-08, 0, 0.405, 0, -4.47035e-08, 0, 0.405, -7.3917, 1.45699, -9.18552)
+
+[node name="treeBackground5" parent="WallGroundTree2" index="15" instance=ExtResource("10_j7blj")]
+transform = Transform3D(-0.0130181, 0, -0.404791, 0, 0.405, 0, 0.404791, 0, -0.0130181, 5.34076, 1.29125, -12.2585)
+
+[node name="treeBackground6" parent="WallGroundTree2" index="16" instance=ExtResource("10_j7blj")]
+transform = Transform3D(-0.0130181, 0, -0.404791, 0, 0.405, 0, 0.404791, 0, -0.0130181, 0.220994, 1.29125, -13.3217)
+
+[node name="WallGroundTree5" type="Node3D" parent="." index="14"]
+transform = Transform3D(-0.997962, 0, 0.0638182, 0, 1, 0, -0.0638182, 0, -0.997962, 4.52487, 1.40439, 14.7343)
+
+[node name="TreeBody1" parent="WallGroundTree5" index="0" instance=ExtResource("5_550vi")]
+transform = Transform3D(-0.237102, 0, -0.75882, 0, 0.795, 0, 0.75882, 0, -0.237102, -5.07717, 0.645082, -2.92176)
+
+[node name="TreeVer1" parent="WallGroundTree5" index="1" instance=ExtResource("4_0im02")]
+transform = Transform3D(1.345, 0, 0, 0, 1.345, 0, 0, 0, 1.345, -0.908935, 1.49977, 1.06126)
+
+[node name="TreeVer9" parent="WallGroundTree5" index="2" instance=ExtResource("4_0im02")]
+transform = Transform3D(1.345, 0, 0, 0, 1.345, 0, 0, 0, 1.345, -5.87574, 3.18668, -13.9296)
+
+[node name="TreeVer2" parent="WallGroundTree5" index="3" instance=ExtResource("4_0im02")]
+transform = Transform3D(1.03928, 0, 0.853767, 0, 1.345, 0, -0.853767, 0, 1.03928, 3.06024, 1.49977, -0.890856)
+
+[node name="TreeVer5" parent="WallGroundTree5" index="4" instance=ExtResource("4_0im02")]
+transform = Transform3D(1.03928, 0, 0.853767, 0, 1.345, 0, -0.853767, 0, 1.03928, -5.88497, 1.49977, 1.45322)
+
+[node name="TreeBody2" parent="WallGroundTree5" index="5" instance=ExtResource("5_550vi")]
+transform = Transform3D(0.0413438, 0, -0.793924, 0, 0.795, 0, 0.793924, 0, 0.0413438, 0.375253, 0.645082, -1.37155)
+
+[node name="TreeBody4" parent="WallGroundTree5" index="6" instance=ExtResource("5_550vi")]
+transform = Transform3D(0.0413437, 0, -0.793924, 0, 0.795, 0, 0.793924, 0, 0.0413437, 7.98905, 1.58485, -8.76872)
+
+[node name="TreeVer3" parent="WallGroundTree5" index="7" instance=ExtResource("4_0im02")]
+transform = Transform3D(1.26119, 0, 0.467355, 0, 1.345, 0, -0.467355, 0, 1.26119, 5.66776, 1.49977, 0.914931)
+
+[node name="TreeVer4" parent="WallGroundTree5" index="8" instance=ExtResource("4_0im02")]
+transform = Transform3D(0.67786, 0, 1.16169, 0, 1.345, 0, -1.16169, 0, 0.67786, 8.7113, 1.49977, -2.29474)
+
+[node name="TreeVer6" parent="WallGroundTree5" index="9" instance=ExtResource("4_0im02")]
+transform = Transform3D(1.34155, 0, 0.0962809, 0, 1.345, 0, -0.0962809, 0, 1.34155, 12.9964, 1.49977, -2.67654)
+
+[node name="TreeVer10" parent="WallGroundTree5" index="10" instance=ExtResource("4_0im02")]
+transform = Transform3D(1.34155, 0, 0.0962809, 0, 1.345, 0, -0.0962809, 0, 1.34155, 16.0575, 3.24057, -16.9905)
+
+[node name="TreeBody3" parent="WallGroundTree5" index="11" instance=ExtResource("5_550vi")]
+transform = Transform3D(-0.42501, 0, -0.671857, 0, 0.795, 0, 0.671857, 0, -0.42501, 19.738, 0.645082, -1.36467)
+
+[node name="TreeVer7" parent="WallGroundTree5" index="12" instance=ExtResource("4_0im02")]
+transform = Transform3D(1.29938, 0, -0.347318, 0, 1.345, 0, 0.347318, 0, 1.29938, 22.7363, 1.49977, 3.55963)
+
+[node name="TreeVer8" parent="WallGroundTree5" index="13" instance=ExtResource("4_0im02")]
+transform = Transform3D(1.2245, 0, 0.556438, 0, 1.345, 0, -0.556438, 0, 1.2245, 27.0749, 1.49977, 2.69867)
+
+[node name="treeBackground" parent="WallGroundTree5" index="14" instance=ExtResource("10_j7blj")]
+transform = Transform3D(0.396375, 0, 0.0831392, 0, 0.405, 0, -0.0831392, 0, 0.396375, 28.2712, 3.21728, -14.8483)
+
+[node name="treeBackground2" parent="WallGroundTree5" index="15" instance=ExtResource("10_j7blj")]
+transform = Transform3D(0.396375, 0, 0.0831392, 0, 0.405, 0, -0.0831392, 0, 0.396375, 33.7466, 3.21728, -9.89471)
+
+[node name="treeBackground3" parent="WallGroundTree5" index="16" instance=ExtResource("10_j7blj")]
+transform = Transform3D(0.396375, 0, 0.0831392, 0, 0.405, 0, -0.0831392, 0, 0.396375, 18.2375, 3.29774, -11.4969)
+
+[node name="treeBackground7" parent="WallGroundTree5" index="17" instance=ExtResource("10_j7blj")]
+transform = Transform3D(0.396375, 0, 0.0831392, 0, 0.405, 0, -0.0831392, 0, 0.396375, 35.8679, -0.269361, 1.35957)
+
+[node name="treeBackground4" parent="WallGroundTree5" index="18" instance=ExtResource("10_j7blj")]
+transform = Transform3D(0.405, 0, 5.40167e-08, 0, 0.405, 0, -5.40167e-08, 0, 0.405, 31.9859, 3.36252, -19.2753)
+
+[node name="treeBackground5" parent="WallGroundTree5" index="19" instance=ExtResource("10_j7blj")]
+transform = Transform3D(-0.0130181, 0, -0.404791, 0, 0.405, 0, 0.404791, 0, -0.0130181, 10.8996, 3.17448, -12.6139)
+
+[node name="treeBackground6" parent="WallGroundTree5" index="20" instance=ExtResource("10_j7blj")]
+transform = Transform3D(-0.0130181, 0, -0.404791, 0, 0.405, 0, 0.404791, 0, -0.0130181, 0.398068, 3.19071, -10.5527)
+
+[node name="WallGroundTree3" type="Node3D" parent="." index="15"]
+transform = Transform3D(1.105, 0, -0.000752174, 0, 1.105, 0, 0.000752174, 0, 1.105, 20.0384, 0.206697, -43.2551)
+
+[node name="TreeBody1" parent="WallGroundTree3" index="0" instance=ExtResource("5_550vi")]
+transform = Transform3D(-0.237102, 0, -0.75882, 0, 0.795, 0, 0.75882, 0, -0.237102, -5.07717, 0.645082, -2.92176)
+
+[node name="TreeVer1" parent="WallGroundTree3" index="1" instance=ExtResource("4_0im02")]
+transform = Transform3D(1.345, 0, 0, 0, 1.345, 0, 0, 0, 1.345, -0.908935, 1.49977, 1.06126)
+
+[node name="TreeVer2" parent="WallGroundTree3" index="2" instance=ExtResource("4_0im02")]
+transform = Transform3D(1.03928, 0, 0.853767, 0, 1.345, 0, -0.853767, 0, 1.03928, 3.06024, 1.49977, -0.890856)
+
+[node name="TreeVer5" parent="WallGroundTree3" index="3" instance=ExtResource("4_0im02")]
+transform = Transform3D(1.03928, 0, 0.853767, 0, 1.345, 0, -0.853767, 0, 1.03928, -5.88497, 1.49977, 1.45322)
+
+[node name="TreeBody2" parent="WallGroundTree3" index="4" instance=ExtResource("5_550vi")]
+transform = Transform3D(0.0413438, 0, -0.793924, 0, 0.795, 0, 0.793924, 0, 0.0413438, 0.375253, 0.645082, -1.37155)
+
+[node name="TreeVer3" parent="WallGroundTree3" index="5" instance=ExtResource("4_0im02")]
+transform = Transform3D(1.26119, 0, 0.467355, 0, 1.345, 0, -0.467355, 0, 1.26119, 5.66776, 1.49977, 0.914931)
+
+[node name="TreeVer4" parent="WallGroundTree3" index="6" instance=ExtResource("4_0im02")]
+transform = Transform3D(0.67786, 0, 1.16169, 0, 1.345, 0, -1.16169, 0, 0.67786, 8.7113, 1.49977, -2.29474)
+
+[node name="TreeVer6" parent="WallGroundTree3" index="7" instance=ExtResource("4_0im02")]
+transform = Transform3D(1.34155, 0, 0.0962809, 0, 1.345, 0, -0.0962809, 0, 1.34155, 12.9964, 1.49977, -2.67654)
+
+[node name="TreeBody3" parent="WallGroundTree3" index="8" instance=ExtResource("5_550vi")]
+transform = Transform3D(-0.42501, 0, -0.671857, 0, 0.795, 0, 0.671857, 0, -0.42501, 19.738, 0.645082, -1.36467)
+
+[node name="TreeVer7" parent="WallGroundTree3" index="9" instance=ExtResource("4_0im02")]
+transform = Transform3D(1.29938, 0, -0.347318, 0, 1.345, 0, 0.347318, 0, 1.29938, 22.7363, 1.49977, 3.55963)
+
+[node name="TreeVer8" parent="WallGroundTree3" index="10" instance=ExtResource("4_0im02")]
+transform = Transform3D(1.2245, 0, 0.556438, 0, 1.345, 0, -0.556438, 0, 1.2245, 27.0749, 1.49977, 2.69867)
+
+[node name="BackBackGround" type="Node3D" parent="." index="16"]
+transform = Transform3D(0.6418, 0, 0.174121, 0, 0.665, 0, -0.174121, 0, 0.6418, -35.506, 0.502573, -30.0773)
+
+[node name="treeBackground" parent="BackBackGround" index="0" instance=ExtResource("10_j7blj")]
+transform = Transform3D(0.74, 0, 0, 0, 0.74, 0, 0, 0, 0.74, 0, -2.95663, 0)
+
+[node name="treeBackground2" parent="BackBackGround" index="1" instance=ExtResource("10_j7blj")]
+transform = Transform3D(0.74, 0, 0, 0, 0.74, 0, 0, 0, 0.74, 12.4839, -2.95663, -1.58511)
+
+[node name="treeBackground3" parent="BackBackGround" index="2" instance=ExtResource("10_j7blj")]
+transform = Transform3D(0.74, 0, 0, 0, 0.74, 0, 0, 0, 0.74, 23.6362, -2.95663, -15.9698)
+
+[node name="treeBackground4" parent="BackBackGround" index="3" instance=ExtResource("10_j7blj")]
+transform = Transform3D(0.74, 0, 0, 0, 0.74, 0, 0, 0, 0.74, 8.14594, -2.95663, -15.9698)
+
+[node name="treeBackground5" parent="BackBackGround" index="4" instance=ExtResource("10_j7blj")]
+transform = Transform3D(0.74, 0, 0, 0, 0.74, 0, 0, 0, 0.74, 45.7501, -2.95663, -15.9698)
+
+[node name="treeBackground6" parent="BackBackGround" index="5" instance=ExtResource("10_j7blj")]
+transform = Transform3D(0.74, 0, 0, 0, 0.74, 0, 0, 0, 0.74, 38.0553, -2.95663, -24.8844)
+
+[node name="treeBackground7" parent="BackBackGround" index="6" instance=ExtResource("10_j7blj")]
+transform = Transform3D(0.702453, 0, -0.232722, 0, 0.74, 0, 0.232722, 0, 0.702453, 55.3222, -2.95663, -29.2556)
+
+[node name="treeBackground8" parent="BackBackGround" index="7" instance=ExtResource("10_j7blj")]
+transform = Transform3D(0.702453, 0, -0.232722, 0, 0.74, 0, 0.232722, 0, 0.702453, 70.4325, -2.95663, -39.4031)
+
+[node name="treeBackground9" parent="BackBackGround" index="8" instance=ExtResource("10_j7blj")]
+transform = Transform3D(0.702453, 0, -0.232722, 0, 0.74, 0, 0.232722, 0, 0.702453, 55.7282, -2.95663, -44.2746)
+
+[node name="treeBackground10" parent="BackBackGround" index="9" instance=ExtResource("10_j7blj")]
+transform = Transform3D(0.702453, 0, -0.232722, 0, 0.74, 0, 0.232722, 0, 0.702453, 91.4244, -2.95663, -32.4485)
+
+[node name="treeBackground11" parent="BackBackGround" index="10" instance=ExtResource("10_j7blj")]
+transform = Transform3D(0.702453, 0, -0.232722, 0, 0.74, 0, 0.232722, 0, 0.702453, 86.9235, -2.95663, -43.3307)
+
+[node name="BackBackGround2" type="Node3D" parent="." index="17"]
+transform = Transform3D(-0.342983, -0.0039079, 0.569713, -0.00172143, 0.664988, 0.00352509, -0.569724, 0.000343341, -0.342987, -14.087, 1.50257, 71.4665)
+
+[node name="treeBackground3" parent="BackBackGround2" index="0" instance=ExtResource("10_j7blj")]
+transform = Transform3D(0.74, 0, 0, 0, 0.74, 0, 0, 0, 0.74, 23.6362, -2.95663, -15.9698)
+
+[node name="treeBackground5" parent="BackBackGround2" index="1" instance=ExtResource("10_j7blj")]
+transform = Transform3D(0.74, 0, 0, 0, 0.74, 0, 0, 0, 0.74, 45.7501, -2.95663, -15.9698)
+
+[node name="treeBackground6" parent="BackBackGround2" index="2" instance=ExtResource("10_j7blj")]
+transform = Transform3D(0.74, 0, 0, 0, 0.74, 0, 0, 0, 0.74, 38.0553, -2.95663, -24.8844)
+
+[node name="treeBackground7" parent="BackBackGround2" index="3" instance=ExtResource("10_j7blj")]
+transform = Transform3D(0.702453, 0, -0.232722, 0, 0.74, 0, 0.232722, 0, 0.702453, 55.3222, -2.95663, -29.2556)
+
+[node name="treeBackground8" parent="BackBackGround2" index="4" instance=ExtResource("10_j7blj")]
+transform = Transform3D(0.702453, 0, -0.232722, 0, 0.74, 0, 0.232722, 0, 0.702453, 70.4325, -2.95663, -39.4031)
+
+[node name="treeBackground9" parent="BackBackGround2" index="5" instance=ExtResource("10_j7blj")]
+transform = Transform3D(0.702453, 0, -0.232722, 0, 0.74, 0, 0.232722, 0, 0.702453, 55.7282, -2.95663, -44.2746)
+
+[node name="treeBackground10" parent="BackBackGround2" index="6" instance=ExtResource("10_j7blj")]
+transform = Transform3D(0.702453, 0, -0.232722, 0, 0.74, 0, 0.232722, 0, 0.702453, 91.4244, -2.95663, -32.4485)
+
+[node name="treeBackground11" parent="BackBackGround2" index="7" instance=ExtResource("10_j7blj")]
+transform = Transform3D(0.702453, 0, -0.232722, 0, 0.74, 0, 0.232722, 0, 0.702453, 86.9235, -2.95663, -43.3307)

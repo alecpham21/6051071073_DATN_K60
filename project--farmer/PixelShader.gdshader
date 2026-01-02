@@ -89,7 +89,22 @@ void fragment() {
 		float reverse_depth_edge = step(reverse_depth_threshold, depth_diff_reversed);
 
 		float indicator = sqrt(normal_sum);
-		float normal_edge = step(normal_threshold, indicator - reverse_depth_edge);
+		// --- SỬA LỖI VẼ VẠCH TRÊN THÂN CÂY ---
+		
+		// 1. Kiểm tra xem bề mặt hiện tại có phải là tường/cây đứng không (dựa vào vector Y)
+		// world_normal.y gần 0 nghĩa là bề mặt dựng đứng (thân cây, tường).
+		float is_vertical_wall = 1.0 - abs(world_normal.y);
+		
+		// 2. Tạo một ngưỡng (threshold) linh hoạt
+		// Nếu là tường/cây (is_vertical_wall cao), ta tăng ngưỡng check lên cao hơn (ví dụ +0.3) 
+		// để nó bỏ qua các góc gãy nhỏ của thân cây low-poly.
+		// Nếu là vật khác, giữ nguyên normal_threshold gốc.
+		float dynamic_threshold = normal_threshold + (smoothstep(0.5, 0.9, is_vertical_wall) * 0.5);
+		
+		// 3. Tính toán cạnh dựa trên ngưỡng mới
+		float normal_edge = step(dynamic_threshold, indicator - reverse_depth_edge);
+		
+		// ----------------------------------------
 
 		vec3 nearest = texture(screen_texture, nearest_uv).rgb;
 		
