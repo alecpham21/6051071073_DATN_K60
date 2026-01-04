@@ -48,6 +48,7 @@ var is_busy: bool = false:
 	set(val):
 		if !val && is_busy: action_finished.emit()
 		is_busy = val
+var is_regenerating: bool = true
 
 signal toggle_inventory()
 signal action_finished
@@ -58,6 +59,7 @@ func _ready() -> void:
 	PlayerData.player = self
 	Watcher.player = self
 	
+	
 	if self.inventory_data == null:
 		self.inventory_data = PlayerData.player_inventory_data
 	else:
@@ -66,13 +68,15 @@ func _ready() -> void:
 	self.equip_inventory_data = PlayerData.player_equip_data
 	self.outfit_inventory_data = PlayerData.player_outfit_data
 	
-	# Spawn Position logic
+	
 	if PlayerData.used_spawn_position == false:
 		self.global_position = PlayerData.next_spawn_position
 		PlayerData.used_spawn_position = true
-
+	
+	
 	_setup_dialog_connections()
 	_setup_game_state_connections()
+	
 	
 	body_parts_map = {
 		ItemDataOutfit.BodyPart.BASE: body_base,
@@ -83,16 +87,20 @@ func _ready() -> void:
 		ItemDataOutfit.BodyPart.SHOULDER: body_shoulder
 	}
 	
+	
 	interact_area.area_entered.connect(func(a): can_interact = true)
 	interact_area.area_exited.connect(func(a): can_interact = false)
+	
 	
 	if outfit_inventory_data:
 		outfit_inventory_data.inventory_updated.connect(update_all_outfits)
 		update_all_outfits()
 	
+	
 	if camera_ref_path:
 		cam_ref = get_node(camera_ref_path)
 	_set_mouse_captured(true)
+	
 	
 	if limbo_hsm: blackboard = limbo_hsm.blackboard
 	if PlayerData.is_transitioning_with_bike:
@@ -109,16 +117,22 @@ func _unhandled_input(event: InputEvent) -> void:
 	
 	if event.is_action_pressed("click"):
 		if GState.is_build():
-			print("🖱️ Player:action click")
+			print("🖱️ Player: Click!")
 			
-			if building_manager:
-				building_manager.place_building()
+			var manager = get_tree().get_first_node_in_group("mgr_build")
+			
+			if manager:
+				if manager.place_building():
+					GState.play()
+				else:
+					print("⚠️ Đặt thất bại!")
+				
 				get_viewport().set_input_as_handled()
 			else:
-				printerr("❌ Player: Cant find building manager")
+				# Trường hợp này chỉ xảy ra nếu Level đó quên bỏ BuildingManager vào
+				printerr("❌ Lỗi: Map này không có BuildingManager (hoặc quên add Group)!")
+				
 			return
-	
-
 	
 	if event.is_action_pressed("ui_cancel"):
 		if GState.is_build():
@@ -181,7 +195,12 @@ func _unhandled_input(event: InputEvent) -> void:
 func _physics_process(delta: float) -> void:
 	RenderingServer.global_shader_parameter_set("player_position", global_position)
 	if limbo_hsm: limbo_hsm.update(delta)
-	if bt_player: bt_player.update(delta) # Khôi phục
+	if bt_player: bt_player.update(delta)
+
+	if is_on_floor() and not is_busy:
+		var is_running = blackboard.get_var(BBNames.run_var, false)
+		if not is_running and stats: 
+			stats.regenerate(stats.get_restore_speed() * delta)
 
 	if is_on_floor():
 		safe_time_counter += delta
@@ -189,7 +208,7 @@ func _physics_process(delta: float) -> void:
 	else:
 		safe_time_counter = 0.0
 
-# --- CÁC HÀM TIỆN ÍCH KHÔI PHỤC ---
+
 func interact():
 	var areas = interact_area.get_overlapping_areas()
 	if areas.size() > 0: (areas[0] as InteractArea).interacted.emit()

@@ -1,7 +1,16 @@
-[gd_resource type="ShaderMaterial" load_steps=3 format=3 uid="uid://dcf34anaxf0xf"]
+[gd_resource type="ShaderMaterial" load_steps=5 format=3 uid="uid://dcf34anaxf0xf"]
 
 [ext_resource type="Shader" uid="uid://dg4fvqrp7lvax" path="res://modelScene/terrain/green_land_shader.gdshader" id="1_qexgu"]
 [ext_resource type="Texture2D" uid="uid://bm3mfbqoiqeo" path="res://Textures/TerrainNoise/terrain_noise.tres" id="2_eant4"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_qexgu"]
+noise_type = 3
+frequency = 0.0016
+offset = Vector3(424.24, 160, 0)
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_eant4"]
+seamless = true
+noise = SubResource("FastNoiseLite_qexgu")
 
 [resource]
 render_priority = 0
@@ -10,13 +19,17 @@ shader_parameter/noise_texture = ExtResource("2_eant4")
 shader_parameter/color_light = Color(0.508172, 0.740153, 0.219626, 1)
 shader_parameter/color_dark = Color(0.357201, 0.499562, 0.262025, 1)
 shader_parameter/noise_scale = 0.1
+shader_parameter/cloud_noise = SubResource("NoiseTexture2D_eant4")
+shader_parameter/cloud_color = Color(0.1, 0.1, 0.3, 1)
+shader_parameter/cloud_strength = 0.5
+shader_parameter/cloud_scale = 0.05
+shader_parameter/cloud_speed_1 = Vector2(10, 0)
+shader_parameter/cloud_speed_2 = Vector2(-0.2, 0.1)
+shader_parameter/cloud_cutoff = 0.5
+shader_parameter/cloud_fuzziness = 0.1
+shader_parameter/shadow_projection_dir = Vector2(0.5, 0.5)
 shader_parameter/cuts = 3
 shader_parameter/wrap = 0.0
 shader_parameter/steepness = 1.0
 shader_parameter/use_specular = false
-shader_parameter/specular_strength = 1.0
-shader_parameter/specular_shininess = 16.0
 shader_parameter/use_rim = false
-shader_parameter/rim_width = 4.0
-shader_parameter/rim_color = Color(1, 1, 1, 1)
-shader_parameter/rim_sharpness = 0.5

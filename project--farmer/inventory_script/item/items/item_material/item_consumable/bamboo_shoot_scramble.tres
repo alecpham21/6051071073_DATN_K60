@@ -1,5 +1,6 @@
-[gd_resource type="Resource" script_class="ItemDataConsumable" load_steps=4 format=3 uid="uid://d0cf5npy2x20s"]
+[gd_resource type="Resource" script_class="ItemDataConsumable" load_steps=5 format=3 uid="uid://d0cf5npy2x20s"]
 
+[ext_resource type="Script" uid="uid://bha5mco76sam5" path="res://inventory_script/item/item_attribute/status_effect.gd" id="1_0kykl"]
 [ext_resource type="Script" uid="uid://8qjn0t0dq2pu" path="res://inventory_script/item/item_data/item_data_consumable.gd" id="1_7sxkj"]
 [ext_resource type="Texture2D" uid="uid://omvd8ed3fie6" path="res://inventory_script/item/item_atlast/#2 - Transparent Icons & Drop Shadow.png" id="2_pcs83"]
 
@@ -10,6 +11,7 @@ region = Rect2(32, 768, 32, 32)
 [resource]
 script = ExtResource("1_7sxkj")
 heal_value = 10
+effects = Array[ExtResource("1_0kykl")]([])
 material_type = 3
 selling_type = 0
 sell_price = 40

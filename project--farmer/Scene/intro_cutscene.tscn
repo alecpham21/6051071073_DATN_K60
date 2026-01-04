@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://cyhmnuqjtj5d0"]
+[gd_scene load_steps=27 format=3 uid="uid://cyhmnuqjtj5d0"]
 
 [ext_resource type="PackedScene" uid="uid://dq7yemwgjrvnk" path="res://Scene/ocean/water.tscn" id="1_p0apu"]
 [ext_resource type="Shader" uid="uid://bguo0qtyegd6e" path="res://ocean.gdshader" id="2_70nt4"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://d2wgup4tot7gq" path="res://Scene/train/ocean_train_test.tscn" id="4_hmt2l"]
 [ext_resource type="PackedScene" uid="uid://c0nu5wulw7inx" path="res://Scene/train/stable_machine_ver2.tscn" id="4_tsy0l"]
 [ext_resource type="Script" uid="uid://bwr2w1axxfkrw" path="res://Scene/pillar_stable_array.gd" id="5_tsy0l"]
+[ext_resource type="Shader" uid="uid://c13esa4vg2n5k" path="res://level/posterization.gdshader" id="8_fopkk"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_17m65"]
 render_priority = 0
@@ -22,10 +23,15 @@ shader_parameter/offset = Vector2(0, 0)
 material = SubResource("ShaderMaterial_17m65")
 size = Vector2(120, 80)
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_tsy0l"]
+albedo_color = Color(0.281187, 0.281187, 0.281187, 1)
+
 [sub_resource type="CylinderMesh" id="CylinderMesh_tsy0l"]
+material = SubResource("StandardMaterial3D_tsy0l")
 top_radius = 0.085
 bottom_radius = 0.085
 height = 100.0
+radial_segments = 24
 
 [sub_resource type="QuadMesh" id="QuadMesh_hmt2l"]
 flip_faces = true
@@ -157,6 +163,16 @@ _data = {
 &"Train_Expressing": SubResource("Animation_tsy0l")
 }
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_a37r8"]
+shader = ExtResource("8_fopkk")
+shader_parameter/mix_amount = 0.105
+shader_parameter/use_l = false
+shader_parameter/use_c = false
+shader_parameter/use_h = false
+shader_parameter/steps_l = 16.0
+shader_parameter/level_c = 5.0
+shader_parameter/level_h = 0.05
+
 [node name="Intro_Cutscene" type="Node3D"]
 
 [node name="Node3D" type="Node3D" parent="."]
@@ -172,7 +188,7 @@ mesh = SubResource("PlaneMesh_hmt2l")
 transform = Transform3D(0.605, 0, 0, 0, 0.605, 0, 0, 0, 0.605, -30.1767, 0, 26.406)
 
 [node name="TrainTrackTest" parent="Node3D/Train" instance=ExtResource("4_5mulq")]
-transform = Transform3D(24.005, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.404263, 0)
+transform = Transform3D(24.005, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.514, 0)
 
 [node name="SableMachineVer2" parent="Node3D/Train" instance=ExtResource("4_tsy0l")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.272682, 0)
@@ -198,11 +214,11 @@ offset_right = -6.52002
 grow_horizontal = 2
 grow_vertical = 2
 stretch = true
-stretch_shrink = 3
+stretch_shrink = 2
 
 [node name="SubViewport" type="SubViewport" parent="SubViewportContainer"]
 handle_input_locally = false
-size = Vector2i(381, 216)
+size = Vector2i(572, 324)
 render_target_update_mode = 4
 
 [node name="ShaderOutline2" type="MeshInstance3D" parent="SubViewportContainer/SubViewport"]
@@ -273,5 +289,17 @@ origin_offset = Vector3(8.125, 2.205, 0)
 [node name="SpotLight3D" type="SpotLight3D" parent="."]
 transform = Transform3D(-0.893834, -0.448399, 0, -0.033316, 0.0664118, 0.997236, -0.447159, 0.891363, -0.0743, -305.792, 7.04905, 38.643)
 spot_range = 3.62
+
+[node name="MixColorShader" type="CanvasLayer" parent="."]
+
+[node name="ColorRect" type="ColorRect" parent="MixColorShader"]
+material = SubResource("ShaderMaterial_a37r8")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+metadata/_edit_use_anchors_ = true
 
 [editable path="Node3D/Water"]

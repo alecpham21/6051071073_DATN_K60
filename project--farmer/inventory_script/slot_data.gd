@@ -13,16 +13,16 @@ func get_stat(id: String) -> float:
 	for attr in attributes:
 		if attr.id == id:
 			return attr.value
-	return 0.0 # Không tìm thấy trả về 0
+	return 0.0
 
 func set_stat(id: String, new_value: float) -> void:
-	# 1. Tìm xem có chưa, có thì sửa
+
 	for attr in attributes:
 		if attr.id == id:
 			attr.value = new_value
 			return
 	
-	# 2. Chưa có thì tạo mới
+	#if dont exist, create new
 	var new_attr = ItemAttribute.new()
 	new_attr.id = id
 	new_attr.value = new_value

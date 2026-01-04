@@ -1,4 +1,4 @@
-[gd_scene load_steps=61 format=4 uid="uid://bbvhog32snru6"]
+[gd_scene load_steps=66 format=4 uid="uid://bbvhog32snru6"]
 
 [ext_resource type="Script" uid="uid://hctai00r4njf" path="res://world.gd" id="1_dwbse"]
 [ext_resource type="Shader" uid="uid://bkw4b21akjsc2" path="res://subViewportPixel.gdshader" id="2_gggvi"]
@@ -25,6 +25,7 @@
 [ext_resource type="Script" uid="uid://0vjwneq60ym5" path="res://fence_generator.gd" id="15_ytpkv"]
 [ext_resource type="Script" uid="uid://bfas330ndllg" path="res://inventory_script/item/item_attribute/item_attribute.gd" id="16_bh8nc"]
 [ext_resource type="PackedScene" uid="uid://3yabkhdef6js" path="res://modelScene/structure/single_fence.tscn" id="16_jas3d"]
+[ext_resource type="Resource" uid="uid://cfy1c5w6nx1fk" path="res://building/buildingBlueprint/hencoop_small.tres" id="16_ruyqm"]
 [ext_resource type="PackedScene" uid="uid://dtfxb80en17fb" path="res://modelScene/structure/single_gate.tscn" id="17_7htu6"]
 [ext_resource type="Script" uid="uid://y0d42bllc0fd" path="res://Inventory_ui/inventory_interface.gd" id="17_26xuy"]
 [ext_resource type="PackedScene" uid="uid://470pnke8j1j2" path="res://Inventory_ui/inventory.tscn" id="17_cbp6q"]
@@ -35,12 +36,15 @@
 [ext_resource type="PackedScene" uid="uid://dd48ywngxd2oc" path="res://Scene/Environment/day_night_cycle.tscn" id="29_k83mh"]
 [ext_resource type="Script" uid="uid://djj2m2skea716" path="res://TimeCheck.gd" id="29_qktwf"]
 [ext_resource type="Shader" uid="uid://c13esa4vg2n5k" path="res://level/posterization.gdshader" id="30_qktwf"]
+[ext_resource type="PackedScene" uid="uid://ynrwm1s6wfvb" path="res://modelScene/terrain/forest_3_colored.tscn" id="31_7qk3m"]
 [ext_resource type="PackedScene" uid="uid://b5bavm45lxiid" path="res://ui/Recipe/RecipeUI/recipe_ui.tscn" id="32_gggvi"]
 [ext_resource type="PackedScene" uid="uid://n1cce0bi5bf4" path="res://quest_system/quest_ui/quest_tracker.tscn" id="34_6ah6f"]
 [ext_resource type="PackedScene" uid="uid://dsm6vvhxl3bpd" path="res://modelScene/terrain/GroundBackground.tscn" id="34_g1i3r"]
 [ext_resource type="PackedScene" uid="uid://6msbaufmnf3f" path="res://quest_system/quest_ui/quest_journal_ui.tscn" id="34_w44yn"]
 [ext_resource type="PackedScene" uid="uid://dwe03uitdfmcs" path="res://building/build_ui.tscn" id="39_1ew0l"]
+[ext_resource type="PackedScene" uid="uid://xs0u77o1qd26" path="res://ui/stamina_hud.tscn" id="39_7htu6"]
 [ext_resource type="Resource" uid="uid://chvdm7x5c0tpn" path="res://building/buildingBlueprint/Uncle_House.tres" id="40_ryup7"]
+[ext_resource type="PackedScene" uid="uid://df2gl3go4ux0m" path="res://building/blueprint_slot.tscn" id="40_xpnt2"]
 [ext_resource type="PackedScene" uid="uid://yxffan0vylfv" path="res://modelScene/rock/a_rock_1.tscn" id="41_jas3d"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_jjr1n"]
@@ -142,11 +146,14 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_jjr1n")
 
+[sub_resource type="NavigationMesh" id="NavigationMesh_ruyqm"]
+geometry_parsed_geometry_type = 1
+
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_bh8nc"]
 shader = ExtResource("30_qktwf")
 shader_parameter/mix_amount = 0.295
 shader_parameter/use_l = false
-shader_parameter/use_c = true
+shader_parameter/use_c = false
 shader_parameter/use_h = false
 shader_parameter/steps_l = 15.0
 shader_parameter/level_c = 5.0
@@ -203,6 +210,7 @@ render_target_update_mode = 4
 
 [node name="ShaderOutline" type="MeshInstance3D" parent="SubViewportContainer/SubViewport"]
 transform = Transform3D(1, 0, 0, 0, 0.00750488, 0.999972, 0, -0.999972, 0.00750488, 0.180526, -104.894, -0.522281)
+visible = false
 extra_cull_margin = 16384.0
 mesh = SubResource("QuadMesh_2u3nc")
 surface_material_override/0 = SubResource("ShaderMaterial_udxuc")
@@ -251,23 +259,23 @@ grass_mesh = ExtResource("9_cbp6q")
 grass_scale_min = 0.3
 grass_scale_max = 0.5
 grass_count_per_block = 1
-grass_spawn_chance = 0.05
+grass_spawn_chance = 0.03
 max_grass_per_block = 1
-decorative_grass_chance = 0.05
+decorative_grass_chance = 0.02
 
 [node name="TreeRenderer" type="Node3D" parent="SubViewportContainer/SubViewport/GroundGenerator"]
 script = ExtResource("11_g1i3r")
 tree_scene = ExtResource("12_my276")
 scale_min = 0.4
 scale_max = 0.6
-tree_count = 1000
+tree_count = 500
 spawn_radius_min = 70.0
 y_offset = -1.0
 
 [node name="BuildingManager" type="Node3D" parent="SubViewportContainer/SubViewport/GroundGenerator" node_paths=PackedStringArray("ground_gen")]
 script = ExtResource("12_yx0jh")
 ground_gen = NodePath("..")
-all_building_resources = Array[ExtResource("13_ryup7")]([ExtResource("40_ryup7"), ExtResource("15_jas3d")])
+all_building_resources = Array[ExtResource("13_ryup7")]([ExtResource("40_ryup7"), ExtResource("15_jas3d"), ExtResource("16_ruyqm")])
 
 [node name="FenceGenerator" type="Node3D" parent="SubViewportContainer/SubViewport/GroundGenerator"]
 script = ExtResource("15_ytpkv")
@@ -276,6 +284,9 @@ gate_scene = ExtResource("17_7htu6")
 fence_offset = Vector3(0, 0.5, 0)
 gate_side = 3
 padding_expansion = 5
+
+[node name="NavRegion" type="NavigationRegion3D" parent="SubViewportContainer/SubViewport/GroundGenerator"]
+navigation_mesh = SubResource("NavigationMesh_ruyqm")
 
 [node name="MainFarmer" parent="SubViewportContainer/SubViewport" instance=ExtResource("5_26xuy")]
 unique_name_in_owner = true
@@ -333,7 +344,10 @@ skeleton = NodePath("../..")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 56.6367, 12.7882, 0)
 
 [node name="BigTerrainMoutain" parent="background" instance=ExtResource("14_70uel")]
-transform = Transform3D(104.165, 0, 0, 0, 104.165, 0, 0, 0, 104.165, -0.373759, -50.4721, -0.241655)
+transform = Transform3D(109.78, 0, 0, 0, 109.78, 0, 0, 0, 109.78, -0.373759, -73.7617, -0.241655)
+
+[node name="Forest3Colored" parent="background" instance=ExtResource("31_7qk3m")]
+transform = Transform3D(0.631651, 0, 0.775253, 0, 1.14, 0, -0.775253, 0, 0.631651, 176.755, -13.5075, -246.763)
 
 [node name="TimeCheckUI" type="CanvasLayer" parent="."]
 
@@ -417,87 +431,107 @@ grow_vertical = 0
 
 [node name="QuestTracker" parent="UI" instance=ExtResource("34_6ah6f")]
 
+[node name="BuildUI" parent="UI" node_paths=PackedStringArray("building_manager") instance=ExtResource("39_1ew0l")]
+mouse_filter = 2
+building_manager = NodePath("../../SubViewportContainer/SubViewport/GroundGenerator/BuildingManager")
+build_list = Array[ExtResource("13_ryup7")]([ExtResource("40_ryup7"), ExtResource("15_jas3d"), ExtResource("16_ruyqm")])
+slot_scene = ExtResource("40_xpnt2")
+
+[node name="StaminaHUD" parent="UI" instance=ExtResource("39_7htu6")]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -98.0
+offset_top = 122.0
+offset_right = -98.0
+offset_bottom = 122.0
+grow_horizontal = 2
+grow_vertical = 2
+
 [node name="QuestJournal" parent="." instance=ExtResource("34_w44yn")]
 
-[node name="GroundBackground" parent="." instance=ExtResource("34_g1i3r")]
-transform = Transform3D(7.29, 0, 0, 0, 6.492, 0, 0, 0, 6.877, 0, -6.51473, 0)
+[node name="FarmBackground" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.61802, 0)
 
-[node name="Mytree" parent="GroundBackground" instance=ExtResource("9_g1i3r")]
-transform = Transform3D(0.4, 0, 0, 0, 0.515, 0, 0, 0, 0.4, -0.691813, 1.32545, 9.18284)
+[node name="Mytree" parent="FarmBackground" instance=ExtResource("9_g1i3r")]
+transform = Transform3D(2.312, 0, 0, 0, 2.65, 0, 0, 0, 2.181, -5.04332, 1.38374, 63.1504)
 
-[node name="Mytree2" parent="GroundBackground" instance=ExtResource("9_g1i3r")]
-transform = Transform3D(0.4, 0, 0, 0, 0.515, 0, 0, 0, 0.4, -3.23163, 1.32545, 7.72049)
+[node name="Mytree2" parent="FarmBackground" instance=ExtResource("9_g1i3r")]
+transform = Transform3D(2.312, 0, 0, 0, 2.65, 0, 0, 0, 2.181, -23.5586, 1.38374, 53.0938)
 
-[node name="Mytree17" parent="GroundBackground" instance=ExtResource("9_g1i3r")]
-transform = Transform3D(0.4, 0, 0, 0, 0.515, 0, 0, 0, 0.4, -7.05429, 1.32545, 7.3994)
+[node name="Mytree17" parent="FarmBackground" instance=ExtResource("9_g1i3r")]
+transform = Transform3D(2.312, 0, 0, 0, 2.65, 0, 0, 0, 2.181, -51.4258, 1.38374, 50.8857)
 
-[node name="Mytree18" parent="GroundBackground" instance=ExtResource("9_g1i3r")]
-transform = Transform3D(0.4, 0, 0, 0, 0.515, 0, 0, 0, 0.4, -8.16528, 1.32545, 2.9415)
+[node name="Mytree18" parent="FarmBackground" instance=ExtResource("9_g1i3r")]
+transform = Transform3D(2.312, 0, 0, 0, 2.65, 0, 0, 0, 2.181, -59.5249, 1.38374, 20.2287)
 
-[node name="Mytree19" parent="GroundBackground" instance=ExtResource("9_g1i3r")]
-transform = Transform3D(0.4, 0, 0, 0, 0.515, 0, 0, 0, 0.4, -5.91887, 1.32545, 0.364293)
+[node name="Mytree19" parent="FarmBackground" instance=ExtResource("9_g1i3r")]
+transform = Transform3D(2.312, 0, 0, 0, 2.65, 0, 0, 0, 2.181, -43.1486, 1.38374, 2.50524)
 
-[node name="Mytree3" parent="GroundBackground" instance=ExtResource("9_g1i3r")]
-transform = Transform3D(0.4, 0, 0, 0, 0.515, 0, 0, 0, 0.4, 2.27582, 1.32545, 6.2616)
+[node name="Mytree3" parent="FarmBackground" instance=ExtResource("9_g1i3r")]
+transform = Transform3D(2.312, 0, 0, 0, 2.65, 0, 0, 0, 2.181, 16.5907, 1.38374, 65.1783)
 
-[node name="Mytree4" parent="GroundBackground" instance=ExtResource("9_g1i3r")]
-transform = Transform3D(0.4, 0, 0, 0, 0.515, 0, 0, 0, 0.4, 4.02909, 1.32545, 5.62661)
+[node name="Mytree4" parent="FarmBackground" instance=ExtResource("9_g1i3r")]
+transform = Transform3D(2.312, 0, 0, 0, 2.65, 0, 0, 0, 2.181, 29.3721, 1.38374, 64.692)
 
-[node name="Mytree13" parent="GroundBackground" instance=ExtResource("9_g1i3r")]
-transform = Transform3D(0.373809, 0, -0.142363, 0, 0.515, 0, 0.142363, 0, 0.373809, 3.9777, 1.32545, -5.3219)
+[node name="Mytree13" parent="FarmBackground" instance=ExtResource("9_g1i3r")]
+transform = Transform3D(2.17584, 0, -0.737417, 0, 2.65, 0, 0.78171, 0, 2.05255, 32.3819, 1.38374, -44.9821)
 
-[node name="Mytree14" parent="GroundBackground" instance=ExtResource("9_g1i3r")]
-transform = Transform3D(0.373809, 0, -0.142363, 0, 0.515, 0, 0.142363, 0, 0.373809, 1.43789, 1.32545, -6.78425)
+[node name="Mytree14" parent="FarmBackground" instance=ExtResource("9_g1i3r")]
+transform = Transform3D(2.17584, 0, -0.737417, 0, 2.65, 0, 0.78171, 0, 2.05255, 12.9557, 1.38374, -53.3669)
 
-[node name="Mytree15" parent="GroundBackground" instance=ExtResource("9_g1i3r")]
-transform = Transform3D(0.373809, 0, -0.142363, 0, 0.515, 0, 0.142363, 0, 0.373809, 6.94533, 1.32545, -8.24314)
+[node name="Mytree15" parent="FarmBackground" instance=ExtResource("9_g1i3r")]
+transform = Transform3D(2.17584, 0, -0.737417, 0, 2.65, 0, 0.78171, 0, 2.05255, 50.6315, 1.38374, -56.6881)
 
-[node name="Mytree16" parent="GroundBackground" instance=ExtResource("9_g1i3r")]
-transform = Transform3D(0.373809, 0, -0.142363, 0, 0.515, 0, 0.142363, 0, 0.373809, 7.04916, 1.32545, -4.54711)
+[node name="Mytree16" parent="FarmBackground" instance=ExtResource("9_g1i3r")]
+transform = Transform3D(2.17584, 0, -0.737417, 0, 2.65, 0, 0.78171, 0, 2.05255, 62.1349, 1.38374, -27.4096)
 
-[node name="Mytree5" parent="GroundBackground" instance=ExtResource("9_g1i3r")]
-transform = Transform3D(0.4, 0, 0, 0, 0.515, 0, 0, 0, 0.4, 2.53214, 1.32545, 7.78171)
+[node name="Mytree5" parent="FarmBackground" instance=ExtResource("9_g1i3r")]
+transform = Transform3D(2.312, 0, 0, 0, 2.65, 0, 0, 0, 2.181, 44.6966, 1.38374, 61.6808)
 
-[node name="Mytree6" parent="GroundBackground" instance=ExtResource("9_g1i3r")]
-transform = Transform3D(0.4, 0, 0, 0, 0.515, 0, 0, 0, 0.4, -0.00767756, 1.32545, 6.31936)
+[node name="Mytree6" parent="FarmBackground" instance=ExtResource("9_g1i3r")]
+transform = Transform3D(2.312, 0, 0, 0, 2.65, 0, 0, 0, 2.181, -0.0559694, 1.38374, 70.7325)
 
-[node name="Mytree7" parent="GroundBackground" instance=ExtResource("9_g1i3r")]
-transform = Transform3D(0.4, 0, 0, 0, 0.515, 0, 0, 0, 0.4, 5.49976, 1.32545, 4.86047)
+[node name="Mytree7" parent="FarmBackground" instance=ExtResource("9_g1i3r")]
+transform = Transform3D(2.312, 0, 0, 0, 2.65, 0, 0, 0, 2.181, 40.0933, 1.38374, 48.3776)
 
-[node name="Mytree8" parent="GroundBackground" instance=ExtResource("9_g1i3r")]
-transform = Transform3D(0.4, 0, 0, 0, 0.515, 0, 0, 0, 0.4, 7.25303, 1.32545, 4.22549)
+[node name="Mytree8" parent="FarmBackground" instance=ExtResource("9_g1i3r")]
+transform = Transform3D(2.312, 0, 0, 0, 2.65, 0, 0, 0, 2.181, 52.8746, 1.38374, 29.0587)
 
-[node name="Mytree9" parent="GroundBackground" instance=ExtResource("9_g1i3r")]
-transform = Transform3D(0.4, 0, 0, 0, 0.515, 0, 0, 0, 0.4, -0.778484, 1.53926, -6.89156)
+[node name="Mytree9" parent="FarmBackground" instance=ExtResource("9_g1i3r")]
+transform = Transform3D(2.312, 0, 0, 0, 2.65, 0, 0, 0, 2.181, -5.67515, 2.7718, -57.6184)
 
-[node name="Mytree22" parent="GroundBackground" instance=ExtResource("9_g1i3r")]
-transform = Transform3D(0.4, 0, 0, 0, 0.515, 0, 0, 0, 0.4, -5.51218, 1.53926, -7.6026)
+[node name="Mytree22" parent="FarmBackground" instance=ExtResource("9_g1i3r")]
+transform = Transform3D(2.312, 0, 0, 0, 2.65, 0, 0, 0, 2.181, -40.1838, 2.7718, -52.2831)
 
-[node name="Mytree10" parent="GroundBackground" instance=ExtResource("9_g1i3r")]
-transform = Transform3D(0.4, 0, 0, 0, 0.515, 0, 0, 0, 0.4, -3.3183, 1.6238, -8.38389)
+[node name="Mytree10" parent="FarmBackground" instance=ExtResource("9_g1i3r")]
+transform = Transform3D(2.312, 0, 0, 0, 2.65, 0, 0, 0, 2.181, -24.1904, 3.32063, -57.656)
 
-[node name="Mytree20" parent="GroundBackground" instance=ExtResource("9_g1i3r")]
-transform = Transform3D(0.4, 0, 0, 0, 0.515, 0, 0, 0, 0.4, -4.438, 1.6238, -6.07975)
+[node name="Mytree20" parent="FarmBackground" instance=ExtResource("9_g1i3r")]
+transform = Transform3D(2.312, 0, 0, 0, 2.65, 0, 0, 0, 2.181, -48.3311, 3.32063, -41.8104)
 
-[node name="Mytree21" parent="GroundBackground" instance=ExtResource("9_g1i3r")]
-transform = Transform3D(0.4, 0, 0, 0, 0.515, 0, 0, 0, 0.4, -6.55901, 1.6238, -4.00752)
+[node name="Mytree21" parent="FarmBackground" instance=ExtResource("9_g1i3r")]
+transform = Transform3D(2.312, 0, 0, 0, 2.65, 0, 0, 0, 2.181, -47.8152, 3.32063, -27.5597)
 
-[node name="Mytree11" parent="GroundBackground" instance=ExtResource("9_g1i3r")]
-transform = Transform3D(0.4, 0, 0, 0, 0.515, 0, 0, 0, 0.4, 2.18914, 1.32545, -8.61231)
+[node name="Mytree11" parent="FarmBackground" instance=ExtResource("9_g1i3r")]
+transform = Transform3D(2.312, 0, 0, 0, 2.65, 0, 0, 0, 2.181, 15.9588, 1.38374, -59.2269)
 
-[node name="Mytree12" parent="GroundBackground" instance=ExtResource("9_g1i3r")]
-transform = Transform3D(0.4, 0, 0, 0, 0.515, 0, 0, 0, 0.4, 3.94241, 1.32545, -9.24729)
+[node name="Mytree12" parent="FarmBackground" instance=ExtResource("9_g1i3r")]
+transform = Transform3D(2.312, 0, 0, 0, 2.65, 0, 0, 0, 2.181, 28.7402, 1.38374, -63.5936)
 
-[node name="aRock1" parent="GroundBackground" instance=ExtResource("41_jas3d")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.66067, 0.801549, 5.34916)
+[node name="aRock1" parent="FarmBackground" instance=ExtResource("41_jas3d")]
+transform = Transform3D(5.382, 0, 0, 0, 4.793, 0, 0, 0, 5.077, -48.5563, -1.54587, 36.7862)
 
-[node name="aRock2" parent="GroundBackground" instance=ExtResource("41_jas3d")]
-transform = Transform3D(0.35514, 0, 0.934813, 0, 1, 0, -0.934813, 0, 0.35514, 0.414275, 0.801549, 7.76148)
+[node name="aRock2" parent="FarmBackground" instance=ExtResource("41_jas3d")]
+transform = Transform3D(1.98736, 0, 5.1547, 0, 4.984, 0, -4.93485, 0, 2.0759, 3.02006, -1.54587, 53.3757)
 
-[node name="BuildUI" parent="." node_paths=PackedStringArray("building_manager") instance=ExtResource("39_1ew0l")]
-mouse_filter = 2
-building_manager = NodePath("../SubViewportContainer/SubViewport/GroundGenerator/BuildingManager")
-build_list = Array[ExtResource("13_ryup7")]([ExtResource("40_ryup7"), ExtResource("15_jas3d")])
+[node name="aRock3" parent="FarmBackground" instance=ExtResource("41_jas3d")]
+transform = Transform3D(-0.480997, 0, 5.53424, 0, 4.984, 0, -5.29821, 0, -0.502425, 22.9873, -0.605243, -52.0643)
+
+[node name="GroundBackground" parent="FarmBackground" instance=ExtResource("34_g1i3r")]
+transform = Transform3D(7.375, 0, 0, 0, 6.492, 0, 0, 0, 9.197, 0, -7.59342, 0)
 
 [connection signal="drop_slot_data" from="UI/InventoryInterface" to="UI/InventoryInterface" method="_on_drop_slot_data"]
 [connection signal="gui_input" from="UI/InventoryInterface" to="UI/InventoryInterface" method="_on_gui_input"]

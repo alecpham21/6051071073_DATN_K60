@@ -15,4 +15,5 @@ name = "Cup"
 description = "Certified liquid container"
 stackable = true
 texture = SubResource("AtlasTexture_p4lsh")
+price = 1000
 metadata/_custom_type_script = "uid://oj6faifeyt6a"

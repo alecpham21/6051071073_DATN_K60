@@ -1,8 +1,21 @@
 extends Resource
 class_name BuildingData
 
-@export var id: String = "first_house"
-@export var name: String = "My House"
+
+enum BuildingCategory {
+	HOUSE,
+	FARM,
+	DECORATION,
+	STRUCTURE
+}
+
+@export_group("Identity")
+@export var id: String = "building_id"
+@export var name: String = "Building Name"
+@export var category: BuildingCategory = BuildingCategory.HOUSE
+
+@export_group("Visuals")
+@export var icon: Texture2D
 @export var scene: PackedScene
 @export var size: Vector2i = Vector2i(2, 2)
 @export var offset: Vector3 = Vector3(0, 0, 0)

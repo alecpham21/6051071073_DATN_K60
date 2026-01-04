@@ -16,6 +16,12 @@ func _setup() -> void:
 
 func _enter() -> void:
 	super()
+	
+	if not character.stats.has_stamina(character.stats.action_cost):
+		print("⚡ Not enought stamina mina ey")
+		dispatch("idle")
+		return
+	
 	character.is_busy = true
 	
 	var target_info = _get_target_info((character as Player).tool_cast, limbo_hsm.ground_gen)
@@ -54,6 +60,12 @@ func _enter() -> void:
 		
 	character.ani.animation_finished.connect(func(a):
 		harvest((character as Player).tool_cast, limbo_hsm.ground_gen)
+		
+		if has_tool:
+			character.stats.consume(character.stats.action_cost)
+		else:
+			character.stats.consume(character.stats.action_cost * 0.5)
+		
 		dispatch("idle")
 		, CONNECT_ONE_SHOT)
 

@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="BuildingData" load_steps=4 format=3 uid="uid://cfy1c5w6nx1fk"]
+
+[ext_resource type="Script" uid="uid://fekbxueaingk" path="res://building/building_data.gd" id="1_f4a7s"]
+[ext_resource type="Texture2D" uid="uid://bs65ihhgb1a2l" path="res://building/building_icon/hencoop_small.png" id="1_qd016"]
+[ext_resource type="PackedScene" uid="uid://ctwfscm668jge" path="res://modelScene/farm/hencoop_small.tscn" id="1_syb14"]
+
+[resource]
+script = ExtResource("1_f4a7s")
+id = "hencoop_small"
+name = "Small Hencoop "
+category = 1
+icon = ExtResource("1_qd016")
+scene = ExtResource("1_syb14")
+size = Vector2i(4, 4)
+offset = Vector3(0, 0, 0)
+scale = Vector3(1, 1, 1)
+metadata/_custom_type_script = "uid://fekbxueaingk"

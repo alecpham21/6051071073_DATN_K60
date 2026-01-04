@@ -1,0 +1,51 @@
+[gd_scene load_steps=10 format=3 uid="uid://hb8gvsd2enpn"]
+
+[ext_resource type="Script" uid="uid://dfdatueikfbiu" path="res://Animal/FarmAnimal/chicken.gd" id="1_7x357"]
+[ext_resource type="BehaviorTree" uid="uid://dlpjpuxc5bqbb" path="res://BehaviourTree/chicken_BT.tres" id="2_xej2f"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_s5wsi"]
+size = Vector3(0.2, 0.2, 0.2)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_s5wsi"]
+albedo_color = Color(0.943802, 0.686081, 0.316387, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_2k606"]
+material = SubResource("StandardMaterial3D_s5wsi")
+size = Vector3(0.1, 0.05, 0.2)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2k606"]
+albedo_color = Color(0.671624, 0.185344, 0.250757, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_7x357"]
+material = SubResource("StandardMaterial3D_2k606")
+size = Vector3(0.05, 0.1, 0.1)
+
+[sub_resource type="BlackboardPlan" id="BlackboardPlan_7x357"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_7x357"]
+size = Vector3(0.177551, 0.259186, 0.257614)
+
+[node name="Chicken" type="CharacterBody3D"]
+script = ExtResource("1_7x357")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("BoxMesh_s5wsi")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="MeshInstance3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0359418, 0.0948755)
+mesh = SubResource("BoxMesh_2k606")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="MeshInstance3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.139795, 0)
+mesh = SubResource("BoxMesh_7x357")
+
+[node name="BTPlayer" type="BTPlayer" parent="."]
+behavior_tree = ExtResource("2_xej2f")
+blackboard_plan = SubResource("BlackboardPlan_7x357")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0212708, 0.041275, 0.00745392)
+shape = SubResource("BoxShape3D_7x357")
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
+avoidance_enabled = true

@@ -1,0 +1,63 @@
+[gd_scene load_steps=12 format=3 uid="uid://ctwfscm668jge"]
+
+[ext_resource type="PackedScene" uid="uid://dmuc87hv0dmb" path="res://model/farm/hencoopSmall.glb" id="1_808c1"]
+[ext_resource type="Texture2D" uid="uid://bwa8xtxlf1ptx" path="res://Textures/woodtexture.png" id="2_4rt8x"]
+[ext_resource type="Script" uid="uid://pnj3epleqtkw" path="res://modelScene/farm/hencoop_small.gd" id="2_cqlk6"]
+[ext_resource type="PackedScene" uid="uid://hb8gvsd2enpn" path="res://Animal/FarmAnimal/chicken.tscn" id="3_ayep3"]
+[ext_resource type="Texture2D" uid="uid://1gysjnj7jqbq" path="res://assets/ImphenziaPalette01-256-Gradient.png" id="3_cqlk6"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ayep3"]
+albedo_texture = ExtResource("2_4rt8x")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ip5w8"]
+albedo_texture = ExtResource("3_cqlk6")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_808c1"]
+albedo_color = Color(0, 0, 0, 1)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_4rt8x"]
+material = SubResource("StandardMaterial3D_808c1")
+size = Vector2(0.815, 0.755)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_808c1"]
+size = Vector3(4.15863, 1.58594, 0.120819)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_cqlk6"]
+size = Vector3(3.97217, 1.58594, 0.120819)
+
+[node name="hencoopSmall" node_paths=PackedStringArray("spawn_point") instance=ExtResource("1_808c1")]
+script = ExtResource("2_cqlk6")
+chicken_scene = ExtResource("3_ayep3")
+spawn_point = NodePath("Marker3D")
+
+[node name="hencoop" parent="." index="0"]
+material_override = SubResource("StandardMaterial3D_ayep3")
+
+[node name="fencing" parent="." index="1"]
+material_override = SubResource("StandardMaterial3D_ip5w8")
+
+[node name="Shadow" type="MeshInstance3D" parent="." index="2"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, -1.18883, 0.842433, 1.01065)
+mesh = SubResource("PlaneMesh_4rt8x")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="." index="3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.580401, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.021698, 0, 1.97696)
+shape = SubResource("BoxShape3D_808c1")
+
+[node name="CollisionShape3D4" type="CollisionShape3D" parent="StaticBody3D" index="1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.021698, 0, -1.99565)
+shape = SubResource("BoxShape3D_808c1")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="StaticBody3D" index="2"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -2.04165, 0, 0.0659725)
+shape = SubResource("BoxShape3D_cqlk6")
+
+[node name="CollisionShape3D3" type="CollisionShape3D" parent="StaticBody3D" index="3"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 1.99622, 0, 0.0659727)
+shape = SubResource("BoxShape3D_cqlk6")
+
+[node name="Marker3D" type="Marker3D" parent="." index="4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.676479, 0)

@@ -11,6 +11,7 @@ class_name GroundGenerator
 @export var wind_grass_scene: PackedScene
 @export var wind_grass_amount: int = 5
 @export var building_manager: BuildingManager
+@onready var nav_region: NavigationRegion3D = $NavRegion
 
 @export_group("Visuals")
 @export var show_border: bool = true
@@ -27,7 +28,11 @@ var is_initialized: bool = false
 var current_padding: int = 0
 
 func _ready() -> void:
-	pass
+	if nav_region:
+		nav_region.bake_finished.connect(_on_bake_finished)
+
+func _on_bake_finished():
+	print("✅ NavMesh đã cập nhật xong! Map đã an toàn.")
 
 func _ensure_setup():
 	if is_initialized: return
@@ -105,6 +110,23 @@ func generate_new_map():
 		spawn_random_grass(wind_grass_amount)
 	if tree_renderer:
 		tree_renderer.generate_forest()
+	
+	bake_nav_mesh()
+	
+func can_dig(grid_pos: Vector2i) -> bool:
+	if not is_valid_grid_pos(grid_pos):
+		return false
+		
+	var block = block_data[grid_pos.x][grid_pos.y]
+	
+	if block.has_building:
+		return false
+		
+	if block.plant_type != PlantDatabase.PLANT_VARIANT.NONE:
+		return false
+		
+	return true
+
 
 func _spawn_initial_buildings():
 	print("🏗️ Đang đặt các công trình mặc định...")
@@ -113,14 +135,18 @@ func _spawn_initial_buildings():
 	var house_world_pos = Vector3(-21.217, 0, 0)
 	var house_grid = get_grid_pos_from_world(house_world_pos)
 	var house_rot = Vector3(0, deg_to_rad(90.0), 0)
-	var house_scale = Vector3(1.49, 1.49, 1.49)
+	
+	var house_scale = Vector3.ZERO 
+	
 	building_manager.restore_building(house_id, house_grid, house_rot, house_scale)
 	
 	var well_id = "well"
 	var well_world_pos = Vector3(-20.848, 0, -6.554)
 	var well_grid = get_grid_pos_from_world(well_world_pos)
 	var well_rot = Vector3(0, deg_to_rad(90.0), 0)
-	var well_scale = Vector3(0.685, 0.685, 0.685)
+	
+	var well_scale = Vector3.ZERO
+	
 	building_manager.restore_building(well_id, well_grid, well_rot, well_scale)
 
 
@@ -180,7 +206,7 @@ func load_from_data(data: Dictionary):
 				var b_pos = Vector2i(b_info["x"], b_info["y"])
 				var b_rot = Vector3(b_info["rot_x"], b_info["rot_y"], b_info["rot_z"])
 				building_manager.restore_building(b_info["id"], b_pos, b_rot)
-
+	bake_nav_mesh()
 
 func get_current_state() -> Dictionary:
 	var save_dict = {}
@@ -287,7 +313,17 @@ func _create_ground_collision() -> void:
 	collider.shape = shape
 	static_body.add_child(collider)
 	static_body.position = Vector3(0, 0, 0)
-	add_child(static_body)
+	
+	if nav_region:
+		nav_region.add_child(static_body)
+	else:
+		add_child(static_body)
+
+func bake_nav_mesh():
+	if nav_region:
+		
+		print("🗺️ Đang bake Navigation Mesh...")
+		nav_region.bake_navigation_mesh()
 
 func get_grid_pos_from_world(world_pos: Vector3) -> Vector2i:
 	var spacing := renderer.spacing

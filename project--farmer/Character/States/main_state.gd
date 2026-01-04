@@ -48,9 +48,19 @@ func _update(delta: float) -> void:
 	character.move_and_slide()
 
 func get_current_speed() -> float:
-	# Ưu tiên dùng Blackboard cho đồng bộ với PlayerInput
+	# Nếu đang giữ nút Chạy
 	if can_run and blackboard.get_var(BBNames.run_var, false):
-		return character.stats.run_speed 
+		
+		var dt = get_process_delta_time()
+		character.stats.consume(character.stats.run_cost_per_sec * dt)
+		
+		var threshold = character.stats.get_max_stamina() * 0.1
+		
+		if character.stats.stamina > threshold:
+			return character.stats.run_speed
+		else:
+			return character.stats.walk_speed
+			
 	return character.stats.walk_speed
 
 func check_tool_transitions() -> void:

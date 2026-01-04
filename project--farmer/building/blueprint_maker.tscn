@@ -1,0 +1,54 @@
+[gd_scene load_steps=6 format=3 uid="uid://cwutntmvjx5ru"]
+
+[ext_resource type="Shader" uid="uid://viqy3uwh6ns7" path="res://PixelShader.gdshader" id="1_8rh1w"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_u3257"]
+cull_mode = 2
+albedo_color = Color(0, 0, 0, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_qjj7q"]
+material = SubResource("StandardMaterial3D_u3257")
+size = Vector3(40, 40, 40)
+
+[sub_resource type="QuadMesh" id="QuadMesh_qglls"]
+flip_faces = true
+size = Vector2(4, 4)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_7guaq"]
+render_priority = 0
+shader = ExtResource("1_8rh1w")
+shader_parameter/depth_threshold = 0.322
+shader_parameter/reverse_depth_threshold = 0.811
+shader_parameter/normal_threshold = 0.789
+shader_parameter/darken_amount = 0.28
+shader_parameter/lighten_amount = 2.75
+shader_parameter/normal_edge_bias = Vector3(1, 1, 1)
+shader_parameter/light_direction = Vector3(-0.96, -0.18, 0.2)
+shader_parameter/outline_thickness = 1.0
+
+[node name="BlueprintMaker" type="Node3D"]
+
+[node name="CameraMan" type="Node3D" parent="."]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="CameraMan"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.690723, 0)
+mesh = SubResource("BoxMesh_qjj7q")
+
+[node name="Camera3D" type="Camera3D" parent="CameraMan"]
+transform = Transform3D(0.797584, 0.327647, -0.506466, 0, 0.83962, 0.543175, 0.603208, -0.433227, 0.669668, -3.64784, 5.61798, 4.31991)
+fov = 48.9
+
+[node name="SpotLight3D" type="SpotLight3D" parent="CameraMan"]
+transform = Transform3D(0.986481, 0, 0.163877, -0.163877, -4.37114e-08, 0.986481, 7.16329e-09, -1, -4.31204e-08, 1.96506, 6.9013, -3.01665e-07)
+light_energy = 5.38
+spot_range = 8.51801
+spot_angle = 41.98
+
+[node name="ShaderOutline" type="MeshInstance3D" parent="CameraMan"]
+transform = Transform3D(1, 0, 0, 0, 0.00750488, 0.999972, 0, -0.999972, 0.00750488, 0.180526, -104.894, -0.522281)
+extra_cull_margin = 16384.0
+mesh = SubResource("QuadMesh_qglls")
+surface_material_override/0 = SubResource("ShaderMaterial_7guaq")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="CameraMan"]
+transform = Transform3D(1, 0, 0, 0, 0.989861, 0.142042, 0, -0.142042, 0.989861, 0, 0, 0)

@@ -1,12 +1,15 @@
-[gd_resource type="Resource" script_class="BuildingData" load_steps=3 format=3 uid="uid://vmow8ex1ldhd"]
+[gd_resource type="Resource" script_class="BuildingData" load_steps=4 format=3 uid="uid://vmow8ex1ldhd"]
 
 [ext_resource type="Script" uid="uid://fekbxueaingk" path="res://building/building_data.gd" id="1_c6wrv"]
+[ext_resource type="Texture2D" uid="uid://dpqoc8hcio06n" path="res://building/building_icon/well.png" id="1_nt8ul"]
 [ext_resource type="PackedScene" uid="uid://cbksswef0oxs8" path="res://Scene/structureScene/well.tscn" id="1_ysgdi"]
 
 [resource]
 script = ExtResource("1_c6wrv")
 id = "well"
 name = "Well"
+category = 1
+icon = ExtResource("1_nt8ul")
 scene = ExtResource("1_ysgdi")
 size = Vector2i(2, 2)
 offset = Vector3(0, 0, 0)

@@ -43,16 +43,16 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_2xpwx")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_jfe0b"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_2xpwx"]
 render_priority = 0
 shader = ExtResource("2_2xpwx")
 shader_parameter/alphaTexture = ExtResource("3_70301")
-shader_parameter/leavesColor = Color(0.195745, 0.361345, 0.178177, 1)
-shader_parameter/alphaThreshold = 0.075
+shader_parameter/leavesColor = Color(0.162454, 0.286148, 0.111379, 1)
+shader_parameter/alphaThreshold = 0.65
 shader_parameter/offsetScale = 1.0
 shader_parameter/fresnelStrength = 0.287
 shader_parameter/fresnelBlend = 1.0
-shader_parameter/fresnelColor = Color(0.17913, 0.404528, 0.134399, 1)
+shader_parameter/fresnelColor = Color(0.19846, 0.443607, 0.149765, 1)
 shader_parameter/deactiveGlobalVariation = false
 shader_parameter/clampTop = 1.0
 shader_parameter/clampBottom = 0.0
@@ -65,7 +65,7 @@ visibility_range_end = 80.0
 visibility_range_end_margin = 10.0
 mesh = SubResource("ArrayMesh_jfydu")
 skeleton = NodePath("")
-surface_material_override/0 = SubResource("ShaderMaterial_jfe0b")
+surface_material_override/0 = SubResource("ShaderMaterial_2xpwx")
 
 [node name="TreeBoidy" parent="." instance=ExtResource("4_2xpwx")]
 transform = Transform3D(0.0129917, 0, -0.389784, 0, 0.39, 0, 0.389784, 0, 0.0129917, 0, 0, 0)

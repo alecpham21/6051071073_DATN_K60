@@ -63,6 +63,9 @@ func use_slot_data(index: int) -> void:
 		return
 	
 	if slot_data.item_data is ItemDataConsumable:
+		if PlayerData.player:
+			slot_data.item_data.use(PlayerData.player)
+
 		slot_data.quantity -= 1
 		if slot_data.quantity < 1:
 			slot_datas[index] = null

@@ -16,7 +16,6 @@ func _apply_gravity(delta:float):
 func _physics_process(delta: float) -> void:
 	
 	limbo_hsm.update(delta)
-	#print(limbo_hsm.blackboard.get_var("direction"))
 
 func _ready() -> void:
 	limbo_hsm.set_active(true)

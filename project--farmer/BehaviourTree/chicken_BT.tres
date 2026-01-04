@@ -1,0 +1,49 @@
+[gd_resource type="BehaviorTree" load_steps=15 format=3 uid="uid://dlpjpuxc5bqbb"]
+
+[ext_resource type="Script" uid="uid://d3lxklr1duoa5" path="res://ai/tasks/Chick/task_eat.gd" id="1_satmk"]
+[ext_resource type="Script" uid="uid://dnb263t1ksaxg" path="res://ai/tasks/Chick/random_pos_coop.gd" id="2_67i8d"]
+[ext_resource type="Script" uid="uid://bp51soluhv281" path="res://ai/tasks/Chick/move_to_chic.gd" id="3_8n7vq"]
+
+[sub_resource type="BlackboardPlan" id="BlackboardPlan_s5wsi"]
+
+[sub_resource type="BBVariant" id="BBVariant_ossyf"]
+type = 1
+saved_value = true
+resource_name = "true"
+
+[sub_resource type="BTCheckVar" id="BTCheckVar_67i8d"]
+variable = &"is_hungry"
+value = SubResource("BBVariant_ossyf")
+
+[sub_resource type="BTAction" id="BTAction_8n7vq"]
+script = ExtResource("1_satmk")
+
+[sub_resource type="BTWait" id="BTWait_satmk"]
+duration = 2.0
+
+[sub_resource type="BTSequence" id="BTSequence_5bnod"]
+children = [SubResource("BTCheckVar_67i8d"), SubResource("BTAction_8n7vq"), SubResource("BTWait_satmk")]
+
+[sub_resource type="BTAction" id="BTAction_4vutn"]
+script = ExtResource("2_67i8d")
+radius = 1.5
+target_var = &"target_pos"
+
+[sub_resource type="BTAction" id="BTAction_rlphk"]
+script = ExtResource("3_8n7vq")
+target_var = &"target_pos"
+tolerance = 0.5
+
+[sub_resource type="BTRandomWait" id="BTRandomWait_67i8d"]
+min_duration = 2.0
+max_duration = 5.0
+
+[sub_resource type="BTSequence" id="BTSequence_satmk"]
+children = [SubResource("BTAction_4vutn"), SubResource("BTAction_rlphk"), SubResource("BTRandomWait_67i8d")]
+
+[sub_resource type="BTSelector" id="BTSelector_satmk"]
+children = [SubResource("BTSequence_5bnod"), SubResource("BTSequence_satmk")]
+
+[resource]
+blackboard_plan = SubResource("BlackboardPlan_s5wsi")
+root_task = SubResource("BTSelector_satmk")

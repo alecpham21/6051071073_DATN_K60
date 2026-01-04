@@ -1,6 +1,13 @@
-[gd_scene load_steps=2 format=3 uid="uid://dwe03uitdfmcs"]
+[gd_scene load_steps=7 format=3 uid="uid://dwe03uitdfmcs"]
 
 [ext_resource type="Script" uid="uid://nhtrys344u0u" path="res://building/build_ui.gd" id="1_dbwwy"]
+[ext_resource type="Texture2D" uid="uid://b0rkdxpmcgwyi" path="res://building/building_category_icon/structure_house.png" id="2_vnm6f"]
+[ext_resource type="Texture2D" uid="uid://4pkmuc43k31x" path="res://building/building_category_icon/structure_farm.png" id="3_xt7ay"]
+[ext_resource type="Texture2D" uid="uid://dmy02fxfv85jk" path="res://building/building_category_icon/chess_knight.png" id="4_o4x0o"]
+[ext_resource type="Texture2D" uid="uid://c8pt0r1ca4yob" path="res://building/building_icon/Hammer.png" id="5_2l5mb"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_o4x0o"]
+bg_color = Color(0.299547, 0.299547, 0.299547, 1)
 
 [node name="BuildUI" type="Control"]
 layout_mode = 3
@@ -12,14 +19,59 @@ grow_vertical = 2
 mouse_filter = 1
 script = ExtResource("1_dbwwy")
 
-[node name="PanelContainer" type="PanelContainer" parent="."]
+[node name="MainContainer" type="HBoxContainer" parent="."]
 layout_mode = 1
-anchors_preset = 2
-anchor_top = 1.0
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
 anchor_bottom = 1.0
-offset_top = -40.0
-offset_right = 40.0
-grow_vertical = 0
+grow_horizontal = 0
+grow_vertical = 2
+theme_override_constants/separation = 0
+alignment = 2
 
-[node name="ButtonContainer" type="HBoxContainer" parent="PanelContainer"]
+[node name="CategoryBar" type="VBoxContainer" parent="MainContainer"]
 layout_mode = 2
+alignment = 1
+
+[node name="BtnHouse" type="Button" parent="MainContainer/CategoryBar"]
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+icon = ExtResource("2_vnm6f")
+expand_icon = true
+
+[node name="BtnFarm" type="Button" parent="MainContainer/CategoryBar"]
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+icon = ExtResource("3_xt7ay")
+expand_icon = true
+
+[node name="BtnDecor" type="Button" parent="MainContainer/CategoryBar"]
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+icon = ExtResource("4_o4x0o")
+expand_icon = true
+
+[node name="BlueprintPanel" type="PanelContainer" parent="MainContainer"]
+self_modulate = Color(0.266575, 0.266575, 0.266575, 1)
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_o4x0o")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MainContainer/BlueprintPanel"]
+layout_mode = 2
+
+[node name="Header" type="CenterContainer" parent="MainContainer/BlueprintPanel/VBoxContainer"]
+layout_mode = 2
+
+[node name="HammerIcon" type="TextureRect" parent="MainContainer/BlueprintPanel/VBoxContainer/Header"]
+layout_mode = 2
+texture = ExtResource("5_2l5mb")
+
+[node name="ScrollContainer" type="ScrollContainer" parent="MainContainer/BlueprintPanel/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="ContentContainer" type="VBoxContainer" parent="MainContainer/BlueprintPanel/VBoxContainer/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3

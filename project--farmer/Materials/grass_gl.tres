@@ -1,8 +1,17 @@
-[gd_resource type="ShaderMaterial" load_steps=4 format=3 uid="uid://7yv0jbalvc56"]
+[gd_resource type="ShaderMaterial" load_steps=6 format=3 uid="uid://7yv0jbalvc56"]
 
 [ext_resource type="Shader" uid="uid://c22fofdj0tpbk" path="res://modelScene/terrain/grass_gl_shader.gdshader" id="1_aor6t"]
 [ext_resource type="Texture2D" uid="uid://1iwd2m2c4m3j" path="res://Textures/Grass_texture..png" id="2_nr4kr"]
 [ext_resource type="Texture2D" uid="uid://bm3mfbqoiqeo" path="res://Textures/TerrainNoise/terrain_noise.tres" id="3_yelxk"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_qexgu"]
+noise_type = 3
+frequency = 0.0016
+offset = Vector3(424.24, 160, 0)
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_6s6l3"]
+seamless = true
+noise = SubResource("FastNoiseLite_qexgu")
 
 [resource]
 render_priority = 0
@@ -13,3 +22,12 @@ shader_parameter/color_dark = Color(0.357201, 0.499562, 0.262025, 1)
 shader_parameter/terrain_scale = 0.1
 shader_parameter/grass_texture = ExtResource("2_nr4kr")
 shader_parameter/wind_speed = 0.5
+shader_parameter/cloud_noise = SubResource("NoiseTexture2D_6s6l3")
+shader_parameter/cloud_color = Color(0.1, 0.1, 0.3, 1)
+shader_parameter/cloud_strength = 0.5
+shader_parameter/cloud_scale = 0.05
+shader_parameter/cloud_speed_1 = Vector2(10, 0)
+shader_parameter/cloud_speed_2 = Vector2(-0.2, 0.1)
+shader_parameter/cloud_cutoff = 0.5
+shader_parameter/cloud_fuzziness = 0.1
+shader_parameter/shadow_projection_dir = Vector2(0.5, 0.5)

@@ -1,0 +1,40 @@
+[gd_scene load_steps=6 format=3 uid="uid://xs0u77o1qd26"]
+
+[ext_resource type="Script" uid="uid://cqxcgtdmione2" path="res://ui/stamina_hud.gd" id="1_aqbwv"]
+
+[sub_resource type="Gradient" id="Gradient_aqbwv"]
+colors = PackedColorArray(0, 0, 0, 1, 0.737193, 0.737193, 0.737193, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_gt4ru"]
+gradient = SubResource("Gradient_aqbwv")
+width = 200
+height = 6
+
+[sub_resource type="Gradient" id="Gradient_ulrhd"]
+colors = PackedColorArray(0.879529, 0.80211, 0.481329, 1, 0.843988, 0.771628, 0.490722, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_0umwv"]
+gradient = SubResource("Gradient_ulrhd")
+width = 200
+height = 6
+
+[node name="StaminaHUD" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_aqbwv")
+
+[node name="TextureProgressBar" type="TextureProgressBar" parent="."]
+texture_filter = 1
+custom_minimum_size = Vector2(200, 6)
+layout_mode = 0
+offset_right = 200.0
+offset_bottom = 6.0
+nine_patch_stretch = true
+texture_under = SubResource("GradientTexture2D_gt4ru")
+texture_progress = SubResource("GradientTexture2D_0umwv")
+
+[node name="HideTimer" type="Timer" parent="."]
+wait_time = 2.0
+one_shot = true
+
+[connection signal="timeout" from="HideTimer" to="." method="_on_hide_timer_timeout"]

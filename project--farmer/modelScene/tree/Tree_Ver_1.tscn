@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=4 uid="uid://dm2qucqgp6hj"]
+[gd_scene load_steps=13 format=4 uid="uid://dm2qucqgp6hj"]
 
 [ext_resource type="PackedScene" uid="uid://cmf1xboo45a08" path="res://model/tree/OnlyBodyPart/TreeBody1.glb" id="1_wu73h"]
 [ext_resource type="Shader" uid="uid://sy0jqm2sqqwl" path="res://addons/flexible_toon_shader/flexible_toon.gdshader" id="2_7haao"]
@@ -63,16 +63,44 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_7haao")
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_7haao"]
+render_priority = 0
+shader = ExtResource("3_7haao")
+shader_parameter/alphaTexture = ExtResource("4_gi8xq")
+shader_parameter/leavesColor = Color(0.203352, 0.373872, 0.185259, 1)
+shader_parameter/alphaThreshold = 0.65
+shader_parameter/offsetScale = 1.0
+shader_parameter/fresnelStrength = 0.287
+shader_parameter/fresnelBlend = 1.0
+shader_parameter/fresnelColor = Color(0.21566, 0.478757, 0.163349, 1)
+shader_parameter/deactiveGlobalVariation = false
+shader_parameter/clampTop = 1.0
+shader_parameter/clampBottom = 0.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_iefjp"]
+render_priority = 0
+shader = ExtResource("3_7haao")
+shader_parameter/alphaTexture = ExtResource("4_gi8xq")
+shader_parameter/leavesColor = Color(0.203352, 0.373872, 0.185259, 1)
+shader_parameter/alphaThreshold = 0.65
+shader_parameter/offsetScale = 1.0
+shader_parameter/fresnelStrength = 0.287
+shader_parameter/fresnelBlend = 1.0
+shader_parameter/fresnelColor = Color(0.21566, 0.478757, 0.163349, 1)
+shader_parameter/deactiveGlobalVariation = false
+shader_parameter/clampTop = 1.0
+shader_parameter/clampBottom = 0.0
+
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_8eg7r"]
 render_priority = 0
 shader = ExtResource("3_7haao")
 shader_parameter/alphaTexture = ExtResource("4_gi8xq")
-shader_parameter/leavesColor = Color(0.195745, 0.361345, 0.178177, 1)
-shader_parameter/alphaThreshold = 0.075
+shader_parameter/leavesColor = Color(0.203352, 0.373872, 0.185259, 1)
+shader_parameter/alphaThreshold = 0.65
 shader_parameter/offsetScale = 1.0
 shader_parameter/fresnelStrength = 0.287
 shader_parameter/fresnelBlend = 1.0
-shader_parameter/fresnelColor = Color(0.17913, 0.404528, 0.134399, 1)
+shader_parameter/fresnelColor = Color(0.21566, 0.478757, 0.163349, 1)
 shader_parameter/deactiveGlobalVariation = false
 shader_parameter/clampTop = 1.0
 shader_parameter/clampBottom = 0.0
@@ -90,7 +118,7 @@ visibility_range_end = 80.0
 visibility_range_end_margin = 10.0
 mesh = SubResource("ArrayMesh_iefjp")
 skeleton = NodePath("")
-surface_material_override/0 = SubResource("ShaderMaterial_8eg7r")
+surface_material_override/0 = SubResource("ShaderMaterial_7haao")
 
 [node name="Cube2" type="MeshInstance3D" parent="." index="2"]
 transform = Transform3D(1.155, 0, 0, 0, 1.155, 0, 0, 0, 1.155, 0, 7.48809, -2.26736)
@@ -98,7 +126,7 @@ visibility_range_end = 80.0
 visibility_range_end_margin = 10.0
 mesh = SubResource("ArrayMesh_iefjp")
 skeleton = NodePath("")
-surface_material_override/0 = SubResource("ShaderMaterial_8eg7r")
+surface_material_override/0 = SubResource("ShaderMaterial_iefjp")
 
 [node name="Cube3" type="MeshInstance3D" parent="." index="3"]
 transform = Transform3D(1.155, 0, 0, 0, 1.155, 0, 0, 0, 1.155, 0, 7.07415, 2.22236)

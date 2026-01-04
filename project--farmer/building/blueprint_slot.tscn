@@ -1,0 +1,41 @@
+[gd_scene load_steps=2 format=3 uid="uid://df2gl3go4ux0m"]
+
+[ext_resource type="Script" uid="uid://do8uut3f65iff" path="res://building/blueprint_slot.gd" id="1_os40b"]
+
+[node name="BlueprintSlot" type="PanelContainer"]
+custom_minimum_size = Vector2(200, 80)
+offset_right = 200.0
+offset_bottom = 80.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("1_os40b")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="IconRect" type="TextureRect" parent="HBoxContainer"]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+expand_mode = 1
+stretch_mode = 5
+
+[node name="InfoContainer" type="VBoxContainer" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="NameLabel" type="Label" parent="HBoxContainer/InfoContainer"]
+layout_mode = 2
+uppercase = true
+
+[node name="DescLabel" type="Label" parent="HBoxContainer/InfoContainer"]
+layout_mode = 2
+
+[node name="ActionContainer" type="VBoxContainer" parent="HBoxContainer"]
+layout_mode = 2
+alignment = 2
+
+[node name="BuildButton" type="Button" parent="HBoxContainer/ActionContainer"]
+layout_mode = 2
+text = "Build"

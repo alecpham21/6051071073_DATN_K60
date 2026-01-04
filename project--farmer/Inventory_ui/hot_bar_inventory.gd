@@ -112,7 +112,7 @@ func on_slot_clicked(index: int, button: int):
 	if button == MOUSE_BUTTON_LEFT:
 		set_active_slot(index)
 
-# HÀM MỚI: Thay đổi active slot
+
 func set_active_slot(index: int):
 	active_index = index
 	update_active_slot_visuals()

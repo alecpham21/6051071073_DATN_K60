@@ -20,7 +20,11 @@ func _ready() -> void:
 	initialize(character)
 	if PlayerData.player_inventory_data:
 		PlayerData.player_inventory_data.item_used_up.connect(_on_item_used_up)
-
+	
+	await get_tree().process_frame
+	if character and character.stats:
+		if not character.stats.stamina_depleted.is_connected(_on_stamina_depleted):
+			character.stats.stamina_depleted.connect(_on_stamina_depleted)
 
 func _update(delta: float) -> void:
 	if blackboard:
@@ -79,13 +83,19 @@ func can_till() -> bool:
 
 	if not basic_check:
 		return false
+	
+	if !ground_gen: return false
+	
+	if character.seed_cast.is_colliding():
+		var hit_pos = character.seed_cast.get_collision_point()
+		var grid_pos = ground_gen.get_grid_pos_from_world(hit_pos)
 		
-	var block = get_block()
-	if block == null:
-		return false
+		if not ground_gen.can_dig(grid_pos):
+			return false
 		
-	if block.mode == BlockGroundData.Mode.CUT or block.mode == BlockGroundData.Mode.GRASS:
-		return true
+		var block = ground_gen.block_data[grid_pos.x][grid_pos.y]
+		if block.mode == BlockGroundData.Mode.CUT or block.mode == BlockGroundData.Mode.GRASS:
+			return true
 		
 	return false
 
@@ -93,13 +103,11 @@ func can_till() -> bool:
 func can_harvest() -> bool:
 	if not use_item: return false
 
-	# 1. Check tương tác vật lý (Cây tre, măng...)
 	if character.current_interactable != null:
 		var target = character.current_interactable
 		if target.get("is_harvestable") == true:
 			return true
 			
-	# 2. Check Block đất
 	var block = get_block()
 	if not block: return false
 	
@@ -143,3 +151,15 @@ func get_block():
 		var grid_pos = ground_gen.get_grid_pos_from_world(hit_pos)
 		block = ground_gen.block_data[grid_pos.x][grid_pos.y]
 	return block
+
+
+func _on_stamina_depleted():
+	print("⚡ SIGNAL RECEIVED IN HSM")
+	
+	var active = get_active_state()
+	if not active: return
+
+	if active.name in ["MovingState", "IdleState", "MainState"]:
+		print("⚡ Dispatching tired from: ", active.name)
+		blackboard.set_var("tired_cause", "run")
+		dispatch("tired")
