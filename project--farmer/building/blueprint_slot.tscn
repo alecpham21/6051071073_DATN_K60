@@ -1,6 +1,15 @@
-[gd_scene load_steps=2 format=3 uid="uid://df2gl3go4ux0m"]
+[gd_scene load_steps=3 format=3 uid="uid://df2gl3go4ux0m"]
 
 [ext_resource type="Script" uid="uid://do8uut3f65iff" path="res://building/blueprint_slot.gd" id="1_os40b"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_os40b"]
+bg_color = Color(0.577309, 0.37659, 0.18232, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.897793, 0.59087, 0.333821, 1)
+border_blend = true
 
 [node name="BlueprintSlot" type="PanelContainer"]
 custom_minimum_size = Vector2(200, 80)
@@ -8,6 +17,7 @@ offset_right = 200.0
 offset_bottom = 80.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_os40b")
 script = ExtResource("1_os40b")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
@@ -38,4 +48,5 @@ alignment = 2
 
 [node name="BuildButton" type="Button" parent="HBoxContainer/ActionContainer"]
 layout_mode = 2
+theme_override_constants/outline_size = 6
 text = "Build"

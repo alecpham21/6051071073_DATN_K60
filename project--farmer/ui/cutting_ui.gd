@@ -1,6 +1,5 @@
 extends PanelContainer
 
-# Kéo node từ cây UI vào đây:
 @export var input_slot_node: PanelContainer 
 @export var output_preview_node: TextureRect 
 @export var cut_btn: Button 

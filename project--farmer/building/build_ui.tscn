@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://dwe03uitdfmcs"]
+[gd_scene load_steps=8 format=3 uid="uid://dwe03uitdfmcs"]
 
 [ext_resource type="Script" uid="uid://nhtrys344u0u" path="res://building/build_ui.gd" id="1_dbwwy"]
 [ext_resource type="Texture2D" uid="uid://b0rkdxpmcgwyi" path="res://building/building_category_icon/structure_house.png" id="2_vnm6f"]
@@ -6,8 +6,16 @@
 [ext_resource type="Texture2D" uid="uid://dmy02fxfv85jk" path="res://building/building_category_icon/chess_knight.png" id="4_o4x0o"]
 [ext_resource type="Texture2D" uid="uid://c8pt0r1ca4yob" path="res://building/building_icon/Hammer.png" id="5_2l5mb"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_o4x0o"]
-bg_color = Color(0.299547, 0.299547, 0.299547, 1)
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_c14fx"]
+bg_color = Color(0.937255, 0.619608, 0.278431, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2l5mb"]
+bg_color = Color(0.49909, 0.345324, 0.185464, 1)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+expand_margin_bottom = 5.0
 
 [node name="BuildUI" type="Control"]
 layout_mode = 3
@@ -56,17 +64,27 @@ expand_icon = true
 self_modulate = Color(0.266575, 0.266575, 0.266575, 1)
 custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_o4x0o")
+theme_override_styles/panel = SubResource("StyleBoxFlat_c14fx")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MainContainer/BlueprintPanel"]
 layout_mode = 2
+theme_override_constants/separation = 4
 
 [node name="Header" type="CenterContainer" parent="MainContainer/BlueprintPanel/VBoxContainer"]
 layout_mode = 2
 
-[node name="HammerIcon" type="TextureRect" parent="MainContainer/BlueprintPanel/VBoxContainer/Header"]
+[node name="PanelContainer" type="PanelContainer" parent="MainContainer/BlueprintPanel/VBoxContainer/Header"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_2l5mb")
+
+[node name="HammerIcon" type="TextureRect" parent="MainContainer/BlueprintPanel/VBoxContainer/Header/PanelContainer"]
 layout_mode = 2
 texture = ExtResource("5_2l5mb")
+flip_h = true
+
+[node name="HSeparator" type="HSeparator" parent="MainContainer/BlueprintPanel/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 5
 
 [node name="ScrollContainer" type="ScrollContainer" parent="MainContainer/BlueprintPanel/VBoxContainer"]
 layout_mode = 2

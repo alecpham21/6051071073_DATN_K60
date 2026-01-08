@@ -1,4 +1,4 @@
-[gd_scene load_steps=39 format=3 uid="uid://o1wmcaqylahd"]
+[gd_scene load_steps=41 format=3 uid="uid://o1wmcaqylahd"]
 
 [ext_resource type="Script" uid="uid://dg34046jf1xjo" path="res://Scene/InBuilding/level_house.gd" id="1_iipvn"]
 [ext_resource type="Script" uid="uid://bshrove7rvagv" path="res://spring_arm_camera.gd" id="3_hou3o"]
@@ -28,9 +28,11 @@
 [ext_resource type="Resource" uid="uid://dk5hvrwtto4vl" path="res://ui/Recipe/chopped_bamboo_shoot_recipe.tres" id="21_md1uq"]
 [ext_resource type="Resource" uid="uid://b8osduwne4q22" path="res://ui/Recipe/chopped_spring_onion.tres" id="23_68aio"]
 [ext_resource type="Script" uid="uid://cxjkim56kcobh" path="res://ui/Recipe/RecipeScript/recipe.gd" id="24_rs3xq"]
+[ext_resource type="PackedScene" uid="uid://xs0u77o1qd26" path="res://ui/stamina_hud.tscn" id="24_v4h4i"]
 [ext_resource type="PackedScene" uid="uid://b817ly7ndragw" path="res://modelScene/interior/stove.tscn" id="27_vcdqq"]
 [ext_resource type="PackedScene" uid="uid://dv7qgbl8qngof" path="res://modelScene/interior/board.tscn" id="28_md1uq"]
 [ext_resource type="PackedScene" uid="uid://6msbaufmnf3f" path="res://quest_system/quest_ui/quest_journal_ui.tscn" id="31_iauac"]
+[ext_resource type="PackedScene" uid="uid://bcra5x5cf5jp" path="res://modelScene/interior/bed_bedroom.tscn" id="32_buwyy"]
 
 [sub_resource type="QuadMesh" id="QuadMesh_p1g3l"]
 flip_faces = true
@@ -132,6 +134,7 @@ transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0, 0, 
 use_gravity = true
 camera_ref_path = NodePath("../SpringArm3D2/Camera3D")
 inventory_data = ExtResource("8_ofysm")
+stats = null
 
 [node name="WoodenCrate" parent="SubViewportContainer/SubViewport" instance=ExtResource("8_r6vy2")]
 transform = Transform3D(0.765, 0, 0, 0, 0.765, 0, 0, 0, 0.765, -3.04543, 0.616039, -3.17967)
@@ -140,7 +143,6 @@ chest_id = "starting_chest"
 [node name="UI" type="CanvasLayer" parent="."]
 
 [node name="InventoryInterface" type="Control" parent="UI" node_paths=PackedStringArray("hotbar_inventory", "material_inventory", "craft_bar", "cutting_ui")]
-visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -156,7 +158,7 @@ cutting_ui = NodePath("../CuttingUI")
 [node name="VBoxContainer" type="VBoxContainer" parent="UI/InventoryInterface"]
 layout_mode = 0
 offset_right = 40.0
-offset_bottom = 40.0
+offset_bottom = 51.0
 
 [node name="HBoxContainer" type="HBoxContainer" parent="UI/InventoryInterface/VBoxContainer"]
 layout_mode = 2
@@ -178,6 +180,7 @@ layout_mode = 2
 horizontal_alignment = 2
 
 [node name="ExternalInventory" parent="UI/InventoryInterface" instance=ExtResource("10_8g7rj")]
+visible = false
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -239,6 +242,18 @@ visible = false
 [node name="CuttingUI" parent="UI" instance=ExtResource("17_rs3xq")]
 visible = false
 recipes = Array[ExtResource("24_rs3xq")]([ExtResource("21_md1uq"), ExtResource("23_68aio")])
+
+[node name="StaminaHUD" parent="UI" instance=ExtResource("24_v4h4i")]
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_top = 76.0
+offset_bottom = 76.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="Lighting" type="Node" parent="."]
 
@@ -314,6 +329,9 @@ transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, -0.105
 transform = Transform3D(-4.19685e-08, -0.279561, 0.960128, -1.222e-08, 0.960128, 0.279561, -1, 0, -4.37114e-08, 1.48581, 2.49136, 2.80428)
 
 [node name="QuestJournal" parent="." instance=ExtResource("31_iauac")]
+
+[node name="bed" parent="." instance=ExtResource("32_buwyy")]
+transform = Transform3D(0.75, 0, 0, 0, 0.75, 0, 0, 0, 0.75, 2.68899, 0.282935, 0)
 
 [connection signal="drop_slot_data" from="UI/InventoryInterface" to="UI/InventoryInterface" method="_on_drop_slot_data"]
 [connection signal="gui_input" from="UI/InventoryInterface" to="UI/InventoryInterface" method="_on_gui_input"]

@@ -1,6 +1,6 @@
 extends CharacterBody3D
 
-@export var timeline_name: String = "timeline_npc_john"
+@export var timeline_name: String = "timeline_npc_jack"
 
 @export_group("Quest Settings")
 @export var quest_to_complete_id: String = "talk_to_jack"
@@ -35,8 +35,12 @@ func _ready():
 	if area:
 		area.body_entered.connect(_on_interact_area_body_entered)
 		area.body_exited.connect(_on_interact_area_body_exited)
+		
+		if area.has_signal("interacted"):
+			area.interacted.connect(_on_interacted)
+		
 	else:
-		printerr("Lỗi: Không tìm thấy node InteractArea!")
+		printerr("Lỗi: No InteractArea")
 
 	anim_player.play("IdlePose")
 	
@@ -44,12 +48,17 @@ func _ready():
 	Dialogic.timeline_ended.connect(_on_timeline_ended)
 
 func _input(event):
-	if player_in_range and Input.is_action_just_pressed("interact"):
+	if player_in_range:
 		
 		if Dialogic.current_timeline == null:
 			Dialogic.start(timeline_name)
 			anim_player.play("Interacted")
 			get_viewport().set_input_as_handled()
+
+func _on_interacted():
+	if Dialogic.current_timeline == null:
+		Dialogic.start(timeline_name)
+		anim_player.play("Interacted")
 
 func _on_interact_area_body_entered(body):
 	if body is Player:
@@ -63,8 +72,8 @@ func start_cutscene_approach(target_pos: Vector3, tl_name: String):
 	timeline_to_play_after_walk = tl_name
 	is_cutscene_moving = true
 	
-	if anim_player.has_animation("Moon_Walk"):
-		anim_player.play("Moon_Walk")
+	if anim_player.has_animation("Walk"):
+		anim_player.play("Walk")
 	else:
 		print("using IdlePose")
 
@@ -80,6 +89,7 @@ func _physics_process(delta):
 		if distance > 0.1:
 			velocity = direction * move_speed
 			look_at(cutscene_target_pos, Vector3.UP)
+			rotate_y(PI)
 			rotation.x = 0 
 			rotation.z = 0
 			move_and_slide()
@@ -118,10 +128,8 @@ func _on_dialogic_signal(argument: String):
 				print("📜 Đã nhận nhiệm vụ: ", quest_to_start_id)
 
 			if door_id_to_unlock != "":
-				# 1. Lưu vào data để lần sau load game cửa vẫn mở
 				GameData.save_door_unlocked(door_id_to_unlock)
 				
-				# 2. Bắn tín hiệu để nếu cửa đang có trên màn hình thì mở ngay lập tức
 				GameData.request_unlock_door.emit(door_id_to_unlock)
 				
 				print("NPC đã mở khóa cửa ID: ", door_id_to_unlock)

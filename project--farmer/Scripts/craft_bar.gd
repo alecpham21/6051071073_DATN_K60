@@ -79,18 +79,15 @@ func remove_ingredient(index: int, btn: int):
 		PlayerData.player_inventory_data.add_item(slot.item_data, slot.quantity)
 		PlayerData.material_data.refresh(PlayerData.player_inventory_data)
 		
-		# 3. XÓA KHỎI CRAFT BAR
 		craft_slots_data[index] = null
 		update_craft_bar_ui()
 		check_recipe()
 
-# Hàm vẽ lại các ô trong Craft Bar
 func update_craft_bar_ui():
 	# Xóa hết con cũ
 	for child in item_grid.get_children():
 		child.queue_free()
 	
-	# Vẽ lại dựa trên mảng craft_slots_data
 	for i in range(craft_slots_data.size()):
 		var slot = Slot.instantiate()
 		item_grid.add_child(slot)
@@ -98,13 +95,11 @@ func update_craft_bar_ui():
 		var data = craft_slots_data[i]
 		if data:
 			slot.set_slot_data(data)
-			# Gắn sự kiện click để gỡ đồ ra (nếu cần)
 			slot.slot_clicked.connect(func(_idx, btn): remove_ingredient(i, btn))
 		else:
-			slot.set_slot_data(null) # Vẽ slot rỗng
+			slot.set_slot_data(null)
 
 func check_recipe():
-	# Reset
 	recipe_texture.texture = null
 	recipe_texture.modulate = Color(1, 1, 1, 1)
 	valid_recipe_to_cook = null

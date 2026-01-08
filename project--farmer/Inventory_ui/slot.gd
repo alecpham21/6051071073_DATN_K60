@@ -4,7 +4,7 @@ signal slot_clicked(index: int, button: int)
 
 @onready var quantity_label: Label = $QuantityLabel
 @onready var texture_rect: TextureRect = $MarginContainer/TextureRect
-
+@export var is_output_only: bool = false
 
 func set_slot_data(slot_data: SlotData) -> void:
 	if slot_data == null:
@@ -66,3 +66,8 @@ func _on_gui_input(event: InputEvent) -> void:
 			or event.button_index == MOUSE_BUTTON_RIGHT) \
 			and event.is_pressed():
 		slot_clicked.emit(get_index(), event.button_index)
+
+func _can_drop_data(_at_position, _data) -> bool:
+	if is_output_only:
+		return false
+	return true

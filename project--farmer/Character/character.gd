@@ -1,9 +1,7 @@
 class_name Character
 extends CharacterBody3D
 
-@export var stats : CharacterStats:
-	set(value):
-		stats = value.duplicate()
+@export var stats : CharacterStats
 
 @export var main_mesh: Node3D
 @export var ani : AnimationPlayer

@@ -165,3 +165,24 @@ func reduce_quantity(_item: ItemData, ammount: int = 1):
 
 func refresh():
 	inventory_updated.emit(self)
+
+func add_item_at_index(item: ItemData, quantity: int, index: int) -> bool:
+	if index < 0 or index >= slot_datas.size():
+		return false
+	
+	var slot = slot_datas[index]
+	if not slot:
+		var new_slot = SlotData.new()
+		new_slot.item_data = item
+		new_slot.quantity = quantity
+		slot_datas[index] = new_slot
+	elif slot.item_data == item:
+		if slot.quantity + quantity <= 99:
+			slot.quantity += quantity
+		else:
+			return false
+	else:
+		return false
+		
+	inventory_updated.emit(self)
+	return true

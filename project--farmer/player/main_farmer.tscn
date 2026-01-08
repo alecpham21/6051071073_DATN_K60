@@ -40724,6 +40724,7 @@ transition_to = {
 }
 
 [node name="StateLabel" type="Label" parent="." node_paths=PackedStringArray("limbo_hsm")]
+visible = false
 offset_left = 105.0
 offset_top = 9.0
 offset_right = 222.0

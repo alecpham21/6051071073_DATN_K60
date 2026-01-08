@@ -1,0 +1,106 @@
+[gd_scene load_steps=16 format=3 uid="uid://cw2xtaj63fmww"]
+
+[ext_resource type="Texture2D" uid="uid://cfxw860kcaw8f" path="res://Textures/FrameUI/panel_brown_damaged_dark.png" id="1_3pn8i"]
+[ext_resource type="Script" uid="uid://ds45yk8epmb5k" path="res://ui/menu_game_ui.gd" id="1_vuaa2"]
+[ext_resource type="FontFile" uid="uid://0jxkmvee0ls8" path="res://font/PixelOperator8-Bold.ttf" id="2_s7of0"]
+[ext_resource type="Texture2D" uid="uid://bnpou26l4btaf" path="res://Textures/FrameUI/button_brown.png" id="2_w8ewp"]
+[ext_resource type="Texture2D" uid="uid://cpjbwndu24dj4" path="res://Textures/FrameUI/button_brown_hover.png" id="3_lioa6"]
+[ext_resource type="Texture2D" uid="uid://i0y2sn81iofb" path="res://Textures/FrameUI/button_brown_press.png" id="4_cdegv"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_w8ewp"]
+texture = ExtResource("1_3pn8i")
+texture_margin_left = 5.0
+texture_margin_top = 5.0
+texture_margin_right = 5.0
+texture_margin_bottom = 5.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_y2jwq"]
+texture = ExtResource("2_w8ewp")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_cdegv"]
+texture = ExtResource("3_lioa6")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_vi477"]
+texture = ExtResource("4_cdegv")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_s7of0"]
+texture = ExtResource("2_w8ewp")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_lioa6"]
+texture = ExtResource("3_lioa6")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_wm86p"]
+texture = ExtResource("4_cdegv")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_vuaa2"]
+texture = ExtResource("3_lioa6")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_rnh2x"]
+
+[node name="MenuGameUI" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("1_vuaa2")
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.260417
+anchor_top = 0.268519
+anchor_right = 0.477431
+anchor_bottom = 0.731481
+offset_left = -4.99997
+offset_right = 4.99994
+offset_bottom = -86.0994
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_w8ewp")
+metadata/_edit_use_anchors_ = true
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer"]
+custom_minimum_size = Vector2(250, 200)
+layout_mode = 2
+
+[node name="Start" type="Button" parent="PanelContainer/VBoxContainer"]
+custom_minimum_size = Vector2(220, 60)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("2_s7of0")
+theme_override_font_sizes/font_size = 16
+theme_override_styles/disabled = SubResource("StyleBoxTexture_y2jwq")
+theme_override_styles/hover = SubResource("StyleBoxTexture_cdegv")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_vi477")
+theme_override_styles/normal = SubResource("StyleBoxTexture_s7of0")
+text = "Start Game
+"
+
+[node name="Setting" type="Button" parent="PanelContainer/VBoxContainer"]
+custom_minimum_size = Vector2(220, 60)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("2_s7of0")
+theme_override_font_sizes/font_size = 16
+theme_override_styles/hover = SubResource("StyleBoxTexture_lioa6")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_wm86p")
+theme_override_styles/normal = SubResource("StyleBoxTexture_s7of0")
+text = "Setting"
+
+[node name="Quit" type="Button" parent="PanelContainer/VBoxContainer"]
+custom_minimum_size = Vector2(220, 60)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("2_s7of0")
+theme_override_font_sizes/font_size = 16
+theme_override_styles/hover = SubResource("StyleBoxTexture_vuaa2")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_rnh2x")
+theme_override_styles/normal = SubResource("StyleBoxTexture_s7of0")
+text = "Quit
+"

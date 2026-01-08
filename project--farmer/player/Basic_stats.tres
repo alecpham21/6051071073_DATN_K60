@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="CharacterStats" load_steps=2 format=3 uid="uid://cel5qtcot3kdm"]
+
+[ext_resource type="Script" uid="uid://cl2lorw1iii8k" path="res://Scripts/Resources/character_stats.gd" id="1_1pw2o"]
+
+[resource]
+script = ExtResource("1_1pw2o")
+walk_speed = 5.0
+run_speed = 8.0
+harvesting_speed = 2.5
+cooking_speed = 5.0
+fishing_speed = 5.0
+charisma = 5.0
+base_max_stamina = 100.0
+base_restore_speed = 10.0
+run_cost_per_sec = 10.0
+action_cost = 15.0
+stamina = 100.0
+metadata/_custom_type_script = "uid://cl2lorw1iii8k"

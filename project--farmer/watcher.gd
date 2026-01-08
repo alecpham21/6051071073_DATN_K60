@@ -7,7 +7,6 @@ var player_inventory = {}
 var gold: int = 0
 var last_door_id: String = ""
 var player: CharacterBody3D = null
-#World Management
 var world_states: Dictionary = {}
 var indoor: bool = false
 

@@ -39,6 +39,7 @@ directories/dch_directory={
 directories/dtl_directory={
 "SellingFrujt": "res://Dialog/timeline/SellingFrujt.dtl",
 "timeline_npc_jack": "res://Dialog/timeline_npc_jack.dtl",
+"timeline_stinky": "res://Dialog/timeline/timeline_stinky.dtl",
 "welcome_home_jack": "res://Dialog/timeline/welcome_home_john.dtl"
 }
 layout/style_directory={
@@ -48,7 +49,9 @@ layout/style_directory={
 layout/style_list=["res://Dialog/styles/New_File.tres"]
 layout/default_style="res://Dialog/styles/New_File.tres"
 glossary/default_case_sensitive=true
-variables={}
+variables={
+"stink_line_eng": ""
+}
 extensions_folder="res://addons/dialogic_additions"
 text/letter_speed=0.01
 text/initial_text_reveal_skippable=true
@@ -97,6 +100,7 @@ external_inventory=""
 smooth=""
 inventory_interface=""
 Player=""
+coop_ui=""
 
 [input]
 

@@ -3,8 +3,8 @@ extends CharacterBody3D
 @onready var nav_agent: NavigationAgent3D = $NavigationAgent3D
 @onready var bt_player: BTPlayer = $BTPlayer
 
+var chicken_data: ChickenData
 var home_position: Vector3 
-var hunger: float = 0.0
 var move_speed: float = 2.0
 
 func _ready():
@@ -13,11 +13,27 @@ func _ready():
 	nav_agent.path_desired_distance = 0.5
 	nav_agent.target_desired_distance = 0.5
 	
-	await get_tree().physics_frame 
-	await get_tree().physics_frame 
+	if home_position == Vector3.ZERO:
+		home_position = global_position
+
+func setup(data: ChickenData):
+	chicken_data = data
+	update_visual()
 	
-	home_position = global_position
-	print("🐔 Gà đã sẵn sàng! Vị trí nhà: ", home_position)
+	bt_player.blackboard.set_var("home_pos", home_position)
+	bt_player.blackboard.set_var("is_adult", chicken_data.stage == LivestockEnums.Stage.ADULT)
+	nav_agent.navigation_layers = 2
+	
+func update_visual():
+	if not chicken_data: return
+	
+	if chicken_data.stage == LivestockEnums.Stage.BABY:
+		scale = Vector3(0.5, 0.5, 0.5)
+	else:
+		scale = Vector3(4.0, 4.0, 4.0)
+	
+	if bt_player and bt_player.blackboard:
+		bt_player.blackboard.set_var("is_adult", chicken_data.stage == LivestockEnums.Stage.ADULT)
 
 func _physics_process(delta):
 	if not is_on_floor():
@@ -48,5 +64,4 @@ func move_to(target_pos: Vector3):
 		look_at(look_target, Vector3.UP)
 
 func eat_food():
-	hunger = 0.0
-	print("Chic Eating...")
+	print("Chicken Eating...")

@@ -1,7 +1,6 @@
 class_name Board
 extends Node3D
 
-# Kéo file InventoryData (1 ô) vào đây trong Inspector
 @export var inventory_data: InventoryData 
 @export var camera_marker: Marker3D
 @export var player_marker: Marker3D

@@ -10,7 +10,8 @@ enum state_enum {
 	DIALOG,
 	SHOP,
 	JOURNAL,
-	BUILD
+	BUILD,
+	COOP
 }
 
 static var game_state:int = 0
@@ -26,7 +27,7 @@ static func is_dialog() -> bool: return game_state == state_enum.DIALOG
 static func is_shop() -> bool: return game_state == state_enum.SHOP
 static func is_journal() -> bool: return game_state == state_enum.JOURNAL
 static func is_build() -> bool: return game_state == state_enum.BUILD
-
+static func is_coop() -> bool: return game_state == state_enum.COOP
 
 static func play(): 
 	_change_state(state_enum.PLAYING)
@@ -54,6 +55,9 @@ static func journal():
 
 static func build():
 	_change_state(state_enum.BUILD)
+
+static func coop():
+	_change_state(state_enum.COOP)
 
 static func _change_state(new_state: int):
 	if game_state == new_state: return

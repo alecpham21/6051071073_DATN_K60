@@ -3,10 +3,12 @@ extends Node
 signal money_changed(new_value: int)
 
 var player: Player
+var stats: CharacterStats
 var player_inventory_data: InventoryData
 var player_equip_data: InventoryData 
 var player_outfit_data: InventoryDataOutfit
 var chest_inventories: Dictionary = {}
+
 
 var next_spawn_position: Vector3
 var used_spawn_position: bool = true
@@ -22,6 +24,9 @@ var money: int = 3000:
 		money_changed.emit(money)
 
 func _ready():
+	
+	if stats == null:
+		stats = load("res://player/Basic_stats.tres").duplicate()
 	if player_inventory_data == null:
 		player_inventory_data = load("res://inventory_script/inventory_data/player_inventory.tres")
 
@@ -51,7 +56,22 @@ func add_dirt_to_outfit(amount: float):
 		if slot and slot.item_data is ItemDataOutfit:
 			slot.add_dirt(amount)
 			is_dirty_updated = true
-			print("Đã làm dơ: ", slot.item_data.name)
+			print("Dirty make: ", slot.item_data.name)
 	
 	if is_dirty_updated:
 		player_outfit_data.inventory_updated.emit(player_outfit_data)
+
+func get_total_dirt_level() -> float:
+	var total_dirt: float = 0.0
+	
+	if not player_outfit_data: 
+		return 0.0
+	
+	for slot in player_outfit_data.slot_datas:
+		if slot and slot.item_data is ItemDataOutfit:
+			total_dirt += slot.get_stat("dirt")
+			
+	return total_dirt
+
+func is_player_stinky(threshold: float = 50.0) -> bool:
+	return get_total_dirt_level() >= threshold

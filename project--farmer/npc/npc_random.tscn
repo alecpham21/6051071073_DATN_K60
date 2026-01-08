@@ -6268,7 +6268,7 @@ nav_agent = NodePath("NavigationAgent3D")
 mesh_to_color = NodePath("NPCHat1/rig/Skeleton3D/Base_001")
 
 [node name="NPCHat1" type="Node3D" parent="."]
-transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
+transform = Transform3D(-1.07, 0, -1.84215e-07, 0, 1, 0, 1.61566e-07, 0, -1.22, 0, 0, 0)
 
 [node name="rig" type="Node3D" parent="NPCHat1"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.0448379)

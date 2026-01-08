@@ -32,7 +32,7 @@ func _ready() -> void:
 		nav_region.bake_finished.connect(_on_bake_finished)
 
 func _on_bake_finished():
-	print("✅ NavMesh đã cập nhật xong! Map đã an toàn.")
+	print("✅ NavMesh")
 
 func _ensure_setup():
 	if is_initialized: return
@@ -322,7 +322,6 @@ func _create_ground_collision() -> void:
 func bake_nav_mesh():
 	if nav_region:
 		
-		print("🗺️ Đang bake Navigation Mesh...")
 		nav_region.bake_navigation_mesh()
 
 func get_grid_pos_from_world(world_pos: Vector3) -> Vector2i:

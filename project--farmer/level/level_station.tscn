@@ -1,5 +1,6 @@
-[gd_scene load_steps=32 format=3 uid="uid://bdq8ist3s8m2s"]
+[gd_scene load_steps=33 format=3 uid="uid://bdq8ist3s8m2s"]
 
+[ext_resource type="Script" uid="uid://bjmjierdy5jyk" path="res://level/level_station.gd" id="1_jsplr"]
 [ext_resource type="Shader" uid="uid://bkw4b21akjsc2" path="res://subViewportPixel.gdshader" id="1_yfkc0"]
 [ext_resource type="Shader" uid="uid://viqy3uwh6ns7" path="res://PixelShader.gdshader" id="2_2bq7i"]
 [ext_resource type="Script" uid="uid://bshrove7rvagv" path="res://spring_arm_camera.gd" id="3_h51qb"]
@@ -71,6 +72,7 @@ size = Vector2(200, 68.015)
 size = Vector3(14.3547, 2.32129, 1)
 
 [node name="level_station" type="Node3D"]
+script = ExtResource("1_jsplr")
 
 [node name="SubViewportContainer" type="SubViewportContainer" parent="."]
 texture_filter = 1
@@ -102,7 +104,6 @@ inventory_data = ExtResource("11_c0e4f")
 
 [node name="NPCJack" parent="SubViewportContainer/SubViewport" instance=ExtResource("6_2bq7i")]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -2.78281, 0, -17.7764)
-timeline_name = "timeline_npc_jack"
 target_farm_scene = "uid://bbvhog32snru6"
 target_spawn_pos = Vector3(15.5, 0, 0)
 

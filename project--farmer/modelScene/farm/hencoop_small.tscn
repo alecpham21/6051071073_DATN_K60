@@ -1,10 +1,23 @@
-[gd_scene load_steps=12 format=3 uid="uid://ctwfscm668jge"]
+[gd_scene load_steps=23 format=3 uid="uid://ctwfscm668jge"]
 
 [ext_resource type="PackedScene" uid="uid://dmuc87hv0dmb" path="res://model/farm/hencoopSmall.glb" id="1_808c1"]
 [ext_resource type="Texture2D" uid="uid://bwa8xtxlf1ptx" path="res://Textures/woodtexture.png" id="2_4rt8x"]
-[ext_resource type="Script" uid="uid://pnj3epleqtkw" path="res://modelScene/farm/hencoop_small.gd" id="2_cqlk6"]
-[ext_resource type="PackedScene" uid="uid://hb8gvsd2enpn" path="res://Animal/FarmAnimal/chicken.tscn" id="3_ayep3"]
+[ext_resource type="Script" uid="uid://pnj3epleqtkw" path="res://modelScene/farm/coop_machine.gd" id="2_cqlk6"]
 [ext_resource type="Texture2D" uid="uid://1gysjnj7jqbq" path="res://assets/ImphenziaPalette01-256-Gradient.png" id="3_cqlk6"]
+[ext_resource type="Script" uid="uid://csfrg4socg8bj" path="res://inventory_script/inventory_data/inventory_data.gd" id="4_ip5w8"]
+[ext_resource type="Script" uid="uid://bspkgwkxsy8mn" path="res://inventory_script/slot_data.gd" id="5_s7aq2"]
+[ext_resource type="Resource" uid="uid://208q0fgbf0k5" path="res://inventory_script/item/items/item_material/egg.tres" id="6_t3cu2"]
+[ext_resource type="Script" uid="uid://i4dr8fqs0tx7" path="res://Scripts/interactable.gd" id="8_s7aq2"]
+
+[sub_resource type="Resource" id="Resource_s7aq2"]
+script = ExtResource("4_ip5w8")
+slot_datas = Array[ExtResource("5_s7aq2")]([null, null, null, null])
+metadata/_custom_type_script = "uid://csfrg4socg8bj"
+
+[sub_resource type="Resource" id="Resource_3qf3p"]
+script = ExtResource("4_ip5w8")
+slot_datas = Array[ExtResource("5_s7aq2")]([null])
+metadata/_custom_type_script = "uid://csfrg4socg8bj"
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ayep3"]
 albedo_texture = ExtResource("2_4rt8x")
@@ -25,10 +38,34 @@ size = Vector3(4.15863, 1.58594, 0.120819)
 [sub_resource type="BoxShape3D" id="BoxShape3D_cqlk6"]
 size = Vector3(3.97217, 1.58594, 0.120819)
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_s7aq2"]
+size = Vector3(5.41754, 2.78351, 5.59225)
+
+[sub_resource type="NavigationMesh" id="NavigationMesh_s7aq2"]
+vertices = PackedVector3Array(-1.63196, 0.375, -1.59365, -1.63196, 0.375, 1.65635, 1.61804, 0.375, 1.65635, 1.61804, 0.375, -1.59365)
+polygons = [PackedInt32Array(3, 2, 0), PackedInt32Array(0, 2, 1)]
+geometry_parsed_geometry_type = 0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_s7aq2"]
+albedo_color = Color(0.816942, 0.579091, 0.39382, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_t3cu2"]
+material = SubResource("StandardMaterial3D_s7aq2")
+size = Vector3(4.05, 0.085, 4.035)
+
+[sub_resource type="BoxMesh" id="BoxMesh_s7aq2"]
+size = Vector3(0.15, 0.25, 4.16)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_t3cu2"]
+albedo_color = Color(0.56395, 0.373192, 0.251022, 1)
+
 [node name="hencoopSmall" node_paths=PackedStringArray("spawn_point") instance=ExtResource("1_808c1")]
 script = ExtResource("2_cqlk6")
-chicken_scene = ExtResource("3_ayep3")
 spawn_point = NodePath("Marker3D")
+input_inv = SubResource("Resource_s7aq2")
+output_inv = SubResource("Resource_3qf3p")
+egg_item = ExtResource("6_t3cu2")
+days_to_adult = 1
 
 [node name="hencoop" parent="." index="0"]
 material_override = SubResource("StandardMaterial3D_ayep3")
@@ -48,7 +85,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.021698, 0, 1.97696)
 shape = SubResource("BoxShape3D_808c1")
 
 [node name="CollisionShape3D4" type="CollisionShape3D" parent="StaticBody3D" index="1"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.021698, 0, -1.99565)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.021698, 0, -1.9969)
 shape = SubResource("BoxShape3D_808c1")
 
 [node name="CollisionShape3D2" type="CollisionShape3D" parent="StaticBody3D" index="2"]
@@ -61,3 +98,46 @@ shape = SubResource("BoxShape3D_cqlk6")
 
 [node name="Marker3D" type="Marker3D" parent="." index="4"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.676479, 0)
+
+[node name="InteractArea" type="Area3D" parent="." index="5"]
+collision_layer = 16
+collision_mask = 0
+script = ExtResource("8_s7aq2")
+metadata/_custom_type_script = "uid://i4dr8fqs0tx7"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="InteractArea" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.178375, 0.891754, 0.0836334)
+shape = SubResource("BoxShape3D_s7aq2")
+
+[node name="CoopNavRegion" type="NavigationRegion3D" parent="." index="6"]
+navigation_mesh = SubResource("NavigationMesh_s7aq2")
+navigation_layers = 2
+
+[node name="Floor" type="MeshInstance3D" parent="CoopNavRegion" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0296776, 0)
+mesh = SubResource("BoxMesh_t3cu2")
+skeleton = NodePath("../..")
+
+[node name="Plank" type="MeshInstance3D" parent="CoopNavRegion" index="1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.96957, 0, 0)
+mesh = SubResource("BoxMesh_s7aq2")
+skeleton = NodePath("../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_t3cu2")
+
+[node name="Plank3" type="MeshInstance3D" parent="CoopNavRegion" index="2"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -0.051963, 0, -2.01865)
+mesh = SubResource("BoxMesh_s7aq2")
+skeleton = NodePath("../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_t3cu2")
+
+[node name="Plank4" type="MeshInstance3D" parent="CoopNavRegion" index="3"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -0.0519632, 0, 2.01237)
+mesh = SubResource("BoxMesh_s7aq2")
+skeleton = NodePath("../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_t3cu2")
+
+[node name="Plank2" type="MeshInstance3D" parent="CoopNavRegion" index="4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.0329, 0, 0)
+mesh = SubResource("BoxMesh_s7aq2")
+skeleton = NodePath("../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_t3cu2")

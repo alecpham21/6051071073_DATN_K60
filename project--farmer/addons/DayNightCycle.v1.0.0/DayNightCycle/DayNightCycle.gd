@@ -88,14 +88,12 @@ func update_time_vars(t_time):
 	minutes = int(t_time) % 60
 
 func update_visuals(delta):
-	# Sky color logic (Logic cũ của ông giữ nguyên)
 	if hours == sunriseHour: currentColor = sunriseColor
 	elif hours == sunriseHour + 1: currentColor = dayColor
 	elif hours == sunsetHour - 1: currentColor = sunsetColor
 	elif hours == sunsetHour: currentColor = nightColor
 	elif (hours > sunsetHour) or (hours < sunriseHour): currentColor = nightColor 
 	
-	# Dùng speedMultiplier từ TimeManager để đồng bộ tốc độ chuyển màu
 	var lerpSpeed: float = transitionSpeed * TimeManager.speed_multiplier
 	
 	if sky:

@@ -1,0 +1,47 @@
+[gd_scene load_steps=4 format=3 uid="uid://qydfm7elvhms"]
+
+[ext_resource type="Script" uid="uid://cmy62mbbvwq4y" path="res://coop_row_ui.gd" id="1_rov0j"]
+[ext_resource type="PackedScene" uid="uid://cmaas2sclopj4" path="res://Inventory_ui/slot.tscn" id="2_yqpnn"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rov0j"]
+bg_color = Color(0.373254, 0.236802, 0.0605301, 1)
+
+[node name="CoopRowUI" type="PanelContainer"]
+custom_minimum_size = Vector2(0, 70)
+offset_right = 250.0
+offset_bottom = 70.0
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_rov0j")
+script = ExtResource("1_rov0j")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+theme_override_constants/separation = 15
+
+[node name="ChickenSlot" parent="HBoxContainer" instance=ExtResource("2_yqpnn")]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 1
+
+[node name="ProgressBar" type="ProgressBar" parent="HBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 15)
+layout_mode = 2
+show_percentage = false
+
+[node name="Label" type="Label" parent="HBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Feed:"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="VSeparator" type="VSeparator" parent="HBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="EggOutputSlot" parent="HBoxContainer" instance=ExtResource("2_yqpnn")]
+layout_mode = 2
+is_output_only = true

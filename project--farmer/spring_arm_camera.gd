@@ -2,7 +2,7 @@ extends SpringArm3D
 
 @export_group("Config")
 @export_node_path("Node3D") var player_path: NodePath
-@export var follow_speed: float = 12.0 # Giảm cái này xuống thấp (5.0 - 8.0) thì độ trễ (delay) sẽ rõ hơn
+@export var follow_speed: float = 12.0 
 @export var mouse_sensibility: float = 0.005
 @export_range(-90.0, 0.0, 0.1, "radians_as_degrees") var min_vertical_angle: float = deg_to_rad(-40)
 @export_range(0.0, -90.0, 0.1, "radians_as_degrees")  var max_vertical_angle: float = deg_to_rad(-10)
@@ -10,6 +10,8 @@ extends SpringArm3D
 @export var min_zoom: float = 10.0
 @export var max_zoom: float = 20.0
 @export var use_zoom_tween: bool = true
+@export var indoor_zoom: float = 8.0
+@export var indoor_pitch: float = -45.0
 
 @export_group("Advanced Follow")
 @export var dead_zone_radius: float = 0.0
@@ -53,9 +55,12 @@ func _physics_process(delta: float) -> void:
 		
 		global_position = indoor_fixed_pos
 		
-		rotation.x = INDOOR_PITCH_ANGLE
+		spring_length = lerp(spring_length, indoor_zoom, 5.0 * delta)
 		
-		return 
+		var target_pitch = deg_to_rad(indoor_pitch)
+		rotation.x = lerp_angle(rotation.x, target_pitch, 5.0 * delta)
+		
+		return
 	
 	is_initialized_pos = false
 	

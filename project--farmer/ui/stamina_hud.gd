@@ -17,6 +17,8 @@ func _ready() -> void:
 		pixels_per_stamina = progress_bar.size.x / base_max
 		
 		_connect_stats(PlayerData.player.stats)
+		
+		#_on_stamina_update(PlayerData.player.stats.stamina, PlayerData.player.statsstats.get_max_stamina())
 
 func _connect_stats(stats: CharacterStats):
 	if not stats.stamina_changed.is_connected(_on_stamina_update):

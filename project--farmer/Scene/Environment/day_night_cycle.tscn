@@ -3,12 +3,12 @@
 [ext_resource type="Material" uid="uid://wyikf3yxoy6x" path="res://addons/DayNightCycle.v1.0.0/DayNightCycle/Sky_Day.tres" id="1_8e3yp"]
 [ext_resource type="Script" uid="uid://benb5bxoqake5" path="res://addons/DayNightCycle.v1.0.0/DayNightCycle/DayNightCycle.gd" id="2_4umxu"]
 
-[sub_resource type="Sky" id="Sky_8amen"]
+[sub_resource type="Sky" id="Sky_8e3yp"]
 sky_material = ExtResource("1_8e3yp")
 
 [sub_resource type="Environment" id="Environment_be1fk"]
 background_mode = 2
-sky = SubResource("Sky_8amen")
+sky = SubResource("Sky_8e3yp")
 tonemap_mode = 2
 glow_enabled = true
 
@@ -24,6 +24,9 @@ directional_shadow_max_distance = 50.0
 script = ExtResource("2_4umxu")
 worldEnvironment = NodePath("../WorldEnvironment")
 nightLight = NodePath("Moon")
+sunriseColor = Color(1, 0.686853, 0.445334, 1)
+dayColor = Color(0.874423, 0.724822, 0.560262, 1)
+sunsetColor = Color(0.969857, 0.52653, 7.70092e-07, 1)
 
 [node name="Moon" type="DirectionalLight3D" parent="Sun"]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)

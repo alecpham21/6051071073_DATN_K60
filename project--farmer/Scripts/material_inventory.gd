@@ -4,7 +4,6 @@ const Slot = preload("res://Inventory_ui/slot.tscn")
 
 @onready var item_grid: GridContainer = $MarginContainer/ItemGrid
 
-# --- CẤU HÌNH LOGIC (Mặc định cho Stove) ---
 var current_filter_func: Callable = func(item_data): return true 
 var current_click_action: Callable = Callable() 
 

@@ -1,0 +1,65 @@
+[gd_scene load_steps=4 format=3 uid="uid://coyode0syvm3j"]
+
+[ext_resource type="Script" uid="uid://bdtac61cx3hy2" path="res://coop_ui.gd" id="1_02m2k"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_02m2k"]
+bg_color = Color(0.736159, 0.559961, 0.406572, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_s5kpn"]
+bg_color = Color(0.861438, 0.711704, 0.552969, 1)
+
+[node name="CoopUI" type="PanelContainer" groups=["coop_ui"]]
+anchors_preset = -1
+anchor_left = 0.668
+anchor_top = 0.5
+anchor_right = 0.668
+anchor_bottom = 0.5
+offset_left = -199.536
+offset_top = -244.0
+offset_right = 200.464
+offset_bottom = 206.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_02m2k")
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_02m2k")
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+theme_override_styles/normal = SubResource("StyleBoxFlat_s5kpn")
+text = "Hencoop"
+horizontal_alignment = 1
+
+[node name="ScrollContainer" type="ScrollContainer" parent="PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+horizontal_scroll_mode = 0
+
+[node name="RowContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 10
+
+[node name="CloseButton" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Close"

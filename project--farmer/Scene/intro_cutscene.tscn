@@ -1,5 +1,6 @@
-[gd_scene load_steps=27 format=3 uid="uid://cyhmnuqjtj5d0"]
+[gd_scene load_steps=29 format=3 uid="uid://cyhmnuqjtj5d0"]
 
+[ext_resource type="Script" uid="uid://dhdb3ssvxsxdo" path="res://Scene/intro_cutscene.gd" id="1_a37r8"]
 [ext_resource type="PackedScene" uid="uid://dq7yemwgjrvnk" path="res://Scene/ocean/water.tscn" id="1_p0apu"]
 [ext_resource type="Shader" uid="uid://bguo0qtyegd6e" path="res://ocean.gdshader" id="2_70nt4"]
 [ext_resource type="Shader" uid="uid://viqy3uwh6ns7" path="res://PixelShader.gdshader" id="3_17m65"]
@@ -8,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://c0nu5wulw7inx" path="res://Scene/train/stable_machine_ver2.tscn" id="4_tsy0l"]
 [ext_resource type="Script" uid="uid://bwr2w1axxfkrw" path="res://Scene/pillar_stable_array.gd" id="5_tsy0l"]
 [ext_resource type="Shader" uid="uid://c13esa4vg2n5k" path="res://level/posterization.gdshader" id="8_fopkk"]
+[ext_resource type="PackedScene" uid="uid://dd48ywngxd2oc" path="res://Scene/Environment/day_night_cycle.tscn" id="10_fi1it"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_17m65"]
 render_priority = 0
@@ -174,6 +176,7 @@ shader_parameter/level_c = 5.0
 shader_parameter/level_h = 0.05
 
 [node name="Intro_Cutscene" type="Node3D"]
+script = ExtResource("1_a37r8")
 
 [node name="Node3D" type="Node3D" parent="."]
 transform = Transform3D(2.33, 0, 0, 0, 1.535, 0, 0, 0, 1.535, 0, 0, 0)
@@ -267,8 +270,8 @@ draw_pass_1 = SubResource("BoxMesh_a37r8")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(0.786461, 0.0944687, 0.610373, -0.61764, 0.12029, 0.777207, 0, -0.988234, 0.152951, 0, 19.5769, 0)
-light_color = Color(0.929412, 1, 0.905882, 1)
-light_energy = 2.0
+light_color = Color(0.915064, 1, 0.886684, 1)
+light_energy = 0.5
 shadow_enabled = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
@@ -301,5 +304,7 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 metadata/_edit_use_anchors_ = true
+
+[node name="DayNightCycle" parent="." instance=ExtResource("10_fi1it")]
 
 [editable path="Node3D/Water"]

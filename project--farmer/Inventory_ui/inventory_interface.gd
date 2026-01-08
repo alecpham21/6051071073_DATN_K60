@@ -59,11 +59,9 @@ func _ready():
 				var is_sell_open = (sell_ui != null and sell_ui.visible)
 				
 				if visible and (is_shop_open or is_sell_open):
-					# Có Shop và Shop đang mở thì mới đóng Shop
 					close_shop_interface()
 					
 				elif active_kitchen: 
-					# Không có Shop hoặc Shop đang tắt thì mới đóng Bếp
 					close_kitchen()
 				elif external_inventory_owner:
 					print(">>> [AUTO] Đóng External Inventory (Rương/Máy giặt)")

@@ -1,0 +1,90 @@
+[gd_scene load_steps=12 format=3 uid="uid://dnwlxm7utd27m"]
+
+[ext_resource type="Shader" uid="uid://bkw4b21akjsc2" path="res://subViewportPixel.gdshader" id="1_wk0pr"]
+[ext_resource type="Shader" uid="uid://viqy3uwh6ns7" path="res://PixelShader.gdshader" id="2_rmr83"]
+[ext_resource type="PackedScene" uid="uid://cw2xtaj63fmww" path="res://ui/menu_game_ui.tscn" id="3_8uxxo"]
+[ext_resource type="PackedScene" uid="uid://dk1o4w36biuox" path="res://background/main_menu_background.tscn" id="3_rmr83"]
+[ext_resource type="PackedScene" uid="uid://cd0bmqmu7xj1u" path="res://model/characterModel/FarmerMenu.tscn" id="4_8uxxo"]
+[ext_resource type="Shader" uid="uid://c13esa4vg2n5k" path="res://level/posterization.gdshader" id="7_p8ri8"]
+[ext_resource type="PackedScene" uid="uid://dd48ywngxd2oc" path="res://Scene/Environment/day_night_cycle.tscn" id="7_ubpvv"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ei257"]
+shader = ExtResource("1_wk0pr")
+
+[sub_resource type="QuadMesh" id="QuadMesh_p8ri8"]
+flip_faces = true
+size = Vector2(4, 4)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ubpvv"]
+render_priority = 0
+shader = ExtResource("2_rmr83")
+shader_parameter/depth_threshold = 0.315
+shader_parameter/reverse_depth_threshold = 0.076
+shader_parameter/normal_threshold = 0.634
+shader_parameter/darken_amount = 0.23
+shader_parameter/lighten_amount = 2.39
+shader_parameter/normal_edge_bias = Vector3(1, 1, 1)
+shader_parameter/light_direction = Vector3(-0.96, -0.18, 0.2)
+shader_parameter/outline_thickness = 1.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_arv2f"]
+shader = ExtResource("7_p8ri8")
+shader_parameter/mix_amount = 0.105
+shader_parameter/use_l = false
+shader_parameter/use_c = false
+shader_parameter/use_h = false
+shader_parameter/steps_l = 16.0
+shader_parameter/level_c = 5.0
+shader_parameter/level_h = 0.05
+
+[node name="MainMenu" type="Node3D"]
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="."]
+texture_filter = 1
+material = SubResource("ShaderMaterial_ei257")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+stretch = true
+stretch_shrink = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="SubViewport" type="SubViewport" parent="SubViewportContainer"]
+handle_input_locally = false
+size = Vector2i(576, 324)
+render_target_update_mode = 4
+
+[node name="ShaderOutline" type="MeshInstance3D" parent="SubViewportContainer/SubViewport"]
+transform = Transform3D(1, 0, 0, 0, 0.00750488, 0.999972, 0, -0.999972, 0.00750488, 0.180526, -208.089, 0)
+extra_cull_margin = 16384.0
+mesh = SubResource("QuadMesh_p8ri8")
+surface_material_override/0 = SubResource("ShaderMaterial_ubpvv")
+
+[node name="Camera3D" type="Camera3D" parent="SubViewportContainer/SubViewport"]
+transform = Transform3D(1, 0, 0, 0, 0.784884, 0.619642, 0, -0.619642, 0.784884, 36.5637, 3.1861, -1.25196)
+
+[node name="mainMenuBackground" parent="SubViewportContainer/SubViewport" instance=ExtResource("3_rmr83")]
+
+[node name="Farmer" parent="SubViewportContainer/SubViewport" instance=ExtResource("4_8uxxo")]
+transform = Transform3D(0.473812, 0, -0.880626, 0, 1, 0, 0.880626, 0, 0.473812, 38.1863, -0.0196774, -5.60282)
+
+[node name="MenuGameUI" parent="." instance=ExtResource("3_8uxxo")]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.684191, 0.729303, 0, -0.729303, 0.684191, 29.4311, 0, 0)
+
+[node name="MixColorShader" type="CanvasLayer" parent="."]
+
+[node name="ColorRect" type="ColorRect" parent="MixColorShader"]
+material = SubResource("ShaderMaterial_arv2f")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="DayNightCycle" parent="." instance=ExtResource("7_ubpvv")]

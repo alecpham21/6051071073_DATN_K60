@@ -48,4 +48,5 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0212708, 0.041275, 0.007453
 shape = SubResource("BoxShape3D_7x357")
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
+navigation_layers = 2
 avoidance_enabled = true

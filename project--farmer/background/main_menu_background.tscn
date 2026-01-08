@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://dk1o4w36biuox"]
+
+[ext_resource type="PackedScene" uid="uid://cc8dfiuqa6biu" path="res://modelScene/terrain/forest_ground.tscn" id="1_j4f2y"]
+[ext_resource type="PackedScene" uid="uid://ynrwm1s6wfvb" path="res://modelScene/terrain/forest_3_colored.tscn" id="2_lluih"]
+
+[node name="mainMenuBackground" type="Node3D"]
+
+[node name="ForestGround" parent="." instance=ExtResource("1_j4f2y")]
+
+[node name="Forest3Colored" parent="." instance=ExtResource("2_lluih")]

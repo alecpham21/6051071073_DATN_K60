@@ -49,6 +49,7 @@ var is_busy: bool = false:
 		if !val && is_busy: action_finished.emit()
 		is_busy = val
 var is_regenerating: bool = true
+const PICKUP_SCENE = preload("res://inventory_script/item/pick_up_item/pick_up.tscn")
 
 signal toggle_inventory()
 signal action_finished
@@ -59,6 +60,17 @@ func _ready() -> void:
 	PlayerData.player = self
 	Watcher.player = self
 	
+	if self.stats == null:
+		self.stats = PlayerData.stats
+	else:
+		PlayerData.stats = self.stats
+	
+	print("🔍 [Player] Stats ID: ", self.stats.get_instance_id())
+	print("📊 Current Modifiers: ", self.stats.max_stamina_modifiers)
+	
+	if stats:
+		await get_tree().process_frame
+		stats.stamina_changed.emit(stats.stamina, stats.get_max_stamina())
 	
 	if self.inventory_data == null:
 		self.inventory_data = PlayerData.player_inventory_data
@@ -77,6 +89,11 @@ func _ready() -> void:
 	_setup_dialog_connections()
 	_setup_game_state_connections()
 	
+	await get_tree().process_frame 
+	var inv_interface = get_tree().get_first_node_in_group("inventory_interface")
+	if inv_interface:
+		if not inv_interface.drop_slot_data.is_connected(_on_drop_item_from_ui):
+			inv_interface.drop_slot_data.connect(_on_drop_item_from_ui)
 	
 	body_parts_map = {
 		ItemDataOutfit.BodyPart.BASE: body_base,
@@ -176,7 +193,7 @@ func _unhandled_input(event: InputEvent) -> void:
 			if ui: ui.close_shop_interface()
 			return
 			
-		if GState.is_cook() or GState.is_recipe() or GState.is_ui():
+		if GState.is_coop() or GState.is_cook() or GState.is_recipe() or GState.is_ui():
 			GState.play()
 			return
 			
@@ -197,7 +214,7 @@ func _physics_process(delta: float) -> void:
 	if limbo_hsm: limbo_hsm.update(delta)
 	if bt_player: bt_player.update(delta)
 
-	if is_on_floor() and not is_busy:
+	if is_on_floor() and not is_busy and blackboard:
 		var is_running = blackboard.get_var(BBNames.run_var, false)
 		if not is_running and stats: 
 			stats.regenerate(stats.get_restore_speed() * delta)
@@ -208,10 +225,27 @@ func _physics_process(delta: float) -> void:
 	else:
 		safe_time_counter = 0.0
 
+var stink_dialogues = [
+	"I am so dirty ",
+	"Did someone just throw a garbage",
+	"I should clean my outfit",
+	"My nose gonna deaf...",
+	"I smell something "
+]
 
 func interact():
 	var areas = interact_area.get_overlapping_areas()
-	if areas.size() > 0: (areas[0] as InteractArea).interacted.emit()
+	if areas.size() > 0:
+		if PlayerData.is_player_stinky():
+			var random_text = stink_dialogues.pick_random()
+			
+			Dialogic.VAR.stink_line_eng = random_text
+			
+			
+			Dialogic.start("timeline_stinky")
+			return
+
+		(areas[0] as InteractArea).interacted.emit()
 
 func register_interactable(object):
 	current_interactable = object
@@ -278,7 +312,21 @@ func _setup_game_state_connections():
 			GState.state_enum.UI, 
 			GState.state_enum.SHOP, 
 			GState.state_enum.JOURNAL,
-			GState.state_enum.BUILD
+			GState.state_enum.BUILD,
+			GState.state_enum.COOP
 		]
 		_set_mouse_captured(new not in ui_states)
 	)
+
+func _on_drop_item_from_ui(slot_data: SlotData) -> void:
+	if slot_data == null: return
+	
+	var pickup = PICKUP_SCENE.instantiate()
+	pickup.slot_data = slot_data
+	
+	pickup.global_position = global_position + Vector3(0, 1.2, 0)
+	
+	get_parent().add_child(pickup)
+	
+	var throw_force = (-global_transform.basis.z * 3.0) + Vector3(0, 2.0, 0)
+	pickup.apply_impulse(throw_force)

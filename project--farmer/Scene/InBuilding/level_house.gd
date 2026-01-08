@@ -26,7 +26,6 @@ func _ready():
 		node.toggle_inventory.connect(toggle_inventory_interface)
 	SceneTransition.reveal_scene()
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
 	pass
 
@@ -46,6 +45,7 @@ func toggle_inventory_interface(external_inventory_owner = null) -> void:
 			inventory_interface.open_player_inventory()
 			
 		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+
 
 
 func _on_inventory_interface_drop_slot_data(slot_data) -> void:

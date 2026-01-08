@@ -1,4 +1,4 @@
-[gd_scene load_steps=66 format=4 uid="uid://bbvhog32snru6"]
+[gd_scene load_steps=68 format=4 uid="uid://bbvhog32snru6"]
 
 [ext_resource type="Script" uid="uid://hctai00r4njf" path="res://world.gd" id="1_dwbse"]
 [ext_resource type="Shader" uid="uid://bkw4b21akjsc2" path="res://subViewportPixel.gdshader" id="2_gggvi"]
@@ -46,6 +46,8 @@
 [ext_resource type="Resource" uid="uid://chvdm7x5c0tpn" path="res://building/buildingBlueprint/Uncle_House.tres" id="40_ryup7"]
 [ext_resource type="PackedScene" uid="uid://df2gl3go4ux0m" path="res://building/blueprint_slot.tscn" id="40_xpnt2"]
 [ext_resource type="PackedScene" uid="uid://yxffan0vylfv" path="res://modelScene/rock/a_rock_1.tscn" id="41_jas3d"]
+[ext_resource type="PackedScene" uid="uid://coyode0syvm3j" path="res://ui/coop_ui.tscn" id="43_fnoqa"]
+[ext_resource type="PackedScene" uid="uid://qydfm7elvhms" path="res://ui/coop_row_ui.tscn" id="44_nx736"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_jjr1n"]
 shader = ExtResource("2_gggvi")
@@ -293,6 +295,7 @@ unique_name_in_owner = true
 use_gravity = true
 camera_ref_path = NodePath("../SpringArm3D/Camera3D")
 inventory_data = ExtResource("11_k83mh")
+stats = null
 
 [node name="OutDoor" parent="SubViewportContainer/SubViewport" instance=ExtResource("13_qktwf")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22.7284, 0.419144, 0.422467)
@@ -370,9 +373,18 @@ script = ExtResource("17_26xuy")
 hotbar_inventory = NodePath("../HotBarInventory")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="UI/InventoryInterface"]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -376.0
+offset_top = -174.0
+offset_right = -336.0
+offset_bottom = -123.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="HBoxContainer" type="HBoxContainer" parent="UI/InventoryInterface/VBoxContainer"]
 layout_mode = 2
@@ -449,6 +461,9 @@ offset_right = -98.0
 offset_bottom = 122.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="CoopUI" parent="UI" instance=ExtResource("43_fnoqa")]
+row_scene = ExtResource("44_nx736")
 
 [node name="QuestJournal" parent="." instance=ExtResource("34_w44yn")]
 

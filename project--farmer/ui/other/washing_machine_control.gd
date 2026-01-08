@@ -8,7 +8,6 @@ var current_machine: WashingMachine
 func _ready():
 	start_button.pressed.connect(_on_start_button_pressed)
 
-# Hàm này để bên ngoài (InventoryInterface) gọi khi mở UI lên
 func setup_machine_ui(machine: WashingMachine):
 	current_machine = machine
 	

@@ -102,3 +102,17 @@ func regenerate(amount: float):
 	var limit = get_max_stamina()
 	if stamina < limit:
 		stamina += amount
+
+func sleep_recovery(sleep_hour: int):
+	clear_all_debuffs()
+	
+	if sleep_hour >= 0 and sleep_hour < 3:
+		add_modifier("max_stamina", "late_sleep", -0.2)
+		add_modifier("restore_speed", "late_sleep", -0.1)
+		print("🌙 Ngủ hơi muộn: Giảm nhẹ stamina")
+		
+	elif sleep_hour >= 3 and sleep_hour < 6:
+		add_modifier("max_stamina", "too_late_sleep", -0.4)
+		print("💀 Ngủ quá muộn: Giảm mạnh stamina")
+		
+	stamina = get_max_stamina()

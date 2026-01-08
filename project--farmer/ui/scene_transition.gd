@@ -30,3 +30,14 @@ func reveal_scene():
 	await anim.animation_finished
 	
 	color_rect.mouse_filter = Control.MOUSE_FILTER_IGNORE
+
+func play_sleep_transition():
+	color_rect.mouse_filter = Control.MOUSE_FILTER_STOP
+	anim.play("fade_in")
+	await anim.animation_finished
+	
+	await get_tree().create_timer(1.0).timeout 
+	
+	anim.play("fade_out")
+	await anim.animation_finished
+	color_rect.mouse_filter = Control.MOUSE_FILTER_IGNORE
