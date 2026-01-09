@@ -9,6 +9,7 @@ var move_speed: float = 2.0
 
 func _ready():
 	bt_player.blackboard.set_var("agent", self)
+	bt_player.blackboard.set_var("is_hungry", false)
 	
 	nav_agent.path_desired_distance = 0.5
 	nav_agent.target_desired_distance = 0.5
@@ -22,6 +23,7 @@ func setup(data: ChickenData):
 	
 	bt_player.blackboard.set_var("home_pos", home_position)
 	bt_player.blackboard.set_var("is_adult", chicken_data.stage == LivestockEnums.Stage.ADULT)
+	bt_player.blackboard.set_var("is_hungry", chicken_data.feed_count == 0)
 	nav_agent.navigation_layers = 2
 	
 func update_visual():
@@ -34,6 +36,7 @@ func update_visual():
 	
 	if bt_player and bt_player.blackboard:
 		bt_player.blackboard.set_var("is_adult", chicken_data.stage == LivestockEnums.Stage.ADULT)
+		bt_player.blackboard.set_var("is_hungry", chicken_data.feed_count == 0)
 
 func _physics_process(delta):
 	if not is_on_floor():
@@ -64,4 +67,6 @@ func move_to(target_pos: Vector3):
 		look_at(look_target, Vector3.UP)
 
 func eat_food():
-	print("Chicken Eating...")
+	if bt_player.blackboard.get_var("is_hungry", false):
+		print("Chicken Eating...")
+		bt_player.blackboard.set_var("is_hungry", false)

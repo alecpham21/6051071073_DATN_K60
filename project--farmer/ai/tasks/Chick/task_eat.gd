@@ -6,5 +6,8 @@ func _tick(_delta: float) -> Status:
 	if not is_instance_valid(agent):
 		return FAILURE
 	
-	agent.eat_food() 
-	return SUCCESS
+	if blackboard.get_var("is_hungry", false):
+		agent.eat_food()
+		return SUCCESS
+		
+	return FAILURE

@@ -40,7 +40,7 @@ directories/dtl_directory={
 "SellingFrujt": "res://Dialog/timeline/SellingFrujt.dtl",
 "timeline_npc_jack": "res://Dialog/timeline_npc_jack.dtl",
 "timeline_stinky": "res://Dialog/timeline/timeline_stinky.dtl",
-"welcome_home_jack": "res://Dialog/timeline/welcome_home_john.dtl"
+"welcome_home_john": "res://Dialog/timeline/welcome_home_john.dtl"
 }
 layout/style_directory={
 "": "res://Dialog/styles/New_File.tres",
@@ -247,6 +247,7 @@ aim={
 [layer_names]
 
 3d_physics/layer_5="interactable"
+3d_physics/layer_6="machines"
 
 [physics]
 

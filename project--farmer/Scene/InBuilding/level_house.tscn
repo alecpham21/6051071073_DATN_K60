@@ -143,6 +143,7 @@ chest_id = "starting_chest"
 [node name="UI" type="CanvasLayer" parent="."]
 
 [node name="InventoryInterface" type="Control" parent="UI" node_paths=PackedStringArray("hotbar_inventory", "material_inventory", "craft_bar", "cutting_ui")]
+visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0

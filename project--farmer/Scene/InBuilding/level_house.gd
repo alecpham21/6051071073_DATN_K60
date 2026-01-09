@@ -14,11 +14,23 @@ func _ready():
 		player.cam_ref.lock_movement = true
 
 	player.toggle_inventory.connect(toggle_inventory_interface)
-	inventory_interface.set_player_inventory_data(player.inventory_data)
-	inventory_interface.set_equip_inventory_data(player.equip_inventory_data)
-	inventory_interface.set_outfit_inventory_data(player.outfit_inventory_data)
+	
+	await get_tree().process_frame
+	
+	print("DEBUG LẠI: ", player.equip_inventory_data)
+	
+	if player.inventory_data:
+		inventory_interface.set_player_inventory_data(player.inventory_data)
+		hot_bar_inventory.set_inventory_data(player.inventory_data)
+		
+	if player.equip_inventory_data:
+		inventory_interface.set_equip_inventory_data(player.equip_inventory_data)
+		
+	if player.outfit_inventory_data:
+		inventory_interface.set_outfit_inventory_data(player.outfit_inventory_data)
+		
 	inventory_interface.force_close.connect(toggle_inventory_interface)
-	hot_bar_inventory.set_inventory_data(player.inventory_data)
+	
 	inventory_interface.set_material_inventory_data(PlayerData.material_data)
 	GameData.set_current_stage(self)
 	

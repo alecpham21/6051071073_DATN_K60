@@ -1,0 +1,22 @@
+[gd_resource type="Resource" script_class="ItemDataLivestock" load_steps=5 format=3 uid="uid://duywh2da46grx"]
+
+[ext_resource type="PackedScene" uid="uid://hb8gvsd2enpn" path="res://Animal/FarmAnimal/chicken.tscn" id="1_3hv0u"]
+[ext_resource type="Script" uid="uid://dgx2y85w4vd17" path="res://inventory_script/item/item_data/item_data_livestock.gd" id="1_r7gpq"]
+[ext_resource type="Texture2D" uid="uid://omvd8ed3fie6" path="res://inventory_script/item/item_atlast/#2 - Transparent Icons & Drop Shadow.png" id="3_6c1uj"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qixgx"]
+atlas = ExtResource("3_6c1uj")
+region = Rect2(256, 672, 32, 32)
+
+[resource]
+script = ExtResource("1_r7gpq")
+species = 0
+gender = 0
+stage = 1
+entity_scene = ExtResource("1_3hv0u")
+name = ""
+description = ""
+stackable = false
+texture = SubResource("AtlasTexture_qixgx")
+price = 1000
+metadata/_custom_type_script = "uid://dgx2y85w4vd17"

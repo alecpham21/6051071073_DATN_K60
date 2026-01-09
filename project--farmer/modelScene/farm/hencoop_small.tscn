@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://ctwfscm668jge"]
+[gd_scene load_steps=24 format=3 uid="uid://ctwfscm668jge"]
 
 [ext_resource type="PackedScene" uid="uid://dmuc87hv0dmb" path="res://model/farm/hencoopSmall.glb" id="1_808c1"]
 [ext_resource type="Texture2D" uid="uid://bwa8xtxlf1ptx" path="res://Textures/woodtexture.png" id="2_4rt8x"]
@@ -37,6 +37,9 @@ size = Vector3(4.15863, 1.58594, 0.120819)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_cqlk6"]
 size = Vector3(3.97217, 1.58594, 0.120819)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_t3cu2"]
+size = Vector3(4.18021, 0.101074, 4.3869)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_s7aq2"]
 size = Vector3(5.41754, 2.78351, 5.59225)
@@ -96,11 +99,15 @@ shape = SubResource("BoxShape3D_cqlk6")
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 1.99622, 0, 0.0659727)
 shape = SubResource("BoxShape3D_cqlk6")
 
+[node name="CollisionShape3D5" type="CollisionShape3D" parent="StaticBody3D" index="4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0207062, -0.623283, -0.0589905)
+shape = SubResource("BoxShape3D_t3cu2")
+
 [node name="Marker3D" type="Marker3D" parent="." index="4"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.676479, 0)
 
 [node name="InteractArea" type="Area3D" parent="." index="5"]
-collision_layer = 16
+collision_layer = 48
 collision_mask = 0
 script = ExtResource("8_s7aq2")
 metadata/_custom_type_script = "uid://i4dr8fqs0tx7"

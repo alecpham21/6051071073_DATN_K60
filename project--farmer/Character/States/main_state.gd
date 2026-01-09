@@ -48,7 +48,6 @@ func _update(delta: float) -> void:
 	character.move_and_slide()
 
 func get_current_speed() -> float:
-	# Nếu đang giữ nút Chạy
 	if can_run and blackboard.get_var(BBNames.run_var, false):
 		
 		var dt = get_process_delta_time()
@@ -64,7 +63,6 @@ func get_current_speed() -> float:
 	return character.stats.walk_speed
 
 func check_tool_transitions() -> void:
-	# Thứ tự ưu tiên các hành động công cụ
 	if limbo_hsm.can_till(): 
 		dispatch("till")
 	elif limbo_hsm.can_plant(): 
@@ -73,6 +71,9 @@ func check_tool_transitions() -> void:
 		dispatch("harvest")
 	elif limbo_hsm.can_care(): 
 		dispatch("care")
+	
+	elif limbo_hsm.can_feed():
+		dispatch("feed")
 	
 	if blackboard.get_var(BBNames.toggle_vehicle_var, false):
 		if not Watcher.indoor:

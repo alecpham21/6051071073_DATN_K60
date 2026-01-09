@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="InventoryData" load_steps=33 format=3 uid="uid://c05tf37csx4tp"]
+[gd_resource type="Resource" script_class="InventoryData" load_steps=37 format=3 uid="uid://c05tf37csx4tp"]
 
 [ext_resource type="Script" uid="uid://csfrg4socg8bj" path="res://inventory_script/inventory_data/inventory_data.gd" id="1_fx70d"]
 [ext_resource type="Script" uid="uid://bspkgwkxsy8mn" path="res://inventory_script/slot_data.gd" id="2_a72s1"]
@@ -12,10 +12,12 @@
 [ext_resource type="Resource" uid="uid://n3hnk3p8510v" path="res://inventory_script/item/items/item_tool/watering_can.tres" id="8_1ysir"]
 [ext_resource type="Resource" uid="uid://c5ju7kxb8sgep" path="res://inventory_script/item/items/item_tool/hoe.tres" id="8_rn8ob"]
 [ext_resource type="Resource" uid="uid://dom2oqd20bncl" path="res://inventory_script/item/items/item_material/item_consumable/milk.tres" id="11_p831m"]
-[ext_resource type="Resource" uid="uid://cwh8mrm6ii2ns" path="res://inventory_script/item/items/item_harvest/spring_onion_seed.tres" id="12_4b2p8"]
+[ext_resource type="Resource" uid="uid://b3m5vp80c2jnv" path="res://inventory_script/item/items/item_feed/chicken_feed.tres" id="12_6ytgi"]
 [ext_resource type="Resource" uid="uid://208q0fgbf0k5" path="res://inventory_script/item/items/item_material/egg.tres" id="12_vpmq8"]
 [ext_resource type="Resource" uid="uid://c6nexybwi1f3" path="res://inventory_script/item/items/item_harvest/bamboo_shoot.tres" id="14_w7jlk"]
 [ext_resource type="Resource" uid="uid://b57y17b1yemhk" path="res://inventory_script/item/items/item_material/apple.tres" id="16_wmnvh"]
+[ext_resource type="Resource" uid="uid://betf1nmv2yckj" path="res://inventory_script/item/items/item_livestock/chicken_fem.tres" id="17_6ytgi"]
+[ext_resource type="Resource" uid="uid://duywh2da46grx" path="res://inventory_script/item/items/item_livestock/chicken_mal.tres" id="18_fs1cq"]
 
 [sub_resource type="Resource" id="Resource_rn8ob"]
 script = ExtResource("2_a72s1")
@@ -94,8 +96,8 @@ metadata/_custom_type_script = "uid://bspkgwkxsy8mn"
 
 [sub_resource type="Resource" id="Resource_uks62"]
 script = ExtResource("2_a72s1")
-item_data = ExtResource("12_4b2p8")
-quantity = 1
+item_data = ExtResource("12_6ytgi")
+quantity = 5
 attributes = Array[ExtResource("3_vdyg7")]([])
 metadata/_custom_type_script = "uid://bspkgwkxsy8mn"
 
@@ -127,7 +129,21 @@ quantity = 20
 attributes = Array[ExtResource("3_vdyg7")]([])
 metadata/_custom_type_script = "uid://bspkgwkxsy8mn"
 
+[sub_resource type="Resource" id="Resource_anlj8"]
+script = ExtResource("2_a72s1")
+item_data = ExtResource("17_6ytgi")
+quantity = 1
+attributes = Array[ExtResource("3_vdyg7")]([])
+metadata/_custom_type_script = "uid://bspkgwkxsy8mn"
+
+[sub_resource type="Resource" id="Resource_vrl28"]
+script = ExtResource("2_a72s1")
+item_data = ExtResource("18_fs1cq")
+quantity = 1
+attributes = Array[ExtResource("3_vdyg7")]([])
+metadata/_custom_type_script = "uid://bspkgwkxsy8mn"
+
 [resource]
 script = ExtResource("1_fx70d")
-slot_datas = Array[ExtResource("2_a72s1")]([SubResource("Resource_rn8ob"), SubResource("Resource_1ysir"), SubResource("Resource_a5mve"), SubResource("Resource_e8ap1"), SubResource("Resource_vdyg7"), SubResource("Resource_wmnvh"), SubResource("Resource_q6td8"), SubResource("Resource_a0sik"), SubResource("Resource_p831m"), SubResource("Resource_uks62"), SubResource("Resource_6ytgi"), SubResource("Resource_fs1cq"), SubResource("Resource_4b2p8"), SubResource("Resource_x2ail"), null, null, null, null])
+slot_datas = Array[ExtResource("2_a72s1")]([SubResource("Resource_rn8ob"), SubResource("Resource_1ysir"), SubResource("Resource_a5mve"), SubResource("Resource_e8ap1"), SubResource("Resource_vdyg7"), SubResource("Resource_wmnvh"), SubResource("Resource_q6td8"), SubResource("Resource_a0sik"), SubResource("Resource_p831m"), SubResource("Resource_uks62"), SubResource("Resource_6ytgi"), SubResource("Resource_fs1cq"), SubResource("Resource_4b2p8"), SubResource("Resource_x2ail"), SubResource("Resource_anlj8"), SubResource("Resource_vrl28"), null, null])
 metadata/_custom_type_script = "uid://csfrg4socg8bj"

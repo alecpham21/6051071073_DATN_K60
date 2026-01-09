@@ -142,6 +142,30 @@ func can_care() -> bool:
 	
 	return false
 
+func can_feed() -> bool:
+	var is_using = blackboard.get_var(BBNames.use_item_var, false)
+	if not is_using or not HotBar.active_slot or not HotBar.active_item:
+		return false
+	
+	var item_name = HotBar.active_item.name.to_lower()
+	var is_food = item_name.contains("feed") or item_name.contains("seed")
+	
+	if is_food and use_item:
+		var areas = character.interact_area.get_overlapping_areas()
+		for a in areas:
+			var machine = _find_livestock_machine(a)
+			if machine:
+				return true
+				
+	return false
+
+func _find_livestock_machine(node: Node) -> LivestockMachine:
+	var curr = node
+	while curr != null:
+		if curr is LivestockMachine:
+			return curr
+		curr = curr.get_parent()
+	return null
 
 func get_block():
 	var block = null

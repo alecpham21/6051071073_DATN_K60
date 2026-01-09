@@ -40,5 +40,15 @@ func update_row(index: int, machine: CoopMachine):
 
 func _on_slot_clicked(_idx: int, btn: int, target_inv: InventoryData):
 	var interface = get_tree().get_first_node_in_group("inventory_interface")
-	if interface:
-		interface.on_inventory_interact(target_inv, row_index, btn)
+	if not interface: return
+
+	if target_inv == machine_ref.input_inv and interface.grabbed_slot_data:
+		var new_item = interface.grabbed_slot_data.item_data
+		if new_item is ItemDataLivestock:
+			var current_stage = machine_ref.get_coop_stage(row_index)
+			
+			if current_stage != -1 and current_stage != new_item.stage:
+				print("❌ Không được nuôi xen kẽ các lứa tuổi khác nhau!")
+				return
+
+	interface.on_inventory_interact(target_inv, row_index, btn)
