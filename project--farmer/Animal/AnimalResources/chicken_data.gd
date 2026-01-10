@@ -7,7 +7,7 @@ class_name ChickenData
 @export var birthday: float = 0.0
 @export var feed_count: int = 0
 @export var egg_progress: float = 0.0
-var yield_bonus: float = 0.02
+var yield_bonus: float = 0.0
 
 func get_max_feed() -> int:
 	return 1 if gender == LivestockEnums.Gender.MALE else 2

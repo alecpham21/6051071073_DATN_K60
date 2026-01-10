@@ -81,7 +81,7 @@ func _on_time_tick():
 			var chicken = chickens[i]
 			if chicken:
 				if chicken.feed_count >= 2:
-					chicken.yield_bonus += 0.02
+					chicken.yield_bonus += 0.2
 				
 				chicken.feed_count = 0
 				
@@ -125,11 +125,15 @@ func _process_egg_production(delta_min: float):
 				has_update = true
 				
 				if chicken.egg_progress >= 100.0:
-					var final_yield = roundi(eggs_per_batch * (1.0 + chicken.yield_bonus))
+					var daily_bonus = 0.2 if chicken.feed_count >= 2 else 0.0
+					var total_bonus = chicken.yield_bonus + daily_bonus
+					
+					var final_yield = roundi(eggs_per_batch * (1.0 + total_bonus))
 					
 					if output_inv.add_item_at_index(egg_item, final_yield, i):
 						chicken.egg_progress = 0.0
-						print("🥚 Đẻ xong: ", final_yield, " trứng (Bonus thực tế: ", chicken.yield_bonus * 100, "%)")
+						chicken.yield_bonus = 0.0 
+						print("🥚 Đẻ xong: ", final_yield, " trứng (Bonus tổng: ", total_bonus * 100, "%)")
 					else:
 						chicken.egg_progress = 100.0
 
