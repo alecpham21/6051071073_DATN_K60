@@ -1,0 +1,36 @@
+[gd_scene load_steps=8 format=3 uid="uid://d348tmigvnwpa"]
+
+[ext_resource type="PackedScene" uid="uid://btkq482lqdc56" path="res://model/sign/FastTravel_Sign.glb" id="1_omaxn"]
+[ext_resource type="Script" uid="uid://ufr1m5eypd8w" path="res://modelScene/sign/fast_travel_sign.gd" id="2_ti0hg"]
+[ext_resource type="Texture2D" uid="uid://bwa8xtxlf1ptx" path="res://Textures/woodtexture.png" id="2_uyhrl"]
+[ext_resource type="Script" uid="uid://i4dr8fqs0tx7" path="res://Scripts/interactable.gd" id="3_uyhrl"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ti0hg"]
+albedo_texture = ExtResource("2_uyhrl")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_omaxn"]
+size = Vector3(0.647461, 3.29175, 1.98746)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ti0hg"]
+size = Vector3(1.87708, 3.35962, 2.52533)
+
+[node name="FastTravel_Sign" instance=ExtResource("1_omaxn")]
+script = ExtResource("2_ti0hg")
+
+[node name="Cube_001" parent="." index="0"]
+material_override = SubResource("StandardMaterial3D_ti0hg")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="." index="1"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0629883, 0.0135498, 0.0133209)
+shape = SubResource("BoxShape3D_omaxn")
+
+[node name="InteractArea" type="Area3D" parent="." index="2"]
+collision_layer = 48
+script = ExtResource("3_uyhrl")
+metadata/_custom_type_script = "uid://i4dr8fqs0tx7"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="InteractArea" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0635376, 0.0211182, 0.0272522)
+shape = SubResource("BoxShape3D_ti0hg")

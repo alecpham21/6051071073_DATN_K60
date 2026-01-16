@@ -14,6 +14,7 @@ metadata/_custom_type_script = "uid://ly4smbwy8tcy"
 script = ExtResource("2_5dfb3")
 id = "talk_to_john"
 title = "Talk to your Uncle"
+quest_type = 0
 description = "Your uncle is waiting for you in the station, find him and talk to him"
 objectives = Array[ExtResource("1_1a370")]([SubResource("Resource_yhnrk")])
 next_quest_id = ""

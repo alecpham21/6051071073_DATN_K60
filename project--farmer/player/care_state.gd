@@ -32,7 +32,7 @@ func _enter() -> void:
 			
 		else:
 			has_water = false
-			print("🕳️ Bình khô khốc! Hãy đi lấy nước.")
+			print("🕳️ No water in can")
 			dispatch("idle")
 			return
 			
@@ -88,7 +88,6 @@ func apply_care_effect(tool_name: String) -> void:
 			get_tree().root.add_child(vfx)
 			vfx.global_position = hit_pos
 			vfx.global_position.y += 0.4
-			# --- TRỪ NƯỚC ---
 			slot_data.set_stat("water_current", current_water - 1)
 			
 			PlayerData.player_inventory_data.inventory_updated.emit(PlayerData.player_inventory_data)
@@ -100,7 +99,6 @@ func apply_care_effect(tool_name: String) -> void:
 			
 			print("✨ Đã bón phân ô:", grid_pos)
 			
-			# Trừ item phân bón
 			var index = PlayerData.player_inventory_data.slot_datas.find(HotBar.active_slot)
 			if index != -1:
 				PlayerData.player_inventory_data.actual_use_slot_data(index)

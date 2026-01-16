@@ -3817,7 +3817,7 @@ size = Vector3(0.507568, 1.72049, 0.470764)
 [sub_resource type="BoxShape3D" id="BoxShape3D_n7uyo"]
 size = Vector3(1.01379, 1.69379, 0.960632)
 
-[node name="NPCJohn" type="CharacterBody3D"]
+[node name="NPCJohn" type="CharacterBody3D" groups=["npc"]]
 script = ExtResource("1_wcuve")
 quest_to_start_id = "my_future_farm_1"
 

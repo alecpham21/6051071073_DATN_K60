@@ -55,16 +55,17 @@ anchor_top = 0.268519
 anchor_right = 0.477431
 anchor_bottom = 0.731481
 offset_left = -4.99997
+offset_top = -24.05
 offset_right = 4.99994
-offset_bottom = -86.0994
+offset_bottom = -29.0494
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxTexture_w8ewp")
-metadata/_edit_use_anchors_ = true
 
 [node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer"]
 custom_minimum_size = Vector2(250, 200)
 layout_mode = 2
+alignment = 1
 
 [node name="Start" type="Button" parent="PanelContainer/VBoxContainer"]
 custom_minimum_size = Vector2(220, 60)
@@ -91,6 +92,19 @@ theme_override_styles/hover = SubResource("StyleBoxTexture_lioa6")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_wm86p")
 theme_override_styles/normal = SubResource("StyleBoxTexture_s7of0")
 text = "Setting"
+
+[node name="Credits" type="Button" parent="PanelContainer/VBoxContainer"]
+custom_minimum_size = Vector2(220, 60)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("2_s7of0")
+theme_override_font_sizes/font_size = 16
+theme_override_styles/hover = SubResource("StyleBoxTexture_lioa6")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_wm86p")
+theme_override_styles/normal = SubResource("StyleBoxTexture_s7of0")
+text = "Credits
+"
 
 [node name="Quit" type="Button" parent="PanelContainer/VBoxContainer"]
 custom_minimum_size = Vector2(220, 60)

@@ -3,6 +3,11 @@ extends CharacterBody3D
 @onready var nav_agent: NavigationAgent3D = $NavigationAgent3D
 @onready var bt_player: BTPlayer = $BTPlayer
 
+@export var model_baby: Node3D
+@export var model_male: Node3D
+@export var model_female: Node3D
+
+var current_anim: AnimationPlayer
 var chicken_data: ChickenData
 var home_position: Vector3 
 var move_speed: float = 2.0
@@ -29,19 +34,53 @@ func setup(data: ChickenData):
 func update_visual():
 	if not chicken_data: return
 	
+	# Ẩn hết model trước khi chọn model đúng
+	if model_baby: model_baby.visible = false
+	if model_male: model_male.visible = false
+	if model_female: model_female.visible = false
+	
+	current_anim = null
+	
 	if chicken_data.stage == LivestockEnums.Stage.BABY:
-		scale = Vector3(0.5, 0.5, 0.5)
+		if model_baby: model_baby.visible = true
+		scale = Vector3(0.15, 0.15, 0.15) 
 	else:
-		scale = Vector3(4.0, 4.0, 4.0)
+		scale = Vector3(0.2, 0.2, 0.2) 
+		if chicken_data.gender == LivestockEnums.Gender.MALE:
+			if model_male: 
+				model_male.visible = true
+				current_anim = model_male.get_node_or_null("AnimationPlayer")
+		else:
+			if model_female: 
+				model_female.visible = true
+				current_anim = model_female.get_node_or_null("AnimationPlayer")
 	
 	if bt_player and bt_player.blackboard:
 		bt_player.blackboard.set_var("is_adult", chicken_data.stage == LivestockEnums.Stage.ADULT)
 		bt_player.blackboard.set_var("is_hungry", chicken_data.feed_count == 0)
 
-func _physics_process(delta):
+func _physics_process(_delta):
 	if not is_on_floor():
-		velocity += get_gravity() * delta
+		velocity += get_gravity() * _delta
+	
+	_handle_animations()
 	move_and_slide()
+
+func _handle_animations():
+	if not current_anim: return
+	
+	if current_anim.current_animation == "Eating" and current_anim.is_playing():
+		return
+	
+	if velocity.length() > 0.1:
+		play_animation("Walk")
+	else:
+		play_animation("Idle")
+
+func play_animation(anim_name: String):
+	if current_anim and current_anim.has_animation(anim_name):
+		if current_anim.current_animation != anim_name:
+			current_anim.play(anim_name)
 
 func move_to(target_pos: Vector3):
 	if nav_agent.target_position != target_pos:
@@ -68,5 +107,5 @@ func move_to(target_pos: Vector3):
 
 func eat_food():
 	if bt_player.blackboard.get_var("is_hungry", false):
-		print("Chicken Eating...")
+		play_animation("Eating")
 		bt_player.blackboard.set_var("is_hungry", false)

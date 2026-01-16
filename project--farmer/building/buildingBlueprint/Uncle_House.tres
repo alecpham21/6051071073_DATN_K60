@@ -1,17 +1,20 @@
-[gd_resource type="Resource" script_class="BuildingData" load_steps=4 format=3 uid="uid://chvdm7x5c0tpn"]
+[gd_resource type="Resource" script_class="BuildingData" load_steps=5 format=3 uid="uid://chvdm7x5c0tpn"]
 
 [ext_resource type="Script" uid="uid://fekbxueaingk" path="res://building/building_data.gd" id="1_f1n6p"]
 [ext_resource type="PackedScene" uid="uid://c2mndlfrs1dsl" path="res://modelScene/building/house/simple_house_ver_2.tscn" id="1_jirp2"]
 [ext_resource type="Texture2D" uid="uid://brfk76a31mqye" path="res://building/building_icon/uncle_house.png" id="1_kwhtk"]
+[ext_resource type="Resource" uid="uid://bytluuthi8j6w" path="res://inventory_script/item/items/item_material/item_build_material/wood.tres" id="2_dar3o"]
 
 [resource]
 script = ExtResource("1_f1n6p")
 id = "first_house"
 name = "Uncle House"
 category = 0
+required_item = ExtResource("2_dar3o")
+item_cost = 10
 icon = ExtResource("1_kwhtk")
 scene = ExtResource("1_jirp2")
-size = Vector2i(4, 4)
-offset = Vector3(0, 1.108, 0)
-scale = Vector3(1, 1, 1)
+size = Vector2i(5, 5)
+offset = Vector3(0, 1, 0)
+scale = Vector3(1.5, 1.5, 1.5)
 metadata/_custom_type_script = "uid://fekbxueaingk"

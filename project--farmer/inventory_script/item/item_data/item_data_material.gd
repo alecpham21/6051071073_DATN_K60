@@ -11,7 +11,8 @@ enum SellingType{
 	GENERIC,
 	FRUJT,
 	VEGETABLE,
-	FISH
+	FISH,
+	WOOD
 }
 
 @export var material_type: MaterialType = MaterialType.RAW_MATERIAL

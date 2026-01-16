@@ -5,9 +5,9 @@ extends Resource
 	"Care_debugging","Care_fertilize","Care_watering","Chatting_hi","Chatting_inLove","Chatting_shy","Cooking_Cutting", "Cooking_Pan", "Cooking_Stirring", 
 	"Crouching_Harvest","Cutting_Plant","Cycling", "DJ","DanceRandom_1","DanceRandom_2", "DefaultPose","Feed_livestock", "Fishing_Catch", 
 	"Fishing_Drag", "Fishing_Fail", "Fishing_Idle", 
-	"Fishing_Start", "Fishing_Sucess", "Harvesting_Hand", 
+	"Fishing_Start", "Fishing_Sucess","HammerBed_Swing", "Harvesting_Hand", 
 	"Harvesting_Knife", "Holding", "Holding_Idle", "Holding_Walking","Human_Cycling", 
-	"Idle1", "Idle2_Long_Tool","Idle_sit","Idle_sit_leaning","Idle_thinking", "Interact", "Interact_NPC", "Mad_Cycling", 
+	"Idle1", "Idle2_Long_Tool","Idle_sit","Idle_sit_leaning","Idle_thinking", "Interact", "Interact_NPC","Lying_Hammer_Bed", "Mad_Cycling", 
 	"Running", "Seeding","Sit","Sit_leaning","Sit_leaning_stand","Sit_stand", "Till_Dirt", "Tired", "Tired2", "Walking")
 var ani_name:String
 @export var blend : float = -1

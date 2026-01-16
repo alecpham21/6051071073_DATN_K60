@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="InventoryData" load_steps=37 format=3 uid="uid://c05tf37csx4tp"]
+[gd_resource type="Resource" script_class="InventoryData" load_steps=40 format=3 uid="uid://c05tf37csx4tp"]
 
 [ext_resource type="Script" uid="uid://csfrg4socg8bj" path="res://inventory_script/inventory_data/inventory_data.gd" id="1_fx70d"]
 [ext_resource type="Script" uid="uid://bspkgwkxsy8mn" path="res://inventory_script/slot_data.gd" id="2_a72s1"]
@@ -8,6 +8,7 @@
 [ext_resource type="Resource" uid="uid://yxvsmb6b0dto" path="res://inventory_script/item/items/item_harvest/corn.tres" id="5_vdyg7"]
 [ext_resource type="Resource" uid="uid://dq3p2yhpqqe3" path="res://inventory_script/item/items/item_tool/sickle.tres" id="6_q6td8"]
 [ext_resource type="Resource" uid="uid://b52qumcoelf4w" path="res://inventory_script/item/items/item_harvest/wheat_seed.tres" id="7_rn8ob"]
+[ext_resource type="Resource" uid="uid://bytluuthi8j6w" path="res://inventory_script/item/items/item_material/item_build_material/wood.tres" id="7_uks62"]
 [ext_resource type="Resource" uid="uid://cqmw3b5kabv83" path="res://inventory_script/item/items/item_harvest/wheat.tres" id="7_vpmq8"]
 [ext_resource type="Resource" uid="uid://n3hnk3p8510v" path="res://inventory_script/item/items/item_tool/watering_can.tres" id="8_1ysir"]
 [ext_resource type="Resource" uid="uid://c5ju7kxb8sgep" path="res://inventory_script/item/items/item_tool/hoe.tres" id="8_rn8ob"]
@@ -18,6 +19,7 @@
 [ext_resource type="Resource" uid="uid://b57y17b1yemhk" path="res://inventory_script/item/items/item_material/apple.tres" id="16_wmnvh"]
 [ext_resource type="Resource" uid="uid://betf1nmv2yckj" path="res://inventory_script/item/items/item_livestock/chicken_fem.tres" id="17_6ytgi"]
 [ext_resource type="Resource" uid="uid://duywh2da46grx" path="res://inventory_script/item/items/item_livestock/chicken_mal.tres" id="18_fs1cq"]
+[ext_resource type="Resource" uid="uid://dv57x8t5ygoia" path="res://inventory_script/item/items/item_livestock/chicken_baby.tres" id="19_fs1cq"]
 
 [sub_resource type="Resource" id="Resource_rn8ob"]
 script = ExtResource("2_a72s1")
@@ -46,10 +48,10 @@ quantity = 11
 attributes = Array[ExtResource("3_vdyg7")]([])
 metadata/_custom_type_script = "uid://bspkgwkxsy8mn"
 
-[sub_resource type="Resource" id="Resource_e8ap1"]
+[sub_resource type="Resource" id="Resource_jy2a8"]
 script = ExtResource("2_a72s1")
-item_data = ExtResource("5_vdyg7")
-quantity = 90
+item_data = ExtResource("7_uks62")
+quantity = 22
 attributes = Array[ExtResource("3_vdyg7")]([])
 metadata/_custom_type_script = "uid://bspkgwkxsy8mn"
 
@@ -143,7 +145,14 @@ quantity = 1
 attributes = Array[ExtResource("3_vdyg7")]([])
 metadata/_custom_type_script = "uid://bspkgwkxsy8mn"
 
+[sub_resource type="Resource" id="Resource_t6vax"]
+script = ExtResource("2_a72s1")
+item_data = ExtResource("19_fs1cq")
+quantity = 1
+attributes = Array[ExtResource("3_vdyg7")]([])
+metadata/_custom_type_script = "uid://bspkgwkxsy8mn"
+
 [resource]
 script = ExtResource("1_fx70d")
-slot_datas = Array[ExtResource("2_a72s1")]([SubResource("Resource_rn8ob"), SubResource("Resource_1ysir"), SubResource("Resource_a5mve"), SubResource("Resource_e8ap1"), SubResource("Resource_vdyg7"), SubResource("Resource_wmnvh"), SubResource("Resource_q6td8"), SubResource("Resource_a0sik"), SubResource("Resource_p831m"), SubResource("Resource_uks62"), SubResource("Resource_6ytgi"), SubResource("Resource_fs1cq"), SubResource("Resource_4b2p8"), SubResource("Resource_x2ail"), SubResource("Resource_anlj8"), SubResource("Resource_vrl28"), null, null])
+slot_datas = Array[ExtResource("2_a72s1")]([SubResource("Resource_rn8ob"), SubResource("Resource_1ysir"), SubResource("Resource_a5mve"), SubResource("Resource_jy2a8"), SubResource("Resource_vdyg7"), SubResource("Resource_wmnvh"), SubResource("Resource_q6td8"), SubResource("Resource_a0sik"), SubResource("Resource_p831m"), SubResource("Resource_uks62"), SubResource("Resource_6ytgi"), SubResource("Resource_fs1cq"), SubResource("Resource_4b2p8"), SubResource("Resource_x2ail"), SubResource("Resource_anlj8"), SubResource("Resource_vrl28"), SubResource("Resource_t6vax"), null])
 metadata/_custom_type_script = "uid://csfrg4socg8bj"

@@ -51,10 +51,9 @@ func start_placing_building(data: BuildingData):
 	
 	add_child(current_building_preview)
 	
-	current_building_preview.scale = _calculate_auto_scale(current_building_preview, data.size)
+	current_building_preview.scale = _calculate_auto_scale(current_building_preview, data.size, data.scale)
 	
-	_apply_blueprint_style(current_building_preview, Color(0.2, 0.8, 0.2, 0.5)) 
-	
+	_apply_blueprint_style(current_building_preview, Color(0.2, 0.8, 0.2, 0.5))
 	_set_collision_enabled(current_building_preview, false)
 
 func place_building() -> bool:
@@ -67,6 +66,15 @@ func place_building() -> bool:
 	if not can_place: 
 		print("❌ Lỗi: Vị trí không hợp lệ (can_place = False). Đang bị cấm xây!")
 		return false
+	
+	var data = current_building_data
+	if data.required_item and data.item_cost > 0:
+		var player_inv = PlayerData.player.inventory_data
+		
+		if not player_inv.remove_items_by_data(data.required_item, data.item_cost):
+			print("❌ Not enough materials!")
+			cancel_build()
+			return false
 	
 	var used_size = get_rotated_size()
 	var spacing = ground_gen.renderer.spacing
@@ -90,7 +98,7 @@ func place_building() -> bool:
 	print("✅ Đặt thành công!")
 	return true
 	
-func _calculate_auto_scale(node: Node3D, data_size: Vector2i) -> Vector3:
+func _calculate_auto_scale(node: Node3D, data_size: Vector2i, base_scale: Vector3 = Vector3.ONE) -> Vector3:
 	var old_rot = node.rotation
 	var old_scale = node.scale
 	node.rotation = Vector3.ZERO
@@ -107,13 +115,18 @@ func _calculate_auto_scale(node: Node3D, data_size: Vector2i) -> Vector3:
 	var target_w = data_size.x * spacing
 	var target_d = data_size.y * spacing
 	
-	var s_x = 1.0
-	var s_z = 1.0
+	var fill_scale_x = target_w / model_w if model_w > 0.01 else 1.0
+	var fill_scale_z = target_d / model_d if model_d > 0.01 else 1.0
 	
-	if model_w > 0.01: s_x = target_w / model_w
-	if model_d > 0.01: s_z = target_d / model_d
+	var s_x = min(fill_scale_x, base_scale.x)
+	var s_z = min(fill_scale_z, base_scale.z)
 	
-	var s_y = max(s_x, s_z)
+	var ratio_x = s_x / base_scale.x
+	var ratio_z = s_z / base_scale.z
+	var min_ratio = min(ratio_x, ratio_z)
+	
+	var s_y = base_scale.y * min_ratio
+	
 	return Vector3(s_x, s_y, s_z)
 
 
@@ -142,31 +155,30 @@ func spawn_building_node(data: BuildingData, grid_pos: Vector2i, rot_rotation: V
 		real_building.scale = _calculate_auto_scale(real_building, final_size)
 	
 	mark_grid_occupied(grid_pos, final_size, true)
+	
+	return real_building
 
 func check_can_place(start_grid: Vector2i, size: Vector2i) -> bool:
 	for x in range(size.x):
 		for y in range(size.y):
 			var check_pos = start_grid + Vector2i(x, y)
 			
-			# Case 1: Trong Grid chính -> Check Block Data
 			if ground_gen.is_valid_grid_pos(check_pos):
 				var block = ground_gen.block_data[check_pos.x][check_pos.y]
 				if block.has_building: 
-					# print("⛔ Cấm: Ô đất ", check_pos, " đã có nhà")
+					# print("⛔ Forbid: Grid block ", check_pos, "building occupied")
 					return false
 				if block.plant_type != PlantDatabase.PLANT_VARIANT.NONE: 
-					# print("⛔ Cấm: Ô đất ", check_pos, " đang trồng cây")
+					# print("⛔ Forbid: Grid block ", check_pos, " planted")
 					return false
 			
-			# Case 2: Trong Padding -> Check Dictionary
 			elif ground_gen.is_in_padding_bounds(check_pos):
 				if padding_occupied_map.has(check_pos):
-					# print("⛔ Cấm: Vùng padding ", check_pos, " bị chiếm")
+					# print("⛔ Forbid: Padding Zone", check_pos, " taken")
 					return false
 			
-			# Case 3: Ngoài vùng phủ sóng (Ra khỏi map)
 			else:
-				# print("⛔ Cấm: Ô ", check_pos, " nằm ngoài map")
+				# print("⛔ Forbid: Grid ", check_pos, " Outsie Map")
 				return false
 				
 	return true
@@ -270,27 +282,16 @@ func cancel_build():
 		current_building_preview = null
 	current_building_data = null; can_place = false
 
-# BuildingManager.gd
 
 func _unhandled_input(event):
 	if not GState.is_build() or not current_building_preview: return
 	
-	# --- XÓA HOẶC COMMENT ĐOẠN NÀY ĐI ---
-	# Lý do: Player.gd đã lo phần này rồi. Nếu để ở đây nó sẽ chặn Player.
-	# if event.is_action_pressed("click"):
-	# 	place_building()
-	# 	get_viewport().set_input_as_handled()
-	# -------------------------------------
-	
-	# Giữ lại phần xoay (Chuột phải) vì Player không xử lý cái này
+
 	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_RIGHT:
 		rotate_preview()
 		get_viewport().set_input_as_handled()
 		
-	# Xóa luôn phần Cancel ở đây, vì Player cũng đã xử lý
-	# if event.is_action_pressed("ui_cancel"):
-	# 	cancel_build()
-	# 	get_viewport().set_input_as_handled()
+
 
 func clear_all_buildings():
 	for child in buildings_container.get_children(): child.queue_free()
@@ -303,9 +304,11 @@ func restore_building(id: String, grid_pos: Vector2i, rot: Vector3, scale_overri
 		var deg_y = int(round(rad_to_deg(rot.y))) % 360
 		if deg_y == 90 or deg_y == 270 or deg_y == -90 or deg_y == -270:
 			restore_size = Vector2i(data.size.y, data.size.x)
-		spawn_building_node(data, grid_pos, rot, restore_size, scale_override)
+		
+		return spawn_building_node(data, grid_pos, rot, restore_size, scale_override)
 	else:
-		printerr("⚠️ Không tìm thấy BuildingData ID: ", id)
+		printerr("⚠️ Cant find BuildingData ID: ", id)
+		return null
 
 func _apply_blueprint_style(node: Node, color: Color):
 	var mat = StandardMaterial3D.new()
@@ -318,9 +321,7 @@ func _apply_blueprint_style(node: Node, color: Color):
 
 func _recursive_set_material(node: Node, mat: Material):
 	if node is MeshInstance3D:
-		# Override toàn bộ bề mặt của mesh thành màu blueprint
 		node.material_override = mat
-		# Tắt bóng đổ của preview
 		node.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
 		
 	for child in node.get_children():

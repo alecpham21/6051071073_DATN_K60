@@ -31,35 +31,42 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_wm71s")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="JournalPanel/Panel"]
+[node name="MainVBox" type="VBoxContainer" parent="JournalPanel/Panel"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="TypeTabBar" type="TabBar" parent="JournalPanel/Panel/MainVBox"]
+layout_mode = 2
+
+[node name="ContentHBox" type="HBoxContainer" parent="JournalPanel/Panel/MainVBox"]
+layout_mode = 2
 theme_override_constants/separation = 20
 
-[node name="ScrollContainer" type="ScrollContainer" parent="JournalPanel/Panel/HBoxContainer"]
+[node name="ScrollContainer" type="ScrollContainer" parent="JournalPanel/Panel/MainVBox/ContentHBox"]
 layout_mode = 2
 size_flags_horizontal = 3
+size_flags_vertical = 3
 
-[node name="QuestList" type="VBoxContainer" parent="JournalPanel/Panel/HBoxContainer/ScrollContainer"]
+[node name="QuestList" type="VBoxContainer" parent="JournalPanel/Panel/MainVBox/ContentHBox/ScrollContainer"]
 layout_mode = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="JournalPanel/Panel/HBoxContainer"]
+[node name="DetailsVBox" type="VBoxContainer" parent="JournalPanel/Panel/MainVBox/ContentHBox"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 2.0
 
-[node name="TitleLabel" type="Label" parent="JournalPanel/Panel/HBoxContainer/VBoxContainer"]
+[node name="TitleLabel" type="Label" parent="JournalPanel/Panel/MainVBox/ContentHBox/DetailsVBox"]
 layout_mode = 2
 
-[node name="HSeparator" type="HSeparator" parent="JournalPanel/Panel/HBoxContainer/VBoxContainer"]
+[node name="HSeparator" type="HSeparator" parent="JournalPanel/Panel/MainVBox/ContentHBox/DetailsVBox"]
 layout_mode = 2
 
-[node name="DescLabel" type="RichTextLabel" parent="JournalPanel/Panel/HBoxContainer/VBoxContainer"]
+[node name="DescLabel" type="RichTextLabel" parent="JournalPanel/Panel/MainVBox/ContentHBox/DetailsVBox"]
 layout_mode = 2
 
-[node name="ProgressLabel" type="Label" parent="JournalPanel/Panel/HBoxContainer/VBoxContainer"]
+[node name="ProgressLabel" type="Label" parent="JournalPanel/Panel/MainVBox/ContentHBox/DetailsVBox"]
 layout_mode = 2

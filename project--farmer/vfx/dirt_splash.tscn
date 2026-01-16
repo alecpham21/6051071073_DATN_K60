@@ -1,0 +1,27 @@
+[gd_scene load_steps=5 format=3 uid="uid://c3gbfeohqlsd2"]
+
+[ext_resource type="Script" uid="uid://obdl3hy2p6u3" path="res://vfx/dirt_spash.gd" id="1_8mg6c"]
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_r8lxq"]
+direction = Vector3(0, 1, 0)
+spread = 50.0
+initial_velocity_min = 2.0
+initial_velocity_max = 4.0
+gravity = Vector3(0, -14, 0)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ujdf8"]
+albedo_color = Color(0.365446, 0.187276, 0.0761989, 1)
+
+[sub_resource type="QuadMesh" id="QuadMesh_020ti"]
+material = SubResource("StandardMaterial3D_ujdf8")
+size = Vector2(0.1, 0.1)
+
+[node name="Dirt_Splash" type="GPUParticles3D"]
+emitting = false
+amount = 12
+lifetime = 0.6
+one_shot = true
+explosiveness = 0.9
+process_material = SubResource("ParticleProcessMaterial_r8lxq")
+draw_pass_1 = SubResource("QuadMesh_020ti")
+script = ExtResource("1_8mg6c")

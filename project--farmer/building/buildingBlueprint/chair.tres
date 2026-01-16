@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="BuildingData" load_steps=4 format=3 uid="uid://bqcre7cx4f5i0"]
+
+[ext_resource type="Texture2D" uid="uid://bwur3kjvj827o" path="res://building/building_icon/chair.png" id="1_cfnt2"]
+[ext_resource type="Script" uid="uid://fekbxueaingk" path="res://building/building_data.gd" id="1_let0x"]
+[ext_resource type="PackedScene" uid="uid://cdxkbfl5mqwue" path="res://modelScene/decorative/chair.tscn" id="1_wvtjf"]
+
+[resource]
+script = ExtResource("1_let0x")
+id = "chair_long"
+name = "Chair Long"
+category = 2
+item_cost = 0
+icon = ExtResource("1_cfnt2")
+scene = ExtResource("1_wvtjf")
+size = Vector2i(2, 2)
+offset = Vector3(0, 0, 0)
+scale = Vector3(1, 1, 1)
+metadata/_custom_type_script = "uid://fekbxueaingk"

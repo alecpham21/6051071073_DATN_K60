@@ -1,4 +1,4 @@
-[gd_scene load_steps=68 format=4 uid="uid://bbvhog32snru6"]
+[gd_scene load_steps=75 format=4 uid="uid://bbvhog32snru6"]
 
 [ext_resource type="Script" uid="uid://hctai00r4njf" path="res://world.gd" id="1_dwbse"]
 [ext_resource type="Shader" uid="uid://bkw4b21akjsc2" path="res://subViewportPixel.gdshader" id="2_gggvi"]
@@ -28,7 +28,9 @@
 [ext_resource type="Resource" uid="uid://cfy1c5w6nx1fk" path="res://building/buildingBlueprint/hencoop_small.tres" id="16_ruyqm"]
 [ext_resource type="PackedScene" uid="uid://dtfxb80en17fb" path="res://modelScene/structure/single_gate.tscn" id="17_7htu6"]
 [ext_resource type="Script" uid="uid://y0d42bllc0fd" path="res://Inventory_ui/inventory_interface.gd" id="17_26xuy"]
+[ext_resource type="Resource" uid="uid://h3osgnbn3k16" path="res://building/buildingBlueprint/hammerlock_bed.tres" id="17_55kwu"]
 [ext_resource type="PackedScene" uid="uid://470pnke8j1j2" path="res://Inventory_ui/inventory.tscn" id="17_cbp6q"]
+[ext_resource type="Resource" uid="uid://bqcre7cx4f5i0" path="res://building/buildingBlueprint/chair.tres" id="18_f3o6s"]
 [ext_resource type="PackedScene" uid="uid://cmaas2sclopj4" path="res://Inventory_ui/slot.tscn" id="19_bc84e"]
 [ext_resource type="PackedScene" uid="uid://dh4ns40qdxwam" path="res://Inventory_ui/hot_bar_inventory.tscn" id="23_bo7i5"]
 [ext_resource type="PackedScene" uid="uid://d3v1u6td3fyb6" path="res://inventory_script/item/pick_up_item/pick_up.tscn" id="25_mc2jv"]
@@ -48,6 +50,9 @@
 [ext_resource type="PackedScene" uid="uid://yxffan0vylfv" path="res://modelScene/rock/a_rock_1.tscn" id="41_jas3d"]
 [ext_resource type="PackedScene" uid="uid://coyode0syvm3j" path="res://ui/coop_ui.tscn" id="43_fnoqa"]
 [ext_resource type="PackedScene" uid="uid://qydfm7elvhms" path="res://ui/coop_row_ui.tscn" id="44_nx736"]
+[ext_resource type="PackedScene" uid="uid://sablgvswcoxn" path="res://ui/fast_travel_control.tscn" id="47_k3lar"]
+[ext_resource type="Script" uid="uid://ck8nttlafjmcu" path="res://Scripts/Resources/FastTravelLocation.gd" id="48_olr1q"]
+[ext_resource type="PackedScene" uid="uid://d348tmigvnwpa" path="res://modelScene/sign/fast_travel_sign.tscn" id="51_w4lh7"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_jjr1n"]
 shader = ExtResource("2_gggvi")
@@ -190,6 +195,20 @@ shader_parameter/rotation_matrix = Transform2D(1.6, -1.2, 1.2, 1.6, 0, 0)
 material = SubResource("ShaderMaterial_2o6r5")
 size = Vector2(80.725, 70.965)
 
+[sub_resource type="Resource" id="Resource_q42o5"]
+script = ExtResource("48_olr1q")
+location_name = "Town"
+target_scene_path = "uid://r4vbsuv0yw71"
+target_spawn_position = Vector3(0, 0, 0)
+metadata/_custom_type_script = "uid://ck8nttlafjmcu"
+
+[sub_resource type="Resource" id="Resource_olr1q"]
+script = ExtResource("48_olr1q")
+location_name = "Forest"
+target_scene_path = "uid://bixkklrjbu7hw"
+target_spawn_position = Vector3(0, 0, 0)
+metadata/_custom_type_script = "uid://ck8nttlafjmcu"
+
 [node name="level_farm" type="Node3D"]
 script = ExtResource("1_dwbse")
 
@@ -276,7 +295,7 @@ y_offset = -1.0
 [node name="BuildingManager" type="Node3D" parent="SubViewportContainer/SubViewport/GroundGenerator" node_paths=PackedStringArray("ground_gen")]
 script = ExtResource("12_yx0jh")
 ground_gen = NodePath("..")
-all_building_resources = Array[ExtResource("13_ryup7")]([ExtResource("40_ryup7"), ExtResource("15_jas3d"), ExtResource("16_ruyqm")])
+all_building_resources = Array[ExtResource("13_ryup7")]([ExtResource("40_ryup7"), ExtResource("15_jas3d"), ExtResource("16_ruyqm"), ExtResource("17_55kwu"), ExtResource("18_f3o6s")])
 
 [node name="FenceGenerator" type="Node3D" parent="SubViewportContainer/SubViewport/GroundGenerator"]
 script = ExtResource("15_ytpkv")
@@ -285,6 +304,8 @@ gate_scene = ExtResource("17_7htu6")
 fence_offset = Vector3(0, 0.5, 0)
 gate_side = 3
 padding_expansion = 5
+tiles_per_fence = 3.2
+gate_size_in_tiles = 2.45
 
 [node name="NavRegion" type="NavigationRegion3D" parent="SubViewportContainer/SubViewport/GroundGenerator"]
 navigation_mesh = SubResource("NavigationMesh_ruyqm")
@@ -297,7 +318,7 @@ inventory_data = ExtResource("11_k83mh")
 stats = null
 
 [node name="OutDoor" parent="SubViewportContainer/SubViewport" instance=ExtResource("13_qktwf")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22.7284, 0.419144, 0.422467)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 29.8836, 0.419144, 0.422467)
 target_scene_path = "uid://bidc27ad8yi6o"
 target_spawn_position = Vector3(-14, 0, 0)
 
@@ -445,7 +466,7 @@ grow_vertical = 0
 [node name="BuildUI" parent="UI" node_paths=PackedStringArray("building_manager") instance=ExtResource("39_1ew0l")]
 mouse_filter = 2
 building_manager = NodePath("../../SubViewportContainer/SubViewport/GroundGenerator/BuildingManager")
-build_list = Array[ExtResource("13_ryup7")]([ExtResource("40_ryup7"), ExtResource("15_jas3d"), ExtResource("16_ruyqm")])
+build_list = Array[ExtResource("13_ryup7")]([ExtResource("40_ryup7"), ExtResource("15_jas3d"), ExtResource("16_ruyqm"), ExtResource("17_55kwu"), ExtResource("18_f3o6s")])
 slot_scene = ExtResource("40_xpnt2")
 
 [node name="StaminaHUD" parent="UI" instance=ExtResource("39_7htu6")]
@@ -463,6 +484,9 @@ grow_vertical = 2
 
 [node name="CoopUI" parent="UI" instance=ExtResource("43_fnoqa")]
 row_scene = ExtResource("44_nx736")
+
+[node name="FastTravelControl" parent="UI" instance=ExtResource("47_k3lar")]
+locations = Array[ExtResource("48_olr1q")]([SubResource("Resource_q42o5"), SubResource("Resource_olr1q")])
 
 [node name="QuestJournal" parent="." instance=ExtResource("34_w44yn")]
 
@@ -546,6 +570,9 @@ transform = Transform3D(-0.480997, 0, 5.53424, 0, 4.984, 0, -5.29821, 0, -0.5024
 
 [node name="GroundBackground" parent="FarmBackground" instance=ExtResource("34_g1i3r")]
 transform = Transform3D(7.375, 0, 0, 0, 6.492, 0, 0, 0, 9.197, 0, -7.59342, 0)
+
+[node name="FastTravel_Sign" parent="." instance=ExtResource("51_w4lh7")]
+transform = Transform3D(-0.765, 0, -6.68784e-08, 0, 0.765, 0, 6.68784e-08, 0, -0.765, 15.2006, 1.06126, 3.75488)
 
 [connection signal="drop_slot_data" from="UI/InventoryInterface" to="UI/InventoryInterface" method="_on_drop_slot_data"]
 [connection signal="gui_input" from="UI/InventoryInterface" to="UI/InventoryInterface" method="_on_gui_input"]

@@ -14,6 +14,10 @@ enum BuildingCategory {
 @export var name: String = "Building Name"
 @export var category: BuildingCategory = BuildingCategory.HOUSE
 
+@export_group("Requirements")
+@export var required_item: ItemData
+@export var item_cost: int = 0
+
 @export_group("Visuals")
 @export var icon: Texture2D
 @export var scene: PackedScene

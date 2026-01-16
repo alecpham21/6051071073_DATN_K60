@@ -35,9 +35,8 @@ func _on_dialogic_signal(argument: String):
 
 
 func handle_shop_opening(mode: String):
-	# 1. Kết thúc Dialog TRƯỚC khi mở UI để tránh bị tín hiệu kết thúc ghi đè GState
 	Dialogic.end_timeline()
-	await get_tree().process_frame # Đợi 1 frame để các tín hiệu Dialogic xử lý xong
+	await get_tree().process_frame
 	
 	GState.shop()
 	var ui = get_tree().get_first_node_in_group("inventory_interface")
@@ -50,7 +49,6 @@ func handle_shop_opening(mode: String):
 			if ui.has_method("open_shop_sell_interface"):
 				ui.open_shop_sell_interface(self, sell_box_inventory)
 		
-		# Đảm bảo ép chuột hiện ra sau cùng
 		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 
 func on_sell_button_pressed():

@@ -25,11 +25,11 @@ shader_parameter/offset = Vector2(0, 0)
 material = SubResource("ShaderMaterial_17m65")
 size = Vector2(120, 80)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_tsy0l"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_fi1it"]
 albedo_color = Color(0.281187, 0.281187, 0.281187, 1)
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_tsy0l"]
-material = SubResource("StandardMaterial3D_tsy0l")
+material = SubResource("StandardMaterial3D_fi1it")
 top_radius = 0.085
 bottom_radius = 0.085
 height = 100.0

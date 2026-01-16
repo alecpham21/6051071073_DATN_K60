@@ -1,7 +1,10 @@
-[gd_resource type="Resource" script_class="QuestResource" load_steps=4 format=3 uid="uid://bgdlnvwuogm28"]
+[gd_resource type="Resource" script_class="QuestResource" load_steps=8 format=3 uid="uid://bgdlnvwuogm28"]
 
 [ext_resource type="Script" uid="uid://ly4smbwy8tcy" path="res://quest_system/quest_objective.gd" id="1_mlr4v"]
+[ext_resource type="Script" uid="uid://bspkgwkxsy8mn" path="res://inventory_script/slot_data.gd" id="2_2ytm6"]
 [ext_resource type="Script" uid="uid://dd572wfdlifn1" path="res://quest_system/quest_data.gd" id="2_jsco8"]
+[ext_resource type="Script" uid="uid://bfas330ndllg" path="res://inventory_script/item/item_attribute/item_attribute.gd" id="3_cnd8f"]
+[ext_resource type="Resource" uid="uid://djph6j4pxvvie" path="res://inventory_script/item/items/item_harvest/carrot_seed.tres" id="4_o633d"]
 
 [sub_resource type="Resource" id="Resource_mlr4v"]
 script = ExtResource("1_mlr4v")
@@ -10,10 +13,22 @@ required_item_id = ""
 target_amount = 1
 metadata/_custom_type_script = "uid://ly4smbwy8tcy"
 
+[sub_resource type="Resource" id="Resource_6pnqa"]
+script = ExtResource("2_2ytm6")
+item_data = ExtResource("4_o633d")
+quantity = 6
+attributes = Array[ExtResource("3_cnd8f")]([])
+metadata/_custom_type_script = "uid://bspkgwkxsy8mn"
+
 [resource]
 script = ExtResource("2_jsco8")
 id = "my_future_farm_1"
 title = "My Future Farm (1)"
+quest_type = 0
 description = "Uncle want you to do something before he go, talk to him to find out"
 objectives = Array[ExtResource("1_mlr4v")]([SubResource("Resource_mlr4v")])
+next_quest_id = "my_future_farm_2"
+reward_gold = 6969
+reward_xp = 0
+reward_items = Array[ExtResource("2_2ytm6")]([SubResource("Resource_6pnqa")])
 metadata/_custom_type_script = "uid://dd572wfdlifn1"

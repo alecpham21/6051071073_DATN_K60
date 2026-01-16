@@ -1,5 +1,4 @@
 extends Label
-#show the current StateMachine as text
 
 @export var limbo_hsm: LimboHSM :
 	set(value):

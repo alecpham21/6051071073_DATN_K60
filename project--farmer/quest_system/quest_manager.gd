@@ -1,6 +1,7 @@
 extends Node
 
 signal quest_updated
+signal reward_distributed(type: String, data: Variant, amount: int)
 
 var quests: Dictionary = {}
 
@@ -84,12 +85,28 @@ func complete_quest(quest_id: String):
 		var q = quests[quest_id]
 		if not q.is_completed:
 			q.is_completed = true
-			print("🎉🎉🎉 CHÚC MỪNG! HOÀN THÀNH NHIỆM VỤ: " + q.title)
+			print("🎉 QUEST COMPLETED: " + q.title)
+			
+			_handle_rewards(q)
+			
 			quest_updated.emit()
 			
 			if q.next_quest_id != "":
-				print("🔗 Kích hoạt nhiệm vụ chuỗi: ", q.next_quest_id)
 				start_quest(q.next_quest_id)
+
+func _handle_rewards(q: QuestResource):
+	if q.reward_gold > 0:
+		reward_distributed.emit("GOLD", null, q.reward_gold)
+	
+	if q.reward_xp > 0:
+		reward_distributed.emit("XP", null, q.reward_xp)
+	
+	for slot in q.reward_items:
+		if slot and slot.item_data:
+			print("   🎁 Reward Item: ", slot.item_data.name, " x", slot.quantity)
+			
+			reward_distributed.emit("ITEM", slot.item_data, slot.quantity)
+
 
 func check_status(quest_id: String) -> String:
 	if not quests.has(quest_id): return "unknown"

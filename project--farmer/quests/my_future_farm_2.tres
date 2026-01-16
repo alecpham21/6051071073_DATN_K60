@@ -21,6 +21,7 @@ metadata/_custom_type_script = "uid://ly4smbwy8tcy"
 script = ExtResource("2_35vw2")
 id = "my_future_farm_2"
 title = "My Future Farm (2)"
+quest_type = 1
 description = "Time to get some tools and deal with the grass"
 objectives = Array[ExtResource("1_gv6of")]([SubResource("Resource_7uh5w"), SubResource("Resource_q2jdp")])
 next_quest_id = "me_first_plant"

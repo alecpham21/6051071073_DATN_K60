@@ -1,5 +1,6 @@
-[gd_scene load_steps=16 format=3 uid="uid://bixkklrjbu7hw"]
+[gd_scene load_steps=28 format=3 uid="uid://bixkklrjbu7hw"]
 
+[ext_resource type="Script" uid="uid://0kw5v3qb08y8" path="res://level/level_forest2/level_forest.gd" id="1_fgu3o"]
 [ext_resource type="Shader" uid="uid://bkw4b21akjsc2" path="res://subViewportPixel.gdshader" id="2_hry72"]
 [ext_resource type="Shader" uid="uid://viqy3uwh6ns7" path="res://PixelShader.gdshader" id="3_f3la6"]
 [ext_resource type="PackedScene" uid="uid://bnxu42mjbjp8x" path="res://player/main_farmer.tscn" id="4_ynggv"]
@@ -11,6 +12,16 @@
 [ext_resource type="Script" uid="uid://djj2m2skea716" path="res://TimeCheck.gd" id="8_dupkf"]
 [ext_resource type="PackedScene" uid="uid://dd48ywngxd2oc" path="res://Scene/Environment/day_night_cycle.tscn" id="9_hry72"]
 [ext_resource type="PackedScene" uid="uid://csnejiwkcvvuj" path="res://terrain/big_terrain_moutain.tscn" id="11_ynggv"]
+[ext_resource type="PackedScene" uid="uid://30kgd12raesw" path="res://npc/lumber_jack.tscn" id="12_tpv8i"]
+[ext_resource type="Script" uid="uid://y0d42bllc0fd" path="res://Inventory_ui/inventory_interface.gd" id="13_fgu3o"]
+[ext_resource type="PackedScene" uid="uid://470pnke8j1j2" path="res://Inventory_ui/inventory.tscn" id="14_ikb10"]
+[ext_resource type="PackedScene" uid="uid://sablgvswcoxn" path="res://ui/fast_travel_control.tscn" id="15_50xsv"]
+[ext_resource type="PackedScene" uid="uid://cmaas2sclopj4" path="res://Inventory_ui/slot.tscn" id="15_or3hq"]
+[ext_resource type="PackedScene" uid="uid://cxhu2k076jcr8" path="res://shop_ui/shop_ui.tscn" id="16_50xsv"]
+[ext_resource type="Script" uid="uid://ck8nttlafjmcu" path="res://Scripts/Resources/FastTravelLocation.gd" id="16_kcq6q"]
+[ext_resource type="PackedScene" uid="uid://dh4ns40qdxwam" path="res://Inventory_ui/hot_bar_inventory.tscn" id="18_qnc8n"]
+[ext_resource type="PackedScene" uid="uid://b5bavm45lxiid" path="res://ui/Recipe/RecipeUI/recipe_ui.tscn" id="19_du2mw"]
+[ext_resource type="PackedScene" uid="uid://d348tmigvnwpa" path="res://modelScene/sign/fast_travel_sign.tscn" id="20_ikb10"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_tpu7y"]
 shader = ExtResource("2_hry72")
@@ -31,6 +42,13 @@ shader_parameter/normal_edge_bias = Vector3(1, 1, 1)
 shader_parameter/light_direction = Vector3(-0.96, -0.18, 0.2)
 shader_parameter/outline_thickness = 1.0
 
+[sub_resource type="Resource" id="Resource_qnc8n"]
+script = ExtResource("16_kcq6q")
+location_name = "My Farm"
+target_scene_path = "uid://bbvhog32snru6"
+target_spawn_position = Vector3(0, 0, 0)
+metadata/_custom_type_script = "uid://ck8nttlafjmcu"
+
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_fgu3o"]
 shader = ExtResource("7_yaejn")
 shader_parameter/mix_amount = 0.14
@@ -42,6 +60,7 @@ shader_parameter/level_c = 10.676
 shader_parameter/level_h = 0.05
 
 [node name="level_forest" type="Node3D"]
+script = ExtResource("1_fgu3o")
 
 [node name="SubViewportContainer" type="SubViewportContainer" parent="."]
 texture_filter = 1
@@ -86,6 +105,107 @@ fov = 30.0
 
 [node name="Forest3Colored" parent="SubViewportContainer/SubViewport" instance=ExtResource("7_f3la6")]
 
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="InventoryInterface" type="Control" parent="UI" node_paths=PackedStringArray("hotbar_inventory", "shop_ui") groups=["inventory_interface"]]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("13_fgu3o")
+hotbar_inventory = NodePath("../HotBarInventory")
+shop_ui = NodePath("shop_ui")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/InventoryInterface"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -376.0
+offset_top = -25.5
+offset_right = -336.0
+offset_bottom = 25.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/InventoryInterface/VBoxContainer"]
+layout_mode = 2
+
+[node name="EquipInventory" parent="UI/InventoryInterface/VBoxContainer/HBoxContainer" instance=ExtResource("14_ikb10")]
+layout_mode = 2
+
+[node name="OutfitInventory" parent="UI/InventoryInterface/VBoxContainer/HBoxContainer" instance=ExtResource("14_ikb10")]
+layout_mode = 2
+
+[node name="PlayerInventory" parent="UI/InventoryInterface/VBoxContainer" instance=ExtResource("14_ikb10")]
+layout_mode = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="UI/InventoryInterface/VBoxContainer"]
+layout_mode = 2
+
+[node name="MoneyLabel" type="Label" parent="UI/InventoryInterface/VBoxContainer/PanelContainer" groups=["inventory_interface"]]
+layout_mode = 2
+horizontal_alignment = 2
+
+[node name="ExternalInventory" parent="UI/InventoryInterface" instance=ExtResource("14_ikb10")]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 224.0
+offset_top = -20.0
+offset_right = 264.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="GrabbedSlot" parent="UI/InventoryInterface" instance=ExtResource("15_or3hq")]
+visible = false
+modulate = Color(1, 1, 1, 0.52549)
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 0
+
+[node name="shop_ui" parent="UI/InventoryInterface" instance=ExtResource("16_50xsv")]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 224.0
+offset_top = -181.0
+offset_right = 524.0
+offset_bottom = 181.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HotBarInventory" parent="UI" instance=ExtResource("18_qnc8n")]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -5.0
+offset_top = -10.0
+offset_right = 5.0
+offset_bottom = 0.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="RecipeUI" parent="UI" instance=ExtResource("19_du2mw")]
+
+[node name="FastTravelControl" parent="UI" instance=ExtResource("15_50xsv")]
+locations = Array[ExtResource("16_kcq6q")]([SubResource("Resource_qnc8n")])
+
 [node name="MixColorShader" type="CanvasLayer" parent="."]
 
 [node name="ColorRect" type="ColorRect" parent="MixColorShader"]
@@ -108,3 +228,14 @@ script = ExtResource("8_dupkf")
 
 [node name="BigTerrainMoutain" parent="." instance=ExtResource("11_ynggv")]
 transform = Transform3D(100, 0, 0, 0, 100, 0, 0, 0, 100, 0, -65.3585, 0)
+
+[node name="LumberJack" parent="." instance=ExtResource("12_tpv8i")]
+transform = Transform3D(0.996138, 0, -0.0877991, 0, 1, 0, 0.0877991, 0, 0.996138, 36.5802, 0.0162789, -12.3012)
+days_to_wait = 2
+
+[node name="FastTravel_Sign" parent="." instance=ExtResource("20_ikb10")]
+transform = Transform3D(0.0326785, 0, -0.574071, 0, 0.575, 0, 0.574071, 0, 0.0326785, -5.96405, 0.849693, -2.63463)
+
+[connection signal="drop_slot_data" from="UI/InventoryInterface" to="UI/InventoryInterface" method="_on_drop_slot_data"]
+[connection signal="gui_input" from="UI/InventoryInterface" to="UI/InventoryInterface" method="_on_gui_input"]
+[connection signal="visibility_changed" from="UI/InventoryInterface" to="UI/InventoryInterface" method="_on_visibility_changed"]

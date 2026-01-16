@@ -161,13 +161,13 @@ mesh = SubResource("ArrayMesh_bfjin")
 skeleton = NodePath("")
 
 [node name="Cube5" type="MeshInstance3D" parent="." index="17"]
-transform = Transform3D(-1.06407e-06, 0, -84.7681, 0, 9.20574, 0, 24.3432, 0, -3.70533e-06, -33.8928, 15.0345, -413.818)
+transform = Transform3D(-1.06407e-06, 0, -84.7681, 0, 9.20574, 0, 24.3432, 0, -3.70533e-06, -28.2367, 15.0345, -413.818)
 material_override = SubResource("StandardMaterial3D_10b0m")
 mesh = SubResource("ArrayMesh_bfjin")
 skeleton = NodePath("")
 
 [node name="Cube6" type="MeshInstance3D" parent="." index="18"]
-transform = Transform3D(-24.3432, 0, -7.41066e-06, 0, 9.20574, 0, 2.12815e-06, 0, -84.7681, -106.023, 3.44469, -546.078)
+transform = Transform3D(-24.3432, 0, -7.41066e-06, 0, 9.20574, 0, 2.12815e-06, 0, -84.7681, -72.6759, 3.44469, -624.066)
 material_override = SubResource("StandardMaterial3D_10b0m")
 mesh = SubResource("ArrayMesh_bfjin")
 skeleton = NodePath("")

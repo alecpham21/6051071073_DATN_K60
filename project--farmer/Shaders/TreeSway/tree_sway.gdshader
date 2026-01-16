@@ -51,12 +51,12 @@ void vertex()
 void fragment()
 {
     vec2 scaled_uv = UV * texture_scale;
-    
+
     // --- KHẮC PHỤC CHÍNH Ở ĐÂY ---
-    // Tham số thứ 3 (-2.0) là "Texture Bias". 
+    // Tham số thứ 3 (-2.0) là "Texture Bias".
     // Số âm ép GPU dùng texture nét hơn (độ phân giải cao hơn) ngay cả khi ở xa.
     // Điều này giữ cho giá trị Alpha không bị mờ đi và biến mất.
-    float alpha = texture(foliage_texture, scaled_uv, -2.0).g; 
+    float alpha = texture(foliage_texture, scaled_uv, -2.0).g;
 
     if (alpha < alpha_threshold) {
         discard;
@@ -66,7 +66,7 @@ void fragment()
     vec3 view_dir = normalize(-FRAGCOORD.xyz); // View dir trong view space
     // Cần lấy Normal trong view space để dot product chính xác với view_dir
     vec3 view_normal = normalize((VIEW_MATRIX * vec4(NORMAL, 0.0)).xyz);
-    
+
     float fresnel = pow(1.0 - max(0.0, dot(view_normal, -view_dir)), fresnel_power); // clamp max(0.0) để tránh lỗi số âm
     vec3 final_color = mix(foliage_colour, fresnel_colour, fresnel * fresnel_strength);
 

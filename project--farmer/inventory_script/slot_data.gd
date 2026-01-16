@@ -22,7 +22,6 @@ func set_stat(id: String, new_value: float) -> void:
 			attr.value = new_value
 			return
 	
-	#if dont exist, create new
 	var new_attr = ItemAttribute.new()
 	new_attr.id = id
 	new_attr.value = new_value
@@ -56,13 +55,16 @@ func fully_merge_with(other_slot_data: SlotData) -> void:
 func create_single_slot_data() -> SlotData:
 	var new_slot_data = duplicate()
 	new_slot_data.quantity = 1
-
-	new_slot_data.attributes = []
+	
+	var new_attrs: Array[ItemAttribute] = []
+	
 	for attr in attributes:
-		var new_attr = ItemAttribute.new()
+		var new_attr = ItemAttribute.new() 
 		new_attr.id = attr.id
 		new_attr.value = attr.value
-		new_slot_data.attributes.append(new_attr)
+		new_attrs.append(new_attr)
+		
+	new_slot_data.attributes = new_attrs
 		
 	quantity -= 1
 	return new_slot_data

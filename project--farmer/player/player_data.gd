@@ -36,12 +36,14 @@ func _ready():
 	if player_outfit_data == null:
 		player_outfit_data = load("res://inventory_script/inventory_data/player_outfit.tres")
 
-	# Lưu ý: File material_inventory.tres phải có script MaterialInventoryData được gắn vào nó nhé
 	material_data = load("res://inventory_script/inventory_data/material_inventory.tres") as MaterialInventoryData
 	if board_data == null:
 			board_data = InventoryData.new()
-			board_data.slot_datas.resize(1) # Thớt chỉ cần 1 ô
+			board_data.slot_datas.resize(1)
 			board_data.slot_datas[0] = null
+	
+	if QuestManager.has_signal("reward_distributed"):
+		QuestManager.reward_distributed.connect(_on_reward_received)
 
 
 func get_global_posotion() -> Vector3:
@@ -75,3 +77,41 @@ func get_total_dirt_level() -> float:
 
 func is_player_stinky(threshold: float = 50.0) -> bool:
 	return get_total_dirt_level() >= threshold
+
+func _on_reward_received(type: String, data: Variant, amount: int):
+	match type:
+		"GOLD":
+			money += amount
+			print("💰 PlayerData: Added ", amount, " Gold")
+			
+		"XP":
+			# stats.experience += amount
+			print("✨ PlayerData: Added ", amount, " XP")
+			
+		"ITEM":
+			if data is ItemData:
+				# 1. Thử nhét vào túi trước
+				var success = player_inventory_data.add_item(data, amount)
+				
+				if success:
+					print("🎒 PlayerData: Added ", amount, " ", data.name)
+				else:
+					# 2. TÚI ĐẦY -> GỌI HÀM RỚT ĐỒ
+					print("⚠️ Inventory Full! Dropping ", data.name, " on ground.")
+					_trigger_drop_item(data, amount)
+
+func _trigger_drop_item(item_data: ItemData, amount: int):
+	
+	if SignalBus.has_signal("item_dropped"):
+		var drop_pos = player.global_position + Vector3(0, 1.0, 0)
+		
+		SignalBus.item_dropped.emit(item_data, amount, drop_pos)
+		
+	elif player.has_method("drop_item"):
+		player.drop_item(item_data, amount)
+		
+	else:
+		print("❌ Error: Cannot find 'item_dropped' signal or 'drop_item' method!")
+
+func _on_reward_received_backup_fix(_v = null):
+	pass

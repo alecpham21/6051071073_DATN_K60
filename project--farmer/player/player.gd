@@ -124,6 +124,9 @@ func _ready() -> void:
 		await get_tree().process_frame
 		if limbo_hsm: (limbo_hsm as LimboPrimeHSM).dispatch("bike")
 		PlayerData.is_transitioning_with_bike = false
+	
+	if SignalBus.has_signal("item_dropped"):
+		SignalBus.item_dropped.connect(_on_external_item_dropped)
 
 func _process(_delta):
 	_update_highlight_selector()
@@ -236,16 +239,18 @@ var stink_dialogues = [
 func interact():
 	var areas = interact_area.get_overlapping_areas()
 	if areas.size() > 0:
-		if PlayerData.is_player_stinky():
+		var target_area = areas[0]
+		var target_parent = target_area.get_parent()
+		
+		if PlayerData.is_player_stinky() and target_parent.is_in_group("npc"):
 			var random_text = stink_dialogues.pick_random()
 			
 			Dialogic.VAR.stink_line_eng = random_text
 			
-			
 			Dialogic.start("timeline_stinky")
 			return
 
-		(areas[0] as InteractArea).interacted.emit()
+		(target_area as InteractArea).interacted.emit()
 
 func register_interactable(object):
 	current_interactable = object
@@ -319,6 +324,10 @@ func _setup_game_state_connections():
 	)
 
 func _on_drop_item_from_ui(slot_data: SlotData) -> void:
+	
+	if not is_inside_tree():
+		return
+	
 	if slot_data == null: return
 	
 	var pickup = PICKUP_SCENE.instantiate()
@@ -330,3 +339,26 @@ func _on_drop_item_from_ui(slot_data: SlotData) -> void:
 	
 	var throw_force = (-global_transform.basis.z * 3.0) + Vector3(0, 2.0, 0)
 	pickup.apply_impulse(throw_force)
+
+func _on_external_item_dropped(item_data: ItemData, amount: int, target_pos: Vector3) -> void:
+	if not item_data: return
+	
+	var new_slot = SlotData.new()
+	new_slot.item_data = item_data
+	new_slot.quantity = amount
+	
+	var pickup = PICKUP_SCENE.instantiate()
+	pickup.slot_data = new_slot
+	
+	if target_pos == Vector3.ZERO:
+		pickup.global_position = global_position + Vector3(0, 1.5, 0)
+	else:
+		pickup.global_position = target_pos
+	
+	get_parent().add_child(pickup)
+	
+	var throw_force = Vector3(randf_range(-1, 1), 2.0, randf_range(-1, 1)).normalized() * 2.0
+	if pickup.has_method("apply_impulse"):
+		pickup.apply_impulse(throw_force)
+		
+	print("Spawned dropped item: ", item_data.name)

@@ -7,7 +7,11 @@ extends Control
 var target_coop: CoopMachine
 
 func _ready():
-	close_button.pressed.connect(hide)
+	close_button.pressed.connect(close) 
+	
+	if GameData.has_signal("game_state_changed"):
+		GameData.game_state_changed.connect(_on_game_state_changed)
+	
 	hide()
 
 func open(coop: CoopMachine):
@@ -21,6 +25,15 @@ func open(coop: CoopMachine):
 	refresh_ui()
 	GState.coop()
 
+func close():
+	if GState.is_coop():
+		GState.play()
+	hide()
+
+func _on_game_state_changed(_old_state, new_state):
+	if new_state != GState.state_enum.COOP and visible:
+		hide()
+
 func refresh_ui():
 	if not target_coop: return
 	
@@ -30,5 +43,4 @@ func refresh_ui():
 	for i in range(target_coop.max_capacity):
 		var row = row_scene.instantiate()
 		row_container.add_child(row)
-		
 		row.update_row(i, target_coop)

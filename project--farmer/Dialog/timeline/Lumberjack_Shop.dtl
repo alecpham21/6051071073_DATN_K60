@@ -1,0 +1,16 @@
+if {WoodShop.order_ready} == true:
+	NPC_Lumberjack: Your wood is done
+	- Claim
+		[signal arg="collect_wood"]
+		[end_timeline]
+	- Wait
+		[end_timeline]
+if {WoodShop.is_waiting} == true:
+	NPC_Lumberjack: Still working on it
+	[end_timeline]
+NPC_Lumberjack: What do you want?
+- Buy some wood
+	NPC_Lumberjack: Max you can  buy is limited, around 30.
+	[signal arg="open_shop_instant"]
+- Order some wood
+	[signal arg="open_shop_order"]

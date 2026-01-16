@@ -56,7 +56,7 @@ shader_parameter/steps_l = 25.0
 shader_parameter/level_c = 5.0
 shader_parameter/level_h = 0.05
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_oxgav"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_gv5vd"]
 render_priority = 0
 shader = ExtResource("17_5itgm")
 shader_parameter/light_color = Color(1, 0.8, 0.4, 1)
@@ -85,7 +85,7 @@ shader_parameter/godray_direction = Vector3(0, -1, 0.5)
 shader_parameter/debug_view_angle = false
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_gv5vd"]
-material = SubResource("ShaderMaterial_oxgav")
+material = SubResource("ShaderMaterial_gv5vd")
 top_radius = 0.315
 bottom_radius = 1.287
 height = 29.662

@@ -1,0 +1,12 @@
+[gd_scene load_steps=4 format=3 uid="uid://boybp1kv84kea"]
+
+[ext_resource type="PackedScene" uid="uid://chd7dqrlml0ty" path="res://model/tool/LumberAxe.glb" id="1_0sxic"]
+[ext_resource type="Texture2D" uid="uid://1gysjnj7jqbq" path="res://assets/ImphenziaPalette01-256-Gradient.png" id="2_83spf"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_h077y"]
+albedo_texture = ExtResource("2_83spf")
+
+[node name="LumberAxe" instance=ExtResource("1_0sxic")]
+
+[node name="Cube" parent="." index="0"]
+material_override = SubResource("StandardMaterial3D_h077y")

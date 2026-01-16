@@ -125,8 +125,7 @@ func update_money_text(amount: int):
 	if money_label:
 		money_label.text = "Tiền: " + str(amount) + " G"
 
-func open_shop_interface(items_list: Array[ItemData]):
-	print(">>> [ACTION] Mở Shop MUA (open_shop_interface)")
+func open_shop_interface(items_list: Array[ItemData], npc_node: Node = null):
 	self.visible = true
 	GState.shop()
 	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
@@ -135,7 +134,6 @@ func open_shop_interface(items_list: Array[ItemData]):
 	
 	if outfit_inventory: outfit_inventory.hide()
 	if equip_inventory: equip_inventory.hide()
-	
 	if craft_bar: craft_bar.hide()
 	if cutting_ui: cutting_ui.hide()
 	if material_inventory: material_inventory.hide()
@@ -144,7 +142,9 @@ func open_shop_interface(items_list: Array[ItemData]):
 	
 	if shop_ui:
 		shop_ui.show()
-		if shop_ui.has_method("setup_shop_data"):
+		if shop_ui.has_method("open_shop_interface"):
+			shop_ui.open_shop_interface(items_list, npc_node)
+		elif shop_ui.has_method("setup_shop_data"):
 			shop_ui.setup_shop_data(items_list)
 	
 	prevent_close = true
@@ -155,7 +155,9 @@ func open_shop_interface(items_list: Array[ItemData]):
 func close_shop_interface():
 	prevent_close = false
 	
-	if shop_ui: shop_ui.hide()
+	if shop_ui: 
+		if "current_npc" in shop_ui: shop_ui.current_npc = null
+		shop_ui.hide()
 	if sell_ui: sell_ui.hide() 
 	
 	if player_inventory: player_inventory.hide()
@@ -199,7 +201,6 @@ func on_slot_clicked_handler(sd: SlotData, inv: InventoryData, btn: int):
 func set_kitchen_inventory(kitchen_node: Node3D, type: String = "stove") -> void:
 	print(">>> [ACTION] Mở Bếp (set_kitchen_inventory). Type: ", type)
 	
-	# Lệnh này khiến Hotbar bên script khác tự bật lên
 	GState.ui()
 	
 	active_kitchen = kitchen_node
@@ -212,7 +213,6 @@ func set_kitchen_inventory(kitchen_node: Node3D, type: String = "stove") -> void
 	outfit_inventory.visible = false
 	equip_inventory.visible = false
 	
-	# Ẩn tạm thời (nhưng sẽ bị GState bật lại ngay sau đó)
 	if hotbar_inventory: hotbar_inventory.hide()
 	
 	if craft_bar: craft_bar.hide()
@@ -288,7 +288,6 @@ func close_kitchen() -> void:
 	if material_inventory: material_inventory.hide()
 	if recipe_book_ui: recipe_book_ui.hide()
 	
-	# Đã xóa dòng player_inventory.show()
 	if hotbar_inventory: hotbar_inventory.show()
 	
 	if PlayerData.player and PlayerData.player.cam_ref:
@@ -308,7 +307,6 @@ func close_kitchen() -> void:
 		print("    --> Chuyển GState về PLAY")
 		GState.play()
 
-# ... (Giữ nguyên các hàm còn lại: open_standalone_book, finalize_cut, physics_process, setters...) ...
 func open_standalone_book():
 	outfit_inventory.visible = false
 	player_inventory.visible = false
@@ -416,6 +414,7 @@ func clear_external_inventory() -> void:
 		if washing_machine_ui: washing_machine_ui.hide()
 		external_inventory_owner = null
 	
+
 func on_inventory_interact(inventory_data: InventoryData, index: int, button: int) -> void:
 	match [grabbed_slot_data, button]:
 		[null, MOUSE_BUTTON_LEFT]: 
@@ -424,26 +423,31 @@ func on_inventory_interact(inventory_data: InventoryData, index: int, button: in
 		[_, MOUSE_BUTTON_LEFT]:
 			var item_name_check = grabbed_slot_data.item_data.name
 			var item_qty_check = grabbed_slot_data.quantity
-			
 			var is_dropping_into_player = (inventory_data == PlayerData.player_inventory_data)
 			
 			grabbed_slot_data = inventory_data.drop_slot_data(grabbed_slot_data, index)
 			
 			if is_dropping_into_player:
-				print("🎒 UI: Vừa thả ", item_name_check, " vào túi người chơi -> Báo Quest!")
 				SignalBus.item_added_to_inventory.emit(item_name_check.to_lower(), item_qty_check)
 
+		
 		[null, MOUSE_BUTTON_RIGHT]: 
-			inventory_data.use_slot_data(index)
+			grabbed_slot_data = inventory_data.grab_split_items(index, null)
 			
 		[_, MOUSE_BUTTON_RIGHT]: 
-			var item_name_check = grabbed_slot_data.item_data.name
-			var is_dropping_into_player = (inventory_data == PlayerData.player_inventory_data)
+			var slot_at_index = inventory_data.slot_datas[index]
 			
-			grabbed_slot_data = inventory_data.drop_single_slot_data(grabbed_slot_data, index)
+			if slot_at_index and grabbed_slot_data.can_merge_with(slot_at_index):
+				grabbed_slot_data = inventory_data.grab_split_items(index, grabbed_slot_data)
 			
-			if is_dropping_into_player:
-				SignalBus.item_added_to_inventory.emit(item_name_check, 1) # Thả từng cái thì số lượng là 1
+			else:
+				var item_name_check = grabbed_slot_data.item_data.name
+				var is_dropping_into_player = (inventory_data == PlayerData.player_inventory_data)
+				
+				grabbed_slot_data = inventory_data.drop_single_slot_data(grabbed_slot_data, index)
+				
+				if is_dropping_into_player:
+					SignalBus.item_added_to_inventory.emit(item_name_check, 1)
 
 	update_grabbed_slot()
 

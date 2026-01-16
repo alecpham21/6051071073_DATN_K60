@@ -9,6 +9,7 @@ script = ExtResource("1_c6wrv")
 id = "well"
 name = "Well"
 category = 1
+item_cost = 0
 icon = ExtResource("1_nt8ul")
 scene = ExtResource("1_ysgdi")
 size = Vector2i(2, 2)

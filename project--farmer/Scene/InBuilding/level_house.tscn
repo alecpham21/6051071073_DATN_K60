@@ -132,7 +132,7 @@ trigger_john_leave = true
 unique_name_in_owner = true
 transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0, 0, 0)
 use_gravity = true
-camera_ref_path = NodePath("../SpringArm3D2/Camera3D")
+camera_ref_path = NodePath("../SpringArm3D2")
 inventory_data = ExtResource("8_ofysm")
 stats = null
 
@@ -332,7 +332,7 @@ transform = Transform3D(-4.19685e-08, -0.279561, 0.960128, -1.222e-08, 0.960128,
 [node name="QuestJournal" parent="." instance=ExtResource("31_iauac")]
 
 [node name="bed" parent="." instance=ExtResource("32_buwyy")]
-transform = Transform3D(0.75, 0, 0, 0, 0.75, 0, 0, 0, 0.75, 2.68899, 0.282935, 0)
+transform = Transform3D(0.465, 0, 0, 0, 0.75, 0, 0, 0, 0.75, 3.01658, 0.282935, 0)
 
 [connection signal="drop_slot_data" from="UI/InventoryInterface" to="UI/InventoryInterface" method="_on_drop_slot_data"]
 [connection signal="gui_input" from="UI/InventoryInterface" to="UI/InventoryInterface" method="_on_gui_input"]

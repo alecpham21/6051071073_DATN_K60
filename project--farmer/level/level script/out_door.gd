@@ -1,6 +1,6 @@
-extends Area3D # Đổi từ InteractArea sang Area3D gốc cho đơn giản, hoặc giữ nguyên cũng được
+extends Area3D
 
-@export_file("*.tscn") var target_scene_path: String # Dùng export_file để chọn file cho dễ
+@export_file("*.tscn") var target_scene_path: String
 @export var target_spawn_position: Vector3
 
 func _ready():
@@ -25,12 +25,10 @@ func change_level():
 		push_error("⚠️ Door target scene is empty!")
 		return
 
-	# Lưu game trước khi đi
 	var current_level = get_tree().current_scene
 	if current_level.has_method("save_level_state"):
 		print("🚪 Auto Door: Đang lưu data trước khi chuyển cảnh...")
 		current_level.save_level_state()
 	
-	# Gọi Autoload chuyển cảnh
 	print("🚪 Auto Door: Đang chuyển sang ", target_scene_path)
 	SceneTransition.change_scene(target_scene_path, target_spawn_position)

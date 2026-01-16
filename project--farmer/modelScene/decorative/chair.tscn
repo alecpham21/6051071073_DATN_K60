@@ -1,0 +1,52 @@
+[gd_scene load_steps=9 format=3 uid="uid://cdxkbfl5mqwue"]
+
+[ext_resource type="Script" uid="uid://dyhmb0sbnasdm" path="res://building/buildingScript/Furniture.gd" id="1_q272o"]
+[ext_resource type="Script" uid="uid://w8vjspjatqje" path="res://limboAI/animation_set.gd" id="2_02lww"]
+[ext_resource type="Script" uid="uid://i4dr8fqs0tx7" path="res://Scripts/interactable.gd" id="3_02lww"]
+
+[sub_resource type="Resource" id="Resource_8sofu"]
+script = ExtResource("2_02lww")
+ani_name = "Idle_sit"
+blend = -1.0
+ani_speed = 1.0
+from_end = false
+play_marker = false
+metadata/_custom_type_script = "uid://w8vjspjatqje"
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_02lww"]
+albedo_color = Color(0.331224, 0.108834, 0.0534523, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_5x4hi"]
+material = SubResource("StandardMaterial3D_02lww")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_8sofu"]
+size = Vector3(0.935303, 1, 1.6123)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_02lww"]
+
+[node name="Chair" type="Node3D" node_paths=PackedStringArray("marker")]
+script = ExtResource("1_q272o")
+player_pose_ani = SubResource("Resource_8sofu")
+marker = NodePath("Marker3D")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.48171, 0)
+mesh = SubResource("BoxMesh_5x4hi")
+
+[node name="Marker3D" type="Marker3D" parent="."]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0.413878, 0.561601, -2.40114e-10)
+
+[node name="InteractArea" type="Area3D" parent="."]
+collision_layer = 80
+script = ExtResource("3_02lww")
+metadata/_custom_type_script = "uid://i4dr8fqs0tx7"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="InteractArea"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.457234, 0.487369, 0.0246582)
+shape = SubResource("BoxShape3D_8sofu")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.482422, 0)
+shape = SubResource("BoxShape3D_02lww")

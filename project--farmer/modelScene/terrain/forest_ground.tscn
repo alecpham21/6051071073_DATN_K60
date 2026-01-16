@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://cc8dfiuqa6biu"]
+[gd_scene load_steps=15 format=3 uid="uid://cc8dfiuqa6biu"]
 
 [ext_resource type="PackedScene" uid="uid://borv68hchqbw5" path="res://model/terrain/ForestGround.glb" id="1_srflk"]
 [ext_resource type="Material" uid="uid://dcf34anaxf0xf" path="res://Materials/green_land_mat.tres" id="2_g3jbo"]
@@ -7,6 +7,8 @@
 [ext_resource type="PackedScene" uid="uid://3nyd0ic2i46k" path="res://modelScene/tree/Tree_Ver_col_2.tscn" id="5_t6ki2"]
 [ext_resource type="PackedScene" uid="uid://3w46rae1rjuw" path="res://modelScene/tree/Tree_Ver_col_3.tscn" id="6_a5vpl"]
 [ext_resource type="PackedScene" uid="uid://ds73rxoucvxnm" path="res://modelScene/tree/Tree_Ver_col_4.tscn" id="7_fbhec"]
+[ext_resource type="PackedScene" uid="uid://uh2jiohhy6oy" path="res://Scene/plant/bush.tscn" id="8_4plw2"]
+[ext_resource type="PackedScene" uid="uid://bc816qoyhye60" path="res://modelScene/plant/grass/leafbush.tscn" id="9_86eba"]
 
 [sub_resource type="MultiMesh" id="MultiMesh_fbhec"]
 transform_format = 1
@@ -124,3 +126,24 @@ transform = Transform3D(0.654397, 0, -0.510554, 0, 0.83, 0, 0.510554, 0, 0.65439
 
 [node name="TreeBodyCol43" parent="Tree" index="10" instance=ExtResource("7_fbhec")]
 transform = Transform3D(-0.342362, 0, 0.756101, 0, 0.83, 0, -0.756101, 0, -0.342362, 29.4316, 0, 6.35176)
+
+[node name="Bush2" parent="." index="8" instance=ExtResource("8_4plw2")]
+transform = Transform3D(1.215, 0, 0, 0, 1.215, 0, 0, 0, 1.215, 41.0328, 0, -1.86455)
+
+[node name="Bush3" parent="." index="9" instance=ExtResource("8_4plw2")]
+transform = Transform3D(1.215, 0, 0, 0, 1.215, 0, 0, 0, 1.215, 38.4229, 0, -7.85686)
+
+[node name="Bush4" parent="." index="10" instance=ExtResource("8_4plw2")]
+transform = Transform3D(1.215, 0, 0, 0, 1.215, 0, 0, 0, 1.215, 33.1605, 0, -2.04828)
+
+[node name="leafbush6" parent="." index="11" instance=ExtResource("9_86eba")]
+transform = Transform3D(-0.445054, 0, -1.7183, 0, 1.775, 0, 1.7183, 0, -0.445054, 30.2125, -0.325557, -2.0078)
+
+[node name="leafbush8" parent="." index="12" instance=ExtResource("9_86eba")]
+transform = Transform3D(1.1451, 0, -1.35624, 0, 1.775, 0, 1.35624, 0, 1.1451, 35.5181, -0.325557, -1.24301)
+
+[node name="leafbush7" parent="." index="13" instance=ExtResource("9_86eba")]
+transform = Transform3D(-0.445054, 0, -1.7183, 0, 1.775, 0, 1.7183, 0, -0.445054, 32.9483, -0.325557, -5.58756)
+
+[node name="leafbush9" parent="." index="14" instance=ExtResource("9_86eba")]
+transform = Transform3D(-1.15067, 0, -1.35151, 0, 1.775, 0, 1.35151, 0, -1.15067, 35.4147, -0.325557, -7.97289)

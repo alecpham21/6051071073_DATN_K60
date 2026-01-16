@@ -108,6 +108,35 @@ func pick_up_slot_data(slot_data: SlotData) -> bool:
 			return true
 	return false
 
+func get_total_item_count(target_item: ItemData) -> int:
+	var total: int = 0
+	for slot in slot_datas:
+		if slot and slot.item_data == target_item:
+			total += slot.quantity
+	return total
+
+func remove_items_by_data(target_item: ItemData, amount_to_remove: int) -> bool:
+	if get_total_item_count(target_item) < amount_to_remove:
+		return false
+	
+	var remaining_needed = amount_to_remove
+	
+	for i in range(slot_datas.size()):
+		var slot = slot_datas[i]
+		if slot and slot.item_data == target_item:
+			if slot.quantity > remaining_needed:
+				slot.quantity -= remaining_needed
+				remaining_needed = 0
+			else:
+				remaining_needed -= slot.quantity
+				slot_datas[i] = null
+		
+		if remaining_needed == 0:
+			break
+			
+	inventory_updated.emit(self)
+	return true
+
 
 func on_slot_clicked(index: int, button: int) -> void:
 	inventory_interact.emit(self, index, button)
@@ -186,3 +215,29 @@ func add_item_at_index(item: ItemData, quantity: int, index: int) -> bool:
 		
 	inventory_updated.emit(self)
 	return true
+
+func grab_split_items(index: int, grabbed_slot_data: SlotData) -> SlotData:
+	var slot_data = slot_datas[index]
+	
+	if not slot_data: 
+		return grabbed_slot_data
+	
+	if not grabbed_slot_data:
+		grabbed_slot_data = slot_data.create_single_slot_data()
+		
+		if slot_data.quantity < 1:
+			slot_datas[index] = null
+			
+		inventory_updated.emit(self)
+		return grabbed_slot_data
+	
+	if grabbed_slot_data.can_merge_with(slot_data):
+		var single_slice = slot_data.create_single_slot_data()
+		grabbed_slot_data.fully_merge_with(single_slice)
+		
+		if slot_data.quantity < 1:
+			slot_datas[index] = null
+			
+		inventory_updated.emit(self)
+	
+	return grabbed_slot_data

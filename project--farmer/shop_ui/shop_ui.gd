@@ -4,6 +4,8 @@ const SHOP_SLOT_SCENE = preload("res://shop_script/shop_slot.tscn")
 
 @onready var grid_container: GridContainer = $MarginContainer/VBoxContainer/ScrollContainer/GridContainer
 @onready var close_btn: Button = $MarginContainer/VBoxContainer/Button
+var current_npc: Node = null
+
 
 func _ready():
 	if close_btn:
@@ -29,15 +31,22 @@ func setup_shop_data(incoming_items: Array[ItemData]):
 		if not slot.buy_clicked.is_connected(on_buy_item):
 			slot.buy_clicked.connect(on_buy_item)
 
+func open_shop_interface(items: Array[ItemData], npc_node: Node = null):
+	current_npc = npc_node
+	setup_shop_data(items)
+	self.show()
+
 func on_buy_item(item: ItemData, price: int):
 	if PlayerData.money >= price:
-		if PlayerData.player_inventory_data.add_item(item, 1):
-			PlayerData.money -= price
-			print("✅ Đã mua: " + item.name)
+		if current_npc and current_npc.has_method("on_item_ordered"):
+			current_npc.on_item_ordered(item, 1, price)
 		else:
-			print("⚠️ Túi đồ đầy!")
+			if PlayerData.player_inventory_data.add_item(item, 1):
+				PlayerData.money -= price
+				PlayerData.money_changed.emit(PlayerData.money)
+				print("Instant buy success")
 	else:
-		print("❌ Không đủ tiền!")
+		print("Not enough money")
 
 func close_shop():
 	var parent_interface = get_parent()

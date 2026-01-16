@@ -1,0 +1,17 @@
+[gd_scene load_steps=4 format=3 uid="uid://dvud8xl4l6ip1"]
+
+[ext_resource type="PackedScene" uid="uid://civxde37rptdm" path="res://model/livestock/ChickenMale.glb" id="1_nka3f"]
+[ext_resource type="Texture2D" uid="uid://1gysjnj7jqbq" path="res://assets/ImphenziaPalette01-256-Gradient.png" id="2_042vs"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6onrb"]
+albedo_texture = ExtResource("2_042vs")
+
+[node name="ChickenMale" instance=ExtResource("1_nka3f")]
+
+[node name="Skeleton3D" parent="Armature" index="0"]
+bones/3/rotation = Quaternion(-0.184941, -7.20307e-18, -1.60161e-17, 0.98275)
+bones/4/rotation = Quaternion(0.132151, 0.158525, 0.908865, -0.362451)
+bones/5/rotation = Quaternion(-0.289249, -0.0123415, -0.331728, 0.897853)
+
+[node name="ChickBody" parent="Armature/Skeleton3D" index="0"]
+material_override = SubResource("StandardMaterial3D_6onrb")

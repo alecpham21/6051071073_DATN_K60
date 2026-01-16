@@ -27,12 +27,22 @@ var block_data: Array = []
 var is_initialized: bool = false
 var current_padding: int = 0
 
+# --- FIX NAV MESH ERROR ---
+var is_nav_dirty: bool = false # Biến đánh dấu cần bake lại
+
 func _ready() -> void:
 	if nav_region:
 		nav_region.bake_finished.connect(_on_bake_finished)
 
+# Hàm xử lý khi bake xong
 func _on_bake_finished():
-	print("✅ NavMesh")
+	print("✅ NavMesh Bake Hoàn tất.")
+	
+	# Nếu trong lúc đang bake mà có lệnh bake mới (dirty), thì bake lại ngay
+	if is_nav_dirty:
+		print("🔄 Phát hiện thay đổi trong lúc bake, đang bake lại...")
+		is_nav_dirty = false
+		bake_nav_mesh()
 
 func _ensure_setup():
 	if is_initialized: return
@@ -52,10 +62,10 @@ func _ensure_setup():
 	if fence_generator:
 		fence_generator.generate_fences(self, ground_extents)
 	else:
-		printerr("⚠️nonode FenceGenerator in Scene")
+		printerr("⚠️ No node FenceGenerator in Scene")
 	
 	if show_border:
-		_create_visual_boundary() # <--- Tạo viền phân chia
+		_create_visual_boundary()
 	
 	is_initialized = true
 
@@ -90,9 +100,6 @@ func _create_visual_boundary():
 		var border_mat_inst = StandardMaterial3D.new()
 		border_mat_inst.albedo_color = border_color
 		
-		var pos_offsets = [
-			Vector3(0, 0, -(ground_extents.y + fence_pad * 2) * spacing / 2.0 / 2.0), # Sai logic tí, để đơn giản ta vẽ border theo logic cũ nhưng rộng hơn chút
-		]
 
 func generate_new_map():
 	await _ensure_setup()
@@ -129,14 +136,14 @@ func can_dig(grid_pos: Vector2i) -> bool:
 
 
 func _spawn_initial_buildings():
-	print("🏗️ Đang đặt các công trình mặc định...")
+	print("🏗️ Placing Default Building")
 	
 	var house_id = "first_house"
 	var house_world_pos = Vector3(-21.217, 0, 0)
 	var house_grid = get_grid_pos_from_world(house_world_pos)
 	var house_rot = Vector3(0, deg_to_rad(90.0), 0)
 	
-	var house_scale = Vector3.ZERO 
+	var house_scale = Vector3(1.5, 1.5, 1.5) 
 	
 	building_manager.restore_building(house_id, house_grid, house_rot, house_scale)
 	
@@ -145,17 +152,17 @@ func _spawn_initial_buildings():
 	var well_grid = get_grid_pos_from_world(well_world_pos)
 	var well_rot = Vector3(0, deg_to_rad(90.0), 0)
 	
-	var well_scale = Vector3.ZERO
+	var well_scale = Vector3.ZERO 
 	
 	building_manager.restore_building(well_id, well_grid, well_rot, well_scale)
 
 
-func load_from_data(data: Dictionary):
+func load_from_data(data: Dictionary, minutes_away: float = 0.0):
 	await _ensure_setup()
 	if not data.has("grid"):
 		await generate_new_map()
 		return
-	print("📂 Generator: Load map cũ...")
+	print("📂 Generator: Load the Old Map")
 	for child in get_children():
 		if child.name == "PaddingDecor": continue 
 		if child.has_method("harvest") or child.get("current_grid_pos") != null or child.name.contains("WindGrass"):
@@ -186,7 +193,7 @@ func load_from_data(data: Dictionary):
 				block_data[x].append(d)
 				renderer.set_mode(x, z, d.mode)
 	if data.has("grass_list"):
-		print("🌿 Đang phục hồi ", data["grass_list"].size(), " bụi cỏ...")
+		print("🌿 Recovery ", data["grass_list"].size(), " Grass...")
 		for pos in data["grass_list"]:
 			var grid_pos = Vector2i.ZERO
 			if pos is Dictionary and pos.has("x") and pos.has("y"):
@@ -199,13 +206,23 @@ func load_from_data(data: Dictionary):
 				continue
 			_spawn_single_grass(grid_pos)
 	if building_manager:
-		building_manager.clear_all_buildings() # Xóa nhà cũ
+		building_manager.clear_all_buildings() 
 		if data.has("buildings"):
-			print("🏠 Loading ", data["buildings"].size(), " buildings...")
+			print("🏠 [Generator] Đang load ", data["buildings"].size(), " công trình...")
 			for b_info in data["buildings"]:
 				var b_pos = Vector2i(b_info["x"], b_info["y"])
 				var b_rot = Vector3(b_info["rot_x"], b_info["rot_y"], b_info["rot_z"])
-				building_manager.restore_building(b_info["id"], b_pos, b_rot)
+				
+				var b_node = building_manager.restore_building(b_info["id"], b_pos, b_rot)
+				
+				if b_node:
+					print("📍 [Generator] Đã tạo node: ", b_node.name)
+					if b_node.has_method("load_machine_data") and b_info.has("machine_data"):
+						print("⚡ [Generator] Phát hiện Máy, đang đẩy dữ liệu vào...")
+						b_node.load_machine_data(b_info["machine_data"], minutes_away)
+				else:
+					print("❌ [Generator] LỖI: building_manager.restore_building không trả về Node!")
+	
 	bake_nav_mesh()
 
 func get_current_state() -> Dictionary:
@@ -257,18 +274,21 @@ func get_current_state() -> Dictionary:
 	if building_manager and building_manager.buildings_container:
 		for child in building_manager.buildings_container.get_children():
 			if child.has_meta("build_id"):
-				var grid_pos = child.get_meta("grid_pos")
-				var rot = child.global_rotation
-				building_list.append({
+				var b_dict = {
 					"id": child.get_meta("build_id"),
-					"x": grid_pos.x,
-					"y": grid_pos.y,
-					"rot_x": rot.x,
-					"rot_y": rot.y,
-					"rot_z": rot.z
-				})
-	save_dict["buildings"] = building_list
+					"x": child.get_meta("grid_pos").x,
+					"y": child.get_meta("grid_pos").y,
+					"rot_x": child.global_rotation.x,
+					"rot_y": child.global_rotation.y,
+					"rot_z": child.global_rotation.z
+				}
+				
+				if child.has_method("get_machine_data"):
+					b_dict["machine_data"] = child.get_machine_data()
+					
+				building_list.append(b_dict)
 	
+	save_dict["buildings"] = building_list
 	return save_dict
 
 func _respawn_crop(x, z, block_data_item, final_growth):
@@ -319,10 +339,18 @@ func _create_ground_collision() -> void:
 	else:
 		add_child(static_body)
 
+# --- HÀM BAKE MỚI (AN TOÀN) ---
 func bake_nav_mesh():
-	if nav_region:
-		
-		nav_region.bake_navigation_mesh()
+	if not nav_region: return
+	
+	# Kiểm tra xem có đang bận không
+	if nav_region.is_baking():
+		print("⚠️ NavMesh đang bận, đánh dấu bake lại sau!")
+		is_nav_dirty = true # Đánh dấu để bake sau
+		return
+
+	# Nếu rảnh thì bake luôn
+	nav_region.bake_navigation_mesh()
 
 func get_grid_pos_from_world(world_pos: Vector3) -> Vector2i:
 	var spacing := renderer.spacing
@@ -383,8 +411,6 @@ func get_plant_node(grid_pos: Vector2i) -> Node3D:
 			if child.has_method("grow"):
 				return child
 	return null
-
-
 
 func spawn_random_grass(amount: int):
 	await _ensure_setup()

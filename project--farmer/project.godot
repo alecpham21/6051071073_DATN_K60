@@ -8,10 +8,14 @@
 
 config_version=5
 
+[animation]
+
+warnings/check_invalid_track_paths=false
+
 [application]
 
 config/name="Project: Farmer"
-run/main_scene="uid://bbvhog32snru6"
+run/main_scene="uid://dnwlxm7utd27m"
 config/features=PackedStringArray("4.4", "Forward Plus")
 config/icon="res://icon.svg"
 
@@ -33,14 +37,19 @@ Dialogic="*res://addons/dialogic/Core/DialogicGameHandler.gd"
 directories/dch_directory={
 "NPC_Frujt": "res://Dialog/NPC_Frujt.dch",
 "NPC_Jack": "res://Dialog/NPC_Jack.dch",
+"NPC_Lumberjack": "res://Dialog/NPC/NPC_Lumberjack.dch",
 "player": "res://Dialog/player/player.dch",
 "unit_test_character": "res://Tests/Resources/unit_test_character.dch"
 }
 directories/dtl_directory={
+"AskOrderQty": "res://Dialog/timeline/lumberjack/AskOrderQty.dtl",
+"Lumberjack_ConfirmSuccess": "res://Dialog/timeline/lumberjack/Lumberjack_ConfirmSuccess.dtl",
+"Lumberjack_NoMoney": "res://Dialog/timeline/lumberjack/Lumberjack_NoMoney.dtl",
+"Lumberjack_Shop": "res://Dialog/timeline/Lumberjack_Shop.dtl",
 "SellingFrujt": "res://Dialog/timeline/SellingFrujt.dtl",
 "timeline_npc_jack": "res://Dialog/timeline_npc_jack.dtl",
 "timeline_stinky": "res://Dialog/timeline/timeline_stinky.dtl",
-"welcome_home_john": "res://Dialog/timeline/welcome_home_john.dtl"
+"welcome_home_jack": "res://Dialog/timeline/welcome_home_jack.dtl"
 }
 layout/style_directory={
 "": "res://Dialog/styles/New_File.tres",
@@ -50,6 +59,13 @@ layout/style_list=["res://Dialog/styles/New_File.tres"]
 layout/default_style="res://Dialog/styles/New_File.tres"
 glossary/default_case_sensitive=true
 variables={
+"WoodShop": {
+"input_text": "",
+"is_waiting": false,
+"max_limit": 0,
+"order_ready": false,
+"pending_count": 0
+},
 "stink_line_eng": ""
 }
 extensions_folder="res://addons/dialogic_additions"
@@ -99,8 +115,8 @@ import/blender/enabled=false
 external_inventory=""
 smooth=""
 inventory_interface=""
-Player=""
 coop_ui=""
+player=""
 
 [input]
 
@@ -248,6 +264,7 @@ aim={
 
 3d_physics/layer_5="interactable"
 3d_physics/layer_6="machines"
+3d_physics/layer_7="rest"
 
 [physics]
 

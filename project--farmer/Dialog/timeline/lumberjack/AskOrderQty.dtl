@@ -1,0 +1,3 @@
+NPC_Lumberjack: Please enter how much wood you want, max is {WoodShop.max_limit}
+[text_input text="Quantity:" var="WoodShop.input_text"]
+[signal arg="confirm_order"]

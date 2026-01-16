@@ -3,6 +3,7 @@ class_name CoopMachine
 
 @export_group("Visual Settings")
 @export var spawn_point: Marker3D 
+@export var adult_chicken_icon: Texture2D
 
 @export_group("Data & Logic")
 @export var input_inv: InventoryData
@@ -64,7 +65,10 @@ func _spawn_at_index(idx: int, scene: PackedScene):
 	if not scene: return
 	var chicken = scene.instantiate()
 	add_child(chicken)
-	chicken.global_position = spawn_point.global_position if spawn_point else global_position
+	
+	var spawn_pos = spawn_point.global_position if spawn_point else global_position
+	var offset = Vector3(randf_range(-0.5, 0.5), 0, randf_range(-0.5, 0.5))
+	chicken.global_position = spawn_pos + offset
 	
 	if chicken.has_method("setup"):
 		chicken.setup(chickens[idx])
@@ -97,12 +101,22 @@ func _on_time_tick():
 			if (current_total_min - chicken.birthday) >= minutes_needed:
 				chicken.stage = LivestockEnums.Stage.ADULT
 				has_update = true
+				
 				var slot = input_inv.slot_datas[i]
 				if slot and slot.item_data is ItemDataLivestock:
-					slot.item_data = slot.item_data.duplicate()
-					slot.item_data.stage = LivestockEnums.Stage.ADULT
-				if visual_chickens[i] and visual_chickens[i].has_method("update_visual"):
-					visual_chickens[i].update_visual()
+					var old_item = slot.item_data as ItemDataLivestock
+					
+					if old_item.adult_version:
+						slot.item_data = old_item.adult_version
+					else:
+						slot.item_data = slot.item_data.duplicate()
+						slot.item_data.stage = LivestockEnums.Stage.ADULT
+						if adult_chicken_icon:
+							slot.item_data.texture = adult_chicken_icon
+						
+				if i < visual_chickens.size() and visual_chickens[i]:
+					if visual_chickens[i].has_method("update_visual"):
+						visual_chickens[i].update_visual()
 	
 	if has_update:
 		input_inv.inventory_updated.emit(input_inv)
@@ -177,3 +191,84 @@ func feed_livestock(item_data: ItemData) -> bool:
 		return true
 		
 	return false
+
+func get_machine_data() -> Dictionary:
+	var data = {
+		"chickens": chickens,
+		"last_day": last_day,
+		"input_inventory": [],
+		"output_inventory": []
+	}
+	for slot in input_inv.slot_datas: data["input_inventory"].append(slot)
+	for slot in output_inv.slot_datas: data["output_inventory"].append(slot)
+	
+	print("💾 [CoopMachine] Đang lưu dữ liệu: ", chickens.size(), " con gà.")
+	return data
+
+func load_machine_data(data: Dictionary, minutes_away: float = 0.0):
+	print("📂 [CoopMachine] Bắt đầu Load dữ liệu...")
+	
+	if input_inv.inventory_updated.is_connected(_on_input_inv_updated):
+		input_inv.inventory_updated.disconnect(_on_input_inv_updated)
+
+	if data.has("input_inventory"):
+		var saved_input = data["input_inventory"]
+		for i in range(min(saved_input.size(), input_inv.slot_datas.size())):
+			input_inv.slot_datas[i] = saved_input[i]
+		print("📦 [CoopMachine] Đã khôi phục Input Inventory.")
+		
+	if data.has("output_inventory"):
+		var saved_output = data["output_inventory"]
+		for i in range(min(saved_output.size(), output_inv.slot_datas.size())):
+			output_inv.slot_datas[i] = saved_output[i]
+		print("📦 [CoopMachine] Đã khôi phục Output Inventory.")
+		
+	if data.has("chickens"):
+		chickens = data["chickens"]
+		print("🐔 [CoopMachine] Tìm thấy ", chickens.size(), " dữ liệu gà trong file save.")
+	
+	if data.has("last_day"):
+		last_day = data["last_day"]
+	
+	if minutes_away > 0:
+		_simulate_offline_time(minutes_away)
+	
+	_refresh_visual_after_load()
+	
+	if not input_inv.inventory_updated.is_connected(_on_input_inv_updated):
+		input_inv.inventory_updated.connect(_on_input_inv_updated)
+	input_inv.inventory_updated.emit(input_inv)
+	print("✅ [CoopMachine] Load hoàn tất!")
+
+func _refresh_visual_after_load():
+	print("🎬 [CoopMachine] Đang làm mới Visual...")
+	for v in visual_chickens:
+		if is_instance_valid(v): v.queue_free()
+	visual_chickens.clear()
+	visual_chickens.resize(max_capacity)
+	
+	for i in range(max_capacity):
+		var slot = input_inv.slot_datas[i]
+		if chickens[i] != null:
+			if slot and slot.item_data is ItemDataLivestock:
+				var ls = slot.item_data as ItemDataLivestock
+				print("✨ [CoopMachine] Đang tạo gà tại index: ", i, " (Stage: ", chickens[i].stage, ")")
+				_spawn_at_index(i, ls.entity_scene)
+				
+				if visual_chickens[i] and visual_chickens[i].has_method("update_visual"):
+					visual_chickens[i].update_visual()
+			else:
+				print("⚠️ [CoopMachine] Slot ", i, " có data gà nhưng ItemData trong túi đồ bị trống!")
+
+func _simulate_offline_time(total_min_away: float):
+	var days_passed = floor(total_min_away / (24 * 60))
+	
+	if days_passed > 0:
+		for chicken in chickens:
+			if chicken:
+				if chicken.feed_count >= 2:
+					chicken.yield_bonus += 0.2
+				chicken.feed_count = 0 
+		last_day += days_passed
+	_process_egg_production(total_min_away)
+	print("⏳ Make up for the chick", total_min_away, "minute")

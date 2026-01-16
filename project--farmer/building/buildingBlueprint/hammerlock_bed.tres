@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="BuildingData" load_steps=4 format=3 uid="uid://h3osgnbn3k16"]
+
+[ext_resource type="Script" uid="uid://fekbxueaingk" path="res://building/building_data.gd" id="1_ku7an"]
+[ext_resource type="Texture2D" uid="uid://2igsan34ywrf" path="res://building/building_icon/Hammerlock_bed.png" id="1_oguwa"]
+[ext_resource type="PackedScene" uid="uid://1y0a5qx5gvrk" path="res://modelScene/decorative/HammerLockBed.tscn" id="2_oguwa"]
+
+[resource]
+script = ExtResource("1_ku7an")
+id = "hammerlock"
+name = "Hammerlock_Bed"
+category = 2
+item_cost = 0
+icon = ExtResource("1_oguwa")
+scene = ExtResource("2_oguwa")
+size = Vector2i(3, 7)
+offset = Vector3(0, 0, 0)
+scale = Vector3(1, 1, 1)
+metadata/_custom_type_script = "uid://fekbxueaingk"

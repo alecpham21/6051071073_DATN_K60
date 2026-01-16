@@ -15,18 +15,17 @@ func _ready():
 	if Watcher.has_data(level_id):
 		print("📂 World: Load data...")
 		var data = Watcher.get_level_data(level_id)
-		await ground_generator.load_from_data(data)
+		
+		var minutes_away = 0.0
+		if data.has("saved_at_total_min"):
+			var saved_time = data["saved_at_total_min"]
+			var current_time = TimeManager.get_total_minutes_played()
+			minutes_away = current_time - saved_time
+		
+		await ground_generator.load_from_data(data, minutes_away)
 	else:
 		print("✨ World: New map...")
 		await ground_generator.generate_new_map()
-		
-	if Watcher.has_data(level_id):
-		print("📂 World: Tìm thấy dữ liệu cũ của ", level_id, " -> Đang Load...")
-		var data = Watcher.get_level_data(level_id)
-		ground_generator.load_from_data(data)
-	else:
-		print("✨ World: Không có dữ liệu của ", level_id, " -> Tạo Mới...")
-		ground_generator.generate_new_map()
 		
 	player.toggle_inventory.connect(toggle_inventory_interface)
 	inventory_interface.set_player_inventory_data(player.inventory_data)
@@ -45,8 +44,10 @@ func _ready():
 func save_level_state():
 	if ground_generator:
 		var current_data = ground_generator.get_current_state()
+		current_data["saved_at_total_min"] = TimeManager.get_total_minutes_played()
+		
 		Watcher.save_level_data(level_id, current_data)
-		print("✅ World: Đã lưu trạng thái map ", level_id)
+		print("✅ World: Saved Level State ", level_id)
 
 func toggle_inventory_interface(external_inventory_owner = null) -> void:
 	inventory_interface.visible = not inventory_interface.visible
