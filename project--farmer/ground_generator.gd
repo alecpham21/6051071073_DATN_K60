@@ -1,22 +1,40 @@
+@tool
 extends Node3D
 class_name GroundGenerator
 
-@onready var renderer: GroundRenderer = $GroundRenderer
-@onready var tree_renderer: TreeRenderer = $TreeRenderer
-@onready var fence_generator: FenceGenerator = $FenceGenerator
+var renderer: GroundRenderer:
+	get: return get_node_or_null("GroundRenderer") as GroundRenderer
+var tree_renderer: Node3D:
+	get: return get_node_or_null("TreeRenderer")
+var fence_generator: Node3D:
+	get: return get_node_or_null("FenceGenerator")
+var nav_region: NavigationRegion3D:
+	get: return get_node_or_null("NavRegion")
 
 @export var ground_extents : Vector2i = Vector2i(10, 10)
+@export_group("Editor Tools")
+@export var btn_generate: bool = false:
+	set(value):
+		if value:
+			generate_new_map()
+			btn_generate = false
+
+@export var btn_clear: bool = false:
+	set(value):
+		if value:
+			clear_map()
+			btn_clear = false
+
 
 @export_group("Gameplay Settings")
 @export var wind_grass_scene: PackedScene
 @export var wind_grass_amount: int = 5
 @export var building_manager: BuildingManager
-@onready var nav_region: NavigationRegion3D = $NavRegion
 
 @export_group("Visuals")
 @export var show_border: bool = true
-@export var border_color: Color = Color(0.35, 0.25, 0.15) # Màu nâu đất đậm cho viền
-@export var padding_base_color: Color = Color(0.1, 0.12, 0.1) # Màu xanh đen tối cho nền padding
+@export var border_color: Color = Color(0.35, 0.25, 0.15)
+@export var padding_base_color: Color = Color(0.1, 0.12, 0.1)
 
 const GROWTH_PER_MINUTE: float = 0.2
 const PADDING_RATIO: float = 8
@@ -27,18 +45,18 @@ var block_data: Array = []
 var is_initialized: bool = false
 var current_padding: int = 0
 
-# --- FIX NAV MESH ERROR ---
-var is_nav_dirty: bool = false # Biến đánh dấu cần bake lại
+var is_nav_dirty: bool = false
 
 func _ready() -> void:
+	if Engine.is_editor_hint():
+		return
+		
 	if nav_region:
 		nav_region.bake_finished.connect(_on_bake_finished)
 
-# Hàm xử lý khi bake xong
 func _on_bake_finished():
 	print("✅ NavMesh Bake Hoàn tất.")
 	
-	# Nếu trong lúc đang bake mà có lệnh bake mới (dirty), thì bake lại ngay
 	if is_nav_dirty:
 		print("🔄 Phát hiện thay đổi trong lúc bake, đang bake lại...")
 		is_nav_dirty = false
@@ -47,102 +65,135 @@ func _on_bake_finished():
 func _ensure_setup():
 	if is_initialized: return
 	
-	await get_tree().physics_frame
-	await get_tree().process_frame
+	if not Engine.is_editor_hint():
+		await get_tree().physics_frame
+		await get_tree().process_frame
 	
 	var max_side = max(ground_extents.x, ground_extents.y)
+	current_padding = clamp(int(ceil(max_side * PADDING_RATIO)), 2, MAX_PADDING_DEPTH)
 	
-	var calc_padding = int(ceil(max_side * PADDING_RATIO))
-	current_padding = clamp(calc_padding, 2, MAX_PADDING_DEPTH)
-	
-	renderer.setup(ground_extents.x, ground_extents.y, current_padding)
-	
+	if renderer: renderer.setup(ground_extents.x, ground_extents.y, current_padding)
 	_create_ground_collision()
-	
-	if fence_generator:
-		fence_generator.generate_fences(self, ground_extents)
-	else:
-		printerr("⚠️ No node FenceGenerator in Scene")
-	
-	if show_border:
-		_create_visual_boundary()
+	if fence_generator: fence_generator.generate_fences(self, ground_extents)
+	if show_border: _create_visual_boundary()
 	
 	is_initialized = true
 
 func _create_visual_boundary():
-	var spacing = renderer.spacing
-	var width = ground_extents.x * spacing
-	var height = ground_extents.y * spacing
+	var old_border = get_node_or_null("PlayAreaBorder")
+	if old_border: old_border.free()
+	
+	for child in get_children():
+		if child is MeshInstance3D and child.mesh is PlaneMesh and child.name != "GroundRenderer":
+			if abs(child.position.y - (-0.15)) < 0.01: child.free()
+
+	if not renderer: return
+	var spacing: float = renderer.spacing
 	
 	var bg_plane = MeshInstance3D.new()
+	bg_plane.name = "PaddingBG"
 	var bg_mesh = PlaneMesh.new()
-	var total_w = (ground_extents.x + current_padding * 2) * spacing
-	var total_h = (ground_extents.y + current_padding * 2) * spacing
-	bg_mesh.size = Vector2(total_w, total_h)
+	bg_mesh.size = Vector2((ground_extents.x + current_padding * 2) * spacing, (ground_extents.y + current_padding * 2) * spacing)
 	var bg_mat = StandardMaterial3D.new()
 	bg_mat.albedo_color = padding_base_color
 	bg_mat.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
-	bg_mesh.material = bg_mat
 	bg_plane.mesh = bg_mesh
 	bg_plane.position = Vector3(0, -0.15, 0)
-	add_child(bg_plane)
+	
+	_add_child_editor(bg_plane)
 
 	if fence_generator:
-		var fence_pad = fence_generator.padding_expansion
-		var fence_width = (ground_extents.x + fence_pad * 2) * spacing
-		var fence_height = (ground_extents.y + fence_pad * 2) * spacing
-		
 		var border_node = Node3D.new()
 		border_node.name = "PlayAreaBorder"
-		add_child(border_node)
-		
-		var thickness = 0.2
-		var border_mat_inst = StandardMaterial3D.new()
-		border_mat_inst.albedo_color = border_color
+		_add_child_editor(border_node)
 		
 
-func generate_new_map():
-	await _ensure_setup()
-	print("✨ Generator: Tạo map mới...")
-	setup_data_array()
-	for x in range(ground_extents.x):
-		for z in range(ground_extents.y):
-			block_data[x][z].mode = BlockGroundData.Mode.GRASS
-			renderer.set_mode(x, z, BlockGroundData.Mode.GRASS)
+func clear_map():
+	print("🧹 [Tool] Đang dọn dẹp triệt để...")
 	
+	for child in get_children():
+		if "WindGrass" in child.name or "PlayAreaBorder" in child.name or "PaddingBG" in child.name:
+			child.free()
+	
+	if renderer:
+		for child in renderer.get_children():
+			child.free()
+	
+	if fence_generator:
+		for child in fence_generator.get_children(): child.free()
 	if building_manager:
-		_spawn_initial_buildings()
+		building_manager.clear_all_buildings()
 	
-	if wind_grass_amount > 0:
-		spawn_random_grass(wind_grass_amount)
-	if tree_renderer:
+	var targets = nav_region.get_children() if nav_region else get_children()
+	for child in targets:
+		if child is StaticBody3D: child.free()
+			
+	block_data.clear()
+	is_initialized = false
+	print("✨ [Tool] Map đã được clear sạch sẽ!")
+
+func generate_new_map():
+	print("🏗️ [Tool] Bắt đầu tạo map...")
+	
+	clear_map()
+	
+	if Engine.is_editor_hint():
+		_ensure_setup_internal()
+	else:
+		await _ensure_setup()
+	
+	setup_data_array()
+	
+	if renderer:
+		for x in range(ground_extents.x):
+			for z in range(ground_extents.y):
+				block_data[x][z].mode = BlockGroundData.Mode.GRASS
+				renderer.set_mode(x, z, BlockGroundData.Mode.GRASS)
+	
+	if building_manager: _spawn_initial_buildings()
+	if wind_grass_amount > 0: spawn_random_grass(wind_grass_amount)
+	
+	if tree_renderer and tree_renderer.has_method("generate_forest"):
 		tree_renderer.generate_forest()
 	
 	bake_nav_mesh()
+	print("✅ [Tool] Tạo map xong.")
+
+func _ensure_setup_internal():
+	var max_side = max(ground_extents.x, ground_extents.y)
+	current_padding = clamp(int(ceil(max_side * PADDING_RATIO)), 2, MAX_PADDING_DEPTH)
 	
+	if renderer: renderer.setup(ground_extents.x, ground_extents.y, current_padding)
+	_create_ground_collision()
+	if fence_generator: fence_generator.generate_fences(self, ground_extents)
+	if show_border: _create_visual_boundary()
+
+
+func _add_child_editor(node: Node):
+	add_child(node)
+	if Engine.is_editor_hint():
+		node.owner = get_tree().edited_scene_root
+
+
+
+
 func can_dig(grid_pos: Vector2i) -> bool:
-	if not is_valid_grid_pos(grid_pos):
-		return false
-		
+	if not is_valid_grid_pos(grid_pos): return false
 	var block = block_data[grid_pos.x][grid_pos.y]
-	
-	if block.has_building:
-		return false
-		
-	if block.plant_type != PlantDatabase.PLANT_VARIANT.NONE:
-		return false
-		
+	if block.has_building: return false
+	if block.plant_type != PlantDatabase.PLANT_VARIANT.NONE: return false
 	return true
 
 
+
 func _spawn_initial_buildings():
+	if not building_manager: return
 	print("🏗️ Placing Default Building")
 	
 	var house_id = "first_house"
 	var house_world_pos = Vector3(-21.217, 0, 0)
 	var house_grid = get_grid_pos_from_world(house_world_pos)
 	var house_rot = Vector3(0, deg_to_rad(90.0), 0)
-	
 	var house_scale = Vector3(1.5, 1.5, 1.5) 
 	
 	building_manager.restore_building(house_id, house_grid, house_rot, house_scale)
@@ -151,7 +202,6 @@ func _spawn_initial_buildings():
 	var well_world_pos = Vector3(-20.848, 0, -6.554)
 	var well_grid = get_grid_pos_from_world(well_world_pos)
 	var well_rot = Vector3(0, deg_to_rad(90.0), 0)
-	
 	var well_scale = Vector3.ZERO 
 	
 	building_manager.restore_building(well_id, well_grid, well_rot, well_scale)
@@ -232,7 +282,7 @@ func get_current_state() -> Dictionary:
 	var grass_list = []
 	for child in get_children():
 		if is_instance_valid(child) and not child.is_queued_for_deletion():
-			if child.name.contains("WindGrass"): 
+			if child.name.contains("WindGrass"):
 				if child.get("current_grid_pos") != null:
 					grass_list.append({
 						"x": child.current_grid_pos.x, 
@@ -339,17 +389,14 @@ func _create_ground_collision() -> void:
 	else:
 		add_child(static_body)
 
-# --- HÀM BAKE MỚI (AN TOÀN) ---
 func bake_nav_mesh():
 	if not nav_region: return
 	
-	# Kiểm tra xem có đang bận không
 	if nav_region.is_baking():
 		print("⚠️ NavMesh đang bận, đánh dấu bake lại sau!")
-		is_nav_dirty = true # Đánh dấu để bake sau
+		is_nav_dirty = true
 		return
 
-	# Nếu rảnh thì bake luôn
 	nav_region.bake_navigation_mesh()
 
 func get_grid_pos_from_world(world_pos: Vector3) -> Vector2i:
@@ -411,6 +458,8 @@ func get_plant_node(grid_pos: Vector2i) -> Node3D:
 			if child.has_method("grow"):
 				return child
 	return null
+
+
 
 func spawn_random_grass(amount: int):
 	await _ensure_setup()

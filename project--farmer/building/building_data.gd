@@ -6,7 +6,8 @@ enum BuildingCategory {
 	HOUSE,
 	FARM,
 	DECORATION,
-	STRUCTURE
+	STRUCTURE,
+	QUEST
 }
 
 @export_group("Identity")

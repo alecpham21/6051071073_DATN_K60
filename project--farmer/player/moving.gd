@@ -18,3 +18,4 @@ func _update(delta: float) -> void:
 		dispatch("idle")
 
 	check_tool_transitions()
+	check_interaction_transitions()

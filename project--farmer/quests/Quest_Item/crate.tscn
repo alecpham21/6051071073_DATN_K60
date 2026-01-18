@@ -1,0 +1,113 @@
+[gd_scene load_steps=13 format=3 uid="uid://cll3ivl8c5hwm"]
+
+[ext_resource type="Script" uid="uid://c0mtj6bo873mn" path="res://quests/Quest_Item/Quest_crate.gd" id="1_4e1c0"]
+[ext_resource type="PackedScene" uid="uid://bh65ofvbvxw6y" path="res://modelScene/quest_item/quest_crate.tscn" id="1_v6yj7"]
+[ext_resource type="Script" uid="uid://csfrg4socg8bj" path="res://inventory_script/inventory_data/inventory_data.gd" id="2_56nmj"]
+[ext_resource type="Script" uid="uid://bspkgwkxsy8mn" path="res://inventory_script/slot_data.gd" id="3_6v254"]
+[ext_resource type="Script" uid="uid://i4dr8fqs0tx7" path="res://Scripts/interactable.gd" id="3_m6rr1"]
+
+[sub_resource type="Resource" id="Resource_56nmj"]
+script = ExtResource("2_56nmj")
+slot_datas = Array[ExtResource("3_6v254")]([null])
+metadata/_custom_type_script = "uid://csfrg4socg8bj"
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_v6yj7"]
+size = Vector3(1.18005, 0.437012, 1.1626)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_56nmj"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4e1c0"]
+albedo_color = Color(0.787107, 0.366826, 0.237276, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_m6rr1"]
+material = SubResource("StandardMaterial3D_4e1c0")
+size = Vector3(0.07, 0.09, 0.325)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_m6rr1"]
+albedo_color = Color(0.879331, 0.573971, 0.192567, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_56nmj"]
+material = SubResource("StandardMaterial3D_m6rr1")
+size = Vector3(0.155, 0.11, 0.34)
+
+[node name="Crate" type="Node3D"]
+script = ExtResource("1_4e1c0")
+inventory_data = SubResource("Resource_56nmj")
+visual_map = {
+"Carrot": NodePath("Frujt/Carrot"),
+"Corn": NodePath("Frujt/Corn")
+}
+
+[node name="QuestCrate" parent="." instance=ExtResource("1_v6yj7")]
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0172729, 0.0153809, -0.00219727)
+shape = SubResource("BoxShape3D_v6yj7")
+
+[node name="InteractArea" type="Area3D" parent="."]
+collision_layer = 144
+script = ExtResource("3_m6rr1")
+metadata/_custom_type_script = "uid://i4dr8fqs0tx7"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="InteractArea"]
+shape = SubResource("BoxShape3D_56nmj")
+
+[node name="Frujt" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0670101, 0)
+
+[node name="Carrot" type="MeshInstance3D" parent="Frujt"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.364283, -0.0591696, 0)
+visible = false
+mesh = SubResource("BoxMesh_m6rr1")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="Frujt/Carrot"]
+transform = Transform3D(0.856808, 0, 0.515636, 0, 1, 0, -0.515636, 0, 0.856808, 0, 0, 0.347338)
+mesh = SubResource("BoxMesh_m6rr1")
+skeleton = NodePath("../..")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="Frujt/Carrot"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.654608, 0, 0)
+mesh = SubResource("BoxMesh_m6rr1")
+skeleton = NodePath("../..")
+
+[node name="MeshInstance3D4" type="MeshInstance3D" parent="Frujt/Carrot"]
+transform = Transform3D(0.747787, 0, 0.663939, 0, 1, 0, -0.663939, 0, 0.747787, 0.289609, -0.0335491, -0.332322)
+mesh = SubResource("BoxMesh_m6rr1")
+skeleton = NodePath("../..")
+
+[node name="MeshInstance3D5" type="MeshInstance3D" parent="Frujt/Carrot"]
+transform = Transform3D(0.860262, 0, -0.509852, 0, 1, 0, 0.509852, 0, 0.860262, 0.411905, -0.0335491, 0.305347)
+mesh = SubResource("BoxMesh_m6rr1")
+skeleton = NodePath("../..")
+
+[node name="MeshInstance3D6" type="MeshInstance3D" parent="Frujt/Carrot"]
+transform = Transform3D(0.860262, 0, -0.509852, 0, 1, 0, 0.509852, 0, 0.860262, 0.263798, -0.0335491, 0.13456)
+mesh = SubResource("BoxMesh_m6rr1")
+skeleton = NodePath("../..")
+
+[node name="Corn" type="MeshInstance3D" parent="Frujt"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.149272, -0.0894869, 0)
+visible = false
+mesh = SubResource("BoxMesh_56nmj")
+
+[node name="Banana2" type="MeshInstance3D" parent="Frujt/Corn"]
+transform = Transform3D(0.959171, 0, 0.282827, 0, 1, 0, -0.282827, 0, 0.959171, 0.276567, 0, 0.197655)
+mesh = SubResource("BoxMesh_56nmj")
+skeleton = NodePath("../..")
+
+[node name="Banana3" type="MeshInstance3D" parent="Frujt/Corn"]
+transform = Transform3D(0.386131, 0, -0.922444, 0, 1, 0, 0.922444, 0, 0.386131, 0.383256, -0.0075314, -0.302794)
+mesh = SubResource("BoxMesh_56nmj")
+skeleton = NodePath("../..")
+
+[node name="Banana4" type="MeshInstance3D" parent="Frujt/Corn"]
+transform = Transform3D(0.386131, 0, -0.922444, 0, 1, 0, 0.922444, 0, 0.386131, -0.0614068, -0.0075314, 0.321233)
+mesh = SubResource("BoxMesh_56nmj")
+skeleton = NodePath("../..")
+
+[node name="Banana5" type="MeshInstance3D" parent="Frujt/Corn"]
+transform = Transform3D(0.0543925, 0, -0.99852, 0, 1, 0, 0.99852, 0, 0.0543925, -0.0978514, -0.0075314, -0.347806)
+mesh = SubResource("BoxMesh_56nmj")
+skeleton = NodePath("../..")

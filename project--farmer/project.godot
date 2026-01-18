@@ -265,6 +265,8 @@ aim={
 3d_physics/layer_5="interactable"
 3d_physics/layer_6="machines"
 3d_physics/layer_7="rest"
+3d_physics/layer_8="carryable"
+3d_physics/layer_9="delivery"
 
 [physics]
 

@@ -23,8 +23,8 @@ extends Character
 @onready var hl_select: MeshInstance3D = $HighlightSelector
 @onready var ground_gen = get_node_or_null("../GroundGenerator")
 @onready var building_manager: BuildingManager = get_node_or_null("../BuildingManager")
-
-# EXPORTS
+@onready var hold_position: Marker3D = $Farmer/HoldPosition
+#Side
 @export var accel: float = 20.0
 @export var use_gravity: bool = false
 @export_node_path("Node3D") var camera_ref_path: NodePath
@@ -43,6 +43,7 @@ var equip_inventory_data: QuickInventoryData
 var outfit_inventory_data: InventoryDataOutfit
 var last_safe_position: Vector3
 var safe_time_counter: float = 0.0
+var carried_node: Node3D = null
 var body_parts_map = {}
 var is_busy: bool = false:
 	set(val):
@@ -105,8 +106,15 @@ func _ready() -> void:
 	}
 	
 	
-	interact_area.area_entered.connect(func(a): can_interact = true)
-	interact_area.area_exited.connect(func(a): can_interact = false)
+	interact_area.area_entered.connect(func(area):
+		can_interact = true
+		current_interactable = area
+	)
+	
+	interact_area.area_exited.connect(func(area):
+		can_interact = false
+		current_interactable = null
+	)
 	
 	
 	if outfit_inventory_data:
@@ -149,7 +157,6 @@ func _unhandled_input(event: InputEvent) -> void:
 				
 				get_viewport().set_input_as_handled()
 			else:
-				# Trường hợp này chỉ xảy ra nếu Level đó quên bỏ BuildingManager vào
 				printerr("❌ Lỗi: Map này không có BuildingManager (hoặc quên add Group)!")
 				
 			return
@@ -190,18 +197,19 @@ func _unhandled_input(event: InputEvent) -> void:
 		if not (GState.is_shop() or GState.is_dialog() or GState.is_cook() or GState.is_build()):
 			toggle_inventory.emit()
 
-	if Input.is_action_just_pressed("interact"):
-		if GState.is_shop():
-			var ui = get_tree().get_first_node_in_group("inventory_interface")
-			if ui: ui.close_shop_interface()
-			return
+	if event.is_action_pressed("interact"):
+		if GState.is_shop() or GState.is_ui() or GState.is_cook() or GState.is_recipe() or GState.is_coop():
+			var inv_interface = get_tree().get_first_node_in_group("inventory_interface")
+			if GState.is_shop() and inv_interface:
+				inv_interface.close_shop_interface()
+			else:
+				GState.play()
+				if inv_interface:
+					inv_interface.visible = false
+					inv_interface.clear_external_inventory()
 			
-		if GState.is_coop() or GState.is_cook() or GState.is_recipe() or GState.is_ui():
-			GState.play()
+			get_viewport().set_input_as_handled()
 			return
-			
-		elif can_interact:
-			interact()
 
 	if event.is_action_pressed("use_item") and not is_busy:
 		if Watcher.indoor:
@@ -237,20 +245,16 @@ var stink_dialogues = [
 ]
 
 func interact():
-	var areas = interact_area.get_overlapping_areas()
-	if areas.size() > 0:
-		var target_area = areas[0]
-		var target_parent = target_area.get_parent()
-		
-		if PlayerData.is_player_stinky() and target_parent.is_in_group("npc"):
-			var random_text = stink_dialogues.pick_random()
-			
-			Dialogic.VAR.stink_line_eng = random_text
-			
-			Dialogic.start("timeline_stinky")
-			return
+	if not current_interactable: return
+	
+	var target_node = current_interactable.get_parent()
+	if PlayerData.is_player_stinky() and target_node and target_node.is_in_group("npc"):
+		Dialogic.VAR.stink_line_eng = stink_dialogues.pick_random()
+		Dialogic.start("timeline_stinky")
+		return
 
-		(target_area as InteractArea).interacted.emit()
+	if current_interactable is InteractArea:
+		current_interactable.interacted.emit()
 
 func register_interactable(object):
 	current_interactable = object
@@ -362,3 +366,50 @@ func _on_external_item_dropped(item_data: ItemData, amount: int, target_pos: Vec
 		pickup.apply_impulse(throw_force)
 		
 	print("Spawned dropped item: ", item_data.name)
+
+func pick_up_object(obj: Node3D) -> void:
+	if carried_node != null or obj == null: return
+	
+	var target = obj
+	if target is Area3D:
+		target = target.get_parent()
+	
+	carried_node = target
+	print("Pick up: ", carried_node.name)
+	
+	var old_parent = carried_node.get_parent()
+	if old_parent:
+		old_parent.remove_child(carried_node)
+	
+	hold_position.add_child(carried_node)
+	carried_node.position = Vector3.ZERO
+	carried_node.rotation = Vector3.ZERO
+	
+	if carried_node.has_method("set_carried"):
+		carried_node.set_carried(true)
+
+func place_down_object() -> void:
+	if carried_node == null: return
+	
+	var drop_pos = global_position + (-global_transform.basis.z * 1.5)
+	
+	if seed_cast.is_colliding():
+		var hit_pos = seed_cast.get_collision_point()
+		drop_pos = Vector3(round(hit_pos.x), hit_pos.y, round(hit_pos.z))
+	
+	print("Place down at: ", drop_pos)
+	
+	hold_position.remove_child(carried_node)
+	
+	if ground_gen:
+		ground_gen.add_child(carried_node)
+	else:
+		get_parent().add_child(carried_node)
+	
+	carried_node.global_position = drop_pos
+	carried_node.rotation = Vector3.ZERO
+	
+	if carried_node.has_method("set_carried"):
+		carried_node.set_carried(false)
+		
+	carried_node = null

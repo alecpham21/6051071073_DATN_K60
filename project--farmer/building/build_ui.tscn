@@ -60,6 +60,12 @@ layout_mode = 2
 icon = ExtResource("4_o4x0o")
 expand_icon = true
 
+[node name="BtnQuest" type="Button" parent="MainContainer/CategoryBar"]
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+icon = ExtResource("4_o4x0o")
+expand_icon = true
+
 [node name="BlueprintPanel" type="PanelContainer" parent="MainContainer"]
 self_modulate = Color(0.266575, 0.266575, 0.266575, 1)
 custom_minimum_size = Vector2(300, 0)

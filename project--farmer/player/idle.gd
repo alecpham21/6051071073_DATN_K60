@@ -27,6 +27,7 @@ func _update(delta: float) -> void:
 		dispatch("cook")
 	
 	check_tool_transitions()
+	check_interaction_transitions()
 
 func _play_proper_idle() -> void:
 	if local_holding and hold_ani:

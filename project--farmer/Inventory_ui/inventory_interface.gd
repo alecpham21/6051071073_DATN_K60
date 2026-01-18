@@ -81,7 +81,10 @@ func _ready():
 		PlayerData.money_changed.connect(update_money_text)
 	
 	update_money_text(PlayerData.money)
-
+	
+	if not SignalBus.inventory_opened.is_connected(set_external_inventory):
+		SignalBus.inventory_opened.connect(set_external_inventory)
+	
 func open_shop_sell_interface(shop_node, shop_inventory_data: InventoryData):
 	print(">>> [ACTION] Mở Shop BÁN (open_shop_sell_interface)")
 	self.visible = true
@@ -383,12 +386,19 @@ func set_craft_bar_data(inventory_data: InventoryData) -> void:
 	craft_bar.set_inventory_data(inventory_data)
 
 func set_external_inventory(_external_inventory_owner) -> void:
+	self.visible = true
+	GState.ui()
+	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+	
 	external_inventory_owner = _external_inventory_owner
 	var inventory_data = external_inventory_owner.inventory_data
+	
 	if not inventory_data.inventory_interact.is_connected(on_inventory_interact):
 		inventory_data.inventory_interact.connect(on_inventory_interact)
+	
 	if not force_close.is_connected(external_inventory_owner.close_chest):
 		force_close.connect(external_inventory_owner.close_chest)
+		
 	if external_inventory_owner is WashingMachine:
 		external_inventory.hide()
 		if washing_machine_ui:
@@ -399,28 +409,62 @@ func set_external_inventory(_external_inventory_owner) -> void:
 		if washing_machine_ui: washing_machine_ui.hide()
 		external_inventory.show()
 		external_inventory.set_inventory_data(inventory_data)
+		
+	print("Debug: External inventory opened via SignalBus")
 
 func clear_external_inventory() -> void:
 	if external_inventory_owner:
-		var inventory_data = external_inventory_owner.inventory_data
+		var owner_ref = external_inventory_owner
+		external_inventory_owner = null
+		
+		var inventory_data = owner_ref.inventory_data
 		if inventory_data.inventory_interact.is_connected(on_inventory_interact):
 			inventory_data.inventory_interact.disconnect(on_inventory_interact)
-		if force_close.is_connected(external_inventory_owner.close_chest):
-			force_close.disconnect(external_inventory_owner.close_chest)
-		if external_inventory_owner.has_method("close_chest"):
-			external_inventory_owner.close_chest()
+			
+		if force_close.is_connected(owner_ref.close_chest):
+			force_close.disconnect(owner_ref.close_chest)
+			
+		if owner_ref.has_method("close_chest"):
+			owner_ref.close_chest()
+			
 		external_inventory.clear_inventory_data(inventory_data)
 		external_inventory.hide()
 		if washing_machine_ui: washing_machine_ui.hide()
-		external_inventory_owner = null
 	
+
+# InventoryInterface.gd
 
 func on_inventory_interact(inventory_data: InventoryData, index: int, button: int) -> void:
 	match [grabbed_slot_data, button]:
-		[null, MOUSE_BUTTON_LEFT]: 
+		[null, MOUSE_BUTTON_LEFT]:
 			grabbed_slot_data = inventory_data.grab_slot_data(index)
 			
 		[_, MOUSE_BUTTON_LEFT]:
+			if external_inventory_owner is ContractCrate and inventory_data == external_inventory_owner.inventory_data:
+				var crate = external_inventory_owner
+				if crate.can_accept_item(grabbed_slot_data.item_data):
+					var current_in_crate = 0
+					var slot_in_crate = inventory_data.slot_datas[index]
+					if slot_in_crate and slot_in_crate.item_data:
+						current_in_crate = slot_in_crate.quantity
+					
+					var needed = QuestManager.contract_amount_needed - current_in_crate
+					
+					if needed > 0:
+						var amount_to_drop = min(grabbed_slot_data.quantity, needed)
+						var temp_slot = grabbed_slot_data.create_single_slot_data()
+						temp_slot.quantity = amount_to_drop
+						
+						inventory_data.drop_slot_data(temp_slot, index)
+						
+						grabbed_slot_data.quantity -= amount_to_drop
+						
+						if grabbed_slot_data.quantity <= 0:
+							grabbed_slot_data = null
+						
+						update_grabbed_slot()
+						return
+
 			var item_name_check = grabbed_slot_data.item_data.name
 			var item_qty_check = grabbed_slot_data.quantity
 			var is_dropping_into_player = (inventory_data == PlayerData.player_inventory_data)
@@ -430,22 +474,17 @@ func on_inventory_interact(inventory_data: InventoryData, index: int, button: in
 			if is_dropping_into_player:
 				SignalBus.item_added_to_inventory.emit(item_name_check.to_lower(), item_qty_check)
 
-		
-		[null, MOUSE_BUTTON_RIGHT]: 
+		[null, MOUSE_BUTTON_RIGHT]:
 			grabbed_slot_data = inventory_data.grab_split_items(index, null)
 			
-		[_, MOUSE_BUTTON_RIGHT]: 
+		[_, MOUSE_BUTTON_RIGHT]:
 			var slot_at_index = inventory_data.slot_datas[index]
-			
 			if slot_at_index and grabbed_slot_data.can_merge_with(slot_at_index):
 				grabbed_slot_data = inventory_data.grab_split_items(index, grabbed_slot_data)
-			
 			else:
 				var item_name_check = grabbed_slot_data.item_data.name
 				var is_dropping_into_player = (inventory_data == PlayerData.player_inventory_data)
-				
 				grabbed_slot_data = inventory_data.drop_single_slot_data(grabbed_slot_data, index)
-				
 				if is_dropping_into_player:
 					SignalBus.item_added_to_inventory.emit(item_name_check, 1)
 

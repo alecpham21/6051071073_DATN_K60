@@ -1,0 +1,12 @@
+[gd_scene load_steps=4 format=3 uid="uid://bh65ofvbvxw6y"]
+
+[ext_resource type="PackedScene" uid="uid://1x25mh3671hp" path="res://model/quest/QuestCrate.glb" id="1_0u7xi"]
+[ext_resource type="Texture2D" uid="uid://bwa8xtxlf1ptx" path="res://Textures/woodtexture.png" id="2_jhb4k"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ylffb"]
+albedo_texture = ExtResource("2_jhb4k")
+
+[node name="QuestCrate" instance=ExtResource("1_0u7xi")]
+
+[node name="Crate" parent="." index="0"]
+material_override = SubResource("StandardMaterial3D_ylffb")

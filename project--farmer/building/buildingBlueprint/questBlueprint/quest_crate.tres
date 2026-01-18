@@ -1,0 +1,24 @@
+[gd_resource type="Resource" script_class="BuildingData" load_steps=6 format=3 uid="uid://cv83nadmoyhen"]
+
+[ext_resource type="Texture2D" uid="uid://omvd8ed3fie6" path="res://inventory_script/item/item_atlast/#2 - Transparent Icons & Drop Shadow.png" id="1_mbsmf"]
+[ext_resource type="Script" uid="uid://fekbxueaingk" path="res://building/building_data.gd" id="1_v7j1e"]
+[ext_resource type="Resource" uid="uid://bytluuthi8j6w" path="res://inventory_script/item/items/item_material/item_build_material/wood.tres" id="2_ujjdo"]
+[ext_resource type="PackedScene" uid="uid://cll3ivl8c5hwm" path="res://quests/Quest_Item/crate.tscn" id="3_mbsmf"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mbsmf"]
+atlas = ExtResource("1_mbsmf")
+region = Rect2(352, 352, 32, 32)
+
+[resource]
+script = ExtResource("1_v7j1e")
+id = "quest_crate"
+name = "Frujt Crate"
+category = 4
+required_item = ExtResource("2_ujjdo")
+item_cost = 4
+icon = SubResource("AtlasTexture_mbsmf")
+scene = ExtResource("3_mbsmf")
+size = Vector2i(1, 1)
+offset = Vector3(0, 0.2, 0)
+scale = Vector3(0.5, 0.5, 0.5)
+metadata/_custom_type_script = "uid://fekbxueaingk"

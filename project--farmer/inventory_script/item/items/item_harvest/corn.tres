@@ -1,18 +1,21 @@
-[gd_resource type="Resource" script_class="ItemData" load_steps=4 format=3 uid="uid://yxvsmb6b0dto"]
+[gd_resource type="Resource" script_class="ItemDataMaterial" load_steps=4 format=3 uid="uid://yxvsmb6b0dto"]
 
-[ext_resource type="Script" uid="uid://oj6faifeyt6a" path="res://inventory_script/item/item_data/item_data.gd" id="1_fivdg"]
+[ext_resource type="Script" uid="uid://vmjc7agye6gg" path="res://inventory_script/item/item_data/item_data_material.gd" id="1_hgt2d"]
 [ext_resource type="Texture2D" uid="uid://omvd8ed3fie6" path="res://inventory_script/item/item_atlast/#2 - Transparent Icons & Drop Shadow.png" id="2_1kjbw"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_fhdbm"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_u3npi"]
 atlas = ExtResource("2_1kjbw")
 region = Rect2(224, 448, 32, 32)
 
 [resource]
-script = ExtResource("1_fivdg")
+script = ExtResource("1_hgt2d")
+material_type = 1
+selling_type = 2
+sell_price = 40
 name = "Corn"
 description = "A tasty corn
 "
 stackable = true
-texture = SubResource("AtlasTexture_fhdbm")
+texture = SubResource("AtlasTexture_u3npi")
 price = 1000
 metadata/_custom_type_script = "uid://oj6faifeyt6a"

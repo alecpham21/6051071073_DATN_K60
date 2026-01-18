@@ -16,34 +16,39 @@ func _ready() -> void:
 		inventory_data = inventory_data.duplicate()
 		
 	else:
-		#Check AUTOLOAD
 		if PlayerData.chest_inventories.has(chest_id):
 			inventory_data = PlayerData.chest_inventories[chest_id]
 		else:
 			inventory_data = inventory_data.duplicate()
 			PlayerData.chest_inventories[chest_id] = inventory_data
 			
-	interact_area.interacted.connect(on_interact)
+	
+	if interact_area:
+		interact_area.interacted.connect(on_interact)
 	
 	Watcher.game_state_changed.connect(func(a):
-		if GState.is_ui(): return)
+		if GState.is_ui(): return
+		close_chest())
 
 
 func on_interact():
 	if open:
-		# Nếu đang mở -> thì đóng lại
 		toggle_inventory.emit(self) 
 		close_chest()
 		GState.play()
 	else:
-		# Nếu đang đóng -> thì mở ra (giữ nguyên logic cũ)
 		open_chest()
+
+func open_crate_inventory():
+	open_chest()
 
 func open_chest(): 
 	if open: return
 	open = true
-	#GState.ui()
-	toggle_inventory.emit(self)
+	if SignalBus.has_signal("inventory_opened"):
+		SignalBus.inventory_opened.emit(self)
+	
+	GState.ui()
 
 func close_chest():
 	if !open: return

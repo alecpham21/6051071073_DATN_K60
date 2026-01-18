@@ -159,6 +159,23 @@ func can_feed() -> bool:
 				
 	return false
 
+func can_pickup() -> bool:
+	if blackboard.get_var("is_carrying", false): return false
+	
+	var interact_pressed = blackboard.get_var(BBNames.interact_var, false)
+	if not interact_pressed: return false
+	
+	var areas = character.interact_area.get_overlapping_areas()
+	for a in areas:
+		if a.collision_layer & (1 << 7):
+			return true
+			
+	return false
+
+func can_place_down() -> bool:
+	if not blackboard.get_var("is_carrying", false): return false
+	return blackboard.get_var(BBNames.interact_var, false)
+
 func _find_livestock_machine(node: Node) -> LivestockMachine:
 	var curr = node
 	while curr != null:

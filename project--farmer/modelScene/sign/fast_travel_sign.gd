@@ -12,10 +12,17 @@ func _on_interacted():
 		interact(player)
 
 func interact(_player: CharacterBody3D):
-	print("DEBUG: [FastTravelSign] interact() called!")
+	print("DEBUG: [FastTravelSign] interact called!")
 	var fast_travel_ui = get_tree().get_first_node_in_group("fast_travel_ui")
 	
 	if fast_travel_ui:
-		fast_travel_ui.open()
+		if fast_travel_ui.visible:
+			if fast_travel_ui.has_method("close"):
+				fast_travel_ui.close()
+			else:
+				fast_travel_ui.visible = false
+				GState.play()
+		else:
+			fast_travel_ui.open()
 	else:
 		printerr("DEBUG: [FastTravelSign] ERROR: FastTravelUI not found!")

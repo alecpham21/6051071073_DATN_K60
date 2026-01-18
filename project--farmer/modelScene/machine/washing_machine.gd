@@ -8,16 +8,15 @@ signal toggle_inventory(external_inventory_owner)
 @export var machine_id: String = ""
 @export var inventory_data: InventoryData
 @export var interact_area: InteractArea 
-@export var wash_duration_minutes: float = 60.0 # 60 phút game
+@export var wash_duration_minutes: float = 60.0
 
 var open: bool = false
 var is_washing: bool = false
-var finish_time: float = -1.0 # Mốc thời gian sẽ xong
+var finish_time: float = -1.0
 
 func _ready() -> void:
 	print("--- Washing Machine Init: ", machine_id, " ---")
 	
-	# 1. Setup Inventory
 	if machine_id.is_empty():
 		inventory_data = inventory_data.duplicate()
 	else:
@@ -30,7 +29,6 @@ func _ready() -> void:
 	interact_area.interacted.connect(on_interact)
 	TimeManager.tick.connect(_on_time_tick)
 	
-	# 2. Check Save Data (Lớn bù thời gian)
 	if !machine_id.is_empty() and PlayerData.washing_machine_timers.has(machine_id):
 		var saved_finish_time = PlayerData.washing_machine_timers[machine_id]
 		var current_time = TimeManager.get_total_minutes_played()
@@ -76,10 +74,8 @@ func close_chest():
 func request_start_washing():
 	if is_washing: return
 	
-	# 1. Check xem có đồ dơ không
 	var found_dirty = false
 	for slot in inventory_data.slot_datas:
-		# --- SỬA LỖI 1: Thay current_dirt_level bằng get_stat("dirt") ---
 		if slot and slot.item_data is ItemDataOutfit and slot.get_stat("dirt") > 0:
 			found_dirty = true
 			break
@@ -122,9 +118,8 @@ func finish_washing(instant: bool = false):
 	# Làm sạch đồ
 	for slot in inventory_data.slot_datas:
 		if slot and slot.item_data is ItemDataOutfit:
-			# --- SỬA LỖI 2: Thay current_dirt_level bằng get_stat("dirt") ---
 			if slot.get_stat("dirt") > 0:
-				slot.clean_slot() # Hàm này sẽ set "dirt" về 0
+				slot.clean_slot()
 				print("-> Đã giặt sạch: ", slot.item_data.name)
 	
 	is_washing = false

@@ -30,10 +30,7 @@ func refresh(source_inventory: InventoryData = null) -> void:
 
 	slot_datas = filtered_slots
 	
-	# --- [THÊM ĐOẠN NÀY ĐỂ GIỮ NGUYÊN 16 Ô] ---
-	# Nếu số lượng tìm thấy nhỏ hơn 16, nhét thêm ô trống (null) vào cho đủ
 	while slot_datas.size() < 16:
 		slot_datas.append(null)
-	# ------------------------------------------
 	
 	inventory_updated.emit(self)

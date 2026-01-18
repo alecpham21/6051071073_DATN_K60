@@ -1,3 +1,4 @@
+@tool
 extends Node3D
 class_name GroundRenderer
 
@@ -28,7 +29,6 @@ class_name GroundRenderer
 @export var spawn_grass_decorative: bool = true
 @export var decorative_grass_chance := 0.25
 
-# Chỉ lưu kích thước logic (vùng chơi), không cần visual_size nữa
 var logic_size_x := 0
 var logic_size_z := 0
 var padding := 0
@@ -57,8 +57,14 @@ var grass_index_per_block: Array
 
 var hidden_transform = Transform3D(Basis().scaled(Vector3.ZERO), Vector3.ZERO)
 
+func _add_child_tool(node: Node):
+	add_child(node)
+	if Engine.is_editor_hint():
+		var root = get_tree().edited_scene_root
+		if root: node.owner = root
+
+
 func setup(x_count: int, z_count: int, p_padding: int) -> void:
-	# Xóa hết các node con cũ
 	for child in get_children():
 		child.queue_free()
 		
@@ -130,17 +136,14 @@ func _create_multimeshes():
 		inst_grass_decor = MultiMeshInstance3D.new(); inst_grass_decor.multimesh = mm_grass_decor; add_child(inst_grass_decor)
 		for i in range(mm_grass_decor.instance_count): mm_grass_decor.set_instance_transform(i, hidden_transform)
 
-	# Tạo Instance
-	inst_grass = MultiMeshInstance3D.new(); inst_grass.multimesh = mm_grass; inst_grass.material_override = mat_grass; add_child(inst_grass)
-	inst_cut = MultiMeshInstance3D.new(); inst_cut.multimesh = mm_cut; inst_cut.material_override = mat_cut; add_child(inst_cut)
-	inst_tilled = MultiMeshInstance3D.new(); inst_tilled.multimesh = mm_tilled; inst_tilled.material_override = mat_tilled; add_child(inst_tilled)
+	inst_grass = MultiMeshInstance3D.new(); inst_grass.multimesh = mm_grass; inst_grass.material_override = mat_grass; _add_child_tool(inst_grass)
+	inst_cut = MultiMeshInstance3D.new(); inst_cut.multimesh = mm_cut; inst_cut.material_override = mat_cut; _add_child_tool(inst_cut)
+	inst_tilled = MultiMeshInstance3D.new(); inst_tilled.multimesh = mm_tilled; inst_tilled.material_override = mat_tilled; _add_child_tool(inst_tilled)
 
-	# Hạ độ cao xuống một chút
 	inst_grass.position.y = -mesh_height / 2
 	inst_cut.position.y = -mesh_height / 2
 	inst_tilled.position.y = -mesh_height / 2
 	
-	# Khởi tạo toàn bộ đất về vị trí ẩn
 	for i in range(total_count):
 		mm_grass.set_instance_transform(i, hidden_transform)
 		mm_cut.set_instance_transform(i, hidden_transform)

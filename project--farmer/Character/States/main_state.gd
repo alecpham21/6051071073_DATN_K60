@@ -78,3 +78,9 @@ func check_tool_transitions() -> void:
 	if blackboard.get_var(BBNames.toggle_vehicle_var, false):
 		if not Watcher.indoor:
 			dispatch("bike")
+
+func check_interaction_transitions() -> void:
+	if limbo_hsm.can_pickup():
+		dispatch("pickup")
+	elif limbo_hsm.can_place_down():
+		dispatch("placedown")

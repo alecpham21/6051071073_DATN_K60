@@ -40,10 +40,10 @@ blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_qo58s")
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_iamwq"]
-size = Vector3(0.306152, 1, 2.66895)
+size = Vector3(0.306152, 1, 2.5752)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_3bbty"]
-size = Vector3(1, 1, 2.23383)
+size = Vector3(1, 1, 2.4426)
 
 [node name="SingleGate" type="Node3D"]
 script = ExtResource("1_pnmqu")
@@ -60,15 +60,15 @@ skeleton = NodePath("")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.12404)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="HingePoint/StaticBody3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0861816, 0, -0.288574)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.120605)
 shape = SubResource("BoxShape3D_iamwq")
 
-[node name="InteractArea" type="Area3D" parent="."]
+[node name="InteractArea" type="Area3D" parent="HingePoint"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.998958)
 collision_layer = 48
 script = ExtResource("3_3bbty")
 metadata/_custom_type_script = "uid://i4dr8fqs0tx7"
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="InteractArea"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.190277)
+[node name="CollisionShape3D" type="CollisionShape3D" parent="HingePoint/InteractArea"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.294661)
 shape = SubResource("BoxShape3D_3bbty")

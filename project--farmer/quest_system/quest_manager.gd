@@ -4,6 +4,10 @@ signal quest_updated
 signal reward_distributed(type: String, data: Variant, amount: int)
 
 var quests: Dictionary = {}
+var active_contract_item: ItemDataMaterial = null
+var contract_amount_needed: int = 0
+var contract_deadline_day: int = 0
+var current_contract_id: String = "trade_contract_loop"
 
 func _ready():
 	_load_all_quests("res://quests/")
@@ -13,6 +17,25 @@ func _ready():
 	
 	if SignalBus.has_signal("item_added_to_inventory"):
 		SignalBus.item_added_to_inventory.connect(_on_item_added_to_inventory)
+	
+	TimeManager.tick.connect(_check_contract_deadline)
+
+func _check_contract_deadline():
+	if active_contract_item != null:
+		if TimeManager.day > contract_deadline_day:
+			_fail_contract()
+
+func _fail_contract():
+	print("❌ Contract Fail! Expired Date.")
+	
+	if quests.has(current_contract_id):
+		quests.erase(current_contract_id)
+	
+	active_contract_item = null
+	contract_amount_needed = 0
+	
+	quest_updated.emit()
+
 
 func _on_object_harvested(obj_name: String, amount: int):
 	for q_id in quests:
@@ -116,3 +139,49 @@ func check_status(quest_id: String) -> String:
 
 func _on_item_added_to_inventory(item_name: String, amount: int):
 	_on_object_harvested(item_name, amount)
+
+
+func start_trade_contract(item_id: String, amount: int, days_to_complete: int):
+	var path = "res://inventory_script/item/items/item_harvest/" + item_id + ".tres"
+	
+	if not ResourceLoader.exists(path):
+		printerr("❌ LỖI: Không tìm thấy file item tại: ", path)
+		return
+		
+	var item_res = load(path) as ItemDataMaterial
+	if not item_res:
+		printerr("❌ LỖI: File đã load không phải là ItemDataMaterial: ", path)
+		return
+
+	active_contract_item = item_res
+	contract_amount_needed = amount
+	contract_deadline_day = TimeManager.day + days_to_complete
+	
+	var contract_q = QuestResource.new()
+	contract_q.id = current_contract_id
+	contract_q.title = "Hợp đồng: " + item_res.name
+	contract_q.quest_type = QuestResource.QuestType.SIDE
+	contract_q.description = "Yêu cầu: %d %s. Hạn giao: Ngày %d" % [amount, item_res.name, contract_deadline_day]
+	
+	var obj = QuestObjective.new()
+	obj.description = "Đóng thùng " + item_res.name
+	obj.required_item_id = item_res.name 
+	obj.target_amount = amount
+	
+	contract_q.objectives.append(obj)
+	
+	if quests.has(current_contract_id):
+		quests.erase(current_contract_id)
+		
+	register_quest(contract_q)
+	start_quest(current_contract_id)
+	
+	print("✅ Bắt đầu hợp đồng: ", item_res.name, " x", amount)
+
+func update_contract_progress(item_name: String, current_amount: int):
+	if quests.has(current_contract_id):
+		var q = quests[current_contract_id]
+		for obj in q.objectives:
+			if obj.required_item_id == item_name:
+				obj.current_amount = current_amount
+				quest_updated.emit()

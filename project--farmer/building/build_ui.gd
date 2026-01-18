@@ -9,6 +9,7 @@ extends Control
 @onready var btn_house = $MainContainer/CategoryBar/BtnHouse
 @onready var btn_farm = $MainContainer/CategoryBar/BtnFarm
 @onready var btn_decor = $MainContainer/CategoryBar/BtnDecor
+@onready var btn_quest = $MainContainer/CategoryBar/BtnQuest
 
 func _ready():
 	visible = false
@@ -18,6 +19,7 @@ func _ready():
 	btn_house.pressed.connect(_load_category.bind(BuildingData.BuildingCategory.HOUSE))
 	btn_farm.pressed.connect(_load_category.bind(BuildingData.BuildingCategory.FARM))
 	btn_decor.pressed.connect(_load_category.bind(BuildingData.BuildingCategory.DECORATION))
+	btn_quest.pressed.connect(_load_category.bind(BuildingData.BuildingCategory.QUEST))
 
 func _on_game_state_changed(old_state, new_state):
 	if new_state == GState.state_enum.BUILD:
