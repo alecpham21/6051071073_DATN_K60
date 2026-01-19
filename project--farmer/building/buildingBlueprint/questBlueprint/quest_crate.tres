@@ -12,7 +12,7 @@ region = Rect2(352, 352, 32, 32)
 [resource]
 script = ExtResource("1_v7j1e")
 id = "quest_crate"
-name = "Frujt Crate"
+name = "Delivery Crate"
 category = 4
 required_item = ExtResource("2_ujjdo")
 item_cost = 4

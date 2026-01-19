@@ -8,6 +8,8 @@ var active_contract_item: ItemDataMaterial = null
 var contract_amount_needed: int = 0
 var contract_deadline_day: int = 0
 var current_contract_id: String = "trade_contract_loop"
+var contract_items_total: int = 0
+
 
 func _ready():
 	_load_all_quests("res://quests/")
@@ -145,28 +147,32 @@ func start_trade_contract(item_id: String, amount: int, days_to_complete: int):
 	var path = "res://inventory_script/item/items/item_harvest/" + item_id + ".tres"
 	
 	if not ResourceLoader.exists(path):
-		printerr("❌ LỖI: Không tìm thấy file item tại: ", path)
+		printerr("❌ ERROR: Item file not found at: ", path)
 		return
 		
 	var item_res = load(path) as ItemDataMaterial
 	if not item_res:
-		printerr("❌ LỖI: File đã load không phải là ItemDataMaterial: ", path)
+		printerr("❌ ERROR: Loaded file is not ItemDataMaterial: ", path)
 		return
 
 	active_contract_item = item_res
+	contract_items_total = amount
 	contract_amount_needed = amount
 	contract_deadline_day = TimeManager.day + days_to_complete
+	
+	var batch_target = amount / 20
 	
 	var contract_q = QuestResource.new()
 	contract_q.id = current_contract_id
 	contract_q.title = "Hợp đồng: " + item_res.name
 	contract_q.quest_type = QuestResource.QuestType.SIDE
-	contract_q.description = "Yêu cầu: %d %s. Hạn giao: Ngày %d" % [amount, item_res.name, contract_deadline_day]
+	contract_q.description = "Yêu cầu: %d thùng %s (Tổng %d quả). Hạn: Ngày %d" % [batch_target, item_res.name, amount, contract_deadline_day]
 	
 	var obj = QuestObjective.new()
-	obj.description = "Đóng thùng " + item_res.name
-	obj.required_item_id = item_res.name 
-	obj.target_amount = amount
+	obj.description = "Giao thùng " + item_res.name
+	obj.required_item_id = "Batch_" + item_res.name 
+	obj.target_amount = batch_target
+	obj.current_amount = 0
 	
 	contract_q.objectives.append(obj)
 	
@@ -176,7 +182,24 @@ func start_trade_contract(item_id: String, amount: int, days_to_complete: int):
 	register_quest(contract_q)
 	start_quest(current_contract_id)
 	
-	print("✅ Bắt đầu hợp đồng: ", item_res.name, " x", amount)
+	print("✅ Contract started: ", item_res.name, " | Target: ", batch_target, " batches.")
+
+func complete_contract_batch():
+	if quests.has(current_contract_id):
+		var q = quests[current_contract_id]
+		for obj in q.objectives:
+			if not obj.is_completed:
+				obj.current_amount += 1
+				print("Quest: Batch progress updated: ", obj.current_amount, "/", obj.target_amount)
+				
+				if obj.current_amount >= obj.target_amount:
+					obj.is_completed = true
+				
+				quest_updated.emit()
+				
+				if q.check_completion():
+					complete_quest(current_contract_id)
+				return
 
 func update_contract_progress(item_name: String, current_amount: int):
 	if quests.has(current_contract_id):

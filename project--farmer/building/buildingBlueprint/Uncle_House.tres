@@ -16,5 +16,5 @@ icon = ExtResource("1_kwhtk")
 scene = ExtResource("1_jirp2")
 size = Vector2i(5, 5)
 offset = Vector3(0, 1, 0)
-scale = Vector3(1.5, 1.5, 1.5)
+scale = Vector3(1, 1, 1)
 metadata/_custom_type_script = "uid://fekbxueaingk"

@@ -58,7 +58,7 @@ func add_dirt_to_outfit(amount: float):
 		if slot and slot.item_data is ItemDataOutfit:
 			slot.add_dirt(amount)
 			is_dirty_updated = true
-			print("Dirty make: ", slot.item_data.name)
+			#print("Dirty make: ", slot.item_data.name)
 	
 	if is_dirty_updated:
 		player_outfit_data.inventory_updated.emit(player_outfit_data)

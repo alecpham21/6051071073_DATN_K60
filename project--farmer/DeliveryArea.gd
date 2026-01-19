@@ -37,8 +37,12 @@ func _on_area_exited(area: Area3D):
 		if crate.dropped.is_connected(_check_delivery):
 			crate.dropped.disconnect(_check_delivery)
 
+
 func _check_delivery(crate: ContractCrate):
-	if not QuestManager.active_contract_item or not is_instance_valid(QuestManager.active_contract_item):
+	if not QuestManager.active_contract_item: return
+	
+	if not crate.is_full():
+		print("Port: Crate is not full (20 required).")
 		return
 	
 	var inv = crate.inventory_data 
@@ -46,8 +50,23 @@ func _check_delivery(crate: ContractCrate):
 	
 	if slot and is_instance_valid(slot.item_data):
 		if slot.item_data.name == QuestManager.active_contract_item.name:
-			if slot.quantity >= QuestManager.contract_amount_needed:
-				_complete_contract(crate)
+			_process_batch_delivery(crate, slot.quantity)
+
+func _process_batch_delivery(crate: ContractCrate, amount: int):
+	QuestManager.contract_amount_needed -= amount
+	
+	if QuestManager.has_method("complete_contract_batch"):
+		QuestManager.complete_contract_batch()
+	
+	print("Port: Batch accepted. Remaining items: ", QuestManager.contract_amount_needed)
+	
+	if QuestManager.contract_amount_needed <= 0:
+		var truck = get_parent()
+		if truck.has_method("depart"):
+			truck.depart()
+	
+	if is_instance_valid(crate):
+		crate.queue_free()
 
 func _complete_contract(crate: ContractCrate):
 	if QuestManager.has_method("complete_quest"):

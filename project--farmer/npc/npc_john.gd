@@ -123,7 +123,7 @@ func _on_dialogic_signal(argument: String):
 			
 			if quest_to_start_id != "":
 				QuestManager.start_quest(quest_to_start_id)
-				QuestManager.start_trade_contract("corn", 3, 2)
+				QuestManager.start_trade_contract("corn", 40, 2)
 
 			if door_id_to_unlock != "":
 				GameData.save_door_unlocked(door_id_to_unlock)

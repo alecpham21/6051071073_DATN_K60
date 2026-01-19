@@ -1,41 +1,51 @@
 shader_type spatial;
-render_mode  cull_disabled;
+render_mode cull_disabled, blend_mix, depth_draw_opaque;
 
 uniform sampler2D leaf_texture : source_color;
 uniform vec4 leaf_color : source_color = vec4(1.0,1.0,1.0,1.0);
+uniform float alpha_cutoff = 0.1;
+
+// --- WIND (GIỮ NGUYÊN CỦA CÂY PHỤ CHO NHẸ) ---
 uniform float wind_strength = 0.2;
 uniform float wind_speed = 2.0;
 
-/* gradient */
-uniform vec4 top_color : source_color = vec4(0.85,0.97,0.75,1.0);
-uniform vec4 bottom_color : source_color = vec4(0.2,0.4,0.2,1.0);
-uniform float height_min = 0.0;
-uniform float height_max = 2.0;
-uniform float alpha_cutoff = 0.05;
-
-varying vec3 v_world_pos;
+// --- FRESNEL (LẤY TỪ CÂY CHÍNH SANG) ---
+uniform float fresnelStrength : hint_range(-2.0, 2.0) = 0.5;
+uniform float fresnelBlend : hint_range(-1.0,1.0) = 1.0;
+uniform vec4 fresnelColor : source_color = vec4(0.58,0.65,0.33,1.0);
 
 void vertex() {
-    // tính vị trí thế giới bằng MODEL_MATRIX
-    vec4 world_p = MODEL_MATRIX * vec4(VERTEX, 1.0);
-    v_world_pos = world_p.xyz;
-
-    // gió sway
-    float offset = sin(TIME * wind_speed + VERTEX.x * 0.1) * wind_strength;
-    VERTEX.x += offset;
+	// Logic gió sway đơn giản (giữ nguyên để tối ưu cho background)
+	float offset = sin(TIME * wind_speed + VERTEX.x * 0.1) * wind_strength;
+	VERTEX.x += offset;
+	
+	// Cây phụ thường không cần tính toán Normal phức tạp, 
+	// nhưng để Fresnel đẹp thì cần Normal hướng lên một chút hoặc giữ nguyên.
+	// NORMAL = vec3(0.0, 1.0, 0.0); // Bỏ comment dòng này nếu muốn lá sáng đều như cây chính
 }
 
 void fragment() {
-    vec4 tex_color = texture(leaf_texture, UV);
-    if (tex_color.a < alpha_cutoff) {
-        discard;
-    }
+	vec4 tex_color = texture(leaf_texture, UV);
+	if (tex_color.a < alpha_cutoff) {
+		discard;
+	}
 
-    // gradient theo v_world_pos.y
-    float denom = max(height_max - height_min, 0.0001);
-    float t = clamp((v_world_pos.y - height_min) / denom, 0.0, 1.0);
-    vec3 grad = mix(bottom_color.rgb, top_color.rgb, t);
+	// --- MÀU SẮC CƠ BẢN ---
+	// Bỏ Gradient, chỉ dùng Texture * Màu tint để giống cây chính
+	vec3 base_albedo = tex_color.rgb * leaf_color.rgb;
+	ALBEDO = base_albedo;
+	ALPHA = tex_color.a;
 
-    ALBEDO = tex_color.rgb * leaf_color.rgb * grad;
-    ALPHA = 1.0;
+	// --- FRESNEL EFFECT (LOGIC TỪ CÂY CHÍNH) ---
+	// Tính toán hiệu ứng viền sáng
+	float fresnel = pow(1.0 - clamp(dot(NORMAL, VIEW), 0.0, 1.0), 3.0);
+	
+	// Áp dụng màu Fresnel
+	vec3 fres_col = base_albedo * (1.0 - fresnelStrength);
+	fres_col += fresnelColor.rgb * fresnelStrength;
+	fres_col *= fresnel;
+	fres_col *= fresnelBlend;
+	
+	// Gán vào Emission
+	EMISSION = fres_col;
 }

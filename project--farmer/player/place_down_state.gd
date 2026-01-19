@@ -10,27 +10,21 @@ func _setup() -> void:
 	super()
 
 
-
 func _enter() -> void:
 	super()
 	character.is_busy = true
 	character.velocity = Vector3.ZERO
-	
-	if placedown_ani:
-		placedown_ani.play(character.ani)
+	if placedown_ani: placedown_ani.play(character.ani)
 	
 	if character.get_meta("is_in_delivery_zone", false):
-		if character.carried_node:
+		var crate = character.carried_node
+		if crate is ContractCrate and crate.is_full():
 			character.place_down_object()
-			print("✅ Fast drop: Delivery detected!")
-		
-		dispatch("idle")
-		return
-
-	get_tree().create_timer(drop_delay).timeout.connect(func():
-		if character.carried_node:
-			character.place_down_object()
-	)
+			
+			blackboard.set_var("is_carrying", false) 
+			
+			dispatch("idle")
+			return
 
 	get_tree().create_timer(drop_delay).timeout.connect(func():
 		if character.carried_node:

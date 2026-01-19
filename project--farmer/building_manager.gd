@@ -11,7 +11,7 @@ var can_place: bool = false
 var _resource_map: Dictionary = {}
 
 var padding_occupied_map: Dictionary = {} 
-
+var is_destroy_mode: bool = false
 var current_rot_index: int = 0 
 
 func _ready():
@@ -98,6 +98,7 @@ func place_building() -> bool:
 	print("✅ Đặt thành công!")
 	return true
 	
+
 func _calculate_auto_scale(node: Node3D, data_size: Vector2i, base_scale: Vector3 = Vector3.ONE) -> Vector3:
 	var old_rot = node.rotation
 	var old_scale = node.scale
@@ -115,20 +116,15 @@ func _calculate_auto_scale(node: Node3D, data_size: Vector2i, base_scale: Vector
 	var target_w = data_size.x * spacing
 	var target_d = data_size.y * spacing
 	
-	var fill_scale_x = target_w / model_w if model_w > 0.01 else 1.0
-	var fill_scale_z = target_d / model_d if model_d > 0.01 else 1.0
+	# Tính toán tỷ lệ cần thiết cho từng trục
+	var ratio_x = target_w / model_w if model_w > 0.01 else 1.0
+	var ratio_z = target_d / model_d if model_d > 0.01 else 1.0
 	
-	var s_x = min(fill_scale_x, base_scale.x)
-	var s_z = min(fill_scale_z, base_scale.z)
+	# Chọn tỷ lệ nhỏ nhất để giữ Uniform Scale (không bị giãn)
+	var final_ratio = min(ratio_x, ratio_z)
 	
-	var ratio_x = s_x / base_scale.x
-	var ratio_z = s_z / base_scale.z
-	var min_ratio = min(ratio_x, ratio_z)
-	
-	var s_y = base_scale.y * min_ratio
-	
-	return Vector3(s_x, s_y, s_z)
-
+	# Trả về scale gốc nhân với tỷ lệ thu phóng đồng nhất
+	return base_scale * final_ratio
 
 func spawn_building_node(data: BuildingData, grid_pos: Vector2i, rot_rotation: Vector3, override_size: Vector2i = Vector2i.ZERO, scale_override: Vector3 = Vector3.ZERO):
 	var real_building = data.scene.instantiate()
@@ -142,7 +138,6 @@ func spawn_building_node(data: BuildingData, grid_pos: Vector2i, rot_rotation: V
 	
 	var spacing = ground_gen.renderer.spacing
 	var world_pos = ground_gen.get_world_pos_from_grid(grid_pos)
-	
 	var center_offset_x = (final_size.x * spacing) / 2.0 - (spacing / 2.0)
 	var center_offset_z = (final_size.y * spacing) / 2.0 - (spacing / 2.0)
 	
@@ -152,11 +147,70 @@ func spawn_building_node(data: BuildingData, grid_pos: Vector2i, rot_rotation: V
 	if scale_override != Vector3.ZERO:
 		real_building.scale = scale_override
 	else:
-		real_building.scale = _calculate_auto_scale(real_building, final_size)
+		real_building.scale = _calculate_auto_scale(real_building, final_size, data.scale)
 	
 	mark_grid_occupied(grid_pos, final_size, true)
-	
 	return real_building
+
+#func _calculate_auto_scale(node: Node3D, data_size: Vector2i, base_scale: Vector3 = Vector3.ONE) -> Vector3:
+	#var old_rot = node.rotation
+	#var old_scale = node.scale
+	#node.rotation = Vector3.ZERO
+	#node.scale = Vector3.ONE
+	#
+	#var model_aabb = _get_hierarchy_aabb(node)
+	#var model_w = model_aabb.size.x
+	#var model_d = model_aabb.size.z
+	#
+	#node.rotation = old_rot
+	#node.scale = old_scale
+	#
+	#var spacing = ground_gen.renderer.spacing
+	#var target_w = data_size.x * spacing
+	#var target_d = data_size.y * spacing
+	#
+	#var fill_scale_x = target_w / model_w if model_w > 0.01 else 1.0
+	#var fill_scale_z = target_d / model_d if model_d > 0.01 else 1.0
+	#
+	#var s_x = min(fill_scale_x, base_scale.x)
+	#var s_z = min(fill_scale_z, base_scale.z)
+	#
+	#var ratio_x = s_x / base_scale.x
+	#var ratio_z = s_z / base_scale.z
+	#var min_ratio = min(ratio_x, ratio_z)
+	#
+	#var s_y = base_scale.y * min_ratio
+	#
+	#return Vector3(s_x, s_y, s_z)
+
+
+#func spawn_building_node(data: BuildingData, grid_pos: Vector2i, rot_rotation: Vector3, override_size: Vector2i = Vector2i.ZERO, scale_override: Vector3 = Vector3.ZERO):
+	#var real_building = data.scene.instantiate()
+	#var final_size = override_size if override_size != Vector2i.ZERO else data.size
+	#
+	#real_building.set_meta("build_id", data.id)
+	#real_building.set_meta("grid_pos", grid_pos)
+	#real_building.set_meta("size", final_size)
+	#
+	#buildings_container.add_child(real_building)
+	#
+	#var spacing = ground_gen.renderer.spacing
+	#var world_pos = ground_gen.get_world_pos_from_grid(grid_pos)
+	#
+	#var center_offset_x = (final_size.x * spacing) / 2.0 - (spacing / 2.0)
+	#var center_offset_z = (final_size.y * spacing) / 2.0 - (spacing / 2.0)
+	#
+	#real_building.global_position = world_pos + Vector3(center_offset_x, 0, center_offset_z) + data.offset
+	#real_building.global_rotation = rot_rotation
+	#
+	#if scale_override != Vector3.ZERO:
+		#real_building.scale = scale_override
+	#else:
+		#real_building.scale = _calculate_auto_scale(real_building, final_size)
+	#
+	#mark_grid_occupied(grid_pos, final_size, true)
+	#
+	#return real_building
 
 func check_can_place(start_grid: Vector2i, size: Vector2i) -> bool:
 	for x in range(size.x):
@@ -284,14 +338,66 @@ func cancel_build():
 
 
 func _unhandled_input(event):
-	if not GState.is_build() or not current_building_preview: return
+	if not GState.is_build(): return
+
+	if current_building_preview and event is InputEventMouseButton:
+		if event.pressed and event.button_index == MOUSE_BUTTON_RIGHT:
+			rotate_preview()
+			get_viewport().set_input_as_handled()
+
+	if event.is_action_pressed("click"):
+		if is_destroy_mode:
+			_try_destroy_building_at_mouse()
+			get_viewport().set_input_as_handled()
+		elif current_building_preview:
+			if place_building():
+				GState.play()
+			get_viewport().set_input_as_handled()
+
+func toggle_destroy_mode(active: bool):
+	cancel_build()
+	is_destroy_mode = active
+	if active:
+		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+	print("Destroy Mode: ", active)
+
+func _try_destroy_building_at_mouse():
+	var camera = get_viewport().get_camera_3d()
+	if not camera: return
 	
-
-	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_RIGHT:
-		rotate_preview()
-		get_viewport().set_input_as_handled()
+	var mouse_pos = get_viewport().get_mouse_position()
+	var from = camera.project_ray_origin(mouse_pos)
+	var to = from + camera.project_ray_normal(mouse_pos) * 100
+	
+	var space_state = get_world_3d().direct_space_state
+	var query = PhysicsRayQueryParameters3D.create(from, to)
+	query.collide_with_areas = true
+	query.collide_with_bodies = true
+	
+	var result = space_state.intersect_ray(query)
+	if result:
+		var hit_node = result.collider
+		var building = _find_building_root(hit_node)
 		
+		if building:
+			if building.get_meta("is_initial", false):
+				print("Forbidden: Cannot destroy initial map objects")
+				return
+				
+			var g_pos = building.get_meta("grid_pos")
+			var b_size = building.get_meta("size")
+			
+			mark_grid_occupied(g_pos, b_size, false)
+			building.queue_free()
+			print("Building destroyed at: ", g_pos)
 
+func _find_building_root(node: Node) -> Node3D:
+	var curr = node
+	while curr != null and curr != get_tree().root:
+		if curr.has_meta("build_id"):
+			return curr
+		curr = curr.get_parent()
+	return null
 
 func clear_all_buildings():
 	for child in buildings_container.get_children(): child.queue_free()

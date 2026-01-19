@@ -136,14 +136,23 @@ transform = Transform3D(1.215, 0, 0, 0, 1.215, 0, 0, 0, 1.215, 38.4229, 0, -7.85
 [node name="Bush4" parent="." index="10" instance=ExtResource("8_4plw2")]
 transform = Transform3D(1.215, 0, 0, 0, 1.215, 0, 0, 0, 1.215, 33.1605, 0, -2.04828)
 
-[node name="leafbush6" parent="." index="11" instance=ExtResource("9_86eba")]
+[node name="Bush5" parent="." index="11" instance=ExtResource("8_4plw2")]
+transform = Transform3D(1.215, 0, 0, 0, 1.215, 0, 0, 0, 1.215, -2.7431, 0, -4.58389)
+
+[node name="leafbush6" parent="." index="12" instance=ExtResource("9_86eba")]
 transform = Transform3D(-0.445054, 0, -1.7183, 0, 1.775, 0, 1.7183, 0, -0.445054, 30.2125, -0.325557, -2.0078)
 
-[node name="leafbush8" parent="." index="12" instance=ExtResource("9_86eba")]
+[node name="leafbush10" parent="." index="13" instance=ExtResource("9_86eba")]
+transform = Transform3D(-1.35955, 0, -1.14116, 0, 1.775, 0, 1.14116, 0, -1.35955, 9.25396, -0.325557, -2.0078)
+
+[node name="leafbush11" parent="." index="14" instance=ExtResource("9_86eba")]
+transform = Transform3D(-1.77405, 0, -0.058046, 0, 1.775, 0, 0.058046, 0, -1.77405, -1.64159, -0.325557, 5.61576)
+
+[node name="leafbush8" parent="." index="15" instance=ExtResource("9_86eba")]
 transform = Transform3D(1.1451, 0, -1.35624, 0, 1.775, 0, 1.35624, 0, 1.1451, 35.5181, -0.325557, -1.24301)
 
-[node name="leafbush7" parent="." index="13" instance=ExtResource("9_86eba")]
+[node name="leafbush7" parent="." index="16" instance=ExtResource("9_86eba")]
 transform = Transform3D(-0.445054, 0, -1.7183, 0, 1.775, 0, 1.7183, 0, -0.445054, 32.9483, -0.325557, -5.58756)
 
-[node name="leafbush9" parent="." index="14" instance=ExtResource("9_86eba")]
+[node name="leafbush9" parent="." index="17" instance=ExtResource("9_86eba")]
 transform = Transform3D(-1.15067, 0, -1.35151, 0, 1.775, 0, 1.35151, 0, -1.15067, 35.4147, -0.325557, -7.97289)

@@ -432,37 +432,43 @@ func clear_external_inventory() -> void:
 		if washing_machine_ui: washing_machine_ui.hide()
 	
 
-# InventoryInterface.gd
 
 func on_inventory_interact(inventory_data: InventoryData, index: int, button: int) -> void:
 	match [grabbed_slot_data, button]:
 		[null, MOUSE_BUTTON_LEFT]:
 			grabbed_slot_data = inventory_data.grab_slot_data(index)
-			
+
 		[_, MOUSE_BUTTON_LEFT]:
+			if not grabbed_slot_data: return
+			
 			if external_inventory_owner is ContractCrate and inventory_data == external_inventory_owner.inventory_data:
 				var crate = external_inventory_owner
+				
 				if crate.can_accept_item(grabbed_slot_data.item_data):
-					var current_in_crate = 0
-					var slot_in_crate = inventory_data.slot_datas[index]
-					if slot_in_crate and slot_in_crate.item_data:
-						current_in_crate = slot_in_crate.quantity
+					var current_qty = 0
+					var slot_at_index = inventory_data.slot_datas[index]
+					if slot_at_index and slot_at_index.item_data:
+						current_qty = slot_at_index.quantity
 					
-					var needed = QuestManager.contract_amount_needed - current_in_crate
+					var space_left = crate.max_capacity - current_qty
 					
-					if needed > 0:
-						var amount_to_drop = min(grabbed_slot_data.quantity, needed)
+					if space_left > 0:
+						var amount_to_take = min(grabbed_slot_data.quantity, space_left)
+						
 						var temp_slot = grabbed_slot_data.create_single_slot_data()
-						temp_slot.quantity = amount_to_drop
+						temp_slot.quantity = amount_to_take
 						
 						inventory_data.drop_slot_data(temp_slot, index)
 						
-						grabbed_slot_data.quantity -= amount_to_drop
-						
+						grabbed_slot_data.quantity -= amount_to_take
 						if grabbed_slot_data.quantity <= 0:
 							grabbed_slot_data = null
 						
 						update_grabbed_slot()
+						print("Crate: Receive ", amount_to_take, " object.Current: ", current_qty + amount_to_take, "/20")
+						return
+					else:
+						print("Crate: 20/20!")
 						return
 
 			var item_name_check = grabbed_slot_data.item_data.name
@@ -473,11 +479,12 @@ func on_inventory_interact(inventory_data: InventoryData, index: int, button: in
 			
 			if is_dropping_into_player:
 				SignalBus.item_added_to_inventory.emit(item_name_check.to_lower(), item_qty_check)
-
+	
 		[null, MOUSE_BUTTON_RIGHT]:
 			grabbed_slot_data = inventory_data.grab_split_items(index, null)
 			
 		[_, MOUSE_BUTTON_RIGHT]:
+			if not grabbed_slot_data: return
 			var slot_at_index = inventory_data.slot_datas[index]
 			if slot_at_index and grabbed_slot_data.can_merge_with(slot_at_index):
 				grabbed_slot_data = inventory_data.grab_split_items(index, grabbed_slot_data)

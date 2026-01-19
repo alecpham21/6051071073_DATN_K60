@@ -1,10 +1,13 @@
-[gd_scene load_steps=8 format=3 uid="uid://dwe03uitdfmcs"]
+[gd_scene load_steps=11 format=3 uid="uid://dwe03uitdfmcs"]
 
 [ext_resource type="Script" uid="uid://nhtrys344u0u" path="res://building/build_ui.gd" id="1_dbwwy"]
 [ext_resource type="Texture2D" uid="uid://b0rkdxpmcgwyi" path="res://building/building_category_icon/structure_house.png" id="2_vnm6f"]
 [ext_resource type="Texture2D" uid="uid://4pkmuc43k31x" path="res://building/building_category_icon/structure_farm.png" id="3_xt7ay"]
 [ext_resource type="Texture2D" uid="uid://dmy02fxfv85jk" path="res://building/building_category_icon/chess_knight.png" id="4_o4x0o"]
 [ext_resource type="Texture2D" uid="uid://c8pt0r1ca4yob" path="res://building/building_icon/Hammer.png" id="5_2l5mb"]
+[ext_resource type="Texture2D" uid="uid://ufsovjlgp8jl" path="res://building/building_category_icon/book_open.png" id="5_c14fx"]
+[ext_resource type="Texture2D" uid="uid://cv3d51nttabvm" path="res://building/building_category_icon/card_remove.png" id="6_o6ugc"]
+[ext_resource type="Texture2D" uid="uid://wmkse8q1jaw8" path="res://building/building_category_icon/card_rotate.png" id="7_vcohy"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_c14fx"]
 bg_color = Color(0.937255, 0.619608, 0.278431, 1)
@@ -63,7 +66,23 @@ expand_icon = true
 [node name="BtnQuest" type="Button" parent="MainContainer/CategoryBar"]
 custom_minimum_size = Vector2(48, 48)
 layout_mode = 2
-icon = ExtResource("4_o4x0o")
+icon = ExtResource("5_c14fx")
+expand_icon = true
+
+[node name="HSeparator" type="HSeparator" parent="MainContainer/CategoryBar"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+
+[node name="BtnDestroy" type="Button" parent="MainContainer/CategoryBar"]
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+icon = ExtResource("6_o6ugc")
+expand_icon = true
+
+[node name="BtnCancelDestroy" type="Button" parent="MainContainer/CategoryBar"]
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+icon = ExtResource("7_vcohy")
 expand_icon = true
 
 [node name="BlueprintPanel" type="PanelContainer" parent="MainContainer"]

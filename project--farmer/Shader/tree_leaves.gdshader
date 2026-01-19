@@ -5,7 +5,6 @@ uniform sampler2D alphaTexture;
 uniform vec4 leavesColor : source_color;
 uniform float alphaThreshold = 0.1;
 
-// --- ĐÃ XÓA uniform bool deactivateBillboard ---
 
 uniform float offsetScale : hint_range(0.0001, 1.0, 0.001);
 

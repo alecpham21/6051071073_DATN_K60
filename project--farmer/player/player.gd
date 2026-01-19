@@ -143,40 +143,22 @@ func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("interact_mode"): _set_mouse_captured(false)
 	elif event.is_action_released("interact_mode"): _set_mouse_captured(true)
 	
-	if event.is_action_pressed("click"):
-		if GState.is_build():
-			print("🖱️ Player: Click!")
-			
-			var manager = get_tree().get_first_node_in_group("mgr_build")
-			
-			if manager:
-				if manager.place_building():
-					GState.play()
-				else:
-					print("⚠️ Đặt thất bại!")
-				
-				get_viewport().set_input_as_handled()
-			else:
-				printerr("❌ Lỗi: Map này không có BuildingManager (hoặc quên add Group)!")
-				
-			return
 	
 	if event.is_action_pressed("ui_cancel"):
 		if GState.is_build():
 			GState.play()
 			if building_manager: building_manager.cancel_build()
 			return
-			
 		if !GState.is_playing(): GState.play()
 	
 	if event.is_action_pressed("build"):
 		if GState.is_playing():
 			GState.build()
-			print("🔨 Building In")
+			print("Building In")
 		elif GState.is_build():
 			GState.play()
 			if building_manager: building_manager.cancel_build()
-			print("❌ Building Out")
+			print("Building Out")
 	
 	if GState.is_build():
 		return
@@ -188,10 +170,8 @@ func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("toggle_journal"):
 		if GState.is_shop() or GState.is_dialog() or GState.is_cook() or GState.is_build():
 			return
-			
 		var journal = get_tree().get_first_node_in_group("quest_journal")
 		if journal: journal.toggle_ui()
-	
 	
 	if Input.is_action_just_pressed("inventory"):
 		if not (GState.is_shop() or GState.is_dialog() or GState.is_cook() or GState.is_build()):
@@ -207,7 +187,6 @@ func _unhandled_input(event: InputEvent) -> void:
 				if inv_interface:
 					inv_interface.visible = false
 					inv_interface.clear_external_inventory()
-			
 			get_viewport().set_input_as_handled()
 			return
 
@@ -328,21 +307,25 @@ func _setup_game_state_connections():
 	)
 
 func _on_drop_item_from_ui(slot_data: SlotData) -> void:
-	
-	if not is_inside_tree():
+	if not is_inside_tree() or slot_data == null:
 		return
-	
-	if slot_data == null: return
+		
+	var throw_dir = -global_transform.basis.z 
 	
 	var pickup = PICKUP_SCENE.instantiate()
 	pickup.slot_data = slot_data
 	
-	pickup.global_position = global_position + Vector3(0, 1.2, 0)
+	var drop_pos = global_position + Vector3(0, 1.2, 0)
+	pickup.global_position = drop_pos
 	
-	get_parent().add_child(pickup)
-	
-	var throw_force = (-global_transform.basis.z * 3.0) + Vector3(0, 2.0, 0)
-	pickup.apply_impulse(throw_force)
+	var p = get_parent()
+	if p:
+		p.call_deferred("add_child", pickup)
+		
+		pickup.ready.connect(func():
+			var throw_force = (throw_dir * 3.0) + Vector3(0, 2.0, 0)
+			pickup.apply_impulse(throw_force)
+		, CONNECT_ONE_SHOT)
 
 func _on_external_item_dropped(item_data: ItemData, amount: int, target_pos: Vector3) -> void:
 	if not item_data: return

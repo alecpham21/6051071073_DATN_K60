@@ -188,24 +188,34 @@ func can_dig(grid_pos: Vector2i) -> bool:
 
 func _spawn_initial_buildings():
 	if not building_manager: return
-	print("🏗️ Placing Default Building")
+	print("🏗️ [GroundGen] Placing Default Buildings...")
 	
 	var house_id = "first_house"
 	var house_world_pos = Vector3(-21.217, 0, 0)
 	var house_grid = get_grid_pos_from_world(house_world_pos)
 	var house_rot = Vector3(0, deg_to_rad(90.0), 0)
-	var house_scale = Vector3(1.5, 1.5, 1.5) 
-	
-	building_manager.restore_building(house_id, house_grid, house_rot, house_scale)
+	var house_scale = Vector3(1.5, 1.5, 1.5)
+	var house_node = building_manager.restore_building(house_id, house_grid, house_rot, house_scale)
+	if house_node: house_node.set_meta("is_initial", true)
 	
 	var well_id = "well"
 	var well_world_pos = Vector3(-20.848, 0, -6.554)
 	var well_grid = get_grid_pos_from_world(well_world_pos)
 	var well_rot = Vector3(0, deg_to_rad(90.0), 0)
-	var well_scale = Vector3.ZERO 
+	var well_node = building_manager.restore_building(well_id, well_grid, well_rot, Vector3.ZERO)
+	if well_node: well_node.set_meta("is_initial", true)
 	
-	building_manager.restore_building(well_id, well_grid, well_rot, well_scale)
+	var tree_id_1 = "tree_ver_1"
+	var tree_world_pos = Vector3(-9.267, 0, -20.396)
+	var tree_grid = get_grid_pos_from_world(tree_world_pos)
+	var tree_node1 = building_manager.restore_building(tree_id_1, tree_grid, house_rot, Vector3.ZERO)
+	if tree_node1: tree_node1.set_meta("is_initial", true)
 
+	var tree_id_2 = "tree_ver_2"
+	var tree2_world_pos = Vector3(6.803, 0, -20.396)
+	var tree2_grid = get_grid_pos_from_world(tree2_world_pos)
+	var tree_node2 = building_manager.restore_building(tree_id_2, tree2_grid, house_rot, Vector3.ZERO)
+	if tree_node2: tree_node2.set_meta("is_initial", true)
 
 func load_from_data(data: Dictionary, minutes_away: float = 0.0):
 	await _ensure_setup()

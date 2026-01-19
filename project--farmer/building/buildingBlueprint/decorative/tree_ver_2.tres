@@ -1,0 +1,20 @@
+[gd_resource type="Resource" script_class="BuildingData" load_steps=5 format=3 uid="uid://b31rpvx8sqq07"]
+
+[ext_resource type="Resource" uid="uid://bytluuthi8j6w" path="res://inventory_script/item/items/item_material/item_build_material/wood.tres" id="1_108ke"]
+[ext_resource type="Texture2D" uid="uid://dp6fn6y0boc6d" path="res://building/building_icon/tree_ver_2.png" id="1_j1q4h"]
+[ext_resource type="Script" uid="uid://fekbxueaingk" path="res://building/building_data.gd" id="1_vj3am"]
+[ext_resource type="PackedScene" uid="uid://4i01cfeyfyaf" path="res://modelScene/tree/blueprint/blueprint_tree_1.tscn" id="3_5ekss"]
+
+[resource]
+script = ExtResource("1_vj3am")
+id = "tree_ver_2"
+name = "Simple Tree 2"
+category = 2
+required_item = ExtResource("1_108ke")
+item_cost = 7
+icon = ExtResource("1_j1q4h")
+scene = ExtResource("3_5ekss")
+size = Vector2i(3, 4)
+offset = Vector3(0, 0, 0)
+scale = Vector3(1, 1, 1)
+metadata/_custom_type_script = "uid://fekbxueaingk"
