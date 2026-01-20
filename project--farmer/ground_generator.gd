@@ -48,6 +48,7 @@ var current_padding: int = 0
 var is_nav_dirty: bool = false
 
 func _ready() -> void:
+	add_to_group("ground_generator")
 	if Engine.is_editor_hint():
 		return
 		
@@ -219,10 +220,14 @@ func _spawn_initial_buildings():
 
 func load_from_data(data: Dictionary, minutes_away: float = 0.0):
 	await _ensure_setup()
+	
 	if not data.has("grid"):
 		await generate_new_map()
 		return
-	print("📂 Generator: Load the Old Map")
+		
+	print("📂 Generator: Initializing block_data array...")
+	
+	# 1. Dọn dẹp các Node cũ trong map
 	for child in get_children():
 		if child.name == "PaddingDecor": continue 
 		if child.has_method("harvest") or child.get("current_grid_pos") != null or child.name.contains("WindGrass"):
@@ -230,8 +235,12 @@ func load_from_data(data: Dictionary, minutes_away: float = 0.0):
 	
 	var last_saved_time = data.get("saved_total_minutes", TimeManager.get_total_minutes_played())
 	var current_time = TimeManager.get_total_minutes_played()
-	var growth_bonus = int((current_time - last_saved_time) * GROWTH_PER_MINUTE)
+	var minutes_passed = current_time - last_saved_time
 	var grid_info = data["grid"]
+	
+	# 2. BƯỚC 1: Nạp toàn bộ dữ liệu thô vào mảng block_data trước
+	# Việc này đảm bảo khi Plant.gd gọi update_visuals sẽ không bị lỗi thiếu Index
+	block_data.clear()
 	block_data.resize(ground_extents.x)
 	for x in range(ground_extents.x):
 		block_data[x] = []
@@ -243,47 +252,60 @@ func load_from_data(data: Dictionary, minutes_away: float = 0.0):
 				d.plant_type = saved_tile.get("plant_type", PlantDatabase.PLANT_VARIANT.NONE)
 				d.crop_ready = saved_tile.get("crop_ready", false)
 				d.is_watered = saved_tile.get("is_watered", false)
-				var saved_growth = saved_tile.get("growth", 0)
-				block_data[x].append(d)
-				renderer.set_mode(x, z, d.mode)
-				if d.plant_type != PlantDatabase.PLANT_VARIANT.NONE:
-					_respawn_crop(x, z, d, saved_growth + growth_bonus)
-			elif saved_tile is BlockGroundData:
-				d.mode = saved_tile.mode
-				block_data[x].append(d)
-				renderer.set_mode(x, z, d.mode)
+				d.growth = saved_tile.get("growth", 0)
+			block_data[x].append(d)
+
+	print("🌱 Generator: Calculating offline growth and spawning nodes...")
+	for x in range(ground_extents.x):
+		for z in range(ground_extents.y):
+			var d = block_data[x][z]
+			
+			renderer.set_mode(x, z, d.mode)
+			
+			if d.plant_type != PlantDatabase.PLANT_VARIANT.NONE:
+				var final_growth = d.growth
+				
+				if d.is_watered:
+					var max_g = 15
+					var current_stage = _calculate_stage_id(d.growth, max_g)
+					
+					var limit = 0
+					if current_stage == 0: limit = int(max_g * 0.2) + 1
+					elif current_stage == 1: limit = int(max_g * 0.5) + 1
+					elif current_stage == 2: limit = max_g
+					else: limit = max_g + 1
+					
+					var bonus = int(minutes_passed * GROWTH_PER_MINUTE)
+					var potential = d.growth + bonus
+					
+					if potential >= limit:
+						final_growth = limit
+						d.is_watered = false
+						print("📏 Plant at ", Vector2i(x,z), " reached Stage ", current_stage + 1, " and consumed water.")
+					else:
+						final_growth = potential
+				
+				_respawn_crop(x, z, d, final_growth)
+				
 	if data.has("grass_list"):
-		print("🌿 Recovery ", data["grass_list"].size(), " Grass...")
 		for pos in data["grass_list"]:
-			var grid_pos = Vector2i.ZERO
-			if pos is Dictionary and pos.has("x") and pos.has("y"):
-				grid_pos = Vector2i(int(pos.x), int(pos.y))
-			elif pos is Vector2 or pos is Vector2i:
-				grid_pos = Vector2i(pos)
-			else:
-				continue 
-			if grid_pos == Vector2i.ZERO:
-				continue
-			_spawn_single_grass(grid_pos)
+			var g_pos = Vector2i(int(pos.x), int(pos.y))
+			_spawn_single_grass(g_pos)
+			
 	if building_manager:
 		building_manager.clear_all_buildings() 
 		if data.has("buildings"):
-			print("🏠 [Generator] Đang load ", data["buildings"].size(), " công trình...")
 			for b_info in data["buildings"]:
 				var b_pos = Vector2i(b_info["x"], b_info["y"])
 				var b_rot = Vector3(b_info["rot_x"], b_info["rot_y"], b_info["rot_z"])
+				var b_scale = Vector3(b_info.get("sc_x", 0), b_info.get("sc_y", 0), b_info.get("sc_z", 0))
 				
-				var b_node = building_manager.restore_building(b_info["id"], b_pos, b_rot)
-				
-				if b_node:
-					print("📍 [Generator] Đã tạo node: ", b_node.name)
-					if b_node.has_method("load_machine_data") and b_info.has("machine_data"):
-						print("⚡ [Generator] Phát hiện Máy, đang đẩy dữ liệu vào...")
-						b_node.load_machine_data(b_info["machine_data"], minutes_away)
-				else:
-					print("❌ [Generator] LỖI: building_manager.restore_building không trả về Node!")
+				var b_node = building_manager.restore_building(b_info["id"], b_pos, b_rot, b_scale)
+				if b_node and b_node.has_method("load_machine_data") and b_info.has("machine_data"):
+					b_node.load_machine_data(b_info["machine_data"], minutes_away)
 	
 	bake_nav_mesh()
+	print("✅ Generator: Map load completed.")
 
 func get_current_state() -> Dictionary:
 	var save_dict = {}
@@ -340,7 +362,10 @@ func get_current_state() -> Dictionary:
 					"y": child.get_meta("grid_pos").y,
 					"rot_x": child.global_rotation.x,
 					"rot_y": child.global_rotation.y,
-					"rot_z": child.global_rotation.z
+					"rot_z": child.global_rotation.z,
+					"sc_x": child.scale.x,
+					"sc_y": child.scale.y,
+					"sc_z": child.scale.z
 				}
 				
 				if child.has_method("get_machine_data"):
@@ -506,3 +531,12 @@ func _spawn_single_grass(grid_pos: Vector2i):
 		grass_obj.current_grid_pos = grid_pos
 	if not grass_obj.name.contains("WindGrass"):
 		grass_obj.name = "WindGrass_" + str(grid_pos.x) + "_" + str(grid_pos.y)
+
+func _calculate_stage_id(growth: int, max_g: int) -> int:
+	if growth > max_g: return 4
+	
+	var progress = float(growth) / float(max_g)
+	if progress >= 1.0: return 3
+	if progress > 0.5: return 2
+	if progress > 0.2: return 1
+	return 0

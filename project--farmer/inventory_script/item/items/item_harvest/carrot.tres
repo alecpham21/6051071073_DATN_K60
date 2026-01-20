@@ -1,6 +1,6 @@
-[gd_resource type="Resource" script_class="ItemData" load_steps=4 format=3 uid="uid://c7om45kke1quw"]
+[gd_resource type="Resource" script_class="ItemDataMaterial" load_steps=4 format=3 uid="uid://c7om45kke1quw"]
 
-[ext_resource type="Script" uid="uid://oj6faifeyt6a" path="res://inventory_script/item/item_data/item_data.gd" id="1_6olsd"]
+[ext_resource type="Script" uid="uid://vmjc7agye6gg" path="res://inventory_script/item/item_data/item_data_material.gd" id="1_tggni"]
 [ext_resource type="Texture2D" uid="uid://omvd8ed3fie6" path="res://inventory_script/item/item_atlast/#2 - Transparent Icons & Drop Shadow.png" id="2_tggni"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_s51ai"]
@@ -8,9 +8,12 @@ atlas = ExtResource("2_tggni")
 region = Rect2(192, 448, 32, 32)
 
 [resource]
-script = ExtResource("1_6olsd")
+script = ExtResource("1_tggni")
+material_type = 1
+selling_type = 2
+sell_price = 40
 name = "Carrot"
-description = ""
+description = "Can feed to bunny, but where is the bunny?"
 stackable = true
 texture = SubResource("AtlasTexture_s51ai")
 price = 1000

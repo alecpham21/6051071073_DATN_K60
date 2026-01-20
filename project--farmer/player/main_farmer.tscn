@@ -53438,7 +53438,7 @@ _data = {
 }
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_5e50v"]
-size = Vector3(1, 1.5703, 0.636169)
+size = Vector3(1, 1.53466, 0.636169)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ptf7u"]
 transparency = 1
@@ -53456,7 +53456,7 @@ size = Vector2(1, 1)
 transparency = 1
 no_depth_test = true
 shading_mode = 0
-albedo_color = Color(0.956619, 0.8196, 0.376665, 0.133333)
+albedo_color = Color(0.99043, 0.879776, 0.753983, 0.133333)
 
 [sub_resource type="BoxMesh" id="BoxMesh_cmial"]
 material = SubResource("StandardMaterial3D_8kg18")
@@ -56003,7 +56003,7 @@ libraries = {
 transform = Transform3D(-0.775967, 0.626983, -0.102055, 0.609745, 0.798669, -0.125303, 0.00281604, -0.165681, -0.99023, 0.102935, 0.899136, 0.368824)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0, 0.782371, -0.00244287)
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0, 0.80019, -0.00244287)
 shape = SubResource("BoxShape3D_5e50v")
 
 [node name="SeedCast3D" type="RayCast3D" parent="."]
@@ -56014,6 +56014,7 @@ target_position = Vector3(0, -1.27, 0)
 transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0.00440803, 1.129, -0.803475)
 target_position = Vector3(0, -1.505, 0)
 collide_with_areas = true
+debug_shape_custom_color = Color(0.482649, 0.0759386, 0.105045, 1)
 
 [node name="GridCheckRay" type="RayCast3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.803475)

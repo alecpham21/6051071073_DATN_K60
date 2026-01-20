@@ -31,10 +31,13 @@ SceneTransition="*res://ui/scene_transition.tscn"
 QuestManager="*res://quest_system/quest_manager.gd"
 SignalBus="*res://quest_system/signal_bus.gd"
 Dialogic="*res://addons/dialogic/Core/DialogicGameHandler.gd"
+SaveManager="*res://SaveSystem/SaveManager.gd"
+PauseMenu="*res://ui/pause_menu.tscn"
 
 [dialogic]
 
 directories/dch_directory={
+"Merchant_Emisarry": "res://Dialog/NPC/Merchant_Emisarry.dch",
 "NPC_Frujt": "res://Dialog/NPC_Frujt.dch",
 "NPC_Jack": "res://Dialog/NPC_Jack.dch",
 "NPC_Lumberjack": "res://Dialog/NPC/NPC_Lumberjack.dch",
@@ -47,6 +50,11 @@ directories/dtl_directory={
 "Lumberjack_NoMoney": "res://Dialog/timeline/lumberjack/Lumberjack_NoMoney.dtl",
 "Lumberjack_Shop": "res://Dialog/timeline/Lumberjack_Shop.dtl",
 "SellingFrujt": "res://Dialog/timeline/SellingFrujt.dtl",
+"contract/npc_trade_contract": "res://Dialog/timeline/contract/npc_trade_contract.dtl",
+"npc_busy": "res://Dialog/timeline/npc_busy.dtl",
+"npc_contract_selection": "res://Dialog/timeline/npc_contract_selection.dtl",
+"npc_trade_contract": "res://Dialog/NPC/npc_trade_contract.dtl",
+"timeline/npc_trade_contract": "res://Dialog/timeline/npc_trade_contract.dtl",
 "timeline_npc_jack": "res://Dialog/timeline_npc_jack.dtl",
 "timeline_stinky": "res://Dialog/timeline/timeline_stinky.dtl",
 "welcome_home_jack": "res://Dialog/timeline/welcome_home_jack.dtl"
@@ -59,6 +67,10 @@ layout/style_list=["res://Dialog/styles/New_File.tres"]
 layout/default_style="res://Dialog/styles/New_File.tres"
 glossary/default_case_sensitive=true
 variables={
+"Contract": {
+"selected_crates": 0,
+"selected_item": ""
+},
 "WoodShop": {
 "input_text": "",
 "is_waiting": false,

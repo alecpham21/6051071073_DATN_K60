@@ -100,7 +100,19 @@ func grow():
 	update_visuals()
 
 func update_visuals():
-	pass
+	var stage = get_stage_id()
+	
+	if mesh_seeding: mesh_seeding.visible = (stage == 0)
+	if mesh_sapling: mesh_sapling.visible = (stage == 1)
+	if mesh_middle: mesh_middle.visible = (stage == 2)
+	if mesh_ready: mesh_ready.visible = (stage == 3)
+	if mesh_over: mesh_over.visible = (stage == 4)
+	
+	var parent_gen = get_parent()
+	if parent_gen and "block_data" in parent_gen:
+		if current_grid_pos.x < parent_gen.block_data.size():
+			var block = parent_gen.block_data[current_grid_pos.x][current_grid_pos.y]
+			_set_soil_wet(block.is_watered)
 
 func _set_soil_wet(is_wet: bool):
 	if not ground_mesh: return

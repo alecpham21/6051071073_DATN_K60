@@ -118,3 +118,46 @@ theme_override_styles/pressed = SubResource("StyleBoxTexture_rnh2x")
 theme_override_styles/normal = SubResource("StyleBoxTexture_s7of0")
 text = "Quit
 "
+
+[node name="PlayOptions" type="VBoxContainer" parent="PanelContainer"]
+visible = false
+layout_mode = 2
+
+[node name="NewGame" type="Button" parent="PanelContainer/PlayOptions"]
+custom_minimum_size = Vector2(220, 60)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("2_s7of0")
+theme_override_font_sizes/font_size = 16
+theme_override_styles/disabled = SubResource("StyleBoxTexture_y2jwq")
+theme_override_styles/hover = SubResource("StyleBoxTexture_cdegv")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_vi477")
+theme_override_styles/normal = SubResource("StyleBoxTexture_s7of0")
+text = "New Game"
+
+[node name="LoadGame" type="Button" parent="PanelContainer/PlayOptions"]
+custom_minimum_size = Vector2(220, 60)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("2_s7of0")
+theme_override_font_sizes/font_size = 16
+theme_override_styles/disabled = SubResource("StyleBoxTexture_y2jwq")
+theme_override_styles/hover = SubResource("StyleBoxTexture_cdegv")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_vi477")
+theme_override_styles/normal = SubResource("StyleBoxTexture_s7of0")
+text = "Load Game"
+
+[node name="Back" type="Button" parent="PanelContainer/PlayOptions"]
+custom_minimum_size = Vector2(220, 60)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("2_s7of0")
+theme_override_font_sizes/font_size = 16
+theme_override_styles/disabled = SubResource("StyleBoxTexture_y2jwq")
+theme_override_styles/hover = SubResource("StyleBoxTexture_cdegv")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_vi477")
+theme_override_styles/normal = SubResource("StyleBoxTexture_s7of0")
+text = "Back"

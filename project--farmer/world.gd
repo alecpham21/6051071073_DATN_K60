@@ -12,9 +12,10 @@ const PickUp = preload("res://inventory_script/item/pick_up_item/pick_up.tscn")
 func _ready():
 	Watcher.indoor = false
 	
-	if Watcher.has_data(level_id):
-		print("📂 World: Load data...")
-		var data = Watcher.get_level_data(level_id)
+	var data = Watcher.get_level_data(level_id) if Watcher.has_data(level_id) else null
+	
+	if data != null:
+		print("📂 World: Loading level data for ", level_id)
 		
 		var minutes_away = 0.0
 		if data.has("saved_at_total_min"):
@@ -24,7 +25,7 @@ func _ready():
 		
 		await ground_generator.load_from_data(data, minutes_away)
 	else:
-		print("✨ World: New map...")
+		print("✨ World: No data found. Generating new map for ", level_id)
 		await ground_generator.generate_new_map()
 		
 	player.toggle_inventory.connect(toggle_inventory_interface)
@@ -38,7 +39,9 @@ func _ready():
 		GameData.set_current_stage(self)
 	
 	for node in get_tree().get_nodes_in_group("external_inventory"):
-		node.toggle_inventory.connect(toggle_inventory_interface)
+		if not node.toggle_inventory.is_connected(toggle_inventory_interface):
+			node.toggle_inventory.connect(toggle_inventory_interface)
+			
 	SceneTransition.reveal_scene()
 
 func save_level_state():

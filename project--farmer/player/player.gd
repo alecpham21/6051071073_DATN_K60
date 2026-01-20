@@ -246,20 +246,29 @@ func get_drop_position() -> Vector3:
 
 func try_harvest_crop(crop):
 	crop.harvest()
+	print("Ray Colliding: ", grid_check_ray.is_colliding())
 
 func _update_highlight_selector():
 	if not HotBar.active_item or not (HotBar.active_item is ItemDataTool):
 		hl_select.visible = false
 		return
 	
-	if not ground_gen or not grid_check_ray.is_colliding():
+	if not ground_gen:
 		hl_select.visible = false
 		return
-	var hit_pos = grid_check_ray.get_collision_point()
+
+	tool_cast.force_raycast_update()
+
+	if not tool_cast.is_colliding():
+		hl_select.visible = false
+		return
+		
+	var hit_pos = tool_cast.get_collision_point()
 	var grid_pos = ground_gen.get_grid_pos_from_world(hit_pos)
 	var data = ground_gen.block_data
+	
 	if grid_pos.x >= 0 and grid_pos.x < data.size() and grid_pos.y >= 0 and grid_pos.y < data[0].size():
-		hl_select.global_position = ground_gen.get_world_pos_from_grid(grid_pos) + Vector3(0, 0.02, 0)
+		hl_select.global_position = ground_gen.get_world_pos_from_grid(grid_pos) + Vector3(0, 0.05, 0)
 		hl_select.scale = Vector3(ground_gen.renderer.spacing, 1, ground_gen.renderer.spacing)
 		hl_select.global_rotation = Vector3.ZERO
 		hl_select.visible = true

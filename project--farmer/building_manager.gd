@@ -116,14 +116,11 @@ func _calculate_auto_scale(node: Node3D, data_size: Vector2i, base_scale: Vector
 	var target_w = data_size.x * spacing
 	var target_d = data_size.y * spacing
 	
-	# Tính toán tỷ lệ cần thiết cho từng trục
 	var ratio_x = target_w / model_w if model_w > 0.01 else 1.0
 	var ratio_z = target_d / model_d if model_d > 0.01 else 1.0
 	
-	# Chọn tỷ lệ nhỏ nhất để giữ Uniform Scale (không bị giãn)
 	var final_ratio = min(ratio_x, ratio_z)
 	
-	# Trả về scale gốc nhân với tỷ lệ thu phóng đồng nhất
 	return base_scale * final_ratio
 
 func spawn_building_node(data: BuildingData, grid_pos: Vector2i, rot_rotation: Vector3, override_size: Vector2i = Vector2i.ZERO, scale_override: Vector3 = Vector3.ZERO):

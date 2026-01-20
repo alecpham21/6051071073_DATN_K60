@@ -1,0 +1,15 @@
+Merchant_Emisarry: Hey, Do you want to associate with us?
+- Let's do it
+	jump npc_contract_selection/
+- Associate?
+	Merchant_Emisarry: Yes, If you have a farm and want to sell some large amount of frujt or vegetable, you can sign a contract with us
+- Nah, I'm good
+	[end_timeline]
+player: Contract? Tell me more about it
+Merchant_Emisarry: Well you can choose with type of food you want to  trade, currently we mostly trade frujt and vegetable, then choose how many crate you can give to us
+Merchant_Emisarry: For example if you choose to trade one crate of banana, it will have 20 banana inside. Then just wait until we send a truck to pick it up, easy money.
+Merchant_Emisarry: So do you want to sign up for it ?
+- Aight, Let's do it
+	jump npc_contract_selection/
+- Nah, i'm good
+	[end_timeline]

@@ -22,6 +22,7 @@ shader_parameter/color_dark = Color(0.357201, 0.499562, 0.262025, 1)
 shader_parameter/terrain_scale = 0.1
 shader_parameter/grass_texture = ExtResource("2_nr4kr")
 shader_parameter/wind_speed = 0.5
+shader_parameter/use_clouds = true
 shader_parameter/cloud_noise = SubResource("NoiseTexture2D_6s6l3")
 shader_parameter/cloud_color = Color(0.1, 0.1, 0.3, 1)
 shader_parameter/cloud_strength = 0.5

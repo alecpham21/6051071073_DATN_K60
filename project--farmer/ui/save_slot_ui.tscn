@@ -1,0 +1,124 @@
+[gd_scene load_steps=20 format=3 uid="uid://cgptdxovqlsdx"]
+
+[ext_resource type="Texture2D" uid="uid://cfxw860kcaw8f" path="res://Textures/FrameUI/panel_brown_damaged_dark.png" id="1_exxl3"]
+[ext_resource type="Script" uid="uid://3dxr1htewr0e" path="res://save_slot_ui.gd" id="1_ukajn"]
+[ext_resource type="FontFile" uid="uid://0jxkmvee0ls8" path="res://font/PixelOperator8-Bold.ttf" id="3_1ths1"]
+[ext_resource type="Texture2D" uid="uid://cpjbwndu24dj4" path="res://Textures/FrameUI/button_brown_hover.png" id="4_ge3gf"]
+[ext_resource type="Texture2D" uid="uid://bnpou26l4btaf" path="res://Textures/FrameUI/button_brown.png" id="4_tdpcj"]
+[ext_resource type="Texture2D" uid="uid://i0y2sn81iofb" path="res://Textures/FrameUI/button_brown_press.png" id="5_56nyg"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_1ths1"]
+texture = ExtResource("1_exxl3")
+texture_margin_left = 5.0
+texture_margin_top = 5.0
+texture_margin_right = 5.0
+texture_margin_bottom = 5.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_rsajw"]
+texture = ExtResource("4_ge3gf")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_t16vb"]
+texture = ExtResource("5_56nyg")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ge3gf"]
+texture = ExtResource("4_tdpcj")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_tg3k7"]
+texture = ExtResource("4_ge3gf")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_aqkjm"]
+texture = ExtResource("5_56nyg")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_56nyg"]
+texture = ExtResource("4_tdpcj")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_dlngb"]
+texture = ExtResource("4_ge3gf")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_3ot82"]
+texture = ExtResource("5_56nyg")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_jpjji"]
+texture = ExtResource("4_tdpcj")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_8xduk"]
+texture = ExtResource("4_ge3gf")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_43fdx"]
+texture = ExtResource("5_56nyg")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_c02mk"]
+texture = ExtResource("4_tdpcj")
+
+[node name="SaveSlotUI" type="Panel"]
+process_mode = 3
+custom_minimum_size = Vector2(400, 250)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -250.0
+offset_top = -125.0
+offset_right = 250.0
+offset_bottom = 125.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_1ths1")
+script = ExtResource("1_ukajn")
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+custom_minimum_size = Vector2(400, 0)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Slot1" type="Button" parent="CenterContainer/VBoxContainer"]
+custom_minimum_size = Vector2(450, 50)
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("3_1ths1")
+theme_override_styles/hover = SubResource("StyleBoxTexture_rsajw")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_t16vb")
+theme_override_styles/normal = SubResource("StyleBoxTexture_ge3gf")
+
+[node name="Slot2" type="Button" parent="CenterContainer/VBoxContainer"]
+custom_minimum_size = Vector2(450, 50)
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("3_1ths1")
+theme_override_styles/hover = SubResource("StyleBoxTexture_tg3k7")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_aqkjm")
+theme_override_styles/normal = SubResource("StyleBoxTexture_56nyg")
+
+[node name="Slot3" type="Button" parent="CenterContainer/VBoxContainer"]
+custom_minimum_size = Vector2(450, 50)
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("3_1ths1")
+theme_override_styles/hover = SubResource("StyleBoxTexture_dlngb")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_3ot82")
+theme_override_styles/normal = SubResource("StyleBoxTexture_jpjji")
+
+[node name="BackBtn" type="Button" parent="CenterContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("3_1ths1")
+theme_override_styles/hover = SubResource("StyleBoxTexture_8xduk")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_43fdx")
+theme_override_styles/normal = SubResource("StyleBoxTexture_c02mk")
+text = "Back"

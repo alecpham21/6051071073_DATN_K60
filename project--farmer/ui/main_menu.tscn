@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://dnwlxm7utd27m"]
+[gd_scene load_steps=18 format=3 uid="uid://dnwlxm7utd27m"]
 
 [ext_resource type="Shader" uid="uid://bkw4b21akjsc2" path="res://subViewportPixel.gdshader" id="1_wk0pr"]
 [ext_resource type="Shader" uid="uid://viqy3uwh6ns7" path="res://PixelShader.gdshader" id="2_rmr83"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://dk1o4w36biuox" path="res://background/main_menu_background.tscn" id="3_rmr83"]
 [ext_resource type="PackedScene" uid="uid://cd0bmqmu7xj1u" path="res://model/characterModel/FarmerMenu.tscn" id="4_8uxxo"]
 [ext_resource type="PackedScene" uid="uid://c2x6bpmqxy1jx" path="res://modelScene/NPC/ruby.tscn" id="5_arv2f"]
+[ext_resource type="PackedScene" uid="uid://cgptdxovqlsdx" path="res://ui/save_slot_ui.tscn" id="7_lsdqh"]
 [ext_resource type="Shader" uid="uid://c13esa4vg2n5k" path="res://level/posterization.gdshader" id="7_p8ri8"]
 [ext_resource type="PackedScene" uid="uid://dd48ywngxd2oc" path="res://Scene/Environment/day_night_cycle.tscn" id="7_ubpvv"]
 [ext_resource type="Texture2D" uid="uid://do2abscrs7pgw" path="res://Textures/FrameUI/panel_border_brown_detail.png" id="8_ubpvv"]
@@ -115,6 +116,10 @@ transform = Transform3D(0.473812, 0, -0.880626, 0, 1, 0, 0.880626, 0, 0.473812, 
 transform = Transform3D(-0.398957, 0, -0.91697, 0, 1, 0, 0.91697, 0, -0.398957, 38.3301, 0, -6.41614)
 
 [node name="MenuGameUI" parent="." instance=ExtResource("3_8uxxo")]
+metadata/_edit_use_anchors_ = true
+
+[node name="SaveSlotUI" parent="." instance=ExtResource("7_lsdqh")]
+visible = false
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.684191, 0.729303, 0, -0.729303, 0.684191, 29.4311, 0, 0)
@@ -146,6 +151,7 @@ patch_margin_left = 15
 patch_margin_top = 15
 patch_margin_right = 15
 patch_margin_bottom = 15
+metadata/_edit_use_anchors_ = true
 
 [node name="Godrays" type="MeshInstance3D" parent="."]
 transform = Transform3D(0.935289, -0.353882, 0, 0.353882, 0.935289, 0, 0, 0, 1, 34.0111, 11.6072, -7.70666)

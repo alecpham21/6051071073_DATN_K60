@@ -91,7 +91,7 @@ func randomize_shirt_color() -> void:
 		print("Đã đổi màu StandardMaterial thành: ", random_color)
 		
 	elif new_mat is ShaderMaterial:
-		var param_name = "albedo"  # <--- Nếu shader bạn dùng tên khác (ví dụ "color"), sửa chữ này!
+		var param_name = "albedo"
 		
 		var param_list = RenderingServer.get_shader_parameter_list(new_mat.shader.get_rid())
 		var found = false

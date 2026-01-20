@@ -110,14 +110,13 @@ func complete_quest(quest_id: String):
 		var q = quests[quest_id]
 		if not q.is_completed:
 			q.is_completed = true
-			print("🎉 QUEST COMPLETED: " + q.title)
+			
+			if quest_id == current_contract_id:
+				active_contract_item = null
+				print("QuestManager: Contract cleared. Ready for next one.")
 			
 			_handle_rewards(q)
-			
 			quest_updated.emit()
-			
-			if q.next_quest_id != "":
-				start_quest(q.next_quest_id)
 
 func _handle_rewards(q: QuestResource):
 	if q.reward_gold > 0:

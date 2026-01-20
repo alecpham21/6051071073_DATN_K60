@@ -13,7 +13,7 @@
 [ext_resource type="Resource" uid="uid://c5ju7kxb8sgep" path="res://inventory_script/item/items/item_tool/hoe.tres" id="8_rn8ob"]
 [ext_resource type="Resource" uid="uid://dom2oqd20bncl" path="res://inventory_script/item/items/item_material/item_consumable/milk.tres" id="11_p831m"]
 [ext_resource type="Resource" uid="uid://b3m5vp80c2jnv" path="res://inventory_script/item/items/item_feed/chicken_feed.tres" id="12_6ytgi"]
-[ext_resource type="Resource" uid="uid://208q0fgbf0k5" path="res://inventory_script/item/items/item_material/egg.tres" id="12_vpmq8"]
+[ext_resource type="Resource" uid="uid://cyo6avuts40ob" path="res://inventory_script/item/items/item_harvest/cabbage_seed.tres" id="14_fs1cq"]
 [ext_resource type="Resource" uid="uid://c6nexybwi1f3" path="res://inventory_script/item/items/item_harvest/bamboo_shoot.tres" id="14_w7jlk"]
 [ext_resource type="Resource" uid="uid://b57y17b1yemhk" path="res://inventory_script/item/items/item_material/apple.tres" id="16_wmnvh"]
 [ext_resource type="Resource" uid="uid://betf1nmv2yckj" path="res://inventory_script/item/items/item_livestock/chicken_fem.tres" id="17_6ytgi"]
@@ -70,7 +70,7 @@ metadata/_custom_type_script = "uid://bspkgwkxsy8mn"
 [sub_resource type="Resource" id="Resource_q6td8"]
 script = ExtResource("2_a72s1")
 item_data = ExtResource("7_rn8ob")
-quantity = 1
+quantity = 20
 attributes = Array[ExtResource("3_vdyg7")]([])
 metadata/_custom_type_script = "uid://bspkgwkxsy8mn"
 
@@ -104,8 +104,8 @@ metadata/_custom_type_script = "uid://bspkgwkxsy8mn"
 
 [sub_resource type="Resource" id="Resource_fs1cq"]
 script = ExtResource("2_a72s1")
-item_data = ExtResource("12_vpmq8")
-quantity = 5
+item_data = ExtResource("14_fs1cq")
+quantity = 10
 attributes = Array[ExtResource("3_vdyg7")]([])
 metadata/_custom_type_script = "uid://bspkgwkxsy8mn"
 

@@ -1,0 +1,18 @@
+- Corn
+	set {Contract.selected_item} = "corn"
+- Carrot
+	set {Contract.selected_item} = "carrot"
+Merchant_Emisarry: How many crate can you do for the  {Contract.selected_item}?
+- 1 Crate
+	set {Contract.selected_crates} = 1.0
+- 2 Crate
+	set {Contract.selected_crates} = 2.0
+- 3 Crate
+	set {Contract.selected_crates} = 3.0
+Merchant_Emisarry: And how long we can get those crate?
+- 2 Days
+	Merchant_Emisarry: Item is {Contract.selected_item} and Crate are {Contract.selected_crates}"
+	[signal arg="start_contract:2"]
+- 4 Days
+	Merchant_Emisarry: Item is\: {Contract.selected_item} and Crate are {Contract.selected_crates}"
+	[signal arg="start_contract:4"]

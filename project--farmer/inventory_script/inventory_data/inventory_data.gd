@@ -241,3 +241,34 @@ func grab_split_items(index: int, grabbed_slot_data: SlotData) -> SlotData:
 		inventory_updated.emit(self)
 	
 	return grabbed_slot_data
+
+
+func get_save_data() -> Array:
+	var data = []
+	for slot in slot_datas:
+		if slot and slot.item_data:
+			data.append({
+				"item_path": slot.item_data.resource_path,
+				"quantity": slot.quantity
+			})
+		else:
+			data.append(null)
+	return data
+
+func load_save_data(data: Array):
+	if data.size() != slot_datas.size():
+		slot_datas.resize(data.size())
+		
+	for i in range(data.size()):
+		var slot_info = data[i]
+		if slot_info:
+			var item_res = load(slot_info.item_path)
+			if item_res:
+				var new_slot = SlotData.new()
+				new_slot.item_data = item_res
+				new_slot.quantity = slot_info.quantity
+				slot_datas[i] = new_slot
+		else:
+			slot_datas[i] = null
+			
+	inventory_updated.emit(self)

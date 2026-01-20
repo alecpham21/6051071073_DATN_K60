@@ -65,6 +65,8 @@ func _on_item_used_up():
 		HotBar.active_slot = null
 
 func can_plant() -> bool:
+	if Watcher.indoor:
+		return false
 	var is_using = blackboard.get_var(BBNames.use_item_var, false)
 	
 	if not HotBar.active_slot or not HotBar.active_item:
@@ -75,6 +77,7 @@ func can_plant() -> bool:
 	&& get_block().mode == BlockGround.Mode.TILLED 
 
 func can_till() -> bool:
+
 	var is_using = blackboard.get_var(BBNames.use_item_var, false)
 	
 	var basic_check = HotBar.active_item \
@@ -101,6 +104,9 @@ func can_till() -> bool:
 
 
 func can_harvest() -> bool:
+	if Watcher.indoor:
+		return false
+	
 	if not use_item: return false
 
 	if character.current_interactable != null:
@@ -123,6 +129,9 @@ func can_harvest() -> bool:
 
 
 func can_care() -> bool:
+	if Watcher.indoor:
+		return false
+	
 	var is_using = blackboard.get_var(BBNames.use_item_var, false)
 	
 	if not HotBar.active_slot or not HotBar.active_item:
@@ -143,6 +152,9 @@ func can_care() -> bool:
 	return false
 
 func can_feed() -> bool:
+	if Watcher.indoor:
+		return false
+	
 	var is_using = blackboard.get_var(BBNames.use_item_var, false)
 	if not is_using or not HotBar.active_slot or not HotBar.active_item:
 		return false

@@ -20,11 +20,21 @@ func _ready() -> void:
 			available_targets.append(child)
 			occupied_targets[child] = null
 	
+	_initial_npc_placement()
+	
 	var timer = Timer.new()
 	timer.wait_time = 1.0
 	timer.timeout.connect(_on_spawn_tick)
 	add_child(timer)
 	timer.start()
+
+func _initial_npc_placement() -> void:
+	var hour = TimeManager.current_hour
+	if hour >= 6 and hour < 17:
+		var initial_count = randi_range(max_npcs / 2, max_npcs - 2)
+		print("Initial NPC placement: spawning ", initial_count, " NPCs at targets.")
+		for i in range(initial_count):
+			spawn_npc(true)
 
 func _on_spawn_tick() -> void:
 	var hour = TimeManager.current_hour
@@ -38,22 +48,25 @@ func _on_spawn_tick() -> void:
 		chance = spawn_rate_low
 	
 	if randf() < chance:
-		spawn_npc()
+		spawn_npc(false)
 
-func spawn_npc() -> void:
+func spawn_npc(at_target: bool = false) -> void:
 	if npc_scenes.is_empty(): return
 
 	var free_spots = _get_free_spots()
 	if free_spots.is_empty(): return
 
-	var spawn_pos_node = spawn_points_parent.get_children().pick_random()
 	var target_spot = free_spots.pick_random()
-
 	var chosen_scene = npc_scenes.pick_random()
 	var npc = chosen_scene.instantiate()
 	
 	add_child(npc)
-	npc.global_position = spawn_pos_node.global_position
+	
+	if at_target:
+		npc.global_position = target_spot.global_position
+	else:
+		var spawn_pos_node = spawn_points_parent.get_children().pick_random()
+		npc.global_position = spawn_pos_node.global_position
 	
 	npc.setup_ai(target_spot, despawn_point) 
 	
@@ -67,11 +80,8 @@ func request_next_target(npc_ref, current_spot: Marker3D) -> Node3D:
 		var free_spots = _get_free_spots()
 		if free_spots.size() > 0:
 			var new_spot = free_spots.pick_random()
-			
 			occupied_targets[current_spot] = null
 			occupied_targets[new_spot] = npc_ref
-			
-			
 			return new_spot
 
 	occupied_targets[current_spot] = null
