@@ -3,7 +3,7 @@ extends CharacterBody3D
 @export var timeline_name: String = "timeline_npc_jack"
 
 @export_group("Behavior Settings")
-@export var is_auto_approach_enabled: bool = false # <--- Ở Farm thì KHÔNG tích cái này. Ở Level đầu thì TÍCH vào.
+@export var is_auto_approach_enabled: bool = false
 
 @export_group("Quest Settings")
 @export var quest_to_complete_id: String = "talk_to_jack"
@@ -23,7 +23,7 @@ var move_speed: float = 3
 
 @onready var anim_player: AnimationPlayer = $UncleJack/AnimationPlayer
 var player_in_range: bool = false
-var has_auto_triggered: bool = false # Để đảm bảo chỉ tự lao tới 1 lần duy nhất
+var has_auto_triggered: bool = false
 
 func _ready():
 	if GameData.john_has_left:
@@ -45,15 +45,12 @@ func _ready():
 	Dialogic.timeline_ended.connect(_on_timeline_ended)
 
 func _input(event):
-	# QUAN TRỌNG: Chỉ nhận lệnh khi người chơi bấm nút "interact" (ví dụ: E, Enter, Space...)
-	# Bạn cần vào Project Settings -> Input Map để đảm bảo đã có action tên là "interact"
 	if player_in_range and not is_cutscene_moving and Dialogic.current_timeline == null:
 		if event.is_action_pressed("interact"): 
 			_start_dialogue()
 			get_viewport().set_input_as_handled()
 
 func _on_interacted():
-	# Dành cho trường hợp dùng nút UI hoặc Raycast
 	if not is_cutscene_moving and Dialogic.current_timeline == null:
 		_start_dialogue()
 
@@ -61,7 +58,6 @@ func _on_interact_area_body_entered(body):
 	if body is Player:
 		player_in_range = true
 		
-		# Chỉ tự lao tới nếu CÓ bật trong Inspector và CHƯA từng làm vậy trước đây
 		if is_auto_approach_enabled and not has_auto_triggered:
 			start_cutscene_approach(body.global_position, timeline_name)
 			has_auto_triggered = true
@@ -86,10 +82,10 @@ func _physics_process(delta):
 		var direction = (cutscene_target_pos - global_position).normalized()
 		var distance = global_position.distance_to(cutscene_target_pos)
 		
-		if distance > 1.5:
+		if distance > 0.7:
 			velocity = direction * move_speed
 			look_at(cutscene_target_pos, Vector3.UP)
-			rotate_y(PI) # Giữ nguyên fix lỗi nhìn ngược
+			rotate_y(PI)
 			rotation.x = 0
 			rotation.z = 0
 			move_and_slide()
