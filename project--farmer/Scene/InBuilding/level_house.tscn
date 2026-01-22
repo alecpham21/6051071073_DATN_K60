@@ -245,16 +245,8 @@ visible = false
 recipes = Array[ExtResource("24_rs3xq")]([ExtResource("21_md1uq"), ExtResource("23_68aio")])
 
 [node name="StaminaHUD" parent="UI" instance=ExtResource("24_v4h4i")]
-visible = false
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_top = 76.0
-offset_bottom = 76.0
-grow_horizontal = 2
-grow_vertical = 2
+offset_top = 176.0
+offset_bottom = 176.0
 
 [node name="Lighting" type="Node" parent="."]
 

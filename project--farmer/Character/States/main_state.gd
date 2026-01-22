@@ -10,7 +10,10 @@ func _update(delta: float) -> void:
 		character.velocity += character.get_gravity() * delta
 	else:
 		character.velocity.y = 0.0
-
+	
+	if not is_instance_valid(character.cam_ref):
+		return
+	
 	var input_vec3 = blackboard.get_var(BBNames.direction_var, Vector3.ZERO)
 	
 	if not character.mouse_captured:

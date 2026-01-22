@@ -80,6 +80,13 @@ func remove_modifier(stat_type: String, id: String):
 func clear_all_debuffs():
 	remove_modifier("max_stamina", "exhaustion")
 	remove_modifier("restore_speed", "exhaustion")
+	
+	remove_modifier("max_stamina", "no_sleep")
+	
+	remove_modifier("max_stamina", "late_sleep")
+	remove_modifier("restore_speed", "late_sleep")
+	remove_modifier("max_stamina", "too_late_sleep")
+	
 	overexertion_count = 0
 
 var overexertion_count: int = 0
@@ -106,13 +113,31 @@ func regenerate(amount: float):
 func sleep_recovery(sleep_hour: int):
 	clear_all_debuffs()
 	
-	if sleep_hour >= 0 and sleep_hour < 3:
-		add_modifier("max_stamina", "late_sleep", -0.2)
+	if sleep_hour >= 1 and sleep_hour < 3:
+		add_modifier("max_stamina", "late_sleep", -0.1)
 		add_modifier("restore_speed", "late_sleep", -0.1)
-		print("🌙 Ngủ hơi muộn: Giảm nhẹ stamina")
+		print("🌙 Sleep late (1h-3h): Reducing small stamina")
 		
 	elif sleep_hour >= 3 and sleep_hour < 6:
-		add_modifier("max_stamina", "too_late_sleep", -0.4)
-		print("💀 Ngủ quá muộn: Giảm mạnh stamina")
+		add_modifier("max_stamina", "too_late_sleep", -0.3)
+		print("💀 Sleep too late (3h+): Reducing stamina")
 		
 	stamina = get_max_stamina()
+
+func get_save_data() -> Dictionary:
+	return {
+		"stamina": stamina,
+		"max_stamina_modifiers": max_stamina_modifiers,
+		"restore_speed_modifiers": restore_speed_modifiers,
+		"overexertion_count": overexertion_count
+	}
+
+func load_save_data(data: Dictionary):
+	if data.has("stamina"): stamina = data.stamina
+	if data.has("max_stamina_modifiers"): max_stamina_modifiers = data.max_stamina_modifiers
+	if data.has("restore_speed_modifiers"): restore_speed_modifiers = data.restore_speed_modifiers
+	if data.has("overexertion_count"): overexertion_count = data.overexertion_count
+	
+	stamina_changed.emit(stamina, get_max_stamina())
+	for mod_id in max_stamina_modifiers:
+		modifier_changed.emit(mod_id, max_stamina_modifiers[mod_id])

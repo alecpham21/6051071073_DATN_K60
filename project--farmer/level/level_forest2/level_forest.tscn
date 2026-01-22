@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=3 uid="uid://bixkklrjbu7hw"]
+[gd_scene load_steps=29 format=3 uid="uid://bixkklrjbu7hw"]
 
 [ext_resource type="Script" uid="uid://0kw5v3qb08y8" path="res://level/level_forest2/level_forest.gd" id="1_fgu3o"]
 [ext_resource type="Shader" uid="uid://bkw4b21akjsc2" path="res://subViewportPixel.gdshader" id="2_hry72"]
@@ -19,6 +19,7 @@
 [ext_resource type="PackedScene" uid="uid://cmaas2sclopj4" path="res://Inventory_ui/slot.tscn" id="15_or3hq"]
 [ext_resource type="PackedScene" uid="uid://cxhu2k076jcr8" path="res://shop_ui/shop_ui.tscn" id="16_50xsv"]
 [ext_resource type="Script" uid="uid://ck8nttlafjmcu" path="res://Scripts/Resources/FastTravelLocation.gd" id="16_kcq6q"]
+[ext_resource type="PackedScene" uid="uid://xs0u77o1qd26" path="res://ui/stamina_hud.tscn" id="17_kcq6q"]
 [ext_resource type="PackedScene" uid="uid://dh4ns40qdxwam" path="res://Inventory_ui/hot_bar_inventory.tscn" id="18_qnc8n"]
 [ext_resource type="PackedScene" uid="uid://b5bavm45lxiid" path="res://ui/Recipe/RecipeUI/recipe_ui.tscn" id="19_du2mw"]
 [ext_resource type="PackedScene" uid="uid://d348tmigvnwpa" path="res://modelScene/sign/fast_travel_sign.tscn" id="20_ikb10"]
@@ -205,6 +206,10 @@ grow_vertical = 0
 
 [node name="FastTravelControl" parent="UI" instance=ExtResource("15_50xsv")]
 locations = Array[ExtResource("16_kcq6q")]([SubResource("Resource_qnc8n")])
+
+[node name="StaminaHUD" parent="UI" instance=ExtResource("17_kcq6q")]
+offset_top = 176.0
+offset_bottom = 176.0
 
 [node name="MixColorShader" type="CanvasLayer" parent="."]
 

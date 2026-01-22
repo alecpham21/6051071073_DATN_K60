@@ -19,10 +19,17 @@ func _on_interacted():
 func start_sleeping(hour_at_sleep: int):
 	print("💤 Sleeping.")
 	
-	if PlayerData.player and PlayerData.player.stats:
-		PlayerData.player.stats.sleep_recovery(hour_at_sleep)
+	TimeManager.is_sleeping = true 
 	
 	TimeManager.current_time += 480.0
 	
+	TimeManager.check_new_day()
+	
+	if PlayerData.player and PlayerData.player.stats:
+		PlayerData.player.stats.sleep_recovery(hour_at_sleep)
+	
 	if SceneTransition:
 		SceneTransition.play_sleep_transition()
+	
+	await get_tree().process_frame 
+	TimeManager.is_sleeping = false

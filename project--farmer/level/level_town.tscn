@@ -1,4 +1,4 @@
-[gd_scene load_steps=51 format=3 uid="uid://r4vbsuv0yw71"]
+[gd_scene load_steps=52 format=3 uid="uid://r4vbsuv0yw71"]
 
 [ext_resource type="Shader" uid="uid://c6qhkhar3xobg" path="res://Shader/edge_detection.gdshader" id="1_bjjjs"]
 [ext_resource type="Script" uid="uid://qq68ax8n2xq5" path="res://level/level_town.gd" id="1_vk6vg"]
@@ -34,6 +34,7 @@
 [ext_resource type="Resource" uid="uid://208q0fgbf0k5" path="res://inventory_script/item/items/item_material/egg.tres" id="26_omicy"]
 [ext_resource type="PackedScene" uid="uid://qrk3cux2q3fh" path="res://modelScene/NPC/frujt_npc.tscn" id="27_75k2r"]
 [ext_resource type="PackedScene" uid="uid://cf6crsusekl3q" path="res://modelScene/building/shop_ver_merge_2.tscn" id="27_83m1q"]
+[ext_resource type="PackedScene" uid="uid://xs0u77o1qd26" path="res://ui/stamina_hud.tscn" id="27_u80p3"]
 [ext_resource type="Resource" uid="uid://c7om45kke1quw" path="res://inventory_script/item/items/item_harvest/carrot.tres" id="28_7py64"]
 [ext_resource type="Resource" uid="uid://bh4g6q5c147wp" path="res://inventory_script/item/items/item_harvest/cabbage.tres" id="29_75k2r"]
 [ext_resource type="Resource" uid="uid://baim5tdwy5clf" path="res://inventory_script/item/items/item_harvest/spring_onion.tres" id="30_nghhb"]
@@ -430,6 +431,10 @@ grow_vertical = 0
 locations = Array[ExtResource("23_14lmr")]([SubResource("Resource_vlhq1")])
 
 [node name="QuestTracker" parent="UI" instance=ExtResource("26_anud3")]
+
+[node name="StaminaHUD" parent="UI" instance=ExtResource("27_u80p3")]
+offset_top = 176.0
+offset_bottom = 176.0
 
 [node name="ShopFrujt" parent="." instance=ExtResource("21_iu1fk")]
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -4.365, -0.150596, 2.12139)

@@ -6,7 +6,6 @@ extends Control
 
 var fade_tween: Tween
 var pixels_per_stamina: float = 0.0
-
 var cached_base_max: float = 100.0
 
 func _ready() -> void:
@@ -16,11 +15,8 @@ func _ready() -> void:
 	
 	if PlayerData.player and PlayerData.player.stats:
 		var stats = PlayerData.player.stats
-		
 		cached_base_max = stats.base_max_stamina
-		
 		pixels_per_stamina = progress_bar.size.x / cached_base_max
-		
 		_connect_stats(stats)
 
 func _connect_stats(stats: CharacterStats):
@@ -33,22 +29,21 @@ func _on_stamina_update(current_val: float, max_val: float):
 	progress_bar.max_value = max_val
 	progress_bar.value = current_val
 	
-	
 	var real_width = max_val * pixels_per_stamina
-	
 	var base_width = cached_base_max * pixels_per_stamina
-	
 	
 	progress_bar.custom_minimum_size.x = real_width
 	progress_bar.size.x = real_width
+	
+	progress_bar.position.x = -real_width / 2
 	
 	var background_width = maxf(real_width, base_width)
 	
 	if debuff_bar:
 		debuff_bar.custom_minimum_size.x = background_width
 		debuff_bar.size.x = background_width
-	
-	# -----------------------------
+		
+		debuff_bar.position.x = -background_width / 2
 	
 	if current_val < max_val:
 		_show_bar()

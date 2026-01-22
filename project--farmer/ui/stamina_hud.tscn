@@ -20,13 +20,20 @@ height = 6
 
 [node name="StaminaHUD" type="Control"]
 layout_mode = 3
-anchors_preset = 0
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
 script = ExtResource("1_aqbwv")
 
 [node name="DebuffBar" type="ColorRect" parent="."]
 custom_minimum_size = Vector2(200, 6)
 layout_mode = 0
-offset_right = 200.0
+offset_left = -100.0
+offset_right = 100.0
 offset_bottom = 6.0
 mouse_filter = 2
 color = Color(0.485123, 0.181208, 0.119944, 1)
@@ -35,7 +42,8 @@ color = Color(0.485123, 0.181208, 0.119944, 1)
 texture_filter = 1
 custom_minimum_size = Vector2(200, 6)
 layout_mode = 0
-offset_right = 200.0
+offset_left = -100.0
+offset_right = 100.0
 offset_bottom = 6.0
 nine_patch_stretch = true
 texture_under = SubResource("GradientTexture2D_gt4ru")

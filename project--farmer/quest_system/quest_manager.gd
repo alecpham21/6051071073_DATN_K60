@@ -10,6 +10,8 @@ var contract_deadline_day: int = 0
 var current_contract_id: String = "trade_contract_loop"
 var contract_items_total: int = 0
 
+var truck_has_arrived: bool = false
+var truck_has_departed: bool = false
 
 func _ready():
 	_load_all_quests("res://quests/")
@@ -207,3 +209,9 @@ func update_contract_progress(item_name: String, current_amount: int):
 			if obj.required_item_id == item_name:
 				obj.current_amount = current_amount
 				quest_updated.emit()
+
+func clear_contract():
+	active_contract_item = null
+	contract_amount_needed = 0
+	truck_has_arrived = false
+	truck_has_departed = false

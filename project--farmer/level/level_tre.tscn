@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=3 uid="uid://bidc27ad8yi6o"]
+[gd_scene load_steps=35 format=3 uid="uid://bidc27ad8yi6o"]
 
 [ext_resource type="Script" uid="uid://d3iqm4mbygtkv" path="res://level/level_forest.gd" id="1_4sg7r"]
 [ext_resource type="PackedScene" uid="uid://daxrlts4xnp0u" path="res://level/design_forest.tscn" id="2_kfqkj"]
@@ -24,6 +24,7 @@
 [ext_resource type="PackedScene" uid="uid://cmaas2sclopj4" path="res://Inventory_ui/slot.tscn" id="22_l7pqq"]
 [ext_resource type="PackedScene" uid="uid://dh4ns40qdxwam" path="res://Inventory_ui/hot_bar_inventory.tscn" id="23_1nu3p"]
 [ext_resource type="PackedScene" uid="uid://b5bavm45lxiid" path="res://ui/Recipe/RecipeUI/recipe_ui.tscn" id="24_tfccc"]
+[ext_resource type="PackedScene" uid="uid://xs0u77o1qd26" path="res://ui/stamina_hud.tscn" id="25_kfqkj"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_vdsh4"]
 size = Vector3(3.249, 6.07672, 5.03198)
@@ -566,6 +567,10 @@ grow_horizontal = 2
 grow_vertical = 0
 
 [node name="RecipeUI" parent="UI" instance=ExtResource("24_tfccc")]
+
+[node name="StaminaHUD" parent="UI" instance=ExtResource("25_kfqkj")]
+offset_top = 176.0
+offset_bottom = 176.0
 
 [connection signal="drop_slot_data" from="UI/InventoryInterface" to="UI/InventoryInterface" method="_on_drop_slot_data"]
 [connection signal="gui_input" from="UI/InventoryInterface" to="UI/InventoryInterface" method="_on_gui_input"]

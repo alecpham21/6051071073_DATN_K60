@@ -55954,7 +55954,7 @@ mesh = SubResource("ArrayMesh_qgmv0")
 skin = SubResource("Skin_0sffu")
 
 [node name="BoneAttachment3D" type="BoneAttachment3D" parent="Farmer/rig/Skeleton3D"]
-transform = Transform3D(-0.999092, 0.0915471, -0.0658453, -0.0446847, -0.82242, 0.466431, -0.00979762, 0.617946, 0.872048, -0.196281, 0.850263, -0.0295199)
+transform = Transform3D(-0.999093, 0.0915471, -0.0658453, -0.0446847, -0.82242, 0.466431, -0.00979762, 0.617946, 0.872048, -0.196281, 0.850263, -0.0295199)
 bone_name = "DEF-hand.R"
 bone_idx = 51
 
@@ -56000,7 +56000,7 @@ libraries = {
 }
 
 [node name="HoldPosition" type="Marker3D" parent="Farmer"]
-transform = Transform3D(-0.85764, 0.504425, -0.0662496, 0.26212, 0.591553, 0.776422, 0.411907, 0.673833, -0.632021, 0.116481, 0.673897, 0.0254674)
+transform = Transform3D(-0.85764, 0.504424, -0.0662495, 0.26212, 0.591553, 0.776422, 0.411907, 0.673833, -0.632021, 0.116481, 0.673897, 0.0254674)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0, 0.80019, -0.00244287)

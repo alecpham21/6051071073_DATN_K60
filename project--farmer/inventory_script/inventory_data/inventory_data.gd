@@ -247,10 +247,7 @@ func get_save_data() -> Array:
 	var data = []
 	for slot in slot_datas:
 		if slot and slot.item_data:
-			data.append({
-				"item_path": slot.item_data.resource_path,
-				"quantity": slot.quantity
-			})
+			data.append(slot.get_save_data())
 		else:
 			data.append(null)
 	return data
@@ -267,6 +264,11 @@ func load_save_data(data: Array):
 				var new_slot = SlotData.new()
 				new_slot.item_data = item_res
 				new_slot.quantity = slot_info.quantity
+				
+				if slot_info.has("attrs"):
+					for a_info in slot_info.attrs:
+						new_slot.set_stat(a_info.id, a_info.val)
+						
 				slot_datas[i] = new_slot
 		else:
 			slot_datas[i] = null
