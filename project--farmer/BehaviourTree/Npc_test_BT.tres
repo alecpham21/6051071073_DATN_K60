@@ -1,4 +1,4 @@
-[gd_resource type="BehaviorTree" load_steps=25 format=3 uid="uid://bfadd3mb6tox8"]
+[gd_resource type="BehaviorTree" load_steps=27 format=3 uid="uid://bfadd3mb6tox8"]
 
 [ext_resource type="Script" uid="uid://cg5qw6dcrxywn" path="res://ai/tasks/move_to_pos.gd" id="1_61f1e"]
 
@@ -23,6 +23,25 @@ var/target_rot/type = 3
 var/target_rot/value = 0.0
 var/target_rot/hint = 0
 var/target_rot/hint_string = ""
+var/anim_player_node/name = &"anim_player_node"
+var/anim_player_node/type = 22
+var/anim_player_node/value = NodePath("")
+var/anim_player_node/hint = 0
+var/anim_player_node/hint_string = ""
+var/is_at_start/name = &"is_at_start"
+var/is_at_start/type = 1
+var/is_at_start/value = false
+var/is_at_start/hint = 0
+var/is_at_start/hint_string = ""
+
+[sub_resource type="BBVariant" id="BBVariant_61f1e"]
+type = 1
+saved_value = true
+resource_name = "true"
+
+[sub_resource type="BTCheckVar" id="BTCheckVar_cwauv"]
+variable = &"is_at_start"
+value = SubResource("BBVariant_61f1e")
 
 [sub_resource type="BBNode" id="BBNode_cwauv"]
 saved_value = NodePath(".")
@@ -41,14 +60,15 @@ speed = 3.0
 tolerance = 1.0
 
 [sub_resource type="BTSequence" id="BTSequence_278rh"]
-children = [SubResource("BTCallMethod_n8yo2"), SubResource("BTAction_cwauv")]
+children = [SubResource("BTCheckVar_cwauv"), SubResource("BTCallMethod_n8yo2"), SubResource("BTAction_cwauv")]
 
-[sub_resource type="BBNode" id="BBNode_q7b2e"]
-saved_value = NodePath("AnimationPlayer")
-resource_name = "AnimationPlayer"
+[sub_resource type="BBNode" id="BBNode_1l4pe"]
+value_source = 1
+variable = &"anim_player_node"
+resource_name = "$anim_player_node"
 
 [sub_resource type="BTPlayAnimation" id="BTPlayAnimation_61f1e"]
-animation_player = SubResource("BBNode_q7b2e")
+animation_player = SubResource("BBNode_1l4pe")
 animation_name = &"Idle"
 
 [sub_resource type="BTWait" id="BTWait_cwauv"]
@@ -71,15 +91,15 @@ duration = 10.0
 [sub_resource type="BTSequence" id="BTSequence_1l4pe"]
 children = [SubResource("BTCallMethod_cwauv"), SubResource("BTWait_q7b2e")]
 
-[sub_resource type="BTSelector" id="BTSelector_1l4pe"]
+[sub_resource type="BTRandomSelector" id="BTRandomSelector_61f1e"]
 children = [SubResource("BTSequence_n8yo2"), SubResource("BTSequence_1l4pe")]
 
-[sub_resource type="BTTimeLimit" id="BTTimeLimit_wg0qk"]
+[sub_resource type="BTTimeLimit" id="BTTimeLimit_61f1e"]
 time_limit = 20.0
-children = [SubResource("BTSelector_1l4pe")]
+children = [SubResource("BTRandomSelector_61f1e")]
 
 [sub_resource type="BTSequence" id="BTSequence_wg0qk"]
-children = [SubResource("BTTimeLimit_wg0qk")]
+children = [SubResource("BTTimeLimit_61f1e")]
 
 [sub_resource type="BBNode" id="BBNode_n8yo2"]
 saved_value = NodePath(".")

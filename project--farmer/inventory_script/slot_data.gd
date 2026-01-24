@@ -75,12 +75,15 @@ func set_quantity(value: int) -> void:
 		quantity > 1
 		push_error("%s is not stackable, setting quantity to 1" % item_data.name)
 
+# Trong SlotData.gd
+
 func get_save_data() -> Dictionary:
 	var attr_data = []
 	for attr in attributes:
 		attr_data.append({"id": attr.id, "val": attr.value})
+	
 	return {
-		"path": item_data.resource_path,
-		"qty": quantity,
+		"item_path": item_data.resource_path,
+		"quantity": quantity,
 		"attrs": attr_data
 	}

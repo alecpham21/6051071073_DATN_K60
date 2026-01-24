@@ -1,8 +1,8 @@
 extends Node3D
 
 @export var items_to_sell: Array[ItemData] 
-@export var dialog_timeline: String = "SellingFrujt"
-@export var accepted_selling_type: ItemDataMaterial.SellingType = ItemDataMaterial.SellingType.FRUJT
+@export var dialog_timeline: String = "SellingMeat"
+@export var accepted_selling_type: ItemDataMaterial.SellingType = ItemDataMaterial.SellingType.GENERIC
 
 @onready var interact_area = $InteractArea
 
@@ -15,7 +15,6 @@ var inventory_data: InventoryData:
 
 func _ready():
 	Dialogic.signal_event.connect(_on_dialogic_signal)
-	# Không cần connect timeline_ended ở đây nữa để tránh rối
 	
 	if interact_area:
 		interact_area.interacted.connect(start_dialogue)
@@ -25,7 +24,6 @@ func _ready():
 	sell_box_inventory.accepted_type = accepted_selling_type
 
 func _process(_delta):
-	# Logic tự reset state giống Lumberjack
 	if is_in_shop:
 		var ui = get_tree().get_first_node_in_group("inventory_interface")
 		if ui and not ui.visible:
@@ -39,8 +37,8 @@ func start_dialogue():
 func _on_dialogic_signal(argument: String):
 	print("[DEBUG] NPC: Received Signal -> ", argument)
 	match argument:
-		"open_buy_shop_frujt": handle_shop_opening("buy")
-		"sell_wholesale_frujt": handle_shop_opening("sell")
+		"open_buy_shop_meat": handle_shop_opening("buy")
+		"sell_wholesale_meat": handle_shop_opening("sell")
 
 func handle_shop_opening(mode: String):
 	print("[DEBUG] NPC: handle_shop_opening called. Mode: ", mode)
@@ -52,16 +50,11 @@ func handle_shop_opening(mode: String):
 	is_in_shop = true
 	Dialogic.end_timeline()
 	
-	# Đợi Dialogic tắt hẳn
 	if Dialogic.current_timeline != null:
 		await Dialogic.timeline_ended
 	
 	await get_tree().process_frame
 	
-	# --- FIX 2: XÓA DÒNG GState.shop() ---
-	# Lý do: Bên InventoryInterface khi mở lên nó ĐÃ gọi GState.shop() rồi.
-	# Nếu bạn gọi ở đây nữa, nó bắn signal 2 lần -> Code chạy 2 lần -> Lỗi.
-	# GState.shop()  <--- ĐÃ XÓA DÒNG NÀY
 	
 	var ui = get_tree().get_first_node_in_group("inventory_interface")
 	
@@ -71,7 +64,6 @@ func handle_shop_opening(mode: String):
 		else:
 			ui.open_shop_sell_interface(self, sell_box_inventory)
 		
-		# Input mode do UI tự set
 	else:
 		print("[DEBUG] NPC: ❌ Error - Cannot find InventoryInterface!")
 

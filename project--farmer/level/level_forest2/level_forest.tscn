@@ -90,6 +90,7 @@ unique_name_in_owner = true
 use_gravity = true
 camera_ref_path = NodePath("../SpringArm3D/Camera3D")
 inventory_data = ExtResource("5_tpv8i")
+stats = null
 
 [node name="SpringArm3D" type="SpringArm3D" parent="SubViewportContainer/SubViewport"]
 transform = Transform3D(1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, 0, 0.659112, 0)

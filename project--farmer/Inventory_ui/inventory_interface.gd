@@ -8,7 +8,6 @@ var grabbed_slot_data: SlotData
 var external_inventory_owner
 var washing_machine_ui: Control
 
-# Node3D để nhận cả Stove và Board
 var active_kitchen: Node3D 
 var active_mode: String = ""
 var prevent_close: bool = false
@@ -51,8 +50,6 @@ func _ready():
 						GState.ui()
 					
 					Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
-					await get_tree().create_timer(0.5).timeout
-					prevent_close = false
 					return 
 				
 				var is_shop_open = (shop_ui != null and shop_ui.visible)
@@ -68,7 +65,7 @@ func _ready():
 					clear_external_inventory()
 					self.visible = false
 				else:
-					print("    --> [AUTO] Không có gì để đóng cả.")
+					print("    -> [AUTO] Không có gì để đóng cả.")
 			
 			GState.state_enum.RECIPE:
 				open_standalone_book()
@@ -86,7 +83,6 @@ func _ready():
 		SignalBus.inventory_opened.connect(set_external_inventory)
 	
 func open_shop_sell_interface(shop_node, shop_inventory_data: InventoryData):
-	print(">>> [ACTION] Mở Shop BÁN (open_shop_sell_interface)")
 	self.visible = true
 	GState.shop()
 	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
@@ -107,26 +103,25 @@ func open_shop_sell_interface(shop_node, shop_inventory_data: InventoryData):
 		sell_ui.setup(shop_node, shop_inventory_data)
 	
 	prevent_close = true
-	print("    [SET] prevent_close = TRUE")
 	get_tree().create_timer(0.5).timeout.connect(func(): prevent_close = false)
 
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("ui_cancel"):
-		print(">>> [INPUT] Người chơi bấm Cancel/ESC")
+		print(">>> [INPUT] Cancel/ESC")
 		
 		var is_shop_open = (shop_ui and shop_ui.visible)
 		var is_sell_open = (sell_ui and sell_ui.visible)
 		
 		if is_shop_open or is_sell_open:
-			print("    --> Gọi close_shop_interface() từ INPUT")
+			print("close_shop_interface() INPUT")
 			close_shop_interface()
 			get_viewport().set_input_as_handled()
 			return
 
 func update_money_text(amount: int):
 	if money_label:
-		money_label.text = "Tiền: " + str(amount) + " G"
+		money_label.text = "Currency: " + str(amount) + " G"
 
 func open_shop_interface(items_list: Array[ItemData], npc_node: Node = null):
 	self.visible = true
@@ -156,11 +151,10 @@ func open_shop_interface(items_list: Array[ItemData], npc_node: Node = null):
 
 
 func close_shop_interface():
-	prevent_close = false
-	
-	if shop_ui: 
-		if "current_npc" in shop_ui: shop_ui.current_npc = null
-		shop_ui.hide()
+	if prevent_close: 
+		return
+
+	if shop_ui: shop_ui.hide()
 	if sell_ui: sell_ui.hide() 
 	
 	if player_inventory: player_inventory.hide()
@@ -170,10 +164,17 @@ func close_shop_interface():
 	
 	external_inventory_owner = null
 
+	if PlayerData.player and PlayerData.player.cam_ref:
+		if PlayerData.player.cam_ref.has_method("return_to_player"):
+			PlayerData.player.cam_ref.return_to_player()
+
 	await get_tree().process_frame
 	
 	GState.play()
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+	
+	if PlayerData.player and PlayerData.player.has_method("_set_mouse_captured"):
+		PlayerData.player._set_mouse_captured(true)
 
 func on_slot_clicked_handler(sd: SlotData, inv: InventoryData, btn: int):
 	if btn == MOUSE_BUTTON_LEFT:
@@ -274,9 +275,6 @@ func setup_board_mode(node):
 func refresh_material_data():
 	PlayerData.material_data.refresh(PlayerData.player_inventory_data)
 
-# ------------------------------------------------------------------
-# ĐÓNG UI
-# ------------------------------------------------------------------
 func close_kitchen() -> void:
 	if prevent_close:
 		print(">>> [BLOCK] close_kitchen bị chặn do prevent_close = true")
@@ -351,7 +349,8 @@ func finalize_cut(recipe: Recipe):
 func _physics_process(delta: float) -> void:
 	if grabbed_slot.visible:
 		grabbed_slot.global_position = get_global_mouse_position() + Vector2(5, 5)
-	if external_inventory_owner and external_inventory_owner.global_position.distance_to(PlayerData.get_global_posotion()) > 2:
+	
+	if external_inventory_owner and external_inventory_owner.global_position.distance_to(PlayerData.player.global_position) > 2:
 		force_close.emit()
 	
 func set_player_inventory_data(inventory_data: InventoryData) -> void:

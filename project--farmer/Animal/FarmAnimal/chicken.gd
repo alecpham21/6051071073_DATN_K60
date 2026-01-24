@@ -34,7 +34,6 @@ func setup(data: ChickenData):
 func update_visual():
 	if not chicken_data: return
 	
-	# Ẩn hết model trước khi chọn model đúng
 	if model_baby: model_baby.visible = false
 	if model_male: model_male.visible = false
 	if model_female: model_female.visible = false

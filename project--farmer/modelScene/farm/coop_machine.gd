@@ -193,52 +193,37 @@ func feed_livestock(item_data: ItemData) -> bool:
 	return false
 
 func get_machine_data() -> Dictionary:
-	var data = {
-		"chickens": chickens,
+	var saved_chickens = []
+	for c in chickens:
+		if c: saved_chickens.append(c.duplicate())
+		else: saved_chickens.append(null)
+
+	return {
+		"chickens": saved_chickens,
 		"last_day": last_day,
-		"input_inventory": [],
-		"output_inventory": []
+		"input_inv": input_inv.get_save_data(),
+		"output_inv": output_inv.get_save_data()
 	}
-	for slot in input_inv.slot_datas: data["input_inventory"].append(slot)
-	for slot in output_inv.slot_datas: data["output_inventory"].append(slot)
-	
-	print("💾 [CoopMachine] Đang lưu dữ liệu: ", chickens.size(), " con gà.")
-	return data
 
 func load_machine_data(data: Dictionary, minutes_away: float = 0.0):
-	print("📂 [CoopMachine] Bắt đầu Load dữ liệu...")
-	
 	if input_inv.inventory_updated.is_connected(_on_input_inv_updated):
 		input_inv.inventory_updated.disconnect(_on_input_inv_updated)
 
-	if data.has("input_inventory"):
-		var saved_input = data["input_inventory"]
-		for i in range(min(saved_input.size(), input_inv.slot_datas.size())):
-			input_inv.slot_datas[i] = saved_input[i]
-		print("📦 [CoopMachine] Đã khôi phục Input Inventory.")
-		
-	if data.has("output_inventory"):
-		var saved_output = data["output_inventory"]
-		for i in range(min(saved_output.size(), output_inv.slot_datas.size())):
-			output_inv.slot_datas[i] = saved_output[i]
-		print("📦 [CoopMachine] Đã khôi phục Output Inventory.")
-		
+	if data.has("input_inv"): input_inv.load_save_data(data["input_inv"])
+	if data.has("output_inv"): output_inv.load_save_data(data["output_inv"])
 	if data.has("chickens"):
-		chickens = data["chickens"]
-		print("🐔 [CoopMachine] Tìm thấy ", chickens.size(), " dữ liệu gà trong file save.")
-	
-	if data.has("last_day"):
-		last_day = data["last_day"]
-	
+		chickens.assign(data["chickens"]) 
+		print("🐔 [CoopMachine] Restored ", chickens.size(), " chickens safely.")
+	if data.has("last_day"): last_day = data["last_day"]
+
 	if minutes_away > 0:
 		_simulate_offline_time(minutes_away)
 	
 	_refresh_visual_after_load()
-	
+
 	if not input_inv.inventory_updated.is_connected(_on_input_inv_updated):
 		input_inv.inventory_updated.connect(_on_input_inv_updated)
 	input_inv.inventory_updated.emit(input_inv)
-	print("✅ [CoopMachine] Load hoàn tất!")
 
 func _refresh_visual_after_load():
 	print("🎬 [CoopMachine] Đang làm mới Visual...")

@@ -32,9 +32,9 @@ func _initial_npc_placement() -> void:
 	var hour = TimeManager.current_hour
 	if hour >= 6 and hour < 17:
 		var initial_count = randi_range(max_npcs / 2, max_npcs - 2)
-		print("Initial NPC placement: spawning ", initial_count, " NPCs at targets.")
+		print("Initial placement: ", initial_count)
 		for i in range(initial_count):
-			spawn_npc(true)
+			spawn_npc(true, true)
 
 func _on_spawn_tick() -> void:
 	var hour = TimeManager.current_hour
@@ -50,29 +50,24 @@ func _on_spawn_tick() -> void:
 	if randf() < chance:
 		spawn_npc(false)
 
-func spawn_npc(at_target: bool = false) -> void:
+func spawn_npc(at_target: bool = false, is_initial: bool = false) -> void:
 	if npc_scenes.is_empty(): return
-
 	var free_spots = _get_free_spots()
 	if free_spots.is_empty(): return
 
 	var target_spot = free_spots.pick_random()
-	var chosen_scene = npc_scenes.pick_random()
-	var npc = chosen_scene.instantiate()
-	
+	var npc = npc_scenes.pick_random().instantiate()
 	add_child(npc)
 	
 	if at_target:
-		npc.global_position = target_spot.global_position
+		npc.global_transform = target_spot.global_transform
 	else:
-		var spawn_pos_node = spawn_points_parent.get_children().pick_random()
-		npc.global_position = spawn_pos_node.global_position
+		npc.global_position = spawn_points_parent.get_children().pick_random().global_position
 	
-	npc.setup_ai(target_spot, despawn_point) 
+	npc.setup_ai(target_spot, despawn_point, is_initial) 
 	
 	occupied_targets[target_spot] = npc
 	current_npcs.append(npc)
-	
 	npc.tree_exiting.connect(func(): _on_npc_despawned(target_spot, npc))
 
 func request_next_target(npc_ref, current_spot: Marker3D) -> Node3D:
@@ -85,6 +80,10 @@ func request_next_target(npc_ref, current_spot: Marker3D) -> Node3D:
 			return new_spot
 
 	occupied_targets[current_spot] = null
+	
+	if current_npcs.size() <= max_npcs: 
+		spawn_npc(false)
+		
 	return despawn_point
 
 func _get_free_spots() -> Array:
@@ -97,5 +96,7 @@ func _get_free_spots() -> Array:
 func _on_npc_despawned(spot: Marker3D, npc_ref) -> void:
 	if occupied_targets.has(spot) and occupied_targets[spot] == npc_ref:
 		occupied_targets[spot] = null
+	
 	if npc_ref in current_npcs:
 		current_npcs.erase(npc_ref)
+		print("NPC đã rời map. Số lượng còn lại: ", current_npcs.size())

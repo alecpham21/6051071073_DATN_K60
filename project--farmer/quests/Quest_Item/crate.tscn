@@ -30,7 +30,7 @@ albedo_color = Color(0.879331, 0.573971, 0.192567, 1)
 material = SubResource("StandardMaterial3D_m6rr1")
 size = Vector3(0.155, 0.11, 0.34)
 
-[node name="Crate" type="Node3D"]
+[node name="Crate" type="Node3D" groups=["crates"]]
 script = ExtResource("1_4e1c0")
 inventory_data = SubResource("Resource_56nmj")
 visual_map = {

@@ -1,0 +1,32 @@
+[gd_scene load_steps=6 format=3 uid="uid://baaq2at6aupou"]
+
+[ext_resource type="Script" uid="uid://ctybjhoev1koy" path="res://modelScene/building/shop_meat.gd" id="1_6nmfu"]
+[ext_resource type="PackedScene" uid="uid://bsbxxf3n6gsvx" path="res://modelScene/building/shop_butcher.tscn" id="1_iphkp"]
+[ext_resource type="Script" uid="uid://i4dr8fqs0tx7" path="res://Scripts/interactable.gd" id="3_fro6i"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_cchj7"]
+size = Vector3(4.18585, 3.74561, 5.37242)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_54x0g"]
+size = Vector3(5.15009, 3.8927, 4.40894)
+
+[node name="Shop_Meat" type="Node3D"]
+script = ExtResource("1_6nmfu")
+
+[node name="ShopButcher" parent="." instance=ExtResource("1_iphkp")]
+
+[node name="InteractArea" type="Area3D" parent="."]
+collision_layer = 16
+collision_mask = 0
+script = ExtResource("3_fro6i")
+metadata/_custom_type_script = "uid://i4dr8fqs0tx7"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="InteractArea"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.37766, 1.3728, 0.208092)
+shape = SubResource("BoxShape3D_cchj7")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.164581, 1.44635, 0.12854)
+shape = SubResource("BoxShape3D_54x0g")

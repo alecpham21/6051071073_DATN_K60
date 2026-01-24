@@ -568,7 +568,7 @@ gate_size_in_tiles = 2.45
 [node name="NavRegion" type="NavigationRegion3D" parent="SubViewportContainer/SubViewport/GroundGenerator"]
 navigation_mesh = SubResource("NavigationMesh_ruyqm")
 
-[node name="MainFarmer" parent="SubViewportContainer/SubViewport" instance=ExtResource("5_26xuy")]
+[node name="MainFarmer" parent="SubViewportContainer/SubViewport" groups=["crates"] instance=ExtResource("5_26xuy")]
 unique_name_in_owner = true
 use_gravity = true
 camera_ref_path = NodePath("../SpringArm3D")
@@ -600,6 +600,7 @@ mouse_filter = 2
 
 [node name="PickUp" parent="." instance=ExtResource("25_mc2jv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.2472, -2.43978)
+visible = false
 slot_data = SubResource("Resource_mc2jv")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]

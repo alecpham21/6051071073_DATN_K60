@@ -60,9 +60,6 @@ func load_game(slot_name: String = "manual_save_1"):
 	if data.has("chests"):
 		_load_chest_save_data(data.chests)
 	
-	if data.player.has("stats"):
-		PlayerData.stats.load_save_data(data.player.stats)
-	
 	TimeManager.day = data.time.day
 	TimeManager.current_time = data.time.current_time
 	PlayerData.money = data.player.money
@@ -71,6 +68,9 @@ func load_game(slot_name: String = "manual_save_1"):
 	SceneTransition.change_scene(data.scene_path, pos)
 
 	await get_tree().process_frame
+	await get_tree().process_frame
+	await get_tree().process_frame
+	
 	PlayerData.player_inventory_data.load_save_data(data.player.inv)
 	PlayerData.player_equip_data.load_save_data(data.player.equip)
 	PlayerData.player_outfit_data.load_save_data(data.player.outfit)
@@ -123,7 +123,6 @@ func _get_chest_save_data() -> Dictionary:
 		dict[id] = PlayerData.chest_inventories[id].get_save_data()
 	return dict
 
-# Trong SaveManager.gd
 
 func _load_chest_save_data(dict: Dictionary):
 	PlayerData.chest_inventories.clear()

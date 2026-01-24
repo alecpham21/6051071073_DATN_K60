@@ -249,7 +249,16 @@ func try_harvest_crop(crop):
 	print("Ray Colliding: ", grid_check_ray.is_colliding())
 
 func _update_highlight_selector():
-	if not HotBar.active_item or not (HotBar.active_item is ItemDataTool):
+	var item = HotBar.active_item
+	
+	if not item:
+		hl_select.visible = false
+		return
+	
+	var is_valid_tool = (item is ItemDataTool)
+	var is_valid_seed = "seed" in item.name.to_lower() 
+	
+	if not is_valid_tool and not is_valid_seed:
 		hl_select.visible = false
 		return
 	
@@ -257,13 +266,13 @@ func _update_highlight_selector():
 		hl_select.visible = false
 		return
 
-	tool_cast.force_raycast_update()
+	grid_check_ray.force_raycast_update()
 
-	if not tool_cast.is_colliding():
+	if not grid_check_ray.is_colliding():
 		hl_select.visible = false
 		return
 		
-	var hit_pos = tool_cast.get_collision_point()
+	var hit_pos = grid_check_ray.get_collision_point()
 	var grid_pos = ground_gen.get_grid_pos_from_world(hit_pos)
 	var data = ground_gen.block_data
 	

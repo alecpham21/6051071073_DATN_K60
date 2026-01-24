@@ -13,4 +13,5 @@ name = "Corn Seed"
 description = "It is a corn but in a seed form"
 stackable = true
 texture = SubResource("AtlasTexture_jrrgo")
+price = 200
 metadata/_custom_type_script = "uid://bf2bbfvsrqnsf"

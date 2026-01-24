@@ -113,3 +113,28 @@ func _default_depart():
 		.set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_IN)
 	await tween.finished
 	queue_free()
+
+func get_save_data() -> Dictionary:
+	return {
+		"has_arrived": has_arrived,
+		"has_departed": has_departed,
+		"is_active": is_active,
+		"pos": var_to_str(global_position),
+		"rot": var_to_str(global_rotation)
+	}
+
+func load_save_data(data: Dictionary):
+	has_arrived = data.get("has_arrived", false)
+	has_departed = data.get("has_departed", false)
+	is_active = data.get("is_active", false)
+	
+	if data.has("pos"):
+		global_position = str_to_var(data.pos)
+		global_rotation = str_to_var(data.rot)
+	
+	if has_arrived and not has_departed:
+		visible = true
+		is_active = true
+		if delivery_zone:
+			delivery_zone.monitoring = true
+		print("[DEBUG] Truck: Restored to port position instantly.")

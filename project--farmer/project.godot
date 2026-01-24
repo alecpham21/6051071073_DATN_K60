@@ -41,6 +41,8 @@ directories/dch_directory={
 "NPC_Frujt": "res://Dialog/NPC_Frujt.dch",
 "NPC_Jack": "res://Dialog/NPC_Jack.dch",
 "NPC_Lumberjack": "res://Dialog/NPC/NPC_Lumberjack.dch",
+"NPC_Meat": "res://Dialog/NPC_Meat.dch",
+"NPC_Vegetable": "res://Dialog/NPC_Vegetable.dch",
 "player": "res://Dialog/player/player.dch",
 "unit_test_character": "res://Tests/Resources/unit_test_character.dch"
 }
@@ -50,7 +52,8 @@ directories/dtl_directory={
 "Lumberjack_NoMoney": "res://Dialog/timeline/lumberjack/Lumberjack_NoMoney.dtl",
 "Lumberjack_Shop": "res://Dialog/timeline/Lumberjack_Shop.dtl",
 "SellingFrujt": "res://Dialog/timeline/SellingFrujt.dtl",
-"contract/npc_trade_contract": "res://Dialog/timeline/contract/npc_trade_contract.dtl",
+"SellingMeat": "res://Dialog/timeline/SellingMeat.dtl",
+"SellingVegetable": "res://Dialog/timeline/SellingVegetable.dtl",
 "npc_busy": "res://Dialog/timeline/npc_busy.dtl",
 "npc_contract_selection": "res://Dialog/timeline/npc_contract_selection.dtl",
 "npc_trade_contract": "res://Dialog/NPC/npc_trade_contract.dtl",

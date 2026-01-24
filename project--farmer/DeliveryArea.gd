@@ -53,17 +53,25 @@ func _check_delivery(crate: ContractCrate):
 			_process_batch_delivery(crate, slot.quantity)
 
 func _process_batch_delivery(crate: ContractCrate, amount: int):
+	# Trừ số lượng thô và cập nhật Batch vào QuestManager
 	QuestManager.contract_amount_needed -= amount
-	
 	if QuestManager.has_method("complete_contract_batch"):
 		QuestManager.complete_contract_batch()
 	
-	print("Port: Batch accepted. Remaining items: ", QuestManager.contract_amount_needed)
+	# KIỂM TRA TRẠNG THÁI NHIỆM VỤ THỰC TẾ
+	var quest = QuestManager.quests.get(QuestManager.current_contract_id)
 	
-	if QuestManager.contract_amount_needed <= 0:
+	# CHỈ CẤT CÁNH KHI QUEST BÁO 'is_completed'
+	if quest and quest.is_completed:
+		print("[DEBUG] Port: Quest is fully finished. Truck departing!")
 		var truck = get_parent()
 		if truck.has_method("depart"):
 			truck.depart()
+	else:
+		# Quest chưa xong (ví dụ nộp 1/2 thùng)
+		var current = quest.objectives[0].current_amount if quest else 0
+		var target = quest.objectives[0].target_amount if quest else 0
+		print("[DEBUG] Port: Batch accepted. Progress: ", current, "/", target)
 	
 	if is_instance_valid(crate):
 		crate.queue_free()

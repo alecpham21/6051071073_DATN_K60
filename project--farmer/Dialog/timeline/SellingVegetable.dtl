@@ -1,0 +1,7 @@
+NPC_Vegetable: How you doing? Wanna see my stock?
+- I want to buy some
+	[signal arg="open_buy_shop_veg"]
+- I want to sell some
+	[signal arg="sell_wholesale_veg"]
+- No, i'm good
+	[signal arg="end_talk"]

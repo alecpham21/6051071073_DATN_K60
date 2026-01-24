@@ -12,8 +12,16 @@ signal dropped
 
 var allowed_item: ItemData = null
 var is_being_carried: bool = false
+var last_stable_pos: Vector3
+var last_stable_rot: Vector3
+
 
 func _ready():
+	add_to_group("crates")
+	
+	last_stable_pos = global_position
+	last_stable_rot = global_rotation
+	
 	if inventory_data:
 		inventory_data = inventory_data.duplicate()
 		inventory_data.inventory_updated.connect(_on_inventory_updated)
@@ -81,12 +89,38 @@ func can_accept_item(item_data: ItemData) -> bool:
 
 func set_carried(is_carried: bool):
 	is_being_carried = is_carried
+	
 	if is_instance_valid(static_body):
 		static_body.get_node("CollisionShape3D").disabled = is_carried
+		
 	if is_instance_valid(interact_area):
 		interact_area.monitorable = true
 		interact_area.monitoring = !is_carried
-	if not is_carried: dropped.emit()
+	
+	if not is_carried:
+		last_stable_pos = global_position
+		last_stable_rot = global_rotation
+		dropped.emit()
+		print("[DEBUG] Crate: Dropped signal emitted once.")
 
 func close_chest():
 	GState.play()
+
+
+func get_save_data() -> Dictionary:
+	return {
+		"pos": var_to_str(global_position),
+		"rot": var_to_str(global_rotation),
+		"scale": var_to_str(scale),
+		"inv": inventory_data.get_save_data()
+	}
+
+func load_save_data(data: Dictionary):
+		if data.has("scale"):
+			scale = str_to_var(data.scale)
+			
+		global_position = str_to_var(data.pos)
+		global_rotation = str_to_var(data.rot)
+		
+		if data.has("inv"):
+			inventory_data.load_save_data(data.inv)

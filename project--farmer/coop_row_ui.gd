@@ -9,6 +9,9 @@ var machine_ref: CoopMachine
 var row_index: int
 
 func update_row(index: int, machine: CoopMachine):
+	if not is_node_ready():
+		await ready
+		
 	machine_ref = machine
 	row_index = index
 	
@@ -16,9 +19,11 @@ func update_row(index: int, machine: CoopMachine):
 	var in_slot = machine.input_inv.slot_datas[index]
 	var out_slot = machine.output_inv.slot_datas[index]
 	
-	chicken_slot.set_slot_data(in_slot)
-	egg_output_slot.set_slot_data(out_slot)
-	egg_output_slot.is_output_only = true 
+	if chicken_slot:
+		chicken_slot.set_slot_data(in_slot)
+	if egg_output_slot:
+		egg_output_slot.set_slot_data(out_slot)
+		egg_output_slot.is_output_only = true
 
 	if data:
 		if data.gender == LivestockEnums.Gender.MALE or data.stage == LivestockEnums.Stage.BABY:

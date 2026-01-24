@@ -1,0 +1,20 @@
+[gd_resource type="Resource" script_class="ItemDataMaterial" load_steps=4 format=3 uid="uid://c2cfsjt1ada2i"]
+
+[ext_resource type="Script" uid="uid://vmjc7agye6gg" path="res://inventory_script/item/item_data/item_data_material.gd" id="1_a4ebv"]
+[ext_resource type="Texture2D" uid="uid://omvd8ed3fie6" path="res://inventory_script/item/item_atlast/#2 - Transparent Icons & Drop Shadow.png" id="2_0fpix"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nxft0"]
+atlas = ExtResource("2_0fpix")
+region = Rect2(32, 480, 32, 32)
+
+[resource]
+script = ExtResource("1_a4ebv")
+material_type = 1
+selling_type = 0
+sell_price = 40
+name = "Tenderloin"
+description = "Can make a steak out of it"
+stackable = false
+texture = SubResource("AtlasTexture_nxft0")
+price = 1000
+metadata/_custom_type_script = "uid://vmjc7agye6gg"

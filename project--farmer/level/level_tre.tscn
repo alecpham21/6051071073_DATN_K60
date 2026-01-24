@@ -418,6 +418,7 @@ transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0, 0, 
 use_gravity = true
 camera_ref_path = NodePath("../SpringArm3D")
 inventory_data = ExtResource("12_of4pv")
+stats = null
 
 [node name="MixColorShader" type="CanvasLayer" parent="."]
 

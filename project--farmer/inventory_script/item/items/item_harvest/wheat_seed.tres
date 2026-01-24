@@ -13,5 +13,5 @@ name = "Wheat Seed"
 description = "It is a wheat but still a seed"
 stackable = true
 texture = SubResource("AtlasTexture_8pdkb")
-price = 1000
+price = 200
 metadata/_custom_type_script = "uid://8qjn0t0dq2pu"

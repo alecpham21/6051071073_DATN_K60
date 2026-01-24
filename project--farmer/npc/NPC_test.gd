@@ -25,26 +25,38 @@ func _ready() -> void:
 	if not nav_agent: nav_agent = $NavigationAgent3D
 	if not bt_player: bt_player = $BTPlayer
 	
+	if animation_player:
+		bt_player.blackboard.set_var("anim_player_node", animation_player)
+	
 	if nav_agent:
 		if not nav_agent.velocity_computed.is_connected(_on_velocity_computed):
 			nav_agent.velocity_computed.connect(_on_velocity_computed)
 			
 	randomize_shirt_color()
 
-func setup_ai(target_marker: Marker3D, home_marker: Marker3D) -> void:
-	target_destination = target_marker.global_position
-	home_destination = home_marker.global_position
+func setup_ai(target_marker: Marker3D, home_marker: Marker3D, is_initial: bool = false) -> void:
+	var target_pos = target_marker.global_position
+	var is_already_at_target = global_position.distance_to(target_pos) < 0.5
 	
-	nav_agent.target_position = target_destination
+	bt_player.blackboard.set_var("is_at_start", is_already_at_target)
 	
-	var target_rot_y = target_marker.global_rotation.y
-	stay_duration = randf_range(20.0, 30.0) 
+	var base_stay = randf_range(60.0, 180.0) 
+	if is_initial:
+		base_stay -= randf_range(10.0, base_stay * 0.7)
 	
-	bt_player.blackboard.set_var("nav_agent", nav_agent)
-	bt_player.blackboard.set_var("target_pos", target_destination)
-	bt_player.blackboard.set_var("target_rot", target_rot_y)
-	bt_player.blackboard.set_var("home_pos", home_destination)
-	bt_player.blackboard.set_var("stay_time", stay_duration)
+	if not animation_player:
+		animation_player = get_node_or_null("AnimationPlayer") 
+	
+	if animation_player:
+		bt_player.blackboard.set_var("anim_player_node", animation_player)
+	
+	bt_player.blackboard.set_var("target_pos", target_pos)
+	bt_player.blackboard.set_var("target_rot", target_marker.global_rotation.y)
+	bt_player.blackboard.set_var("home_pos", home_marker.global_position)
+	bt_player.blackboard.set_var("stay_time", base_stay)
+	
+	if is_already_at_target:
+		global_rotation.y = target_marker.global_rotation.y
 	
 	bt_player.restart()
 

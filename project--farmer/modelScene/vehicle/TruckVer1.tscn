@@ -135,7 +135,7 @@ material = SubResource("StandardMaterial3D_nu5aa")
 [sub_resource type="BoxShape3D" id="BoxShape3D_rjvyp"]
 size = Vector3(9.3584, 4.50476, 5.12897)
 
-[node name="TruckVer1" type="Node3D"]
+[node name="TruckVer1" type="Node3D" groups=["truck"]]
 script = ExtResource("1_2enq3")
 
 [node name="Truck" type="MeshInstance3D" parent="."]

@@ -221,25 +221,39 @@ func _spawn_initial_buildings():
 func load_from_data(data: Dictionary, minutes_away: float = 0.0):
 	await _ensure_setup()
 	
+	# 1. GLOBAL CLEANUP: Quét sạch group 'crates' nhưng LOẠI TRỪ Player
+	var all_crates = get_tree().get_nodes_in_group("crates")
+	print("[DEBUG] GroundGen: Global cleanup. Nodes in 'crates' group: ", all_crates.size())
+	
+	for crate in all_crates:
+		# BẢO VỆ PLAYER: Tuyệt đối không xóa nếu là CharacterBody3D hoặc thuộc group player
+		if crate is CharacterBody3D or crate.is_in_group("player") or crate == PlayerData.player:
+			print("[DEBUG] GroundGen: Shielding player node from cleanup: ", crate.name)
+			continue
+			
+		# Bảo vệ cái đang cầm trên tay
+		if crate.get("is_being_carried"): 
+			continue
+		
+		print("[DEBUG] GroundGen: Nuking crate: ", crate.name)
+		crate.queue_free()
+	
+	# Dọn dẹp các node con khác nhưng vẫn phải check bảo vệ Player
+	for child in get_children():
+		if child is CharacterBody3D or child.is_in_group("player") or child == PlayerData.player:
+			continue
+		if child.has_method("harvest") or child.get("current_grid_pos") != null or child.name.contains("WindGrass"):
+			child.queue_free()
+
 	if not data.has("grid"):
 		await generate_new_map()
 		return
-		
-	print("📂 Generator: Initializing block_data array...")
-	
-	# 1. Dọn dẹp các Node cũ trong map
-	for child in get_children():
-		if child.name == "PaddingDecor": continue 
-		if child.has_method("harvest") or child.get("current_grid_pos") != null or child.name.contains("WindGrass"):
-			child.queue_free()
 	
 	var last_saved_time = data.get("saved_total_minutes", TimeManager.get_total_minutes_played())
 	var current_time = TimeManager.get_total_minutes_played()
 	var minutes_passed = current_time - last_saved_time
 	var grid_info = data["grid"]
 	
-	# 2. BƯỚC 1: Nạp toàn bộ dữ liệu thô vào mảng block_data trước
-	# Việc này đảm bảo khi Plant.gd gọi update_visuals sẽ không bị lỗi thiếu Index
 	block_data.clear()
 	block_data.resize(ground_extents.x)
 	for x in range(ground_extents.x):
@@ -291,7 +305,18 @@ func load_from_data(data: Dictionary, minutes_away: float = 0.0):
 		for pos in data["grass_list"]:
 			var g_pos = Vector2i(int(pos.x), int(pos.y))
 			_spawn_single_grass(g_pos)
-			
+	
+	if data.has("crates"):
+		print("[DEBUG] GroundGen: Spawning ", data["crates"].size(), " crates from data.")
+		var crate_scene = load("res://quests/Quest_Item/crate.tscn")
+		for c_data in data["crates"]:
+			var new_crate = crate_scene.instantiate()
+			add_child(new_crate)
+			new_crate.load_save_data(c_data)
+			if not new_crate.is_in_group("crates"):
+				new_crate.add_to_group("crates")
+	
+	
 	if building_manager:
 		building_manager.clear_all_buildings() 
 		if data.has("buildings"):
@@ -304,11 +329,27 @@ func load_from_data(data: Dictionary, minutes_away: float = 0.0):
 				if b_node and b_node.has_method("load_machine_data") and b_info.has("machine_data"):
 					b_node.load_machine_data(b_info["machine_data"], minutes_away)
 	
+	if data.has("truck_data"):
+		var truck_node = get_tree().get_first_node_in_group("truck")
+		
+		if is_instance_valid(truck_node) and truck_node.has_method("load_save_data"):
+			truck_node.load_save_data(data["truck_data"])
+			print("[DEBUG] GroundGen: Truck state restored.")
+		else:
+			print("[DEBUG] GroundGen Error: Cannot find node in group 'truck' during load!")
+	
 	bake_nav_mesh()
 	print("✅ Generator: Map load completed.")
 
 func get_current_state() -> Dictionary:
 	var save_dict = {}
+	
+	var crate_list = []
+	for child in get_tree().get_nodes_in_group("crates"):
+		if child is ContractCrate and is_ancestor_of(child): 
+			crate_list.append(child.get_save_data())
+	save_dict["crates"] = crate_list
+	
 	save_dict["saved_total_minutes"] = TimeManager.get_total_minutes_played()
 	var plant_map = {}
 	var grass_list = []
@@ -356,6 +397,9 @@ func get_current_state() -> Dictionary:
 	if building_manager and building_manager.buildings_container:
 		for child in building_manager.buildings_container.get_children():
 			if child.has_meta("build_id"):
+				if child is ContractCrate or child.is_in_group("crates"):
+					continue
+					
 				var b_dict = {
 					"id": child.get_meta("build_id"),
 					"x": child.get_meta("grid_pos").x,
@@ -367,15 +411,19 @@ func get_current_state() -> Dictionary:
 					"sc_y": child.scale.y,
 					"sc_z": child.scale.z
 				}
-				
 				if child.has_method("get_machine_data"):
 					b_dict["machine_data"] = child.get_machine_data()
-					
 				building_list.append(b_dict)
 	
 	save_dict["buildings"] = building_list
+	
+	var truck_node = get_tree().get_first_node_in_group("truck")
+	if is_instance_valid(truck_node) and truck_node.has_method("get_save_data"):
+		save_dict["truck_data"] = truck_node.get_save_data()
+		print("[DEBUG] GroundGen: Truck state saved.")
+		
 	return save_dict
-
+	
 func _respawn_crop(x, z, block_data_item, final_growth):
 	var world_pos = get_world_pos_from_grid(Vector2i(x, z))
 	var plant_scene = PlantDatabase.get_plant_scene(block_data_item.plant_type)

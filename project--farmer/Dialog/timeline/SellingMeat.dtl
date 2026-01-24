@@ -1,0 +1,7 @@
+NPC_Meat: Fresh meat!
+- I want some meat
+	[signal arg="open_buy_shop_meat"]
+- I have some meat
+	[signal arg="sell_wholesale_meat"]
+- Nah, i think i pass
+	[signal arg="end_talk"]

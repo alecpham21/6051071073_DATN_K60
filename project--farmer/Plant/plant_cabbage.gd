@@ -8,14 +8,12 @@ func update_visuals():
 	if mesh_middle: mesh_middle.visible = false
 	if mesh_ready: mesh_ready.visible = false
 	
-	# Lấy trạng thái nước
 	var is_watered_real = false
 	var parent_gen = get_parent()
 	if parent_gen and "block_data" in parent_gen:
 		var block = parent_gen.block_data[current_grid_pos.x][current_grid_pos.y]
 		is_watered_real = block.is_watered
 
-	# Dùng hàm get_stage_id() từ class cha cho đồng bộ logic
 	var stage = get_stage_id()
 	
 	match stage:

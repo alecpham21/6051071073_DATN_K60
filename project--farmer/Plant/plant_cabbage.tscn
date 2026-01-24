@@ -49,6 +49,7 @@ size = Vector3(1, 1.27979, 1)
 script = ExtResource("1_5kgsd")
 crop_id = "cabbage"
 harvest_stance = 1
+max_growth = 35
 crop_item_scene = ExtResource("2_eiltb")
 material_default = ExtResource("3_66pdv")
 material_seeding = ExtResource("4_c04lm")

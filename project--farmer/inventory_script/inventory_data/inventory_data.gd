@@ -252,18 +252,21 @@ func get_save_data() -> Array:
 			data.append(null)
 	return data
 
+# Trong InventoryData.gd
+
 func load_save_data(data: Array):
 	if data.size() != slot_datas.size():
 		slot_datas.resize(data.size())
 		
 	for i in range(data.size()):
 		var slot_info = data[i]
-		if slot_info:
+		
+		if slot_info is Dictionary and slot_info.has("item_path"):
 			var item_res = load(slot_info.item_path)
 			if item_res:
 				var new_slot = SlotData.new()
 				new_slot.item_data = item_res
-				new_slot.quantity = slot_info.quantity
+				new_slot.quantity = slot_info.get("quantity", 1)
 				
 				if slot_info.has("attrs"):
 					for a_info in slot_info.attrs:
