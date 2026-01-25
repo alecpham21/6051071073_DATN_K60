@@ -1,9 +1,6 @@
 [gd_scene load_steps=38 format=4 uid="uid://dxxymyp80cuk0"]
 
-[ext_resource type="Texture2D" uid="uid://1gysjnj7jqbq" path="res://assets/ImphenziaPalette01-256-Gradient.png" id="1_xnmvx"]
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_n41kk"]
-albedo_texture = ExtResource("1_xnmvx")
+[ext_resource type="Shader" uid="uid://b0nk0hu6e4nys" path="res://modelScene/plant/wheat/plant_sway.gdshader" id="1_o873f"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_q1hmk"]
 
@@ -39,8 +36,14 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_lehgh")
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_dgsjq"]
-albedo_texture = ExtResource("1_xnmvx")
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_4hseh"]
+render_priority = 0
+shader = ExtResource("1_o873f")
+shader_parameter/albedo = Color(0.163511, 0.497943, 0.20776, 1)
+shader_parameter/emission_color = Color(0, 0, 0, 0)
+shader_parameter/emission_energy = 0.0
+shader_parameter/sway_speed = 0.5
+shader_parameter/sway_strength = 0.05
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xh8ak"]
 
@@ -76,8 +79,14 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_us62f")
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_pfbgc"]
-albedo_texture = ExtResource("1_xnmvx")
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_tx15g"]
+render_priority = 0
+shader = ExtResource("1_o873f")
+shader_parameter/albedo = Color(0.163511, 0.497943, 0.20776, 1)
+shader_parameter/emission_color = Color(0, 0, 0, 0)
+shader_parameter/emission_energy = 0.0
+shader_parameter/sway_speed = 0.5
+shader_parameter/sway_strength = 0.05
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_sjqdr"]
 
@@ -113,8 +122,14 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_4tofa")
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_r4w3l"]
-albedo_texture = ExtResource("1_xnmvx")
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_kswbl"]
+render_priority = 0
+shader = ExtResource("1_o873f")
+shader_parameter/albedo = Color(0.163511, 0.497943, 0.20776, 1)
+shader_parameter/emission_color = Color(0, 0, 0, 0)
+shader_parameter/emission_energy = 0.0
+shader_parameter/sway_speed = 0.5
+shader_parameter/sway_strength = 0.05
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_281kt"]
 
@@ -150,8 +165,14 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_u2p1e")
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_sfu1l"]
-albedo_texture = ExtResource("1_xnmvx")
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_teloa"]
+render_priority = 0
+shader = ExtResource("1_o873f")
+shader_parameter/albedo = Color(0.163511, 0.497943, 0.20776, 1)
+shader_parameter/emission_color = Color(0, 0, 0, 0)
+shader_parameter/emission_energy = 0.0
+shader_parameter/sway_speed = 0.5
+shader_parameter/sway_strength = 0.05
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_i5ked"]
 
@@ -187,8 +208,14 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_70ukr")
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_nhmx6"]
-albedo_texture = ExtResource("1_xnmvx")
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_62v2w"]
+render_priority = 0
+shader = ExtResource("1_o873f")
+shader_parameter/albedo = Color(0.163511, 0.497943, 0.20776, 1)
+shader_parameter/emission_color = Color(0, 0, 0, 0)
+shader_parameter/emission_energy = 0.0
+shader_parameter/sway_speed = 0.5
+shader_parameter/sway_strength = 0.05
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qm6io"]
 
@@ -224,8 +251,14 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_tmknh")
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_aooqg"]
-albedo_texture = ExtResource("1_xnmvx")
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_t1g6f"]
+render_priority = 0
+shader = ExtResource("1_o873f")
+shader_parameter/albedo = Color(0.163511, 0.497943, 0.20776, 1)
+shader_parameter/emission_color = Color(0, 0, 0, 0)
+shader_parameter/emission_energy = 0.0
+shader_parameter/sway_speed = 0.5
+shader_parameter/sway_strength = 0.05
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_fdhxt"]
 
@@ -261,8 +294,14 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_ir8s7")
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_83q11"]
-albedo_texture = ExtResource("1_xnmvx")
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_4v43y"]
+render_priority = 0
+shader = ExtResource("1_o873f")
+shader_parameter/albedo = Color(0.163511, 0.497943, 0.20776, 1)
+shader_parameter/emission_color = Color(0, 0, 0, 0)
+shader_parameter/emission_energy = 0.0
+shader_parameter/sway_speed = 0.5
+shader_parameter/sway_strength = 0.05
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_c6c3s"]
 
@@ -298,8 +337,14 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_o2hnb")
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_yseb0"]
-albedo_texture = ExtResource("1_xnmvx")
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_7m5a8"]
+render_priority = 0
+shader = ExtResource("1_o873f")
+shader_parameter/albedo = Color(0.163511, 0.497943, 0.20776, 1)
+shader_parameter/emission_color = Color(0, 0, 0, 0)
+shader_parameter/emission_energy = 0.0
+shader_parameter/sway_speed = 0.5
+shader_parameter/sway_strength = 0.05
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_knqxg"]
 
@@ -335,58 +380,67 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_ebugg")
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_tpgvp"]
+render_priority = 0
+shader = ExtResource("1_o873f")
+shader_parameter/albedo = Color(0.163511, 0.497943, 0.20776, 1)
+shader_parameter/emission_color = Color(0, 0, 0, 0)
+shader_parameter/emission_energy = 0.0
+shader_parameter/sway_speed = 0.5
+shader_parameter/sway_strength = 0.05
+
 [node name="CornEarlyBunch" type="Node3D"]
 
 [node name="CornEarly" type="MeshInstance3D" parent="."]
 transform = Transform3D(-0.197329, 0, -0.15603, 0, 0.251563, 0, 0.15603, 0, -0.197329, 0.0856849, 0.424949, 0.133708)
-material_override = SubResource("StandardMaterial3D_n41kk")
 mesh = SubResource("ArrayMesh_dd6t4")
 skeleton = NodePath("")
+surface_material_override/0 = SubResource("ShaderMaterial_4hseh")
 
 [node name="CornEarly_001" type="MeshInstance3D" parent="."]
 transform = Transform3D(-0.197329, 0, -0.15603, 0, 0.251563, 0, 0.15603, 0, -0.197329, 0.0856849, 0.424949, 1.10209)
-material_override = SubResource("StandardMaterial3D_dgsjq")
 mesh = SubResource("ArrayMesh_u4nbs")
 skeleton = NodePath("")
+surface_material_override/0 = SubResource("ShaderMaterial_tx15g")
 
 [node name="CornEarly_002" type="MeshInstance3D" parent="."]
 transform = Transform3D(-0.197329, 0, -0.15603, 0, 0.251563, 0, 0.15603, 0, -0.197329, 0.0856849, 0.424949, -0.824668)
-material_override = SubResource("StandardMaterial3D_pfbgc")
 mesh = SubResource("ArrayMesh_wa78j")
 skeleton = NodePath("")
+surface_material_override/0 = SubResource("ShaderMaterial_kswbl")
 
 [node name="CornEarly_003" type="MeshInstance3D" parent="."]
 transform = Transform3D(-0.197329, 0, -0.15603, 0, 0.251563, 0, 0.15603, 0, -0.197329, 1.05951, 0.424949, -0.824668)
-material_override = SubResource("StandardMaterial3D_r4w3l")
 mesh = SubResource("ArrayMesh_0yejw")
 skeleton = NodePath("")
+surface_material_override/0 = SubResource("ShaderMaterial_teloa")
 
 [node name="CornEarly_004" type="MeshInstance3D" parent="."]
 transform = Transform3D(-0.197329, 0, -0.15603, 0, 0.251563, 0, 0.15603, 0, -0.197329, 1.05951, 0.424949, 0.136945)
-material_override = SubResource("StandardMaterial3D_sfu1l")
 mesh = SubResource("ArrayMesh_0nl41")
 skeleton = NodePath("")
+surface_material_override/0 = SubResource("ShaderMaterial_62v2w")
 
 [node name="CornEarly_005" type="MeshInstance3D" parent="."]
 transform = Transform3D(-0.197329, 0, -0.15603, 0, 0.251563, 0, 0.15603, 0, -0.197329, 1.05951, 0.424949, 1.10588)
-material_override = SubResource("StandardMaterial3D_nhmx6")
 mesh = SubResource("ArrayMesh_hnwur")
 skeleton = NodePath("")
+surface_material_override/0 = SubResource("ShaderMaterial_t1g6f")
 
 [node name="CornEarly_006" type="MeshInstance3D" parent="."]
 transform = Transform3D(-0.197329, 0, -0.15603, 0, 0.251563, 0, 0.15603, 0, -0.197329, -0.865809, 0.424949, -0.824668)
-material_override = SubResource("StandardMaterial3D_aooqg")
 mesh = SubResource("ArrayMesh_8s5xg")
 skeleton = NodePath("")
+surface_material_override/0 = SubResource("ShaderMaterial_4v43y")
 
 [node name="CornEarly_007" type="MeshInstance3D" parent="."]
 transform = Transform3D(-0.197329, 0, -0.15603, 0, 0.251563, 0, 0.15603, 0, -0.197329, -0.865809, 0.424949, 0.136945)
-material_override = SubResource("StandardMaterial3D_83q11")
 mesh = SubResource("ArrayMesh_utsch")
 skeleton = NodePath("")
+surface_material_override/0 = SubResource("ShaderMaterial_7m5a8")
 
 [node name="CornEarly_008" type="MeshInstance3D" parent="."]
 transform = Transform3D(-0.197329, 0, -0.15603, 0, 0.251563, 0, 0.15603, 0, -0.197329, -0.865809, 0.424949, 1.10588)
-material_override = SubResource("StandardMaterial3D_yseb0")
 mesh = SubResource("ArrayMesh_k6c3w")
 skeleton = NodePath("")
+surface_material_override/0 = SubResource("ShaderMaterial_tpgvp")

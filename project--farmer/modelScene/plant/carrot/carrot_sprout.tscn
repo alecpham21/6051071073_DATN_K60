@@ -1,18 +1,42 @@
-[gd_scene load_steps=3 format=3 uid="uid://cewxcupr637mx"]
+[gd_scene load_steps=6 format=3 uid="uid://cewxcupr637mx"]
 
 [ext_resource type="PackedScene" uid="uid://cifleskrhjb6e" path="res://model/plant/carrot/Carrot_Sprout.glb" id="1_6gwjx"]
+[ext_resource type="Shader" uid="uid://b0nk0hu6e4nys" path="res://modelScene/plant/wheat/plant_sway.gdshader" id="2_jvhvs"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_onyf4"]
-cull_mode = 2
-albedo_color = Color(0.332244, 0.568901, 0.318659, 1)
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_8cvk6"]
+render_priority = 0
+shader = ExtResource("2_jvhvs")
+shader_parameter/albedo = Color(0.211395, 0.500054, 0.308376, 1)
+shader_parameter/emission_color = Color(0, 0, 0, 0)
+shader_parameter/emission_energy = 0.0
+shader_parameter/sway_speed = 2.0
+shader_parameter/sway_strength = 0.1
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_8jo3e"]
+render_priority = 0
+shader = ExtResource("2_jvhvs")
+shader_parameter/albedo = Color(0.211395, 0.500054, 0.308376, 1)
+shader_parameter/emission_color = Color(0, 0, 0, 0)
+shader_parameter/emission_energy = 0.0
+shader_parameter/sway_speed = 2.0
+shader_parameter/sway_strength = 0.1
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_mhfp5"]
+render_priority = 0
+shader = ExtResource("2_jvhvs")
+shader_parameter/albedo = Color(0.211395, 0.500054, 0.308376, 1)
+shader_parameter/emission_color = Color(0, 0, 0, 0)
+shader_parameter/emission_energy = 0.0
+shader_parameter/sway_speed = 2.0
+shader_parameter/sway_strength = 0.1
 
 [node name="Carrot_Sprout2" instance=ExtResource("1_6gwjx")]
 
 [node name="Carrot_Sprout" parent="." index="0"]
-surface_material_override/0 = SubResource("StandardMaterial3D_onyf4")
+surface_material_override/0 = SubResource("ShaderMaterial_8cvk6")
 
 [node name="Carrot_Sprout_001" parent="." index="1"]
-surface_material_override/0 = SubResource("StandardMaterial3D_onyf4")
+surface_material_override/0 = SubResource("ShaderMaterial_8jo3e")
 
 [node name="Carrot_Sprout_002" parent="." index="2"]
-surface_material_override/0 = SubResource("StandardMaterial3D_onyf4")
+surface_material_override/0 = SubResource("ShaderMaterial_mhfp5")

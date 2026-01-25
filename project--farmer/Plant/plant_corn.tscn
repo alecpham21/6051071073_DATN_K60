@@ -81,7 +81,6 @@ visible = false
 transform = Transform3D(0.45, 0, 0, 0, 0.634, 0, 0, 0, 0.45, 0, 0, 0)
 
 [node name="Ready" type="Node3D" parent="ModelCorn"]
-visible = false
 
 [node name="CornFinalBunch" parent="ModelCorn/Ready" instance=ExtResource("4_atyg8")]
 transform = Transform3D(0.45, 0, 0, 0, 0.621, 0, 0, 0, 0.45, 0, 0, 0)

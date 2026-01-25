@@ -73,7 +73,7 @@ skeleton = NodePath("")
 visible = false
 
 [node name="GroundWheatEarly" parent="ModelWheat/Sapling" instance=ExtResource("1_gk82f")]
-transform = Transform3D(0.495, 0, 0, 0, 0.495, 0, 0, 0, 0.495, 0, 0, 0)
+transform = Transform3D(0.495, 0, 0, 0, 0.495, 0, 0, 0, 0.495, 0, 0.0523224, 0)
 
 [node name="Middle" type="Node3D" parent="ModelWheat"]
 visible = false

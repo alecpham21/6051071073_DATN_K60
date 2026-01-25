@@ -1,13 +1,18 @@
 [gd_scene load_steps=4 format=3 uid="uid://cmjey3yb1rrf2"]
 
 [ext_resource type="PackedScene" uid="uid://uow46trt6wo4" path="res://model/plant/cabbage/Cabbage_Final.glb" id="1_kqw8w"]
-[ext_resource type="Texture2D" uid="uid://1gysjnj7jqbq" path="res://assets/ImphenziaPalette01-256-Gradient.png" id="2_qe58r"]
+[ext_resource type="Shader" uid="uid://b0nk0hu6e4nys" path="res://modelScene/plant/wheat/plant_sway.gdshader" id="2_wp0ma"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_bnsus"]
-cull_mode = 2
-albedo_texture = ExtResource("2_qe58r")
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_m6iev"]
+render_priority = 0
+shader = ExtResource("2_wp0ma")
+shader_parameter/albedo = Color(0.310141, 0.573978, 0.212425, 1)
+shader_parameter/emission_color = Color(0, 0, 0, 0)
+shader_parameter/emission_energy = 0.0
+shader_parameter/sway_speed = 2.0
+shader_parameter/sway_strength = 0.1
 
 [node name="Cabbage_Final" instance=ExtResource("1_kqw8w")]
 
 [node name="Plane_008" parent="." index="0"]
-material_override = SubResource("StandardMaterial3D_bnsus")
+surface_material_override/0 = SubResource("ShaderMaterial_m6iev")

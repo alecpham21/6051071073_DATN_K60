@@ -9,9 +9,12 @@ enum HarvestStance {
 @export_group("ID")
 @export var crop_id: String = "wheat"
 
+
 @export_group("Harvest Logic")
 @export var harvest_stance: HarvestStance = HarvestStance.STANDING
 @export var can_use_tool: bool = true
+
+
 
 @export_group("Growth Stats")
 @export var max_growth: int = 15
@@ -43,6 +46,8 @@ func _ready():
 	TimeManager.tick.connect(_on_tick_process)
 	update_visuals()
 
+
+	
 func _on_tick_process():
 	if current_growth >= max_growth + over_growth_cap_offset:
 		return

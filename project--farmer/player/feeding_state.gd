@@ -4,6 +4,8 @@ class_name FeedingState
 @export_group("Animations")
 @export var feed_ani: AnimationSet
 
+const FEED_VFX = preload("res://Scene/vfx/feed_scatter.tscn")
+
 func _enter() -> void:
 	super()
 	var item = HotBar.active_item
@@ -15,12 +17,29 @@ func _enter() -> void:
 		if feed_ani: 
 			feed_ani.play(character.ani)
 		
+		get_tree().create_timer(0.3).timeout.connect(func():
+			if character.is_busy:
+				spawn_feed_effect()
+		)
+		
 		character.ani.animation_finished.connect(func(a):
 			apply_feeding()
 			dispatch("idle")
 		, CONNECT_ONE_SHOT)
 	else:
 		dispatch("idle")
+
+func spawn_feed_effect() -> void:
+	var vfx = FEED_VFX.instantiate()
+	get_tree().root.add_child(vfx)
+	
+	var forward = -character.global_transform.basis.z 
+	var spawn_pos = character.global_position + (forward * 0.8)
+	spawn_pos.y += 0.2
+	
+	vfx.global_position = spawn_pos
+	vfx.global_rotation = character.global_rotation
+
 
 func apply_feeding() -> void:
 	var areas = character.interact_area.get_overlapping_areas()

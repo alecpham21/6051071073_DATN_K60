@@ -1,4 +1,4 @@
-[gd_scene load_steps=101 format=4 uid="uid://bbvhog32snru6"]
+[gd_scene load_steps=100 format=4 uid="uid://bbvhog32snru6"]
 
 [ext_resource type="Script" uid="uid://hctai00r4njf" path="res://world.gd" id="1_dwbse"]
 [ext_resource type="Shader" uid="uid://bkw4b21akjsc2" path="res://subViewportPixel.gdshader" id="2_gggvi"]
@@ -46,7 +46,6 @@
 [ext_resource type="PackedScene" uid="uid://dd48ywngxd2oc" path="res://Scene/Environment/day_night_cycle.tscn" id="29_k83mh"]
 [ext_resource type="Script" uid="uid://djj2m2skea716" path="res://TimeCheck.gd" id="29_qktwf"]
 [ext_resource type="Shader" uid="uid://c13esa4vg2n5k" path="res://level/posterization.gdshader" id="30_qktwf"]
-[ext_resource type="PackedScene" uid="uid://ynrwm1s6wfvb" path="res://modelScene/terrain/forest_3_colored.tscn" id="31_7qk3m"]
 [ext_resource type="PackedScene" uid="uid://b5bavm45lxiid" path="res://ui/Recipe/RecipeUI/recipe_ui.tscn" id="32_gggvi"]
 [ext_resource type="PackedScene" uid="uid://n1cce0bi5bf4" path="res://quest_system/quest_ui/quest_tracker.tscn" id="34_6ah6f"]
 [ext_resource type="PackedScene" uid="uid://dsm6vvhxl3bpd" path="res://modelScene/terrain/GroundBackground.tscn" id="34_g1i3r"]
@@ -627,9 +626,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 56.6367, 12.7882, 0)
 
 [node name="BigTerrainMoutain" parent="background" instance=ExtResource("14_70uel")]
 transform = Transform3D(109.78, 0, 0, 0, 109.78, 0, 0, 0, 109.78, -0.373759, -73.7617, -0.241655)
-
-[node name="Forest3Colored" parent="background" instance=ExtResource("31_7qk3m")]
-transform = Transform3D(0.631651, 0, 0.775253, 0, 1.14, 0, -0.775253, 0, 0.631651, 176.755, -13.5075, -246.763)
 
 [node name="TimeCheckUI" type="CanvasLayer" parent="."]
 

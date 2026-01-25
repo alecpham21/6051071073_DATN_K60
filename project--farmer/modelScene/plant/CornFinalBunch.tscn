@@ -1,9 +1,7 @@
-[gd_scene load_steps=38 format=4 uid="uid://cu15c0rqq1l2b"]
+[gd_scene load_steps=39 format=4 uid="uid://cu15c0rqq1l2b"]
 
+[ext_resource type="Shader" uid="uid://b0nk0hu6e4nys" path="res://modelScene/plant/wheat/plant_sway.gdshader" id="1_nii6f"]
 [ext_resource type="Texture2D" uid="uid://1gysjnj7jqbq" path="res://assets/ImphenziaPalette01-256-Gradient.png" id="1_qrq5p"]
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qrq5p"]
-albedo_texture = ExtResource("1_qrq5p")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_31d18"]
 
@@ -39,8 +37,25 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_48wgi")
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_p3vf7"]
-albedo_texture = ExtResource("1_qrq5p")
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_7kd56"]
+render_priority = 0
+shader = ExtResource("1_nii6f")
+shader_parameter/texture_albedo = ExtResource("1_qrq5p")
+shader_parameter/albedo = Color(1, 1, 1, 1)
+shader_parameter/emission_color = Color(0, 0, 0, 0)
+shader_parameter/emission_energy = 0.0
+shader_parameter/sway_speed = 0.5
+shader_parameter/sway_strength = 0.05
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_e0eyg"]
+render_priority = 0
+shader = ExtResource("1_nii6f")
+shader_parameter/texture_albedo = ExtResource("1_qrq5p")
+shader_parameter/albedo = Color(1, 1, 1, 1)
+shader_parameter/emission_color = Color(0, 0, 0, 0)
+shader_parameter/emission_energy = 0.0
+shader_parameter/sway_speed = 0.5
+shader_parameter/sway_strength = 0.05
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qwqjx"]
 
@@ -76,9 +91,6 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_8c7yf")
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ojw6i"]
-albedo_texture = ExtResource("1_qrq5p")
-
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ufyri"]
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_jhxd2"]
@@ -113,8 +125,15 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_jhxd2")
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qmcgl"]
-albedo_texture = ExtResource("1_qrq5p")
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_y7tp7"]
+render_priority = 0
+shader = ExtResource("1_nii6f")
+shader_parameter/texture_albedo = ExtResource("1_qrq5p")
+shader_parameter/albedo = Color(1, 1, 1, 1)
+shader_parameter/emission_color = Color(0, 0, 0, 0)
+shader_parameter/emission_energy = 0.0
+shader_parameter/sway_speed = 0.5
+shader_parameter/sway_strength = 0.05
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_w4xu4"]
 
@@ -150,8 +169,15 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_olebm")
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_u0pm6"]
-albedo_texture = ExtResource("1_qrq5p")
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_u4cf1"]
+render_priority = 0
+shader = ExtResource("1_nii6f")
+shader_parameter/texture_albedo = ExtResource("1_qrq5p")
+shader_parameter/albedo = Color(1, 1, 1, 1)
+shader_parameter/emission_color = Color(0, 0, 0, 0)
+shader_parameter/emission_energy = 0.0
+shader_parameter/sway_speed = 0.5
+shader_parameter/sway_strength = 0.05
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ip36u"]
 
@@ -187,8 +213,15 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_lbf7n")
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hry1r"]
-albedo_texture = ExtResource("1_qrq5p")
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_srewo"]
+render_priority = 0
+shader = ExtResource("1_nii6f")
+shader_parameter/texture_albedo = ExtResource("1_qrq5p")
+shader_parameter/albedo = Color(1, 1, 1, 1)
+shader_parameter/emission_color = Color(0, 0, 0, 0)
+shader_parameter/emission_energy = 0.0
+shader_parameter/sway_speed = 0.5
+shader_parameter/sway_strength = 0.05
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_o5ltf"]
 
@@ -224,8 +257,15 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_oo0wh")
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_h6slk"]
-albedo_texture = ExtResource("1_qrq5p")
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_0l288"]
+render_priority = 0
+shader = ExtResource("1_nii6f")
+shader_parameter/texture_albedo = ExtResource("1_qrq5p")
+shader_parameter/albedo = Color(1, 1, 1, 1)
+shader_parameter/emission_color = Color(0, 0, 0, 0)
+shader_parameter/emission_energy = 0.0
+shader_parameter/sway_speed = 0.5
+shader_parameter/sway_strength = 0.05
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3np76"]
 
@@ -261,8 +301,15 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_63wv8")
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_icftl"]
-albedo_texture = ExtResource("1_qrq5p")
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_jyinu"]
+render_priority = 0
+shader = ExtResource("1_nii6f")
+shader_parameter/texture_albedo = ExtResource("1_qrq5p")
+shader_parameter/albedo = Color(1, 1, 1, 1)
+shader_parameter/emission_color = Color(0, 0, 0, 0)
+shader_parameter/emission_energy = 0.0
+shader_parameter/sway_speed = 0.5
+shader_parameter/sway_strength = 0.05
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_h2iw3"]
 
@@ -298,8 +345,15 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_l2t2i")
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_yhc8d"]
-albedo_texture = ExtResource("1_qrq5p")
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_bfafo"]
+render_priority = 0
+shader = ExtResource("1_nii6f")
+shader_parameter/texture_albedo = ExtResource("1_qrq5p")
+shader_parameter/albedo = Color(1, 1, 1, 1)
+shader_parameter/emission_color = Color(0, 0, 0, 0)
+shader_parameter/emission_energy = 0.0
+shader_parameter/sway_speed = 0.5
+shader_parameter/sway_strength = 0.05
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_uwye0"]
 
@@ -335,58 +389,68 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_vbcjn")
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_fnojo"]
+render_priority = 0
+shader = ExtResource("1_nii6f")
+shader_parameter/texture_albedo = ExtResource("1_qrq5p")
+shader_parameter/albedo = Color(1, 1, 1, 1)
+shader_parameter/emission_color = Color(0, 0, 0, 0)
+shader_parameter/emission_energy = 0.0
+shader_parameter/sway_speed = 0.5
+shader_parameter/sway_strength = 0.05
+
 [node name="CornFinalBunch" type="Node3D"]
 
 [node name="CornFinal" type="MeshInstance3D" parent="."]
 transform = Transform3D(0.0695653, -0.139027, 0.00471793, 0.0322937, 0.137487, 0.0700568, -0.0388572, -0.134634, 0.0666696, -0.115221, 1.00357, -0.156811)
-material_override = SubResource("StandardMaterial3D_qrq5p")
 mesh = SubResource("ArrayMesh_7xh1c")
 skeleton = NodePath("")
+surface_material_override/0 = SubResource("ShaderMaterial_7kd56")
 
 [node name="CornFinal_001" type="MeshInstance3D" parent="."]
 transform = Transform3D(0.0695653, -0.139027, 0.00471793, 0.0322937, 0.137487, 0.0700568, -0.0388572, -0.134634, 0.0666696, -0.115221, 1.00357, -1.1331)
-material_override = SubResource("StandardMaterial3D_p3vf7")
+material_override = SubResource("ShaderMaterial_e0eyg")
 mesh = SubResource("ArrayMesh_w766r")
 skeleton = NodePath("")
 
 [node name="CornFinal_002" type="MeshInstance3D" parent="."]
 transform = Transform3D(0.0695653, -0.139027, 0.00471793, 0.0322937, 0.137487, 0.0700568, -0.0388572, -0.134634, 0.0666696, -0.115221, 1.00357, 0.815296)
-material_override = SubResource("StandardMaterial3D_ojw6i")
 mesh = SubResource("ArrayMesh_j0nno")
 skeleton = NodePath("")
+surface_material_override/0 = SubResource("ShaderMaterial_y7tp7")
 
 [node name="CornFinal_003" type="MeshInstance3D" parent="."]
 transform = Transform3D(0.0695653, -0.139027, 0.00471793, 0.0322937, 0.137487, 0.0700568, -0.0388572, -0.134634, 0.0666696, 0.87328, 1.00357, -0.156811)
-material_override = SubResource("StandardMaterial3D_qmcgl")
 mesh = SubResource("ArrayMesh_m26ft")
 skeleton = NodePath("")
+surface_material_override/0 = SubResource("ShaderMaterial_u4cf1")
 
 [node name="CornFinal_004" type="MeshInstance3D" parent="."]
 transform = Transform3D(0.0695653, -0.139027, 0.00471793, 0.0322937, 0.137487, 0.0700568, -0.0388572, -0.134634, 0.0666696, 0.87328, 1.00357, -1.1331)
-material_override = SubResource("StandardMaterial3D_u0pm6")
 mesh = SubResource("ArrayMesh_0it5v")
 skeleton = NodePath("")
+surface_material_override/0 = SubResource("ShaderMaterial_srewo")
 
 [node name="CornFinal_005" type="MeshInstance3D" parent="."]
 transform = Transform3D(0.0695653, -0.139027, 0.00471793, 0.0322937, 0.137487, 0.0700568, -0.0388572, -0.134634, 0.0666696, 0.87328, 1.00357, 0.815296)
-material_override = SubResource("StandardMaterial3D_hry1r")
 mesh = SubResource("ArrayMesh_mjb0e")
 skeleton = NodePath("")
+surface_material_override/0 = SubResource("ShaderMaterial_0l288")
 
 [node name="CornFinal_006" type="MeshInstance3D" parent="."]
 transform = Transform3D(0.0695653, -0.139027, 0.00471793, 0.0322937, 0.137487, 0.0700568, -0.0388572, -0.134634, 0.0666696, -1.09558, 1.00357, -0.156811)
-material_override = SubResource("StandardMaterial3D_h6slk")
 mesh = SubResource("ArrayMesh_lcvo0")
 skeleton = NodePath("")
+surface_material_override/0 = SubResource("ShaderMaterial_jyinu")
 
 [node name="CornFinal_007" type="MeshInstance3D" parent="."]
 transform = Transform3D(0.0695653, -0.139027, 0.00471793, 0.0322937, 0.137487, 0.0700568, -0.0388572, -0.134634, 0.0666696, -1.09558, 1.00357, -1.1331)
-material_override = SubResource("StandardMaterial3D_icftl")
 mesh = SubResource("ArrayMesh_hpp7c")
 skeleton = NodePath("")
+surface_material_override/0 = SubResource("ShaderMaterial_bfafo")
 
 [node name="CornFinal_008" type="MeshInstance3D" parent="."]
 transform = Transform3D(0.0695653, -0.139027, 0.00471793, 0.0322937, 0.137487, 0.0700568, -0.0388572, -0.134634, 0.0666696, -1.09558, 1.00357, 0.815296)
-material_override = SubResource("StandardMaterial3D_yhc8d")
 mesh = SubResource("ArrayMesh_m58bj")
 skeleton = NodePath("")
+surface_material_override/0 = SubResource("ShaderMaterial_fnojo")

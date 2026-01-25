@@ -1,12 +1,18 @@
-[gd_scene load_steps=3 format=3 uid="uid://dgmhplehmp2p5"]
+[gd_scene load_steps=4 format=3 uid="uid://dgmhplehmp2p5"]
 
 [ext_resource type="PackedScene" uid="uid://cbnlgaf21f47q" path="res://model/plant/cabbage/Cabbage_Sprout.glb" id="1_1mp7a"]
+[ext_resource type="Shader" uid="uid://b0nk0hu6e4nys" path="res://modelScene/plant/wheat/plant_sway.gdshader" id="2_ywkaq"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2kyxw"]
-cull_mode = 2
-albedo_color = Color(0.286396, 0.544781, 0.277167, 1)
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_x6nr1"]
+render_priority = 0
+shader = ExtResource("2_ywkaq")
+shader_parameter/albedo = Color(0.310141, 0.573978, 0.212425, 1)
+shader_parameter/emission_color = Color(0, 0, 0, 0)
+shader_parameter/emission_energy = 0.0
+shader_parameter/sway_speed = 2.0
+shader_parameter/sway_strength = 0.1
 
 [node name="Cabbage_Sprout2" instance=ExtResource("1_1mp7a")]
 
 [node name="Cabbage_Sprout" parent="." index="0"]
-surface_material_override/0 = SubResource("StandardMaterial3D_2kyxw")
+surface_material_override/0 = SubResource("ShaderMaterial_x6nr1")

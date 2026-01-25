@@ -1,47 +1,60 @@
-[gd_scene load_steps=8 format=3 uid="uid://dd7v1woe7juju"]
+[gd_scene load_steps=7 format=3 uid="uid://dd7v1woe7juju"]
 
 [ext_resource type="PackedScene" uid="uid://b5nmmncxckws4" path="res://model/plant/carrot/Carrot_Middle.glb" id="1_7jhqe"]
+[ext_resource type="Shader" uid="uid://b0nk0hu6e4nys" path="res://modelScene/plant/wheat/plant_sway.gdshader" id="2_oebbr"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wfmnc"]
-cull_mode = 2
-albedo_color = Color(0.332244, 0.568901, 0.318659, 1)
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_wwrcq"]
+render_priority = 0
+shader = ExtResource("2_oebbr")
+shader_parameter/albedo = Color(0.211395, 0.500054, 0.308376, 1)
+shader_parameter/emission_color = Color(0, 0, 0, 0)
+shader_parameter/emission_energy = 0.0
+shader_parameter/sway_speed = 2.0
+shader_parameter/sway_strength = 0.1
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1kjcn"]
-cull_mode = 2
-albedo_color = Color(0.332244, 0.568901, 0.318659, 1)
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_txv6u"]
+render_priority = 0
+shader = ExtResource("2_oebbr")
+shader_parameter/albedo = Color(0.211395, 0.500054, 0.308376, 1)
+shader_parameter/emission_color = Color(0, 0, 0, 0)
+shader_parameter/emission_energy = 0.0
+shader_parameter/sway_speed = 2.0
+shader_parameter/sway_strength = 0.1
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_drvfi"]
-cull_mode = 2
-albedo_color = Color(0.332244, 0.568901, 0.318659, 1)
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ak1x3"]
+render_priority = 0
+shader = ExtResource("2_oebbr")
+shader_parameter/albedo = Color(0.211395, 0.500054, 0.308376, 1)
+shader_parameter/emission_color = Color(0, 0, 0, 0)
+shader_parameter/emission_energy = 0.0
+shader_parameter/sway_speed = 2.0
+shader_parameter/sway_strength = 0.1
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_nhqtr"]
-cull_mode = 2
-albedo_color = Color(0.332244, 0.568901, 0.318659, 1)
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_sml3e"]
-cull_mode = 2
-albedo_color = Color(0.332244, 0.568901, 0.318659, 1)
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8w8d8"]
-cull_mode = 2
-albedo_color = Color(0.332244, 0.568901, 0.318659, 1)
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_wsadp"]
+render_priority = 0
+shader = ExtResource("2_oebbr")
+shader_parameter/albedo = Color(0.211395, 0.500054, 0.308376, 1)
+shader_parameter/emission_color = Color(0, 0, 0, 0)
+shader_parameter/emission_energy = 0.0
+shader_parameter/sway_speed = 0.5
+shader_parameter/sway_strength = 0.05
 
 [node name="Carrot_Middle" instance=ExtResource("1_7jhqe")]
 
 [node name="Carrot_Sprout" parent="." index="0"]
-surface_material_override/0 = SubResource("StandardMaterial3D_wfmnc")
+surface_material_override/0 = SubResource("ShaderMaterial_wwrcq")
 
 [node name="Carrot_Sprout_001" parent="." index="1"]
-surface_material_override/0 = SubResource("StandardMaterial3D_1kjcn")
+surface_material_override/0 = SubResource("ShaderMaterial_txv6u")
 
 [node name="Carrot_Sprout_002" parent="." index="2"]
-surface_material_override/0 = SubResource("StandardMaterial3D_drvfi")
+surface_material_override/0 = SubResource("ShaderMaterial_ak1x3")
 
 [node name="Carrot_Germinate" parent="." index="3"]
-surface_material_override/0 = SubResource("StandardMaterial3D_nhqtr")
+surface_material_override/0 = SubResource("ShaderMaterial_wsadp")
 
 [node name="Carrot_Germinate_001" parent="." index="4"]
-surface_material_override/0 = SubResource("StandardMaterial3D_sml3e")
+surface_material_override/0 = SubResource("ShaderMaterial_wsadp")
 
 [node name="Carrot_Germinate_002" parent="." index="5"]
-surface_material_override/0 = SubResource("StandardMaterial3D_8w8d8")
+surface_material_override/0 = SubResource("ShaderMaterial_wsadp")
