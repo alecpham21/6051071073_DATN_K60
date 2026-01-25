@@ -1,8 +1,9 @@
-[gd_scene load_steps=22 format=4 uid="uid://c8v5mbesi6moh"]
+[gd_scene load_steps=24 format=4 uid="uid://c8v5mbesi6moh"]
 
 [ext_resource type="Script" uid="uid://b4utbr70pytt8" path="res://modelScene/vehicle/DeliveryTruck.gd" id="1_2enq3"]
 [ext_resource type="Texture2D" uid="uid://1gysjnj7jqbq" path="res://assets/ImphenziaPalette01-256-Gradient.png" id="1_7fkgi"]
 [ext_resource type="Script" uid="uid://shg7mp52bork" path="res://DeliveryArea.gd" id="2_j3btw"]
+[ext_resource type="PackedScene" uid="uid://d00a1yc85iqcj" path="res://modelScene/vehicle/TruckDoor/TruckDoor.tscn" id="4_rjvyp"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_j3btw"]
 cull_mode = 2
@@ -116,13 +117,6 @@ shadow_mesh = SubResource("ArrayMesh_m3fql")
 emission_enabled = true
 emission = Color(0.0836008, 0.710906, 0.893735, 1)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rjvyp"]
-albedo_color = Color(0.165656, 0.165656, 0.165656, 1)
-
-[sub_resource type="BoxMesh" id="BoxMesh_nu5aa"]
-material = SubResource("StandardMaterial3D_rjvyp")
-size = Vector3(1, 0.795, 1)
-
 [sub_resource type="BoxShape3D" id="BoxShape3D_2enq3"]
 size = Vector3(1.62842, 2.7915, 3.15578)
 
@@ -135,8 +129,45 @@ material = SubResource("StandardMaterial3D_nu5aa")
 [sub_resource type="BoxShape3D" id="BoxShape3D_rjvyp"]
 size = Vector3(9.3584, 4.50476, 5.12897)
 
+[sub_resource type="Animation" id="Animation_nu5aa"]
+resource_name = "Door_Open"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Door:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.54),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(1, 1, 1), Vector3(1, 0.03, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_0nsh2"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Door:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_nrpsr"]
+_data = {
+&"Door_Open": SubResource("Animation_nu5aa"),
+&"RESET": SubResource("Animation_0nsh2")
+}
+
 [node name="TruckVer1" type="Node3D" groups=["truck"]]
 script = ExtResource("1_2enq3")
+hover_height = 4.0
 
 [node name="Truck" type="MeshInstance3D" parent="."]
 transform = Transform3D(3.45313, 0, 0, 0, 0.218297, 0, 0, 0, 1, -5.51916, -0.159412, 0)
@@ -155,10 +186,6 @@ transform = Transform3D(0.764388, 0, 0, 0, -0.361489, 0.673509, 0, -0.673509, -0
 mesh = SubResource("ArrayMesh_nbtd7")
 skeleton = NodePath("")
 surface_material_override/0 = SubResource("StandardMaterial3D_7fkgi")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.785971, 0.198158, 0)
-mesh = SubResource("BoxMesh_nu5aa")
 
 [node name="DeliveryZone" type="Area3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.38312, -0.382235, 0)
@@ -182,3 +209,11 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.82026, -1.41275, 0)
 [node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.1792, 0.791443, 0.0274353)
 shape = SubResource("BoxShape3D_rjvyp")
+
+[node name="Door" parent="." instance=ExtResource("4_rjvyp")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.27999, 3.20029, 0)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_nrpsr")
+}

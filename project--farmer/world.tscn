@@ -824,7 +824,8 @@ transform = Transform3D(-0.765, 0, -6.68784e-08, 0, 0.765, 0, 6.68784e-08, 0, -0
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 35.2701, 1.5511, 0)
 
 [node name="TruckVer1" parent="." instance=ExtResource("56_kkgr2")]
-transform = Transform3D(-0.85, 0, 7.43094e-08, 0, 0.85, 0, -7.43094e-08, 0, -0.85, 208.062, 14.1943, 3.99207e-06)
+transform = Transform3D(-0.85, 0, 7.43094e-08, 0, 0.85, 0, -7.43094e-08, 0, -0.85, 208.062, 16.1129, 3.99207e-06)
+landing_time = 2.5
 
 [node name="DepartMarker" type="Marker3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 251.661, 28.2356, 0)

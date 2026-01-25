@@ -12,6 +12,7 @@ var has_departed: bool = false
 var is_active: bool = false
 
 @onready var delivery_zone: Area3D = $DeliveryZone
+@onready var anim_player: AnimationPlayer = $AnimationPlayer
 
 func _ready():
 	visible = false
@@ -44,29 +45,37 @@ func arrive():
 	
 	visible = true
 	
-	var travel_pos = target_marker.global_position + Vector3(0, hover_height, 0)
+	var hover_pos = target_marker.global_position + Vector3(0, hover_height, 0)
 	var travel_tween = create_tween()
 	
-	print("Truck: Flying to target coordinates...")
-	travel_tween.tween_property(self, "global_position", travel_pos, travel_time)\
+	print("Truck: Flying to hover position...")
+	travel_tween.tween_property(self, "global_position", hover_pos, travel_time)\
 		.set_trans(Tween.TRANS_CUBIC)\
 		.set_ease(Tween.EASE_OUT)
 	
 	await travel_tween.finished
 	
-	print("Truck: Aligning and landing...")
-	var land_tween = create_tween().set_parallel(true)
-	
-	land_tween.tween_property(self, "global_rotation", target_marker.global_rotation, landing_time)\
+	print("Truck: Aligning rotation at hover height...")
+	var align_tween = create_tween()
+	align_tween.tween_property(self, "global_rotation", target_marker.global_rotation, 1.0)\
 		.set_trans(Tween.TRANS_SINE)\
 		.set_ease(Tween.EASE_IN_OUT)
 	
+	await align_tween.finished
+	
+	print("Truck: Final landing...")
+	var land_tween = create_tween()
 	land_tween.tween_property(self, "global_position", target_marker.global_position, landing_time)\
 		.set_trans(Tween.TRANS_SINE)\
 		.set_ease(Tween.EASE_IN_OUT)
 	
 	await land_tween.finished
 	
+	if anim_player and anim_player.has_animation("Door_Open"):
+		anim_player.play("Door_Open")
+		print("Truck: Opening delivery door...")
+		await anim_player.animation_finished
+
 	if delivery_zone:
 		delivery_zone.monitoring = true
 	print("Truck: Landing complete. Ready for delivery.")
@@ -77,7 +86,13 @@ func depart():
 	
 	if delivery_zone:
 		delivery_zone.monitoring = false
-		
+	
+	if anim_player and anim_player.has_animation("Door_Open"):
+		print("Truck: Closing door before departure...")
+		anim_player.play_backwards("Door_Open")
+		await anim_player.animation_finished
+	
+	
 	depart_marker = get_tree().current_scene.find_child("DepartMarker", true, false)
 	
 	if not depart_marker:
@@ -137,4 +152,8 @@ func load_save_data(data: Dictionary):
 		is_active = true
 		if delivery_zone:
 			delivery_zone.monitoring = true
+		if anim_player and anim_player.has_animation("Door_Open"):
+			anim_player.play("Door_Open")
+			anim_player.advance(anim_player.get_animation("Door_Open").length)
+		print("[DEBUG] Truck: Restored with door open.")
 		print("[DEBUG] Truck: Restored to port position instantly.")

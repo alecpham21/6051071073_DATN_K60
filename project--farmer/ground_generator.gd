@@ -189,7 +189,7 @@ func can_dig(grid_pos: Vector2i) -> bool:
 
 func _spawn_initial_buildings():
 	if not building_manager: return
-	print("🏗️ [GroundGen] Placing Default Buildings...")
+	print("Placing default Building")
 	
 	var house_id = "first_house"
 	var house_world_pos = Vector3(-21.217, 0, 0)

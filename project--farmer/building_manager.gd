@@ -95,7 +95,7 @@ func place_building() -> bool:
 	current_building_preview = null
 	current_building_data = null
 	
-	print("✅ Đặt thành công!")
+	print("✅ Place Success!")
 	return true
 	
 
