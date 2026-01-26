@@ -60,7 +60,7 @@ func setup_ai(target_marker: Marker3D, home_marker: Marker3D, is_initial: bool =
 	
 	var base_stay = randf_range(60.0, 180.0) 
 	if is_initial:
-		base_stay -= randf_range(10.0, base_stay * 0.7)
+		base_stay = randf_range(30.0, 100.0)
 	
 	if not animation_player:
 		animation_player = get_node_or_null("AnimationPlayer") 
@@ -76,6 +76,7 @@ func setup_ai(target_marker: Marker3D, home_marker: Marker3D, is_initial: bool =
 	if is_already_at_target:
 		global_rotation.y = target_marker.global_rotation.y
 	
+	bt_player.active = true 
 	bt_player.restart()
 
 func _on_velocity_computed(safe_velocity: Vector3) -> void:

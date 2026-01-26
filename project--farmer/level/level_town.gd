@@ -3,12 +3,19 @@ class_name Town
 
 
 const PickUp = preload("res://inventory_script/item/pick_up_item/pick_up.tscn")
+const TOWN_THEME = preload("res://audio/theme/TownTheme.mp3")
 
 @onready var player: CharacterBody3D = %MainFarmer
 @onready var inventory_interface: Control = $UI/InventoryInterface
 @onready var hot_bar_inventory: PanelContainer = $UI/HotBarInventory
 
 func _ready():
+	var bgm_player = AudioStreamPlayer.new()
+	bgm_player.stream = TOWN_THEME
+	bgm_player.autoplay = true
+	bgm_player.bus = "Music"
+	add_child(bgm_player)
+	
 	Watcher.indoor = false
 	player.toggle_inventory.connect(toggle_inventory_interface)
 	inventory_interface.set_player_inventory_data(player.inventory_data)

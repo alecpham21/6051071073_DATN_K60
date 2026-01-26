@@ -2,6 +2,7 @@ extends MainState
 class_name TillingState
 
 const DIRT_VFX = preload("res://vfx/dirt_splash.tscn")
+const SHOVEL_SOUND = preload("res://audio/shovel cutted.wav")
 
 @export var hit_times: Array[float] = [1.0, 2.0]
 
@@ -68,6 +69,18 @@ func spawn_vfx(cast: RayCast3D, ground_gen) -> void:
 	get_tree().root.add_child(vfx)
 	vfx.global_position = hit_pos
 	vfx.global_position.y += 0.2
+	
+	if SHOVEL_SOUND:
+		var sfx = AudioStreamPlayer3D.new()
+		sfx.stream = SHOVEL_SOUND
+		sfx.unit_size = 10.0
+		sfx.max_db = -1.0
+		
+		get_tree().root.add_child(sfx)
+		sfx.global_position = hit_pos
+		
+		sfx.finished.connect(sfx.queue_free) 
+		sfx.play()
 
 func till(cast: RayCast3D, ground_gen) -> void:
 	cast.force_raycast_update()

@@ -1,4 +1,4 @@
-[gd_resource type="BehaviorTree" load_steps=27 format=3 uid="uid://bfadd3mb6tox8"]
+[gd_resource type="BehaviorTree" load_steps=28 format=3 uid="uid://bfadd3mb6tox8"]
 
 [ext_resource type="Script" uid="uid://cg5qw6dcrxywn" path="res://ai/tasks/move_to_pos.gd" id="1_61f1e"]
 
@@ -59,8 +59,11 @@ align_on_arrival = true
 speed = 3.0
 tolerance = 1.0
 
-[sub_resource type="BTSequence" id="BTSequence_278rh"]
-children = [SubResource("BTCheckVar_cwauv"), SubResource("BTCallMethod_n8yo2"), SubResource("BTAction_cwauv")]
+[sub_resource type="BTSequence" id="BTSequence_61f1e"]
+children = [SubResource("BTCallMethod_n8yo2"), SubResource("BTAction_cwauv")]
+
+[sub_resource type="BTSelector" id="BTSelector_61f1e"]
+children = [SubResource("BTCheckVar_cwauv"), SubResource("BTSequence_61f1e")]
 
 [sub_resource type="BBNode" id="BBNode_1l4pe"]
 value_source = 1
@@ -72,7 +75,7 @@ animation_player = SubResource("BBNode_1l4pe")
 animation_name = &"Idle"
 
 [sub_resource type="BTWait" id="BTWait_cwauv"]
-duration = 10.0
+duration = 6.0
 
 [sub_resource type="BTSequence" id="BTSequence_n8yo2"]
 children = [SubResource("BTPlayAnimation_61f1e"), SubResource("BTWait_cwauv")]
@@ -86,17 +89,18 @@ node = SubResource("BBNode_61f1e")
 method = &"play_interact_anim"
 
 [sub_resource type="BTWait" id="BTWait_q7b2e"]
-duration = 10.0
+duration = 8.0
 
 [sub_resource type="BTSequence" id="BTSequence_1l4pe"]
 children = [SubResource("BTCallMethod_cwauv"), SubResource("BTWait_q7b2e")]
+metadata/_weight_ = 2.14
 
-[sub_resource type="BTRandomSelector" id="BTRandomSelector_61f1e"]
+[sub_resource type="BTProbabilitySelector" id="BTProbabilitySelector_cwauv"]
 children = [SubResource("BTSequence_n8yo2"), SubResource("BTSequence_1l4pe")]
 
 [sub_resource type="BTTimeLimit" id="BTTimeLimit_61f1e"]
 time_limit = 20.0
-children = [SubResource("BTRandomSelector_61f1e")]
+children = [SubResource("BTProbabilitySelector_cwauv")]
 
 [sub_resource type="BTSequence" id="BTSequence_wg0qk"]
 children = [SubResource("BTTimeLimit_61f1e")]
@@ -129,7 +133,7 @@ node = SubResource("BBNode_278rh")
 method = &"queue_free"
 
 [sub_resource type="BTSequence" id="BTSequence_vw0ng"]
-children = [SubResource("BTSequence_278rh"), SubResource("BTSequence_wg0qk"), SubResource("BTSequence_5ksnw"), SubResource("BTCallMethod_5ksnw")]
+children = [SubResource("BTSelector_61f1e"), SubResource("BTSequence_wg0qk"), SubResource("BTSequence_5ksnw"), SubResource("BTCallMethod_5ksnw")]
 
 [resource]
 blackboard_plan = SubResource("BlackboardPlan_byrvi")
