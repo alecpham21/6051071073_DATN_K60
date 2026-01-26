@@ -149,3 +149,20 @@ func give_ordered_wood():
 			print("Collection Success")
 		else:
 			print("Inventory full")
+
+func get_save_data() -> Dictionary:
+	return {
+		"ordered_item_path": ordered_item.resource_path if ordered_item else "",
+		"ordered_quantity": ordered_quantity,
+		"delivery_day": delivery_day,
+		"current_buy_count": current_buy_count
+	}
+
+func load_save_data(data: Dictionary):
+	if data.get("ordered_item_path", "") != "":
+		ordered_item = load(data.ordered_item_path)
+	
+	ordered_quantity = data.get("ordered_quantity", 0)
+	delivery_day = data.get("delivery_day", -1)
+	current_buy_count = data.get("current_buy_count", 0)
+	#print("[DEBUG] Lumberjack: Data restored. Orders: ", ordered_quantity)

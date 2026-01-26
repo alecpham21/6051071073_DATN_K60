@@ -29,6 +29,7 @@ func save_game(slot_name: String = "manual_save_1"):
 			"current_time": TimeManager.current_time
 		},
 		"quests": _get_quest_save_data(),
+		"lumberjack": _get_lumberjack_save_data(),
 		"world_states": Watcher.world_states 
 	}
 
@@ -79,7 +80,10 @@ func load_game(slot_name: String = "manual_save_1"):
 	PlayerData.player_equip_data.load_save_data(data.player.equip)
 	PlayerData.player_outfit_data.load_save_data(data.player.outfit)
 	_load_quest_save_data(data.quests)
-
+	
+	if data.has("lumberjack"):
+		_load_lumberjack_save_data(data.lumberjack)
+	
 func _get_quest_save_data() -> Dictionary:
 	var q_data = {
 		"list": {},
@@ -136,3 +140,14 @@ func _load_chest_save_data(dict: Dictionary):
 		inv.load_save_data(dict[id]) 
 		
 		PlayerData.chest_inventories[id] = inv
+
+func _get_lumberjack_save_data() -> Dictionary:
+	var npc = get_tree().get_first_node_in_group("lumberjack")
+	if npc and npc.has_method("get_save_data"):
+		return npc.get_save_data()
+	return {}
+
+func _load_lumberjack_save_data(data: Dictionary):
+	var npc = get_tree().get_first_node_in_group("lumberjack")
+	if npc and npc.has_method("load_save_data"):
+		npc.load_save_data(data)
