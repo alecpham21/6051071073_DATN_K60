@@ -88,7 +88,10 @@ void fragment() {
 void light() {
 	vec3 world_up_view = (VIEW_MATRIX * vec4(0.0, 1.0, 0.0, 0.0)).xyz;
 	float NdotL = dot(normalize(world_up_view), LIGHT);
-	float diffuse_amount = NdotL * ATTENUATION + 0.0;
-	float diffuse_stepped = floor(diffuse_amount * 3.0) / 3.0;
-	DIFFUSE_LIGHT += ALBEDO * LIGHT_COLOR * smoothstep(0.0, 0.05, diffuse_stepped);
+	float cuts_f = 3.0; 
+	
+	float stepped_atten = floor(ATTENUATION * cuts_f) / cuts_f;
+	float diffuse_stepped = floor(NdotL * cuts_f) / cuts_f;
+	
+	DIFFUSE_LIGHT += ALBEDO * LIGHT_COLOR * stepped_atten * smoothstep(0.0, 0.05, diffuse_stepped);
 }

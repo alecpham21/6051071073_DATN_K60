@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=3 uid="uid://bixkklrjbu7hw"]
+[gd_scene load_steps=30 format=3 uid="uid://bixkklrjbu7hw"]
 
 [ext_resource type="Script" uid="uid://0kw5v3qb08y8" path="res://level/level_forest2/level_forest.gd" id="1_fgu3o"]
 [ext_resource type="Shader" uid="uid://bkw4b21akjsc2" path="res://subViewportPixel.gdshader" id="2_hry72"]
@@ -23,6 +23,7 @@
 [ext_resource type="PackedScene" uid="uid://dh4ns40qdxwam" path="res://Inventory_ui/hot_bar_inventory.tscn" id="18_qnc8n"]
 [ext_resource type="PackedScene" uid="uid://b5bavm45lxiid" path="res://ui/Recipe/RecipeUI/recipe_ui.tscn" id="19_du2mw"]
 [ext_resource type="PackedScene" uid="uid://d348tmigvnwpa" path="res://modelScene/sign/fast_travel_sign.tscn" id="20_ikb10"]
+[ext_resource type="PackedScene" uid="uid://kuq6msegxcc8" path="res://modelScene/forest/fire_fly.tscn" id="24_qnc8n"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_tpu7y"]
 shader = ExtResource("2_hry72")
@@ -242,6 +243,41 @@ days_to_wait = 2
 [node name="FastTravel_Sign" parent="." instance=ExtResource("20_ikb10")]
 transform = Transform3D(0.0326785, 0, -0.574071, 0, 0.575, 0, 0.574071, 0, 0.0326785, -5.96405, 0.849693, -2.63463)
 
+[node name="Ambient3D" type="Node3D" parent="."]
+
+[node name="FireFly" parent="Ambient3D" instance=ExtResource("24_qnc8n")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16.1835, 1.60718, 0)
+
+[node name="FireFly2" parent="Ambient3D" instance=ExtResource("24_qnc8n")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 25.264, 0.744147, 3.06787)
+
+[node name="FireFly7" parent="Ambient3D" instance=ExtResource("24_qnc8n")]
+transform = Transform3D(0.576447, 0, -0.817135, 0, 1, 0, 0.817135, 0, 0.576447, 42.4671, 0.744147, -2.04868)
+
+[node name="FireFly8" parent="Ambient3D" instance=ExtResource("24_qnc8n")]
+transform = Transform3D(0.576447, 0, -0.817135, 0, 1, 0, 0.817135, 0, 0.576447, 45.1946, 0.744147, 7.13973)
+
+[node name="FireFly9" parent="Ambient3D" instance=ExtResource("24_qnc8n")]
+transform = Transform3D(0.987876, 0, 0.155245, 0, 1, 0, -0.155245, 0, 0.987876, 23.0138, 0.744147, 18.5177)
+
+[node name="FireFly10" parent="Ambient3D" instance=ExtResource("24_qnc8n")]
+transform = Transform3D(0.987876, 0, 0.155245, 0, 1, 0, -0.155245, 0, 0.987876, 37.0359, 0.744147, 20.1386)
+
+[node name="FireFly3" parent="Ambient3D" instance=ExtResource("24_qnc8n")]
+transform = Transform3D(0.656586, 0, -0.754251, 0, 1, 0, 0.754251, 0, 0.656586, 4.38306, 0.744147, -2.8977)
+
+[node name="FireFly4" parent="Ambient3D" instance=ExtResource("24_qnc8n")]
+transform = Transform3D(0.656586, 0, -0.754251, 0, 1, 0, 0.754251, 0, 0.656586, 8.03121, 0.744147, 5.96556)
+
+[node name="FireFly5" parent="Ambient3D" instance=ExtResource("24_qnc8n")]
+transform = Transform3D(0.890125, 0, -0.455716, 0, 1, 0, 0.455716, 0, 0.890125, -0.539468, 1.332, -5.21773)
+
+[node name="FireFly6" parent="Ambient3D" instance=ExtResource("24_qnc8n")]
+transform = Transform3D(0.890125, 0, -0.455716, 0, 1, 0, 0.455716, 0, 0.890125, 2.19923, 0.842406, 6.05772)
+base_energy = 1.0
+
 [connection signal="drop_slot_data" from="UI/InventoryInterface" to="UI/InventoryInterface" method="_on_drop_slot_data"]
 [connection signal="gui_input" from="UI/InventoryInterface" to="UI/InventoryInterface" method="_on_gui_input"]
 [connection signal="visibility_changed" from="UI/InventoryInterface" to="UI/InventoryInterface" method="_on_visibility_changed"]
+
+[editable path="DayNightCycle"]

@@ -1,0 +1,51 @@
+[gd_scene load_steps=8 format=3 uid="uid://kuq6msegxcc8"]
+
+[ext_resource type="Script" uid="uid://duukrhi6fvnmt" path="res://modelScene/forest/fire_fly.gd" id="1_ony86"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ur514"]
+shading_mode = 0
+albedo_color = Color(0.43889, 0.757913, 0.295092, 1)
+billboard_mode = 1
+
+[sub_resource type="QuadMesh" id="QuadMesh_ur514"]
+material = SubResource("StandardMaterial3D_ur514")
+size = Vector2(0.1, 0.1)
+
+[sub_resource type="Gradient" id="Gradient_ony86"]
+interpolation_mode = 1
+offsets = PackedFloat32Array(0, 0.287037, 0.643519, 1)
+colors = PackedColorArray(0.572549, 0.909804, 0.407843, 0.933333, 0.839216, 0.890196, 0.596078, 0.482353, 0.890196, 0.968627, 0.721569, 0.333333, 0, 0, 0, 0.00784314)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_wbbxg"]
+gradient = SubResource("Gradient_ony86")
+fill = 1
+fill_from = Vector2(0.491453, 0.487179)
+fill_to = Vector2(0.850427, 0.141026)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_y5jdj"]
+transparency = 1
+shading_mode = 0
+albedo_texture = SubResource("GradientTexture2D_wbbxg")
+billboard_mode = 1
+
+[sub_resource type="QuadMesh" id="QuadMesh_tsa8x"]
+material = SubResource("StandardMaterial3D_y5jdj")
+size = Vector2(0.6, 0.6)
+
+[node name="FireFly" type="Node3D"]
+script = ExtResource("1_ony86")
+
+[node name="Body" type="MeshInstance3D" parent="."]
+mesh = SubResource("QuadMesh_ur514")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0237589, 0)
+light_color = Color(0.707135, 0.919033, 0.462, 1)
+light_energy = 1.5
+light_volumetric_fog_energy = 1.2
+shadow_enabled = true
+omni_range = 1.5
+omni_attenuation = 2.5
+
+[node name="Halo" type="MeshInstance3D" parent="."]
+mesh = SubResource("QuadMesh_tsa8x")

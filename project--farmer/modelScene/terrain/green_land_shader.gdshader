@@ -63,12 +63,14 @@ void fragment() {
 }
 
 void light() {
-	// Diffuse
 	float NdotL = dot(NORMAL, LIGHT);
-	float diffuse_amount = NdotL * ATTENUATION + wrap;
-	diffuse_amount *= steepness;
-	float cuts_inv = 1.0 / float(cuts);
-	float diffuse_stepped = floor(diffuse_amount * float(cuts)) * cuts_inv;
-	float smooth_diffuse = smoothstep(0.0, 0.05, diffuse_stepped);
-	DIFFUSE_LIGHT += ALBEDO * LIGHT_COLOR * smooth_diffuse;
+	float cuts_f = float(cuts);
+	
+	float stepped_atten = floor(ATTENUATION * cuts_f) / cuts_f;
+	
+	float diffuse_amount = clamp(NdotL + wrap, 0.0, 1.0) * steepness;
+	float diffuse_stepped = floor(diffuse_amount * cuts_f) / cuts_f;
+	
+	float final_light = stepped_atten * diffuse_stepped;
+	DIFFUSE_LIGHT += ALBEDO * LIGHT_COLOR * smoothstep(0.0, 0.01, final_light);
 }
