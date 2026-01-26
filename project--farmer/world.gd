@@ -1,4 +1,6 @@
 extends Level
+class_name Farm
+
 
 const PickUp = preload("res://inventory_script/item/pick_up_item/pick_up.tscn")
 

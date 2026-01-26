@@ -1,7 +1,8 @@
-[gd_scene load_steps=31 format=4 uid="uid://biss14lsy0nif"]
+[gd_scene load_steps=33 format=4 uid="uid://biss14lsy0nif"]
 
 [ext_resource type="Script" uid="uid://c67aaejcc73o5" path="res://npc/NPC_test.gd" id="1_ga0po"]
 [ext_resource type="Texture2D" uid="uid://1gysjnj7jqbq" path="res://assets/ImphenziaPalette01-256-Gradient.png" id="2_3xr67"]
+[ext_resource type="BehaviorTree" uid="uid://cm8pxfnvwssl2" path="res://ai/tasks/NPCTasks/NPC_type_1.tres" id="2_50nv8"]
 [ext_resource type="BehaviorTree" uid="uid://bfadd3mb6tox8" path="res://BehaviourTree/Npc_test_BT.tres" id="3_3xr67"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_t3dfs"]
@@ -6265,11 +6266,16 @@ var/anim_player_node/value = NodePath("../NPC/AnimationPlayer")
 var/anim_player_node/hint = 0
 var/anim_player_node/hint_string = ""
 
-[node name="NPC_Random" type="CharacterBody3D" node_paths=PackedStringArray("bt_player", "animation_player", "nav_agent", "mesh_to_color")]
+[sub_resource type="BoxShape3D" id="BoxShape3D_3xr67"]
+size = Vector3(0.881104, 1.79248, 0.939651)
+
+[node name="NPC_Random" type="CharacterBody3D" node_paths=PackedStringArray("bt_player", "animation_player", "nav_agent", "push_area", "mesh_to_color")]
 script = ExtResource("1_ga0po")
 bt_player = NodePath("BTPlayer")
 animation_player = NodePath("NPC/AnimationPlayer")
 nav_agent = NodePath("NavigationAgent3D")
+push_area = NodePath("PushArea")
+behavior_tree_resource = ExtResource("2_50nv8")
 mesh_to_color = NodePath("NPC/rig/Skeleton3D/Base_001")
 
 [node name="NPC" type="Node3D" parent="."]
@@ -6347,7 +6353,7 @@ bones/9/parent = -1
 bones/9/rest = Transform3D(0.982502, 0.0216295, 0.184991, 0.0359259, -0.99659, -0.0742822, 0.182754, 0.0796283, -0.97993, 0.0854525, 0.930899, -0.0103402)
 bones/9/enabled = true
 bones/9/position = Vector3(0.0854525, 0.9309, -0.0103402)
-bones/9/rotation = Quaternion(0.994865, 0.0144631, 0.0924108, 0.0386767)
+bones/9/rotation = Quaternion(0.994864, 0.0144631, 0.0924108, 0.0386767)
 bones/9/scale = Vector3(1, 1, 1)
 bones/10/name = "DEF-thigh.L.001"
 bones/10/parent = 9
@@ -6389,7 +6395,7 @@ bones/15/parent = -1
 bones/15/rest = Transform3D(0.982502, -0.0216295, -0.184991, -0.0359259, -0.99659, -0.0742822, -0.182754, 0.0796283, -0.97993, -0.0854525, 0.9309, -0.0103402)
 bones/15/enabled = true
 bones/15/position = Vector3(-0.0854525, 0.9309, -0.0103402)
-bones/15/rotation = Quaternion(0.994864, -0.0144631, -0.0924107, 0.0386769)
+bones/15/rotation = Quaternion(0.994864, -0.0144631, -0.0924108, 0.0386769)
 bones/15/scale = Vector3(1, 1, 1)
 bones/16/name = "DEF-thigh.R.001"
 bones/16/parent = 15
@@ -6823,3 +6829,11 @@ blackboard_plan = SubResource("BlackboardPlan_50nv8")
 path_height_offset = 0.45
 avoidance_enabled = true
 neighbor_distance = 7.0
+
+[node name="PushArea" type="Area3D" parent="."]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="PushArea"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00753783, 0.899505, -0.0455857)
+shape = SubResource("BoxShape3D_3xr67")

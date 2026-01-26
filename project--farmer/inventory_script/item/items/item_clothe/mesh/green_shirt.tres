@@ -1,6 +1,7 @@
 [gd_resource type="ArrayMesh" load_steps=2 format=4 uid="uid://cx7qmo5fku7t2"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_pmksc"]
+cull_mode = 2
 albedo_color = Color(0.214957, 0.446519, 0.228419, 1)
 
 [resource]

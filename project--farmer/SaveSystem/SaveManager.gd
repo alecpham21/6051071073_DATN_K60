@@ -50,6 +50,10 @@ func load_game(slot_name: String = "manual_save_1"):
 	if data.has("game_data"):
 		GameData.unlocked_doors = data.game_data.unlocked_doors
 		GameData.john_has_left = data.game_data.john_has_left
+		
+		if data.game_data.has("washing_timers"):
+			PlayerData.washing_machine_timers = data.game_data.washing_timers
+			print("[DEBUG] SaveManager: Restored washing timers.")
 	
 	if data.player.has("stats"):
 		PlayerData.stats.load_save_data(data.player.stats)

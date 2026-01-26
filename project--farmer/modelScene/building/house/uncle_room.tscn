@@ -55,6 +55,7 @@ material_override = SubResource("StandardMaterial3D_3rup7")
 material_override = SubResource("StandardMaterial3D_elj13")
 
 [node name="Cube_002" parent="." index="6"]
+transform = Transform3D(0.78, 0, 0, 0, 1.1, 0, 0, 0, 1.1, -6.04459, 2.18429, 0)
 material_override = SubResource("StandardMaterial3D_a0hqt")
 
 [node name="Cube_020" parent="." index="7"]

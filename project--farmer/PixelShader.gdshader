@@ -35,7 +35,7 @@ void fragment() {
 	float depth = get_depth(SCREEN_UV, INV_PROJECTION_MATRIX);
 	vec3 normal = texture(normal_texture, SCREEN_UV).xyz * 2.0 - 1.0;
 	vec3 original = texture(screen_texture, SCREEN_UV).rgb;
-	
+
 	// Tính World Normal
 	mat3 view_to_world_normal_mat = mat3(
 		INV_VIEW_MATRIX[0].xyz,
@@ -45,11 +45,11 @@ void fragment() {
 	vec3 world_normal = view_to_world_normal_mat * normal;
 
 	// --- SỬA LỖI TẠI ĐÂY: Dùng IF - ELSE thay vì RETURN ---
-	
+
 	// Nếu là mặt đất (hướng lên trên), chỉ gán màu gốc
 	if (world_normal.y > 0.95) {
 		ALBEDO = original;
-	} 
+	}
 	// If not ground, then calculate the outline
 	else {
 		// outline thickness multiply pixel
@@ -90,24 +90,24 @@ void fragment() {
 
 		float indicator = sqrt(normal_sum);
 		// --- SỬA LỖI VẼ VẠCH TRÊN THÂN CÂY ---
-		
+
 		// 1. Kiểm tra xem bề mặt hiện tại có phải là tường/cây đứng không (dựa vào vector Y)
 		// world_normal.y gần 0 nghĩa là bề mặt dựng đứng (thân cây, tường).
 		float is_vertical_wall = 1.0 - abs(world_normal.y);
-		
+
 		// 2. Tạo một ngưỡng (threshold) linh hoạt
-		// Nếu là tường/cây (is_vertical_wall cao), ta tăng ngưỡng check lên cao hơn (ví dụ +0.3) 
+		// Nếu là tường/cây (is_vertical_wall cao), ta tăng ngưỡng check lên cao hơn (ví dụ +0.3)
 		// để nó bỏ qua các góc gãy nhỏ của thân cây low-poly.
 		// Nếu là vật khác, giữ nguyên normal_threshold gốc.
 		float dynamic_threshold = normal_threshold + (smoothstep(0.5, 0.9, is_vertical_wall) * 0.5);
-		
+
 		// 3. Tính toán cạnh dựa trên ngưỡng mới
 		float normal_edge = step(dynamic_threshold, indicator - reverse_depth_edge);
-		
+
 		// ----------------------------------------
 
 		vec3 nearest = texture(screen_texture, nearest_uv).rgb;
-		
+
 		float ld = dot((view_to_world_normal_mat * normal), normalize(light_direction));
 
 		vec3 depth_col = nearest * darken_amount;

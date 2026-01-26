@@ -289,14 +289,28 @@ func update_all_outfits(_data = null):
 	if outfit_inventory_data.slot_datas.size() > 1: apply_outfit_visual(1, ao_mesh_node)
 	if outfit_inventory_data.slot_datas.size() > 2: apply_outfit_visual(2, quan_mesh_node)
 
-func apply_outfit_visual(slot_idx, target_node):
+func apply_outfit_visual(slot_idx, target_node: MeshInstance3D):
 	if not target_node: return
 	var slot = outfit_inventory_data.slot_datas[slot_idx]
+	
 	if slot and slot.item_data is ItemDataOutfit:
-		target_node.mesh = slot.item_data.equip_mesh
+		var outfit = slot.item_data as ItemDataOutfit
+		target_node.mesh = outfit.equip_mesh
+		
+		target_node.material_override = null
+		if target_node.get_surface_override_material_count() > 0:
+			for i in range(target_node.get_surface_override_material_count()):
+				target_node.set_surface_override_material(i, null)
+		
 		target_node.visible = true
-		for part in slot.item_data.hidden_body_parts:
-			if body_parts_map.has(part): body_parts_map[part].visible = false
+		
+		if target_node.mesh and target_node.mesh.get_surface_count() > 0:
+			var mat = target_node.mesh.surface_get_material(0)
+			#print("DEBUG: Mesh material is: ", mat.resource_path if mat else "NULL")
+		
+		for part in outfit.hidden_body_parts:
+			if body_parts_map.has(part): 
+				body_parts_map[part].visible = false
 	else:
 		target_node.mesh = null
 		target_node.visible = false

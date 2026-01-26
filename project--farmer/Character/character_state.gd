@@ -28,7 +28,7 @@ func _setup() -> void:
 		limbo_hsm.add_transition(self, self, "self")
 
 func _enter() -> void:
-	print("Entered ", self.name, " state.")
+	#print("Entered ", self.name, " state.")
 	if play_default_ani and ani_set: ani_set.play(character.ani)
 	if safe_guard: add_child(TimerKit.generate_timer(safe_guard_duration, func(): overtimed.emit(), true, true))
 

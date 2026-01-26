@@ -1,0 +1,24 @@
+[gd_scene load_steps=4 format=3 uid="uid://bho7rpv0l1syi"]
+
+[ext_resource type="PackedScene" uid="uid://dd41181aa6ukw" path="res://model/building/Town/Town_Light_Pillar.glb" id="1_bdb0y"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lf6eo"]
+albedo_color = Color(0.176419, 0.176419, 0.176419, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_bp1qj"]
+emission_enabled = true
+emission = Color(0.87454, 0.755098, 0.523159, 1)
+
+[node name="Town_Light_Pillar" instance=ExtResource("1_bdb0y")]
+
+[node name="Pillar" parent="." index="0"]
+surface_material_override/0 = SubResource("StandardMaterial3D_lf6eo")
+
+[node name="LightBulp" parent="." index="1"]
+surface_material_override/0 = SubResource("StandardMaterial3D_bp1qj")
+
+[node name="OmniLightBulp" type="OmniLight3D" parent="." index="2" groups=["street_lights"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 24.7161, 0)
+visible = false
+light_color = Color(0.946404, 0.92847, 0.891394, 1)
+light_energy = 2.0

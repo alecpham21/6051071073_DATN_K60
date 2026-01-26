@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://oxqdgfctyeo"]
+[gd_scene load_steps=21 format=3 uid="uid://oxqdgfctyeo"]
 
 [ext_resource type="PackedScene" uid="uid://da8k7khs1cueb" path="res://model/building/Town/TraditionalTownFull2.glb" id="1_m8swe"]
 [ext_resource type="Material" uid="uid://dcf34anaxf0xf" path="res://Materials/green_land_mat.tres" id="2_b1obe"]
@@ -69,6 +69,13 @@ buffer = PackedFloat32Array(-0.469535, 0, 1.42567, -4.04993, 0, 1.501, 0, -0.519
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_m8swe"]
 size = Vector3(63.9335, 0.901703, 100.224)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ri3ro"]
+cull_mode = 2
+albedo_color = Color(0.0785437, 0.0666082, 0.05488, 1)
+emission_enabled = true
+emission = Color(0.867131, 0.737596, 0.534674, 1)
+emission_energy_multiplier = 0.0
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_b1obe"]
 material = ExtResource("4_ewlml")
@@ -180,6 +187,9 @@ multimesh = SubResource("MultiMesh_n1wjo")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" index="0"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.80455, -0.924698, 20.0189)
 shape = SubResource("BoxShape3D_m8swe")
+
+[node name="Windows_001" parent="." index="57"]
+surface_material_override/0 = SubResource("StandardMaterial3D_ri3ro")
 
 [node name="Lake" type="MeshInstance3D" parent="." index="58"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 51.7573, -1.37739, 14.5736)

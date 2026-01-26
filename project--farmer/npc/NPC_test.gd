@@ -5,6 +5,8 @@ class_name BaseNPC
 @export var bt_player: BTPlayer 
 @export var animation_player: AnimationPlayer
 @export var nav_agent: NavigationAgent3D
+@export var push_area: Area3D
+@export var behavior_tree_resource: BehaviorTree
 
 @export_group("Visual Customization")
 @export var mesh_to_color: MeshInstance3D
@@ -17,6 +19,8 @@ class_name BaseNPC
 @export var walk_anim_name: String = "Walk_Male"
 @export var idle_anim_name: String = "Idle"
 
+
+var _push_timer: float = 0.0
 var target_destination: Vector3
 var home_destination: Vector3
 var stay_duration: float = 0.0
@@ -25,14 +29,28 @@ func _ready() -> void:
 	if not nav_agent: nav_agent = $NavigationAgent3D
 	if not bt_player: bt_player = $BTPlayer
 	
+	if bt_player and behavior_tree_resource:
+		bt_player.behavior_tree = behavior_tree_resource
+	
 	if animation_player:
 		bt_player.blackboard.set_var("anim_player_node", animation_player)
 	
 	if nav_agent:
 		if not nav_agent.velocity_computed.is_connected(_on_velocity_computed):
 			nav_agent.velocity_computed.connect(_on_velocity_computed)
+	
+	if push_area:
+		push_area.body_entered.connect(_on_push_area_body_entered)
 			
 	randomize_shirt_color()
+
+func _physics_process(delta: float) -> void:
+	if _push_timer > 0:
+		_push_timer -= delta
+
+func _on_push_area_body_entered(body: Node3D) -> void:
+	if _push_timer <= 0 and body.is_in_group("player"):
+		_handle_push(body)
 
 func setup_ai(target_marker: Marker3D, home_marker: Marker3D, is_initial: bool = false) -> void:
 	var target_pos = target_marker.global_position
@@ -61,8 +79,14 @@ func setup_ai(target_marker: Marker3D, home_marker: Marker3D, is_initial: bool =
 	bt_player.restart()
 
 func _on_velocity_computed(safe_velocity: Vector3) -> void:
-	velocity = safe_velocity
-	move_and_slide()
+	if bt_player and bt_player.active:
+		velocity = safe_velocity
+		move_and_slide()
+		
+		if velocity.length() > 0.2:
+			do_walk_anim()
+	else:
+		velocity = Vector3.ZERO
 
 func do_walk_anim() -> void:
 	if animation_player and animation_player.has_animation(walk_anim_name):
@@ -138,3 +162,37 @@ func play_interact_anim() -> void:
 
 func finish_lifecycle() -> void:
 	queue_free()
+
+func _handle_push(player: Node3D) -> void:
+	_push_timer = 1.5
+	
+	velocity = Vector3.ZERO
+	if nav_agent:
+		nav_agent.set_velocity(Vector3.ZERO)
+		nav_agent.target_position = global_position 
+
+	var npc_forward = -global_transform.basis.z 
+	var to_player = (player.global_position - global_position).normalized()
+	var dot = npc_forward.dot(to_player)
+	
+	if dot > 0:
+		if animation_player.has_animation("Pushed_Front"):
+			animation_player.play("Pushed_Front")
+	else:
+		if animation_player.has_animation("Pushed_Back"):
+			animation_player.play("Pushed_Back")
+	
+	if bt_player:
+		bt_player.active = false
+		nav_agent.avoidance_enabled = false
+		
+		var t = get_tree().create_timer(1.2)
+		t.timeout.connect(func():
+			bt_player.active = true
+			nav_agent.avoidance_enabled = true
+			
+			if nav_agent and bt_player.blackboard.has_var("target_pos"):
+				nav_agent.target_position = bt_player.blackboard.get_var("target_pos")
+				do_walk_anim() 
+		)
+		

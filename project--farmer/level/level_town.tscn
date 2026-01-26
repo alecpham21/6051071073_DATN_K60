@@ -1,4 +1,4 @@
-[gd_scene load_steps=57 format=3 uid="uid://r4vbsuv0yw71"]
+[gd_scene load_steps=59 format=3 uid="uid://r4vbsuv0yw71"]
 
 [ext_resource type="Shader" uid="uid://c6qhkhar3xobg" path="res://Shader/edge_detection.gdshader" id="1_bjjjs"]
 [ext_resource type="Script" uid="uid://qq68ax8n2xq5" path="res://level/level_town.gd" id="1_vk6vg"]
@@ -49,6 +49,8 @@
 [ext_resource type="Resource" uid="uid://b52qumcoelf4w" path="res://inventory_script/item/items/item_harvest/wheat_seed.tres" id="39_g76rq"]
 [ext_resource type="PackedScene" uid="uid://lrdu24kaqdx" path="res://modelScene/NPC/NPContract.tscn" id="42_ns2xk"]
 [ext_resource type="PackedScene" uid="uid://baaq2at6aupou" path="res://modelScene/building/shop_meat.tscn" id="48_i1o7g"]
+[ext_resource type="PackedScene" uid="uid://bho7rpv0l1syi" path="res://modelScene/building/town/town_light_pillar.tscn" id="50_un5b8"]
+[ext_resource type="Script" uid="uid://b8kc01n0j08qn" path="res://level/town_light.gd" id="51_uij14"]
 
 [sub_resource type="QuadMesh" id="QuadMesh_7py64"]
 flip_faces = true
@@ -510,6 +512,54 @@ transform = Transform3D(0.6, 0, 0, 0, 0.6, 0, 0, 0, 0.6, -3.58436, 0.734486, -11
 
 [node name="NPContract" parent="." instance=ExtResource("42_ns2xk")]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 8.01702, 0, 26.332)
+
+[node name="LightSource" type="Node3D" parent="."]
+
+[node name="Town_Light_Pillar" parent="LightSource" instance=ExtResource("50_un5b8")]
+transform = Transform3D(0.14, 0, 0, 0, 0.14, 0, 0, 0, 0.14, 2.51157, 0, -3.55556)
+
+[node name="Town_Light_Pillar2" parent="LightSource" instance=ExtResource("50_un5b8")]
+transform = Transform3D(0.14, 0, 0, 0, 0.14, 0, 0, 0, 0.14, -5.0745, 0, -3.55556)
+
+[node name="Town_Light_Pillar13" parent="LightSource" instance=ExtResource("50_un5b8")]
+transform = Transform3D(0.14, 0, 0, 0, 0.14, 0, 0, 0, 0.14, 2.51157, 0, 11.6248)
+
+[node name="Town_Light_Pillar14" parent="LightSource" instance=ExtResource("50_un5b8")]
+transform = Transform3D(0.14, 0, 0, 0, 0.14, 0, 0, 0, 0.14, -5.0745, 0, 11.6248)
+
+[node name="Town_Light_Pillar3" parent="LightSource" instance=ExtResource("50_un5b8")]
+transform = Transform3D(0.14, 0, 0, 0, 0.14, 0, 0, 0, 0.14, 2.51157, 0, -17.8236)
+
+[node name="Town_Light_Pillar4" parent="LightSource" instance=ExtResource("50_un5b8")]
+transform = Transform3D(0.14, 0, 0, 0, 0.14, 0, 0, 0, 0.14, -5.0745, 0, -17.8236)
+
+[node name="Town_Light_Pillar5" parent="LightSource" instance=ExtResource("50_un5b8")]
+transform = Transform3D(0.14, 0, 0, 0, 0.14, 0, 0, 0, 0.14, 2.51157, 0, -33.6802)
+
+[node name="Town_Light_Pillar6" parent="LightSource" instance=ExtResource("50_un5b8")]
+transform = Transform3D(0.14, 0, 0, 0, 0.14, 0, 0, 0, 0.14, -5.0745, 0, -33.6802)
+
+[node name="Town_Light_Pillar7" parent="LightSource" instance=ExtResource("50_un5b8")]
+transform = Transform3D(0.14, 0, 0, 0, 0.14, 0, 0, 0, 0.14, 2.51157, 0, -53.6186)
+
+[node name="Town_Light_Pillar8" parent="LightSource" instance=ExtResource("50_un5b8")]
+transform = Transform3D(0.14, 0, 0, 0, 0.14, 0, 0, 0, 0.14, -5.0745, 0, -53.6186)
+
+[node name="Town_Light_Pillar9" parent="LightSource" instance=ExtResource("50_un5b8")]
+transform = Transform3D(0.14, 0, 0, 0, 0.14, 0, 0, 0, 0.14, 2.51157, 0, -73.5389)
+
+[node name="Town_Light_Pillar10" parent="LightSource" instance=ExtResource("50_un5b8")]
+transform = Transform3D(0.14, 0, 0, 0, 0.14, 0, 0, 0, 0.14, -5.0745, 0, -73.5389)
+
+[node name="Town_Light_Pillar11" parent="LightSource" instance=ExtResource("50_un5b8")]
+transform = Transform3D(0.14, 0, 0, 0, 0.14, 0, 0, 0, 0.14, 2.51157, 0, -93.5207)
+
+[node name="Town_Light_Pillar12" parent="LightSource" instance=ExtResource("50_un5b8")]
+transform = Transform3D(0.14, 0, 0, 0, 0.14, 0, 0, 0, 0.14, -5.0745, 0, -93.5207)
+
+[node name="Node" type="Node" parent="LightSource" node_paths=PackedStringArray("town_windows_mesh")]
+script = ExtResource("51_uij14")
+town_windows_mesh = NodePath("../../NavigationRegion3D/TraditionalTownFull1/Windows_001")
 
 [connection signal="drop_slot_data" from="UI/InventoryInterface" to="UI/InventoryInterface" method="_on_drop_slot_data"]
 [connection signal="gui_input" from="UI/InventoryInterface" to="UI/InventoryInterface" method="_on_gui_input"]

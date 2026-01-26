@@ -1,4 +1,4 @@
-[gd_scene load_steps=41 format=3 uid="uid://o1wmcaqylahd"]
+[gd_scene load_steps=42 format=3 uid="uid://o1wmcaqylahd"]
 
 [ext_resource type="Script" uid="uid://dg34046jf1xjo" path="res://Scene/InBuilding/level_house.gd" id="1_iipvn"]
 [ext_resource type="Script" uid="uid://bshrove7rvagv" path="res://spring_arm_camera.gd" id="3_hou3o"]
@@ -29,6 +29,7 @@
 [ext_resource type="Resource" uid="uid://b8osduwne4q22" path="res://ui/Recipe/chopped_spring_onion.tres" id="23_68aio"]
 [ext_resource type="Script" uid="uid://cxjkim56kcobh" path="res://ui/Recipe/RecipeScript/recipe.gd" id="24_rs3xq"]
 [ext_resource type="PackedScene" uid="uid://xs0u77o1qd26" path="res://ui/stamina_hud.tscn" id="24_v4h4i"]
+[ext_resource type="Script" uid="uid://bbguawr653ihj" path="res://Scene/InBuilding/Roomlighting.gd" id="25_7l4wj"]
 [ext_resource type="PackedScene" uid="uid://b817ly7ndragw" path="res://modelScene/interior/stove.tscn" id="27_vcdqq"]
 [ext_resource type="PackedScene" uid="uid://dv7qgbl8qngof" path="res://modelScene/interior/board.tscn" id="28_md1uq"]
 [ext_resource type="PackedScene" uid="uid://6msbaufmnf3f" path="res://quest_system/quest_ui/quest_journal_ui.tscn" id="31_iauac"]
@@ -248,27 +249,36 @@ recipes = Array[ExtResource("24_rs3xq")]([ExtResource("21_md1uq"), ExtResource("
 offset_top = 176.0
 offset_bottom = 176.0
 
-[node name="Lighting" type="Node" parent="."]
+[node name="Lighting" type="Node" parent="." node_paths=PackedStringArray("day_lights", "bulp_light", "day_light_source")]
+script = ExtResource("25_7l4wj")
+day_lights = [NodePath("Day_light_window"), NodePath("Day_light_window2")]
+bulp_light = NodePath("OmniLightBulp")
+day_light_source = NodePath("OmniDayLight")
+night_color = Color(0.162038, 0.194301, 0.31227, 1)
+day_energy = 2.5
 
 [node name="Day_light_window" type="SpotLight3D" parent="Lighting"]
 transform = Transform3D(0.973311, 1.00313e-08, -0.229489, 0.229489, -4.25448e-08, 0.973311, 0, -1, -4.37114e-08, -3.70405, 2.26203, 0)
+light_color = Color(0.881571, 0.653855, 0, 1)
 light_energy = 2.19
 
 [node name="Day_light_window2" type="SpotLight3D" parent="Lighting"]
 transform = Transform3D(0.973179, -1.17239e-09, 0.23005, -0.23005, -1.00558e-08, 0.973179, 1.17239e-09, -1, -1.00558e-08, 3.704, 2.262, 0)
-light_energy = 2.02
+light_color = Color(0.881571, 0.653855, 0, 1)
+light_energy = 2.19
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="Lighting"]
 environment = SubResource("Environment_vkefo")
 
-[node name="OmniLight3D" type="OmniLight3D" parent="Lighting"]
+[node name="OmniLightBulp" type="OmniLight3D" parent="Lighting"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.0665, 1.72507)
-light_energy = 2.0
+visible = false
+light_energy = 1.5
 light_size = 1.0
 omni_range = 284.466
 
-[node name="OmniLight3D2" type="OmniLight3D" parent="Lighting"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.0665, -2.36482)
+[node name="OmniDayLight" type="OmniLight3D" parent="Lighting"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.0665, -0.273997)
 light_energy = 2.0
 light_size = 1.0
 omni_range = 284.466
@@ -288,7 +298,7 @@ grow_vertical = 2
 mouse_filter = 2
 
 [node name="LongLightBulp" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.88853, 3.6709)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.88853, 3.78094)
 material_override = ExtResource("16_02qar")
 mesh = SubResource("BoxMesh_scj0i")
 
@@ -324,7 +334,7 @@ transform = Transform3D(-4.19685e-08, -0.279561, 0.960128, -1.222e-08, 0.960128,
 [node name="QuestJournal" parent="." instance=ExtResource("31_iauac")]
 
 [node name="bed" parent="." instance=ExtResource("32_buwyy")]
-transform = Transform3D(0.465, 0, 0, 0, 0.75, 0, 0, 0, 0.75, 3.01658, 0.282935, 0)
+transform = Transform3D(0.745, 0, 0, 0, 0.75, 0, 0, 0, 0.75, 2.90522, 0.361891, 0)
 
 [connection signal="drop_slot_data" from="UI/InventoryInterface" to="UI/InventoryInterface" method="_on_drop_slot_data"]
 [connection signal="gui_input" from="UI/InventoryInterface" to="UI/InventoryInterface" method="_on_gui_input"]

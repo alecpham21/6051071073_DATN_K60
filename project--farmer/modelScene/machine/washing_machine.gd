@@ -34,13 +34,13 @@ func _ready() -> void:
 		var current_time = TimeManager.get_total_minutes_played()
 		
 		if current_time >= saved_finish_time:
-			print("Máy giặt: Đã giặt xong khi player đi vắng!")
+			print("WashingMachine: Complete While Player Not Here!")
 			finish_washing(true)
 		else:
 			finish_time = saved_finish_time
 			is_washing = true
 			inventory_data.is_locked = true
-			print("Máy giặt: Tiếp tục giặt... Còn ", saved_finish_time - current_time, " phút")
+			print("Washing Machine: Continue... Remain ", saved_finish_time - current_time, " minute")
 
 func _process(delta: float) -> void:
 	if is_washing:
@@ -55,7 +55,7 @@ func shake_machine():
 
 func on_interact():
 	if is_washing:
-		print("Máy đang giặt, không mở được!")
+		print("Washing Machine Working cant Open!")
 		return
 
 	if open: close_chest()
@@ -81,14 +81,13 @@ func request_start_washing():
 			break
 	
 	if not found_dirty:
-		print("Không có đồ dơ, không giặt!")
+		print("No dirty, No Wash!")
 		return
 	
-	# 2. Bắt đầu giặt
 	start_washing_process()
 
 func start_washing_process():
-	print(">>> BẤM NÚT: BẮT ĐẦU GIẶT <<<")
+	print(">>>Button Pressed: Proceed to Wash <<<")
 	
 	close_chest()
 	
@@ -101,7 +100,7 @@ func start_washing_process():
 	if !machine_id.is_empty():
 		PlayerData.washing_machine_timers[machine_id] = finish_time
 	
-	print("Dự kiến xong lúc: ", finish_time)
+	print("Time on complete: ", finish_time)
 
 func _on_time_tick() -> void:
 	if not is_washing or finish_time == -1.0:
@@ -113,14 +112,14 @@ func _on_time_tick() -> void:
 		finish_washing()
 
 func finish_washing(instant: bool = false):
-	print(">>> MÁY GIẶT: HOÀN THÀNH! <<<")
+	print(">>> Washing Machine: Complete Washed<<<")
 	
 	# Làm sạch đồ
 	for slot in inventory_data.slot_datas:
 		if slot and slot.item_data is ItemDataOutfit:
 			if slot.get_stat("dirt") > 0:
 				slot.clean_slot()
-				print("-> Đã giặt sạch: ", slot.item_data.name)
+				print("-> Cleaned: ", slot.item_data.name)
 	
 	is_washing = false
 	finish_time = -1.0

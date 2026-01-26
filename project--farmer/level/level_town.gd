@@ -1,4 +1,6 @@
 extends Level
+class_name Town
+
 
 const PickUp = preload("res://inventory_script/item/pick_up_item/pick_up.tscn")
 
@@ -19,8 +21,15 @@ func _ready():
 	for node in get_tree().get_nodes_in_group("external_inventory"):
 		node.toggle_inventory.connect(toggle_inventory_interface)
 	SceneTransition.reveal_scene()
+
 func _process(_delta: float) -> void:
-	pass
+	if TimeManager.current_hour >= 20:
+		var farm_return_pos = Vector3(0, 1, 0) 
+		
+		set_process(false) 
+		
+		print("🌙 Late night: Returning to farm...")
+		SceneTransition.change_scene("res://world.tscn", farm_return_pos)
 
 func toggle_inventory_interface(external_inventory_owner = null) -> void:
 	if inventory_interface.visible:

@@ -1,12 +1,11 @@
-[gd_scene load_steps=8 format=3 uid="uid://bcra5x5cf5jp"]
+[gd_scene load_steps=11 format=3 uid="uid://bcra5x5cf5jp"]
 
 [ext_resource type="PackedScene" uid="uid://dd8altmtf87l5" path="res://model/interior/bed.glb" id="1_xrufu"]
 [ext_resource type="Texture2D" uid="uid://1gysjnj7jqbq" path="res://assets/ImphenziaPalette01-256-Gradient.png" id="2_nyfyr"]
 [ext_resource type="Script" uid="uid://i4dr8fqs0tx7" path="res://Scripts/interactable.gd" id="3_k3yy6"]
 [ext_resource type="Script" uid="uid://xu60askcen48" path="res://modelScene/interior/touch_bed.gd" id="4_2n4dl"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_k3yy6"]
-cull_mode = 2
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2n4dl"]
 albedo_texture = ExtResource("2_nyfyr")
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_2n4dl"]
@@ -15,11 +14,19 @@ size = Vector3(2.79549, 1, 4.15386)
 [sub_resource type="BoxShape3D" id="BoxShape3D_eks7k"]
 size = Vector3(2.08551, 1, 3.78357)
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_eks7k"]
+albedo_texture = ExtResource("2_nyfyr")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5jfmg"]
+albedo_texture = ExtResource("2_nyfyr")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_pbtqp"]
+albedo_texture = ExtResource("2_nyfyr")
+
 [node name="bed" instance=ExtResource("1_xrufu")]
 
-[node name="bed_003" parent="." index="0"]
-transform = Transform3D(0.446746, 0, 0, 0, 1.19995, 0, 0, 0, 0.240647, 0.170309, 0.500617, 0.929501)
-material_override = SubResource("StandardMaterial3D_k3yy6")
+[node name="WoodFrame" parent="." index="0"]
+material_override = SubResource("StandardMaterial3D_2n4dl")
 
 [node name="InteractArea" type="Area3D" parent="." index="1"]
 collision_layer = 16
@@ -37,3 +44,12 @@ script = ExtResource("4_2n4dl")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" index="0"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.236664, 0, -0.0886841)
 shape = SubResource("BoxShape3D_eks7k")
+
+[node name="Bed" parent="." index="3"]
+material_override = SubResource("StandardMaterial3D_eks7k")
+
+[node name="Blanket" parent="." index="4"]
+material_override = SubResource("StandardMaterial3D_5jfmg")
+
+[node name="Piller" parent="." index="5"]
+material_override = SubResource("StandardMaterial3D_pbtqp")
