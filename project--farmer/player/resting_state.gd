@@ -15,7 +15,7 @@ func _enter() -> void:
 	
 	if target_marker:
 		character.velocity = Vector3.ZERO
-		character.set_physics_process(false)
+		#character.set_physics_process(false)
 		
 		character.set_collision_layer_value(1, false)
 		character.set_collision_mask_value(1, false)

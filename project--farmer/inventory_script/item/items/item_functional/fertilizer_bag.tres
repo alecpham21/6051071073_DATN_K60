@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="ItemDataUsable" load_steps=4 format=3 uid="uid://cr1wc6fbg2cva"]
+
+[ext_resource type="Script" uid="uid://bf2bbfvsrqnsf" path="res://inventory_script/item/item_data/item_data_usable.gd" id="1_ibpuq"]
+[ext_resource type="Texture2D" uid="uid://omvd8ed3fie6" path="res://inventory_script/item/item_atlast/#2 - Transparent Icons & Drop Shadow.png" id="2_kcc1n"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6vyph"]
+atlas = ExtResource("2_kcc1n")
+region = Rect2(320, 256, 32, 32)
+
+[resource]
+script = ExtResource("1_ibpuq")
+name = "Fertilizer Bag"
+description = "Push Plant Speed"
+stackable = true
+texture = SubResource("AtlasTexture_6vyph")
+price = 1000
+metadata/_custom_type_script = "uid://bf2bbfvsrqnsf"

@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="InventoryData" load_steps=38 format=3 uid="uid://c05tf37csx4tp"]
+[gd_resource type="Resource" script_class="InventoryData" load_steps=40 format=3 uid="uid://c05tf37csx4tp"]
 
 [ext_resource type="Script" uid="uid://csfrg4socg8bj" path="res://inventory_script/inventory_data/inventory_data.gd" id="1_fx70d"]
 [ext_resource type="Script" uid="uid://bspkgwkxsy8mn" path="res://inventory_script/slot_data.gd" id="2_a72s1"]
@@ -11,6 +11,7 @@
 [ext_resource type="Resource" uid="uid://bytluuthi8j6w" path="res://inventory_script/item/items/item_material/item_build_material/wood.tres" id="7_uks62"]
 [ext_resource type="Resource" uid="uid://n3hnk3p8510v" path="res://inventory_script/item/items/item_tool/watering_can.tres" id="8_1ysir"]
 [ext_resource type="Resource" uid="uid://c5ju7kxb8sgep" path="res://inventory_script/item/items/item_tool/hoe.tres" id="8_rn8ob"]
+[ext_resource type="Resource" uid="uid://cr1wc6fbg2cva" path="res://inventory_script/item/items/item_functional/fertilizer_bag.tres" id="8_uks62"]
 [ext_resource type="Resource" uid="uid://dom2oqd20bncl" path="res://inventory_script/item/items/item_material/item_consumable/milk.tres" id="11_p831m"]
 [ext_resource type="Resource" uid="uid://b3m5vp80c2jnv" path="res://inventory_script/item/items/item_feed/chicken_feed.tres" id="12_6ytgi"]
 [ext_resource type="Resource" uid="uid://cyo6avuts40ob" path="res://inventory_script/item/items/item_harvest/cabbage_seed.tres" id="14_fs1cq"]
@@ -51,6 +52,13 @@ metadata/_custom_type_script = "uid://bspkgwkxsy8mn"
 script = ExtResource("2_a72s1")
 item_data = ExtResource("7_uks62")
 quantity = 62
+attributes = Array[ExtResource("3_vdyg7")]([])
+metadata/_custom_type_script = "uid://bspkgwkxsy8mn"
+
+[sub_resource type="Resource" id="Resource_wbe2d"]
+script = ExtResource("2_a72s1")
+item_data = ExtResource("8_uks62")
+quantity = 4
 attributes = Array[ExtResource("3_vdyg7")]([])
 metadata/_custom_type_script = "uid://bspkgwkxsy8mn"
 
@@ -146,5 +154,5 @@ metadata/_custom_type_script = "uid://bspkgwkxsy8mn"
 
 [resource]
 script = ExtResource("1_fx70d")
-slot_datas = Array[ExtResource("2_a72s1")]([SubResource("Resource_rn8ob"), SubResource("Resource_1ysir"), SubResource("Resource_a5mve"), SubResource("Resource_jy2a8"), null, SubResource("Resource_wmnvh"), SubResource("Resource_q6td8"), SubResource("Resource_a0sik"), SubResource("Resource_p831m"), SubResource("Resource_uks62"), SubResource("Resource_6ytgi"), SubResource("Resource_fs1cq"), SubResource("Resource_4b2p8"), SubResource("Resource_x2ail"), SubResource("Resource_anlj8"), SubResource("Resource_vrl28"), SubResource("Resource_t6vax"), null])
+slot_datas = Array[ExtResource("2_a72s1")]([SubResource("Resource_rn8ob"), SubResource("Resource_1ysir"), SubResource("Resource_a5mve"), SubResource("Resource_jy2a8"), SubResource("Resource_wbe2d"), SubResource("Resource_wmnvh"), SubResource("Resource_q6td8"), SubResource("Resource_a0sik"), SubResource("Resource_p831m"), SubResource("Resource_uks62"), SubResource("Resource_6ytgi"), SubResource("Resource_fs1cq"), SubResource("Resource_4b2p8"), SubResource("Resource_x2ail"), SubResource("Resource_anlj8"), SubResource("Resource_vrl28"), SubResource("Resource_t6vax"), null])
 metadata/_custom_type_script = "uid://csfrg4socg8bj"

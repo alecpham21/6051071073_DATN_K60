@@ -10,9 +10,11 @@ const TOWN_THEME = preload("res://audio/theme/TownTheme.mp3")
 @onready var hot_bar_inventory: PanelContainer = $UI/HotBarInventory
 
 func _ready():
+	TimeManager.is_enabled = true
 	var bgm_player = AudioStreamPlayer.new()
 	bgm_player.stream = TOWN_THEME
 	bgm_player.autoplay = true
+	bgm_player.volume_db = -7
 	bgm_player.bus = "Music"
 	add_child(bgm_player)
 	

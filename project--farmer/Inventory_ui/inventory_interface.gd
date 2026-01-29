@@ -18,6 +18,7 @@ var prevent_close: bool = false
 @onready var equip_inventory: PanelContainer = $VBoxContainer/HBoxContainer/EquipInventory
 @onready var outfit_inventory: PanelContainer = $VBoxContainer/HBoxContainer/OutfitInventory
 @onready var money_label: Label = $VBoxContainer/PanelContainer/MoneyLabel
+@onready var money_box: PanelContainer = $VBoxContainer/PanelContainer
 
 @export var hotbar_inventory: PanelContainer 
 @export var material_inventory: PanelContainer
@@ -54,12 +55,15 @@ func _ready():
 				
 				var is_shop_open = (shop_ui != null and shop_ui.visible)
 				var is_sell_open = (sell_ui != null and sell_ui.visible)
+				var is_recipe_open = (recipe_book_ui != null and recipe_book_ui.visible)
 				
 				if visible and (is_shop_open or is_sell_open):
 					close_shop_interface()
 					
 				elif active_kitchen: 
 					close_kitchen()
+				elif is_recipe_open:
+					close_standalone_book()
 				elif external_inventory_owner:
 					print(">>> [AUTO] Đóng External Inventory (Rương/Máy giặt)")
 					clear_external_inventory()
@@ -88,7 +92,7 @@ func open_shop_sell_interface(shop_node, shop_inventory_data: InventoryData):
 	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 	
 	if player_inventory: player_inventory.show()
-	
+	if money_box: money_box.show()
 	if craft_bar: craft_bar.hide()
 	if cutting_ui: cutting_ui.hide()
 	if shop_ui: shop_ui.hide()
@@ -316,12 +320,27 @@ func open_standalone_book():
 	if cutting_ui: cutting_ui.hide()
 	if material_inventory: material_inventory.hide()
 	if external_inventory: external_inventory.hide()
+	if money_box: money_box.hide()
 	self.visible = true
 	if recipe_book_ui:
 		recipe_book_ui.show()
 		if recipe_book_ui.has_method("open_book"):
 			recipe_book_ui.open_book()
 	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+
+func close_standalone_book():
+	if recipe_book_ui:
+		recipe_book_ui.close_book()
+	
+	self.visible = false
+	
+	if PlayerData.player and PlayerData.player.cam_ref:
+		if PlayerData.player.cam_ref.has_method("return_to_player"):
+			PlayerData.player.cam_ref.return_to_player()
+
+	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+	if PlayerData.player and PlayerData.player.has_method("_set_mouse_captured"):
+		PlayerData.player._set_mouse_captured(true)
 
 func _on_cut_action(recipe: Recipe):
 	start_cooking_process(LimboPrimeHSM.COOK_MODE.BOARD, func(): finalize_cut(recipe))
@@ -454,17 +473,18 @@ func on_inventory_interact(inventory_data: InventoryData, index: int, button: in
 					if space_left > 0:
 						var amount_to_take = min(grabbed_slot_data.quantity, space_left)
 						
-						var temp_slot = grabbed_slot_data.create_single_slot_data()
+						var temp_slot = grabbed_slot_data.duplicate()
 						temp_slot.quantity = amount_to_take
 						
 						inventory_data.drop_slot_data(temp_slot, index)
 						
 						grabbed_slot_data.quantity -= amount_to_take
+						
 						if grabbed_slot_data.quantity <= 0:
 							grabbed_slot_data = null
 						
 						update_grabbed_slot()
-						print("Crate: Receive ", amount_to_take, " object.Current: ", current_qty + amount_to_take, "/20")
+						print("Crate: Receive ", amount_to_take, " items. Remaining: ", grabbed_slot_data.quantity if grabbed_slot_data else 0)
 						return
 					else:
 						print("Crate: 20/20!")
@@ -534,7 +554,7 @@ func open_player_inventory():
 	outfit_inventory.visible = true
 	equip_inventory.visible = true
 	if hotbar_inventory: hotbar_inventory.show()
-	
+	if money_box: money_box.show()
 	if craft_bar: craft_bar.hide()
 	if cutting_ui: cutting_ui.hide()
 	if material_inventory: material_inventory.hide()

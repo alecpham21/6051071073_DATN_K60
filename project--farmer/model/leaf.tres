@@ -5,13 +5,13 @@
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_pkg7o"]
 render_priority = 0
 shader = ExtResource("1_ow8bs")
-shader_parameter/leaf_color = Color(0.407946, 0.668837, 0.300492, 1)
+shader_parameter/leaf_color = Color(0.310512, 0.517819, 0.22498, 1)
 shader_parameter/alpha_cutoff = 0.05
 shader_parameter/wind_strength = 0.2
 shader_parameter/wind_speed = 2.0
 shader_parameter/fresnelStrength = 0.5
 shader_parameter/fresnelBlend = 1.0
-shader_parameter/fresnelColor = Color(0.428636, 0.695135, 0.251861, 1)
+shader_parameter/fresnelColor = Color(0.313896, 0.514037, 0.182187, 1)
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_siwjn"]
 _surfaces = [{

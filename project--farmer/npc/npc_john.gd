@@ -106,11 +106,10 @@ func _on_timeline_ended():
 		GState.play()
 
 func _on_dialogic_signal(argument: String):
-	if not player_in_range and not GState.is_ui(): return
-	
 	match argument:
 		"action1":
 			anim_player.play("Interacted_End")
+		
 		"end_talk", "end_talk_farm":
 			if quest_to_complete_id != "":
 				QuestManager.complete_quest(quest_to_complete_id)
@@ -123,7 +122,7 @@ func _on_dialogic_signal(argument: String):
 			if door_id_to_unlock != "":
 				GameData.save_door_unlocked(door_id_to_unlock)
 				GameData.request_unlock_door.emit(door_id_to_unlock)
-				return
 			
 			if target_farm_scene != "":
+				print("🚀 I got you in my sign: ", target_farm_scene)
 				SceneTransition.change_scene(target_farm_scene, target_spawn_pos)

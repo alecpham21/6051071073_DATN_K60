@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=3 uid="uid://bixkklrjbu7hw"]
+[gd_scene load_steps=31 format=3 uid="uid://bixkklrjbu7hw"]
 
 [ext_resource type="Script" uid="uid://0kw5v3qb08y8" path="res://level/level_forest2/level_forest.gd" id="1_fgu3o"]
 [ext_resource type="Shader" uid="uid://bkw4b21akjsc2" path="res://subViewportPixel.gdshader" id="2_hry72"]
@@ -24,6 +24,7 @@
 [ext_resource type="PackedScene" uid="uid://b5bavm45lxiid" path="res://ui/Recipe/RecipeUI/recipe_ui.tscn" id="19_du2mw"]
 [ext_resource type="PackedScene" uid="uid://d348tmigvnwpa" path="res://modelScene/sign/fast_travel_sign.tscn" id="20_ikb10"]
 [ext_resource type="PackedScene" uid="uid://kuq6msegxcc8" path="res://modelScene/forest/fire_fly.tscn" id="24_qnc8n"]
+[ext_resource type="PackedScene" uid="uid://dxe4dtsmib4py" path="res://level/level script/out_door.tscn" id="25_du2mw"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_tpu7y"]
 shader = ExtResource("2_hry72")
@@ -82,6 +83,7 @@ render_target_update_mode = 4
 
 [node name="ShaderOutline" type="MeshInstance3D" parent="SubViewportContainer/SubViewport"]
 transform = Transform3D(1, 0, 0, 0, 0.00750488, 0.999972, 0, -0.999972, 0.00750488, 0.180526, -208.089, 0)
+visible = false
 extra_cull_margin = 16384.0
 mesh = SubResource("QuadMesh_blgoe")
 surface_material_override/0 = SubResource("ShaderMaterial_1yo6i")
@@ -275,6 +277,10 @@ transform = Transform3D(0.890125, 0, -0.455716, 0, 1, 0, 0.455716, 0, 0.890125, 
 [node name="FireFly6" parent="Ambient3D" instance=ExtResource("24_qnc8n")]
 transform = Transform3D(0.890125, 0, -0.455716, 0, 1, 0, 0.455716, 0, 0.890125, 2.19923, 0.842406, 6.05772)
 base_energy = 1.0
+
+[node name="OutDoor" parent="." instance=ExtResource("25_du2mw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 58.8533, 0.199789, 41.9555)
+target_scene_path = "uid://bidc27ad8yi6o"
 
 [connection signal="drop_slot_data" from="UI/InventoryInterface" to="UI/InventoryInterface" method="_on_drop_slot_data"]
 [connection signal="gui_input" from="UI/InventoryInterface" to="UI/InventoryInterface" method="_on_gui_input"]

@@ -1,7 +1,8 @@
-[gd_resource type="Resource" script_class="QuestResource" load_steps=5 format=3 uid="uid://dheiyxxlmlb5o"]
+[gd_resource type="Resource" script_class="QuestResource" load_steps=6 format=3 uid="uid://dheiyxxlmlb5o"]
 
 [ext_resource type="Script" uid="uid://ly4smbwy8tcy" path="res://quest_system/quest_objective.gd" id="1_gv6of"]
 [ext_resource type="Script" uid="uid://dd572wfdlifn1" path="res://quest_system/quest_data.gd" id="2_35vw2"]
+[ext_resource type="Script" uid="uid://bspkgwkxsy8mn" path="res://inventory_script/slot_data.gd" id="2_qbiv5"]
 
 [sub_resource type="Resource" id="Resource_7uh5w"]
 script = ExtResource("1_gv6of")
@@ -25,4 +26,7 @@ quest_type = 1
 description = "Time to get some tools and deal with the grass"
 objectives = Array[ExtResource("1_gv6of")]([SubResource("Resource_7uh5w"), SubResource("Resource_q2jdp")])
 next_quest_id = "me_first_plant"
+reward_gold = 0
+reward_xp = 0
+reward_items = Array[ExtResource("2_qbiv5")]([])
 metadata/_custom_type_script = "uid://dd572wfdlifn1"

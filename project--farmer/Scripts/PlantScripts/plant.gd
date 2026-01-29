@@ -37,6 +37,10 @@ enum HarvestStance {
 @export var mesh_over: Node3D 
 @export var ground_mesh: MeshInstance3D
 
+var is_fertilized: bool = false
+@export var fertilizer_growth_multiplier: float = 2.0
+@export var fertilizer_yield_bonus: int = 2
+
 var block_data_reference = null
 var current_growth: int = 0
 var is_harvestable: bool = false
@@ -65,6 +69,10 @@ func _on_tick_process():
 	var final_chance = growth_chance
 	if is_daytime:
 		final_chance *= day_time_multiply
+	
+	if is_fertilized:
+		final_chance *= fertilizer_growth_multiplier
+	
 	
 	if randf() < final_chance:
 		grow()
@@ -147,8 +155,10 @@ func spawn_items():
 	if scene_to_spawn == null: return
 
 	var total_amount = harvest_yield 
+	if is_fertilized:
+		total_amount += fertilizer_yield_bonus
 
-	for i in range(harvest_yield):
+	for i in range(total_amount):
 		var item = scene_to_spawn.instantiate()
 		get_tree().root.add_child(item)
 		item.global_position = global_position
@@ -160,3 +170,9 @@ func spawn_items():
 		
 		if SignalBus.has_signal("object_harvested"):
 			SignalBus.object_harvested.emit(crop_id, 1)
+
+func apply_fertilizer() -> void:
+	if is_fertilized: return
+	is_fertilized = true
+	print("Plant at %s is now fertilized!" % current_grid_pos)
+	

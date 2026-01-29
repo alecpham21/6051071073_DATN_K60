@@ -3,6 +3,8 @@ extends Node
 signal quest_updated
 signal reward_distributed(type: String, data: Variant, amount: int)
 
+@export var reward_per_crate: int = 3000
+
 var quests: Dictionary = {}
 var active_contract_item: ItemDataMaterial = null
 var contract_amount_needed: int = 0
@@ -13,8 +15,14 @@ var contract_items_total: int = 0
 var truck_has_arrived: bool = false
 var truck_has_departed: bool = false
 
+var _processed_items_this_frame: Array = []
+
 func _ready():
 	_load_all_quests("res://quests/")
+	
+	#if not reward_distributed.is_connected(_on_reward_distributed):
+		#reward_distributed.connect(_on_reward_distributed)
+	
 	
 	if SignalBus.has_signal("object_harvested"):
 		SignalBus.object_harvested.connect(_on_object_harvested)
@@ -23,6 +31,10 @@ func _ready():
 		SignalBus.item_added_to_inventory.connect(_on_item_added_to_inventory)
 	
 	TimeManager.tick.connect(_check_contract_deadline)
+
+func _process(_delta):
+	if _processed_items_this_frame.size() > 0:
+		_processed_items_this_frame.clear()
 
 func _check_contract_deadline():
 	if active_contract_item != null:
@@ -40,8 +52,18 @@ func _fail_contract():
 	
 	quest_updated.emit()
 
+func _on_reward_distributed(type: String, _data: Variant, amount: int):
+	if type == "GOLD":
+		print(">>> MONEY BEFORE: ", PlayerData.money)
+		print(">>> CONTRACT REWARD RECEIVED: ", amount)
+		PlayerData.money += amount
+		PlayerData.money_changed.emit(PlayerData.money)
+		print(">>> MONEY AFTER: ", PlayerData.money)
 
 func _on_object_harvested(obj_name: String, amount: int):
+	if not _processed_items_this_frame.has(obj_name):
+		_processed_items_this_frame.append(obj_name)
+	
 	for q_id in quests:
 		var q = quests[q_id]
 		
@@ -112,11 +134,9 @@ func complete_quest(quest_id: String):
 		var q = quests[quest_id]
 		if not q.is_completed:
 			q.is_completed = true
-			
 			if quest_id == current_contract_id:
 				active_contract_item = null
-				print("QuestManager: Contract cleared. Ready for next one.")
-			
+				print("QuestManager: Contract cleared.")
 			_handle_rewards(q)
 			quest_updated.emit()
 
@@ -141,6 +161,10 @@ func check_status(quest_id: String) -> String:
 	return "available"
 
 func _on_item_added_to_inventory(item_name: String, amount: int):
+	if _processed_items_this_frame.has(item_name):
+		return
+	
+	_processed_items_this_frame.append(item_name)
 	_on_object_harvested(item_name, amount)
 
 
@@ -162,10 +186,12 @@ func start_trade_contract(item_id: String, amount: int, days_to_complete: int):
 	contract_deadline_day = TimeManager.day + days_to_complete
 	
 	var batch_target = amount / 20
+	var total_reward = batch_target * reward_per_crate
 	
 	var contract_q = QuestResource.new()
 	contract_q.id = current_contract_id
 	contract_q.title = "Hợp đồng: " + item_res.name
+	contract_q.reward_gold = total_reward
 	contract_q.quest_type = QuestResource.QuestType.SIDE
 	contract_q.description = "Yêu cầu: %d thùng %s (Tổng %d quả). Hạn: Ngày %d" % [batch_target, item_res.name, amount, contract_deadline_day]
 	
@@ -184,6 +210,7 @@ func start_trade_contract(item_id: String, amount: int, days_to_complete: int):
 	start_quest(current_contract_id)
 	
 	print("✅ Contract started: ", item_res.name, " | Target: ", batch_target, " batches.")
+	print("✅ Contract started with reward: ", total_reward, " gold.")
 
 func complete_contract_batch():
 	if quests.has(current_contract_id):

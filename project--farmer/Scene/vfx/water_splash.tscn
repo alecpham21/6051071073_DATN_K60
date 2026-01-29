@@ -6,6 +6,7 @@
 emission_shape = 1
 emission_sphere_radius = 0.2
 direction = Vector3(0, 1, 0)
+spread = 20.0
 initial_velocity_min = 2.0
 initial_velocity_max = 4.0
 gravity = Vector3(0, -20, 0)
@@ -30,7 +31,7 @@ emitting = false
 amount = 12
 lifetime = 0.5
 one_shot = true
-explosiveness = 0.22
+explosiveness = 0.1
 process_material = SubResource("ParticleProcessMaterial_wkqar")
 draw_pass_1 = SubResource("QuadMesh_346qb")
 script = ExtResource("1_bmpcd")

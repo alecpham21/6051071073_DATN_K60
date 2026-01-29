@@ -27,9 +27,13 @@ func _ready() -> void:
 				visible = false
 				set_locked(true)
 			
-			GState.state_enum.UI, GState.state_enum.COOK, GState.state_enum.RECIPE:
+			GState.state_enum.COOK, GState.state_enum.RECIPE:
 				visible = true
 				set_locked(true)
+				
+			GState.state_enum.UI:
+				visible = true
+				set_locked(false)
 				
 			GState.state_enum.PLAYING:
 				visible = true
@@ -145,13 +149,8 @@ func tool_cache():
 
 func set_locked(state: bool) -> void:
 	is_locked = state
-	
 	if is_locked:
 		modulate.a = 0.5 
-		
-		tool_cache() 
-		active_tool.clear()
 	else:
-		# Trả lại độ sáng bình thường
 		modulate.a = 1.0
 		

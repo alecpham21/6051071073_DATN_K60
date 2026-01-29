@@ -82,9 +82,9 @@ func _ready() -> void:
 	self.outfit_inventory_data = PlayerData.player_outfit_data
 	
 	
-	if PlayerData.used_spawn_position == false:
-		self.global_position = PlayerData.next_spawn_position
-		PlayerData.used_spawn_position = true
+	#if PlayerData.used_spawn_position == false:
+		#self.global_position = PlayerData.next_spawn_position
+		#PlayerData.used_spawn_position = true
 	
 	
 	_setup_dialog_connections()

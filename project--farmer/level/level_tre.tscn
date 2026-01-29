@@ -140,6 +140,7 @@ shape = SubResource("BoxShape3D_vdsh4")
 
 [node name="HarvestArea" type="Area3D" parent="TreForest/tre"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.7495, 1.65347, 0)
+collision_layer = 16
 collision_mask = 2
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="TreForest/tre/HarvestArea"]
@@ -532,6 +533,13 @@ layout_mode = 2
 
 [node name="PlayerInventory" parent="UI/InventoryInterface/VBoxContainer" instance=ExtResource("21_fjydr")]
 layout_mode = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="UI/InventoryInterface/VBoxContainer"]
+layout_mode = 2
+
+[node name="MoneyLabel" type="Label" parent="UI/InventoryInterface/VBoxContainer/PanelContainer" groups=["inventory_interface"]]
+layout_mode = 2
+horizontal_alignment = 2
 
 [node name="ExternalInventory" parent="UI/InventoryInterface" instance=ExtResource("21_fjydr")]
 visible = false

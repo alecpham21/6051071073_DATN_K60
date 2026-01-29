@@ -7,6 +7,7 @@ const PickUp = preload("res://inventory_script/item/pick_up_item/pick_up.tscn")
 @onready var hot_bar_inventory: PanelContainer = $UI/HotBarInventory
 
 func _ready():
+	TimeManager.is_enabled = true
 	Watcher.indoor = false
 	player.toggle_inventory.connect(toggle_inventory_interface)
 	inventory_interface.set_player_inventory_data(player.inventory_data)
@@ -19,6 +20,7 @@ func _ready():
 	for node in get_tree().get_nodes_in_group("external_inventory"):
 		node.toggle_inventory.connect(toggle_inventory_interface)
 	SceneTransition.reveal_scene()
+
 func _process(_delta: float) -> void:
 	pass
 

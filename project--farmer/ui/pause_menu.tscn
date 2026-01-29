@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://di4cdsct2f2cq"]
+[gd_scene load_steps=5 format=3 uid="uid://di4cdsct2f2cq"]
 
 [ext_resource type="Script" uid="uid://bvpixn26alqdr" path="res://pause_menu.gd" id="1_50142"]
 [ext_resource type="FontFile" uid="uid://0jxkmvee0ls8" path="res://font/PixelOperator8-Bold.ttf" id="2_ejwgg"]
+[ext_resource type="PackedScene" uid="uid://dwrcxbybononc" path="res://ui/key_binding_menu.tscn" id="3_avurv"]
 [ext_resource type="PackedScene" uid="uid://cgptdxovqlsdx" path="res://ui/save_slot_ui.tscn" id="3_fob5h"]
 
 [node name="PauseMenu" type="CanvasLayer"]
@@ -58,6 +59,12 @@ layout_mode = 2
 theme_override_fonts/font = ExtResource("2_ejwgg")
 text = "Save Game"
 
+[node name="Setting" type="Button" parent="Control/PanelContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_ejwgg")
+text = "Setting
+"
+
 [node name="MenuBtn" type="Button" parent="Control/PanelContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("2_ejwgg")
@@ -67,6 +74,80 @@ text = "Back To Menu"
 layout_mode = 2
 theme_override_fonts/font = ExtResource("2_ejwgg")
 text = "Exit to Godot"
+
+[node name="SettingOptions" type="VBoxContainer" parent="Control/PanelContainer"]
+visible = false
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Control/PanelContainer/SettingOptions"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_ejwgg")
+text = "Setting"
+horizontal_alignment = 1
+
+[node name="AudioBtn" type="Button" parent="Control/PanelContainer/SettingOptions"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_ejwgg")
+text = "Audio"
+
+[node name="KeyBindBtn" type="Button" parent="Control/PanelContainer/SettingOptions"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_ejwgg")
+text = "Key Binding"
+
+[node name="BackBtn" type="Button" parent="Control/PanelContainer/SettingOptions"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_ejwgg")
+text = "Return"
+
+[node name="AudioSettings" type="VBoxContainer" parent="Control/PanelContainer"]
+visible = false
+layout_mode = 2
+
+[node name="Master" type="Label" parent="Control/PanelContainer/AudioSettings"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_ejwgg")
+text = "Master Volume"
+horizontal_alignment = 1
+
+[node name="MasterSlider" type="HSlider" parent="Control/PanelContainer/AudioSettings"]
+layout_mode = 2
+max_value = 1.0
+step = 0.05
+value = 1.0
+
+[node name="Music" type="Label" parent="Control/PanelContainer/AudioSettings"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_ejwgg")
+text = "Music Volume"
+horizontal_alignment = 1
+
+[node name="MusicSlider" type="HSlider" parent="Control/PanelContainer/AudioSettings"]
+layout_mode = 2
+max_value = 1.0
+step = 0.05
+value = 1.0
+
+[node name="SFX" type="Label" parent="Control/PanelContainer/AudioSettings"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_ejwgg")
+text = "SFX Volume"
+horizontal_alignment = 1
+
+[node name="SFXSlider" type="HSlider" parent="Control/PanelContainer/AudioSettings"]
+layout_mode = 2
+max_value = 1.0
+step = 0.05
+value = 1.0
+
+[node name="BackToSettingBtn" type="Button" parent="Control/PanelContainer/AudioSettings"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_ejwgg")
+text = "Return"
+
+[node name="KeyBindingMenu" parent="Control" instance=ExtResource("3_avurv")]
+visible = false
+layout_mode = 1
 
 [node name="SaveSlotUI" parent="." instance=ExtResource("3_fob5h")]
 visible = false

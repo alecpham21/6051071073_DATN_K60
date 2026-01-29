@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="PlayerActions" load_steps=2 format=3 uid="uid://ln5dhxj7j2h"]
+
+[ext_resource type="Script" uid="uid://bwdo6ish0iydx" path="res://player/player_actions.gd" id="1_io0qu"]
+
+[resource]
+script = ExtResource("1_io0qu")
+move_left = &"left"
+move_right = &"right"
+move_forward = &"forward"
+move_backward = &"back"
+use_item = &"use_item"
+interact = &"interact"
+run = &"running"
+toggle_vehicle = &"toggle_vehicle"
+metadata/_custom_type_script = "uid://bwdo6ish0iydx"

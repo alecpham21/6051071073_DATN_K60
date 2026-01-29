@@ -5,6 +5,7 @@ class_name CarryingState
 @export var carry_idle_ani: AnimationSet
 @export var carry_walk_ani: AnimationSet
 
+
 func _setup() -> void:
 	super()
 

@@ -75,9 +75,11 @@ func spawn_vfx(cast: RayCast3D, ground_gen) -> void:
 		sfx.stream = SHOVEL_SOUND
 		sfx.unit_size = 10.0
 		sfx.max_db = -1.0
+		sfx.bus = "SFX"
 		
 		get_tree().root.add_child(sfx)
 		sfx.global_position = hit_pos
+		sfx.pitch_scale = randf_range(0.85, 1.15)
 		
 		sfx.finished.connect(sfx.queue_free) 
 		sfx.play()

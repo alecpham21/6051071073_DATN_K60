@@ -3,7 +3,7 @@ class_name Farm
 
 
 const PickUp = preload("res://inventory_script/item/pick_up_item/pick_up.tscn")
-const FARM_THEME = preload("res://audio/theme/shepherd_dog.mp3")
+const FARM_THEME = preload("res://audio/theme/village_bond_bird_sound.mp3")
 
 @export var level_id: String = "Home_Farm"
 
@@ -13,10 +13,11 @@ const FARM_THEME = preload("res://audio/theme/shepherd_dog.mp3")
 @onready var hot_bar_inventory: PanelContainer = $UI/HotBarInventory
 
 func _ready():
+	TimeManager.is_enabled = true
 	var bgm_player = AudioStreamPlayer.new()
 	bgm_player.stream = FARM_THEME
 	bgm_player.autoplay = true
-	bgm_player.volume_db = -12.0
+	bgm_player.volume_db = -6.0
 	bgm_player.bus = "Music"
 	add_child(bgm_player)
 	

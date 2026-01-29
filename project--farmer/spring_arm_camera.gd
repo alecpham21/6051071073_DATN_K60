@@ -7,8 +7,8 @@ extends SpringArm3D
 @export_range(-90.0, 0.0, 0.1, "radians_as_degrees") var min_vertical_angle: float = deg_to_rad(-40)
 @export_range(0.0, -90.0, 0.1, "radians_as_degrees")  var max_vertical_angle: float = deg_to_rad(-10)
 @export var zoom_step: float = 0.8
-@export var min_zoom: float = 10.0
-@export var max_zoom: float = 20.0
+@export var min_zoom: float = 15.0
+@export var max_zoom: float = 25.0
 @export var use_zoom_tween: bool = true
 @export var indoor_zoom: float = 8.0
 @export var indoor_pitch: float = -45.0

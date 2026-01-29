@@ -1,9 +1,31 @@
 class_name MainState
 extends CharacterState
 
+
 @export var can_move := true
 @export var can_run := true
 @export var rotation_speed: float = 10.0
+@export var lock_hotbar := false
+@export var hide_tool := false
+
+func _enter() -> void:
+	super()
+	
+	if not is_inside_tree(): return
+	
+	if lock_hotbar:
+		get_tree().call_group("hotbar_ui", "set_locked", true)
+	
+	if hide_tool:
+		get_tree().call_group("hotbar_ui", "tool_cache")
+
+func _exit() -> void:
+	super()
+	
+	if not is_inside_tree(): return
+	
+	if lock_hotbar:
+		get_tree().call_group("hotbar_ui", "set_locked", false)
 
 func _update(delta: float) -> void:
 	if character.use_gravity and not character.is_on_floor():
@@ -34,6 +56,9 @@ func _update(delta: float) -> void:
 	var current_speed = get_current_speed()
 	
 	if move_dir.length() > 0.01:
+		if can_run and blackboard.get_var(BBNames.run_var, false):
+			character.stats.consume(character.stats.run_cost_per_sec * delta)
+
 		var target_vel = move_dir * current_speed
 		character.velocity.x = lerpf(character.velocity.x, target_vel.x, character.accel * delta)
 		character.velocity.z = lerpf(character.velocity.z, target_vel.z, character.accel * delta)
@@ -52,16 +77,10 @@ func _update(delta: float) -> void:
 
 func get_current_speed() -> float:
 	if can_run and blackboard.get_var(BBNames.run_var, false):
-		
-		var dt = get_process_delta_time()
-		character.stats.consume(character.stats.run_cost_per_sec * dt)
-		
 		var threshold = character.stats.get_max_stamina() * 0.1
 		
 		if character.stats.stamina > threshold:
 			return character.stats.run_speed
-		else:
-			return character.stats.walk_speed
 			
 	return character.stats.walk_speed
 

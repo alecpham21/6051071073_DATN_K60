@@ -52,8 +52,7 @@ func _enter() -> void:
 		ik_right.target_node = hand_marker_r.get_path()
 		ik_right.start()
 
-	if get_tree():
-		get_tree().call_group("hotbar_ui", "set_locked", true)
+
 func _exit() -> void:
 	super()
 	
@@ -71,8 +70,7 @@ func _exit() -> void:
 	if ik_left: ik_left.stop()
 	if ik_right: ik_right.stop()
 	
-	if get_tree():
-		get_tree().call_group("hotbar_ui", "set_locked", false)
+
 func get_current_speed() -> float:
 	return bike_speed
 

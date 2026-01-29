@@ -35,7 +35,7 @@ func harvest():
 	var added = PlayerData.player_inventory_data.add_item(item_data, quantity)
 	
 	if added:
-		print("Hái thành công!")
+		print("Success Harvesting!")
 		has_bamboo_shoot = false
 		
 		var current_total_minutes = TimeManager.get_total_minutes_played()
@@ -43,7 +43,7 @@ func harvest():
 		var minutes_per_day = TimeManager.total_game_minutes 
 		respawn_timestamp = current_total_minutes + (days_to_regrow * minutes_per_day)
 		
-		print("Đã set lịch mọc lại vào phút thứ: ", respawn_timestamp)
+		print("Set calendar : ", respawn_timestamp)
 	else:
 		print("Kho đầy!")
 

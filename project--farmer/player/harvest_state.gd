@@ -9,6 +9,7 @@ class_name HarvestingState
 @export var sickle_stand_ani: AnimationSet
 
 enum HarvestStance { STANDING = 0, CROUCHING = 1 }
+const HARVEST_SOUND = preload("res://audio/harvest.wav")
 
 func _setup() -> void:
 	super()
@@ -33,6 +34,7 @@ func _enter() -> void:
 	var is_hand = HotBar.hand()
 	var is_sickle = HotBar.active_item and HotBar.active_item.name.to_lower() == "sickle"
 	var has_tool = HotBar.active_item != null
+	var hit_delay: float = 0.3
 	
 	if has_tool and not allow_tool:
 		print("🚫 Only Hand")
@@ -43,21 +45,32 @@ func _enter() -> void:
 	if req_stance == HarvestStance.CROUCHING:
 		if is_hand:
 			anim_to_play = hand_crouch_ani
+			hit_delay = 0.2
 		else:
 			anim_to_play = sickle_ani
+			hit_delay = 0.4
 			
 	else: # STANDING
 		if is_hand:
 			anim_to_play = hand_ani
+			hit_delay = 0.3
 		elif is_sickle:
 			anim_to_play = sickle_stand_ani if sickle_stand_ani else knife_ani
+			hit_delay = 0.45
 		else:
-			anim_to_play = knife_ani 
+			anim_to_play = knife_ani
+			hit_delay = 0.3
 
 	if not anim_to_play: anim_to_play = hand_ani
 	
 	anim_to_play.play(character.ani)
-		
+	
+	get_tree().create_timer(hit_delay).timeout.connect(func():
+		if character.is_busy:
+			play_harvest_sfx() 
+	)
+	
+	
 	character.ani.animation_finished.connect(func(a):
 		harvest((character as Player).tool_cast, limbo_hsm.ground_gen)
 		
@@ -150,3 +163,26 @@ func harvest(cast: RayCast3D, ground_gen) -> void:
 				SignalBus.object_harvested.emit("wind_grass", 1)
 
 			PlayerData.add_dirt_to_outfit(2.0)
+
+func play_harvest_sfx():
+	if not HARVEST_SOUND: return
+	
+	var cast = (character as Player).tool_cast
+	var sound_pos = character.global_position
+	
+	cast.force_raycast_update()
+	if cast.is_colliding():
+		sound_pos = cast.get_collision_point()
+	
+	var sfx = AudioStreamPlayer3D.new()
+	sfx.stream = HARVEST_SOUND
+	sfx.unit_size = 5.0
+	sfx.max_db = 2.0
+	sfx.pitch_scale = randf_range(0.85, 1.15)
+	sfx.bus = "SFX"
+	
+	get_tree().root.add_child(sfx)
+	sfx.global_position = sound_pos
+	
+	sfx.finished.connect(sfx.queue_free)
+	sfx.play()

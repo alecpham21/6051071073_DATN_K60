@@ -52,6 +52,12 @@ func _load_category(category_type: int):
 	
 	for data in build_list:
 		if data == null: continue
+		
+		if data.id == "quest_crate":
+			if QuestManager.active_contract_item == null:
+				print("🏗️ UI Debug: Hiding crate blueprint - No active contract.")
+				continue
+				
 		if data.category == category_type:
 			var slot = slot_scene.instantiate()
 			content_container.add_child(slot)

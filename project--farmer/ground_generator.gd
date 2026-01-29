@@ -221,26 +221,24 @@ func _spawn_initial_buildings():
 func load_from_data(data: Dictionary, minutes_away: float = 0.0):
 	await _ensure_setup()
 	
-	# 1. GLOBAL CLEANUP: Quét sạch group 'crates' nhưng LOẠI TRỪ Player
 	var all_crates = get_tree().get_nodes_in_group("crates")
 	print("[DEBUG] GroundGen: Global cleanup. Nodes in 'crates' group: ", all_crates.size())
 	
 	for crate in all_crates:
-		# BẢO VỆ PLAYER: Tuyệt đối không xóa nếu là CharacterBody3D hoặc thuộc group player
 		if crate is CharacterBody3D or crate.is_in_group("player") or crate == PlayerData.player:
 			print("[DEBUG] GroundGen: Shielding player node from cleanup: ", crate.name)
 			continue
 			
-		# Bảo vệ cái đang cầm trên tay
 		if crate.get("is_being_carried"): 
 			continue
 		
 		print("[DEBUG] GroundGen: Nuking crate: ", crate.name)
 		crate.queue_free()
 	
-	# Dọn dẹp các node con khác nhưng vẫn phải check bảo vệ Player
 	for child in get_children():
 		if child is CharacterBody3D or child.is_in_group("player") or child == PlayerData.player:
+			continue
+		if child == tree_renderer:
 			continue
 		if child.has_method("harvest") or child.get("current_grid_pos") != null or child.name.contains("WindGrass"):
 			child.queue_free()
@@ -337,6 +335,10 @@ func load_from_data(data: Dictionary, minutes_away: float = 0.0):
 			print("[DEBUG] GroundGen: Truck state restored.")
 		else:
 			print("[DEBUG] GroundGen Error: Cannot find node in group 'truck' during load!")
+	
+	if tree_renderer and tree_renderer.has_method("generate_forest"):
+		tree_renderer.generate_forest()
+		print("[DEBUG] GroundGen: Forest regenerated.")
 	
 	bake_nav_mesh()
 	print("✅ Generator: Map load completed.")

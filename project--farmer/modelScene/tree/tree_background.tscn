@@ -8,7 +8,7 @@ albedo_color = Color(0.707289, 0.451655, 0.169382, 1)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_defkj"]
 cull_mode = 2
-albedo_color = Color(0.280472, 0.508473, 0.231062, 1)
+albedo_color = Color(0.193866, 0.362936, 0.157227, 1)
 
 [sub_resource type="MultiMesh" id="MultiMesh_o5s3s"]
 transform_format = 1

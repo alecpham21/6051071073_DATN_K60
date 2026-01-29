@@ -69,6 +69,8 @@ func load_game(slot_name: String = "manual_save_1"):
 	TimeManager.current_time = data.time.current_time
 	PlayerData.money = data.player.money
 
+	PlayerData.used_spawn_position = true 
+	
 	var pos = str_to_var(data.player.position)
 	SceneTransition.change_scene(data.scene_path, pos)
 

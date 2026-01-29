@@ -135,7 +135,8 @@ func _spawn_complex_forest():
 			mmi.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
 			
 			add_child(mmi)
-			mmi.owner = get_tree().edited_scene_root 
+			if Engine.is_editor_hint():
+				mmi.owner = get_tree().edited_scene_root
 			
 			for k in range(final_transforms.size()):
 				mm.set_instance_transform(k, final_transforms[k])

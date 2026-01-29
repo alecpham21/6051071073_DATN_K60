@@ -1,5 +1,6 @@
-[gd_scene load_steps=18 format=3 uid="uid://dnwlxm7utd27m"]
+[gd_scene load_steps=19 format=3 uid="uid://dnwlxm7utd27m"]
 
+[ext_resource type="Script" uid="uid://bmgf67bf76gtm" path="res://ui/main_menu.gd" id="1_jiymt"]
 [ext_resource type="Shader" uid="uid://bkw4b21akjsc2" path="res://subViewportPixel.gdshader" id="1_wk0pr"]
 [ext_resource type="Shader" uid="uid://viqy3uwh6ns7" path="res://PixelShader.gdshader" id="2_rmr83"]
 [ext_resource type="PackedScene" uid="uid://cw2xtaj63fmww" path="res://ui/menu_game_ui.tscn" id="3_8uxxo"]
@@ -77,6 +78,7 @@ height = 29.662
 radial_segments = 15
 
 [node name="MainMenu" type="Node3D"]
+script = ExtResource("1_jiymt")
 
 [node name="SubViewportContainer" type="SubViewportContainer" parent="."]
 texture_filter = 1

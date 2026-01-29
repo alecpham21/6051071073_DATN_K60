@@ -1,10 +1,11 @@
-[gd_scene load_steps=5 format=3 uid="uid://dsm6vvhxl3bpd"]
+[gd_scene load_steps=6 format=3 uid="uid://dsm6vvhxl3bpd"]
 
 [ext_resource type="PackedScene" uid="uid://ije8su8wvidf" path="res://model/terrain/GroundBackground.glb" id="1_pshq7"]
+[ext_resource type="Texture2D" uid="uid://bluca258gshm0" path="res://Textures/Terrain_texture/SandTexture.png" id="2_37j8d"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_pshq7"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_yw4rh"]
 cull_mode = 2
-albedo_color = Color(0.997388, 0.741308, 0.416116, 1)
+albedo_texture = ExtResource("2_37j8d")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_52typ"]
 cull_mode = 2
@@ -17,7 +18,7 @@ albedo_color = Color(0.419237, 0.709034, 0.292859, 1)
 [node name="GroundBackground" instance=ExtResource("1_pshq7")]
 
 [node name="DirtZone" parent="." index="0"]
-surface_material_override/0 = SubResource("StandardMaterial3D_pshq7")
+material_override = SubResource("StandardMaterial3D_yw4rh")
 
 [node name="DirtZone1" parent="." index="1"]
 transform = Transform3D(0.598082, 0, 0, 0, 0.521185, 0, 0, 0, 2.24663, -6.07736, 0.901424, 1.75528)

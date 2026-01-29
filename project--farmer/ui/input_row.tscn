@@ -1,0 +1,42 @@
+[gd_scene load_steps=7 format=3 uid="uid://jhjh7ppdyndf"]
+
+[ext_resource type="FontFile" uid="uid://0jxkmvee0ls8" path="res://font/PixelOperator8-Bold.ttf" id="1_7uwly"]
+[ext_resource type="Script" uid="uid://rxri12wklfdo" path="res://ui/input_row.gd" id="1_n2y4n"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_n2y4n"]
+bg_color = Color(0.194349, 0.194349, 0.194349, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lnpat"]
+bg_color = Color(0.194349, 0.194349, 0.194349, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_beu65"]
+bg_color = Color(0.967176, 0.940358, 0.890707, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7shs7"]
+bg_color = Color(0.273873, 0.273873, 0.273872, 0.329412)
+
+[node name="InputRow" type="HBoxContainer"]
+custom_minimum_size = Vector2(0, 30)
+offset_right = 40.0
+offset_bottom = 40.0
+theme_override_constants/separation = 20
+alignment = 1
+script = ExtResource("1_n2y4n")
+
+[node name="ActionLabel" type="Label" parent="."]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_fonts/font = ExtResource("1_7uwly")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="KeyButton" type="Button" parent="."]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_7uwly")
+theme_override_styles/focus = SubResource("StyleBoxFlat_n2y4n")
+theme_override_styles/hover = SubResource("StyleBoxFlat_lnpat")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_beu65")
+theme_override_styles/normal = SubResource("StyleBoxFlat_7shs7")
+text = "Key"

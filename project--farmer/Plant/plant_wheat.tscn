@@ -47,7 +47,7 @@ size = Vector3(1, 1.27979, 1)
 
 [node name="PlantWheat" type="Node3D" node_paths=PackedStringArray("mesh_seeding", "mesh_sapling", "mesh_middle", "mesh_ready", "ground_mesh")]
 script = ExtResource("1_5wa0p")
-max_growth = 25
+max_growth = 45
 harvest_yield = 1
 crop_item_scene = ExtResource("2_6epbd")
 material_default = ExtResource("3_whrkl")

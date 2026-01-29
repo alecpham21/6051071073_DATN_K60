@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://cw2xtaj63fmww"]
+[gd_scene load_steps=17 format=3 uid="uid://cw2xtaj63fmww"]
 
 [ext_resource type="Texture2D" uid="uid://cfxw860kcaw8f" path="res://Textures/FrameUI/panel_brown_damaged_dark.png" id="1_3pn8i"]
 [ext_resource type="Script" uid="uid://ds45yk8epmb5k" path="res://ui/menu_game_ui.gd" id="1_vuaa2"]
@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://bnpou26l4btaf" path="res://Textures/FrameUI/button_brown.png" id="2_w8ewp"]
 [ext_resource type="Texture2D" uid="uid://cpjbwndu24dj4" path="res://Textures/FrameUI/button_brown_hover.png" id="3_lioa6"]
 [ext_resource type="Texture2D" uid="uid://i0y2sn81iofb" path="res://Textures/FrameUI/button_brown_press.png" id="4_cdegv"]
+[ext_resource type="PackedScene" uid="uid://dwrcxbybononc" path="res://ui/key_binding_menu.tscn" id="7_vi477"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_w8ewp"]
 texture = ExtResource("1_3pn8i")
@@ -161,3 +162,95 @@ theme_override_styles/hover = SubResource("StyleBoxTexture_cdegv")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_vi477")
 theme_override_styles/normal = SubResource("StyleBoxTexture_s7of0")
 text = "Back"
+
+[node name="SettingOptions" type="VBoxContainer" parent="PanelContainer"]
+visible = false
+layout_mode = 2
+
+[node name="AudioBtn" type="Button" parent="PanelContainer/SettingOptions"]
+custom_minimum_size = Vector2(220, 60)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("2_s7of0")
+theme_override_font_sizes/font_size = 16
+theme_override_styles/disabled = SubResource("StyleBoxTexture_y2jwq")
+theme_override_styles/hover = SubResource("StyleBoxTexture_cdegv")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_vi477")
+theme_override_styles/normal = SubResource("StyleBoxTexture_s7of0")
+text = "Audio"
+
+[node name="KeyBindBtn" type="Button" parent="PanelContainer/SettingOptions"]
+custom_minimum_size = Vector2(220, 60)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("2_s7of0")
+theme_override_font_sizes/font_size = 16
+theme_override_styles/disabled = SubResource("StyleBoxTexture_y2jwq")
+theme_override_styles/hover = SubResource("StyleBoxTexture_cdegv")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_vi477")
+theme_override_styles/normal = SubResource("StyleBoxTexture_s7of0")
+text = "Key Binding"
+
+[node name="BackBtn" type="Button" parent="PanelContainer/SettingOptions"]
+custom_minimum_size = Vector2(220, 60)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("2_s7of0")
+theme_override_font_sizes/font_size = 16
+theme_override_styles/disabled = SubResource("StyleBoxTexture_y2jwq")
+theme_override_styles/hover = SubResource("StyleBoxTexture_cdegv")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_vi477")
+theme_override_styles/normal = SubResource("StyleBoxTexture_s7of0")
+text = "Return"
+
+[node name="AudioSettings" type="VBoxContainer" parent="PanelContainer"]
+visible = false
+layout_mode = 2
+
+[node name="Master" type="Label" parent="PanelContainer/AudioSettings"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_s7of0")
+text = "Master Volume"
+horizontal_alignment = 1
+
+[node name="MasterSlider" type="HSlider" parent="PanelContainer/AudioSettings"]
+layout_mode = 2
+max_value = 1.0
+step = 0.05
+value = 1.0
+
+[node name="Music" type="Label" parent="PanelContainer/AudioSettings"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_s7of0")
+text = "Music Volume"
+horizontal_alignment = 1
+
+[node name="MusicSlider" type="HSlider" parent="PanelContainer/AudioSettings"]
+layout_mode = 2
+max_value = 1.0
+step = 0.05
+value = 1.0
+
+[node name="SFX" type="Label" parent="PanelContainer/AudioSettings"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_s7of0")
+text = "SFX Volume"
+horizontal_alignment = 1
+
+[node name="SFXSlider" type="HSlider" parent="PanelContainer/AudioSettings"]
+layout_mode = 2
+max_value = 1.0
+step = 0.05
+value = 1.0
+
+[node name="BackToSettingBtn" type="Button" parent="PanelContainer/AudioSettings"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_s7of0")
+text = "Return"
+
+[node name="KeyBindingMenu" parent="." instance=ExtResource("7_vi477")]
+visible = false
+layout_mode = 1

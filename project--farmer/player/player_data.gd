@@ -8,10 +8,12 @@ var player_inventory_data: InventoryData
 var player_equip_data: InventoryData 
 var player_outfit_data: InventoryDataOutfit
 var chest_inventories: Dictionary = {}
+var actions: PlayerActions
+
 
 
 var next_spawn_position: Vector3
-var used_spawn_position: bool = true
+var used_spawn_position: bool = false
 var is_transitioning_with_bike: bool = false
 var washing_machine_timers: Dictionary = {}
 
@@ -35,7 +37,10 @@ func _ready():
 
 	if player_outfit_data == null:
 		player_outfit_data = load("res://inventory_script/inventory_data/player_outfit.tres")
-
+	
+	if actions == null:
+		actions = load("res://player/player_action_starter.tres")
+	
 	material_data = load("res://inventory_script/inventory_data/material_inventory.tres") as MaterialInventoryData
 	if board_data == null:
 			board_data = InventoryData.new()

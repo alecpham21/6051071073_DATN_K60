@@ -8,6 +8,7 @@ const PickUp = preload("res://inventory_script/item/pick_up_item/pick_up.tscn")
 @onready var hot_bar_inventory: PanelContainer = $UI/HotBarInventory
 
 func _ready():
+	TimeManager.is_enabled = true
 	Watcher.indoor = false
 	player.toggle_inventory.connect(toggle_inventory_interface)
 	inventory_interface.set_player_inventory_data(player.inventory_data)

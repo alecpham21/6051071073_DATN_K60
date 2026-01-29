@@ -3,13 +3,14 @@ extends Node
 signal tick
 
 var day: int = 1 
+var is_enabled: bool = false
 
 @export var tick_time: float = 0.1
 var time_from_last_tick: float = 0.0
 
 @export_group("Time Settings")
 @export var current_time: float = 480.0 
-@export var speed_multiplier: float = 30.0
+@export var speed_multiplier: float = 4.0
 @export var day_length_hours: int = 24
  
 var is_sleeping: bool = false 
@@ -24,7 +25,9 @@ func _ready():
 	total_game_minutes = day_length_hours * 60.0
 
 func _process(delta):
-	if is_sleeping: return
+	if not is_enabled or is_sleeping: 
+		return
+	
 	time_from_last_tick += delta
 	if time_from_last_tick >= tick_time:
 		time_from_last_tick = 0.0

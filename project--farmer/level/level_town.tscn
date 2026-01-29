@@ -1,4 +1,4 @@
-[gd_scene load_steps=59 format=3 uid="uid://r4vbsuv0yw71"]
+[gd_scene load_steps=60 format=3 uid="uid://r4vbsuv0yw71"]
 
 [ext_resource type="Shader" uid="uid://c6qhkhar3xobg" path="res://Shader/edge_detection.gdshader" id="1_bjjjs"]
 [ext_resource type="Script" uid="uid://qq68ax8n2xq5" path="res://level/level_town.gd" id="1_vk6vg"]
@@ -17,6 +17,7 @@
 [ext_resource type="Shader" uid="uid://c13esa4vg2n5k" path="res://level/posterization.gdshader" id="14_5jqrs"]
 [ext_resource type="PackedScene" uid="uid://oxqdgfctyeo" path="res://level/traditional_town_full_1.tscn" id="15_auj8g"]
 [ext_resource type="PackedScene" uid="uid://03bjah3n70ep" path="res://Scene/WindGrass/WindGrassScene.tscn" id="16_gwcwr"]
+[ext_resource type="Script" uid="uid://djj2m2skea716" path="res://TimeCheck.gd" id="17_eh5qu"]
 [ext_resource type="PackedScene" uid="uid://ba2xtjdegyqnt" path="res://modelScene/plant/grass/grassPixel.tscn" id="17_v8ox3"]
 [ext_resource type="PackedScene" uid="uid://b5bavm45lxiid" path="res://ui/Recipe/RecipeUI/recipe_ui.tscn" id="19_iu1fk"]
 [ext_resource type="PackedScene" uid="uid://bjxrobwweubb3" path="res://model/tree/TreeVer1.tscn" id="19_kcivo"]
@@ -324,6 +325,13 @@ visible = false
 light_data = ExtResource("20_vk6vg")
 
 [node name="DayNightCycle" parent="." instance=ExtResource("19_vk6vg")]
+
+[node name="TimeCheckUI" type="CanvasLayer" parent="."]
+
+[node name="TimeCheckLabel" type="Label" parent="TimeCheckUI"]
+offset_right = 340.0
+offset_bottom = 79.0
+script = ExtResource("17_eh5qu")
 
 [node name="UI" type="CanvasLayer" parent="."]
 

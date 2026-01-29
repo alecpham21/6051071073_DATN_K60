@@ -5,14 +5,22 @@
 Merchant_Emisarry: How many crate can you do for the  {Contract.selected_item}?
 - 1 Crate
 	set {Contract.selected_crates} = 1.0
+	set {Contract.total_fee} = {Contract.selected_crates} * {Contract.fee_per_crate}
+	set {Contract.reward_amount} = {Contract.selected_crates} * {Contract.reward_per_crate}
 - 2 Crate
 	set {Contract.selected_crates} = 2.0
+	set {Contract.total_fee} = {Contract.selected_crates} * {Contract.fee_per_crate}
+	set {Contract.reward_amount} = {Contract.selected_crates} * {Contract.reward_per_crate}
 - 3 Crate
 	set {Contract.selected_crates} = 3.0
+	set {Contract.total_fee} = {Contract.selected_crates} * {Contract.fee_per_crate}
+	set {Contract.reward_amount} = {Contract.selected_crates} * {Contract.reward_per_crate}
+Merchant_Emisarry: Your total fee is {Contract.total_fee}
+Merchant_Emisarry: And your total earn is {Contract.reward_amount} Currency
 Merchant_Emisarry: And how long we can get those crate?
 - 2 Days
-	Merchant_Emisarry: Item is {Contract.selected_item} and Crate are {Contract.selected_crates}"
+	Merchant_Emisarry: Item is {Contract.selected_item} and Crate are {Contract.selected_crates}
 	[signal arg="start_contract:2"]
 - 4 Days
-	Merchant_Emisarry: Item is\: {Contract.selected_item} and Crate are {Contract.selected_crates}"
+	Merchant_Emisarry: Item is\: {Contract.selected_item} and Crate are {Contract.selected_crates}
 	[signal arg="start_contract:4"]
